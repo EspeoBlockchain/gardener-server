@@ -1,0 +1,11 @@
+{
+  "name": "oracle-server",
+  "version": "0.0.1",
+  "description": "Offchain oracle server for listening about data request from Ethereum blockchain",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Krzysztof Wędrowicz",
+  "license": "ISC"
+}
