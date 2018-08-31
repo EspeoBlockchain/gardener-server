@@ -1,0 +1,15 @@
+version: '3'
+services:
+    app:
+        build: .
+        env_file:
+            - .env
+        depends_on:
+            - ganache-cli
+        command: ["./wait-for-it.sh", "ganache-cli:8545", "--", "npm", "start"]
+    ganache-cli:
+        image: "trufflesuite/ganache-cli"
+        command: ganache-cli -d
+        ports:
+            - 8545:8545
+            - 8546:8546

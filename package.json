@@ -4,8 +4,24 @@
   "description": "Offchain oracle server for listening about data request from Ethereum blockchain",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ganache": "ganache-cli -d"
   },
   "author": "Krzysztof Wędrowicz",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "config": "^2.0.1",
+    "dotenv": "^6.0.0",
+    "lodash": "^4.17.10",
+    "web3": "^1.0.0-beta.35",
+    "websocket": "^1.0.26",
+    "winston": "^3.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "ganache-cli": "^6.1.8"
+  }
 }
