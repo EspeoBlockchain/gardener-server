@@ -13,10 +13,13 @@
   "dependencies": {
     "config": "^2.0.1",
     "dotenv": "^6.0.0",
+    "jsonpath": "^1.0.0",
     "lodash": "^4.17.10",
     "web3": "^1.0.0-beta.35",
     "websocket": "^1.0.26",
-    "winston": "^3.0.0"
+    "winston": "^3.0.0",
+    "xmldom": "^0.1.27",
+    "xpath": "0.0.27"
   },
   "devDependencies": {
     "chai": "^4.1.2",
