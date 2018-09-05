@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "test": "nyc mocha test/*",
-    "ganache": "ganache-cli -d"
+    "ganache": "ganache-cli -d",
+    "lint": "eslint . --fix"
   },
   "author": "Krzysztof Wędrowicz",
   "license": "ISC",
