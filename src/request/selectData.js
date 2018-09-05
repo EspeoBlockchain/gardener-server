@@ -22,8 +22,6 @@ const selectData = (data, { type, path }) => {
         return xpath.select(path, doc)[0].firstChild.data;
       }
       return (new XMLSerializer()).serializeToString(xpath.select(path, doc)[0].firstChild);
-
-      // return xpath.select(path, doc)[0].firstChild.data;
     }
     default:
       throw new Error('Invalid type: neither json nor xml');

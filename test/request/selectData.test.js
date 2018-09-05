@@ -3,6 +3,15 @@ const { assert } = require('chai');
 const { selectData } = require('../../src/request');
 
 describe('selectData', () => {
+  it('should throw Error if type is neither json nor xml', () => {
+    // given
+    const jsonString = JSON.stringify({ key1: 'value1', key2: 'value2' });
+    const request = { type: 'invalid', path: 'key1' };
+
+    // when
+    assert.throws(() => selectData(jsonString, request), Error, 'Invalid type: neither json nor xml');
+  });
+
   describe('json selection', () => {
     it('should return value1 from key1 from json payload', () => {
       // given

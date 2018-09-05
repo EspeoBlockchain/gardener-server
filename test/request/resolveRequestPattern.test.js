@@ -16,6 +16,19 @@ describe('resolveRequestPattern', () => {
     assert.equal(res.path, 'value1', 'Request path doesn\'t match');
   });
 
+  it('should correctly resolve xml pattern', () => {
+    // given
+    const request = 'xml(http://someurl.example.com).value1';
+
+    // when
+    const res = resolveRequestPattern(request);
+
+    // then
+    assert.equal(res.type, 'xml', 'Request type should be xml');
+    assert.equal(res.url, 'http://someurl.example.com', 'Request url doesn\'t match');
+    assert.equal(res.path, 'value1', 'Request path doesn\'t match');
+  });
+
   it('should correctly resolve nested path', () => {
     // given
     const request = 'json(http://someurl.example.com).value1.value2';
