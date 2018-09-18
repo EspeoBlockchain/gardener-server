@@ -12,6 +12,7 @@
   "author": "Krzysztof Wędrowicz",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "config": "^2.0.1",
     "dotenv": "^6.0.0",
     "jsonpath": "^1.0.0",
@@ -24,11 +25,13 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
     "eslint": "^5.4.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
     "ganache-cli": "^6.1.8",
     "mocha": "^5.2.0",
+    "nock": "^9.6.1",
     "nyc": "^13.0.1"
   }
 }

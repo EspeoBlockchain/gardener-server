@@ -12,7 +12,7 @@ const getRequestType = (request) => {
     return 'xml';
   }
 
-  throw Error('Request type is neither json nor xml');
+  throw new Error('Request type is neither json nor xml');
 };
 
 const getRequestUrl = (request) => {
