@@ -10,6 +10,9 @@ const okResponse = {
   status: 'alive',
 };
 
-app.get('/status', (req, res) => res.send(okResponse));
+app.get('/status', (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.send(okResponse);
+});
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
