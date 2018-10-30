@@ -1,18 +1,13 @@
 
 
 const getRequestType = (request) => {
-  const jsonRegex = new RegExp(/^json\(.+\)/);
-  const xmlRegex = new RegExp(/^xml\(.+\)/);
+  const regex = new RegExp(/^(json|xml|html)\(.+\)/);
 
-  if (jsonRegex.test(request)) {
-    return 'json';
+  if (regex.test(request)) {
+    return regex.exec(request)[1];
   }
 
-  if (xmlRegex.test(request)) {
-    return 'xml';
-  }
-
-  throw new Error('Request type is neither json nor xml');
+  throw new Error('Request type is neither json nor xml nor html');
 };
 
 const getRequestUrl = (request) => {
@@ -22,17 +17,35 @@ const getRequestUrl = (request) => {
   return matched.substring(1, matched.length - 1);
 };
 
-const getPath = (request) => {
-  const wrappedUrlRegex = new RegExp(/^(json|xml)\(.+\)\./);
-  const urlPart = wrappedUrlRegex.exec(request)[0];
+const getPath = (request, type) => {
+  switch (type) {
+    case 'json': {
+      const wrappedUrlRegex = new RegExp(/^(json)\(.+\)\./);
+      const urlPart = wrappedUrlRegex.exec(request)[0];
 
-  return request.substr(urlPart.length);
+      return request.substr(urlPart.length);
+    }
+    case 'xml':
+    case 'html': {
+      const wrappedUrlRegex = new RegExp(/^(xml|html)\(.+\)(\/.+)/);
+      const path = wrappedUrlRegex.exec(request)[2];
+
+      return path;
+    }
+    default:
+      throw new Error('Request type is neither json nor xml nor html');
+  }
 };
 
-const resolveRequestPattern = request => ({
-  type: getRequestType(request),
-  url: getRequestUrl(request),
-  path: getPath(request),
-});
+const resolveRequestPattern = (request) => {
+  const type = getRequestType(request);
+  const url = getRequestUrl(request);
+
+  return {
+    type,
+    url,
+    path: getPath(request, type),
+  };
+};
 
 module.exports = resolveRequestPattern;

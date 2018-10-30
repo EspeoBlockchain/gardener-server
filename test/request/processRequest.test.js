@@ -25,7 +25,7 @@ describe('processRequest', () => {
   describe('xml processing', async () => {
     it('should process given url to return selected data', async () => {
       // given
-      const request = 'xml(http://someurl.example.com).key1';
+      const request = 'xml(http://someurl.example.com)/key1';
       const mockedResponse = '<key1>value1</key1>';
       nock('http://someurl.example.com').get('/').reply(200, mockedResponse);
 
