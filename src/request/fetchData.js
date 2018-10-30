@@ -1,7 +1,9 @@
 const axios = require('axios');
+const delay = require('delay');
 
 
-const fetchData = async (url) => {
+const fetchData = async (url, time = 0) => {
+  await delay(time * 1000);
   try {
     const response = await axios.get(url);
 
