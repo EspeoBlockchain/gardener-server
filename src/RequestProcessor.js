@@ -19,12 +19,21 @@ class RequestProcessor {
 
         const selectedData = await processRequest(event.returnValues.url);
 
-        this.oracleContract.methods.fillRequest(event.returnValues.id, selectedData).send({
-          from: web3.eth.defaultAccount,
-          gas: 200000,
-        }).then(console.log);
+        this.oracleContract.methods.fillRequest(
+          event.returnValues.id,
+          selectedData,
+        ).estimateGas({ from: web3.eth.defaultAccount }).then((gasAmount) => {
+          this.send(event, selectedData, gasAmount);
+        });
       })
       .on('error', console.error);
+  }
+
+  send(event, selectedData, gas) {
+    this.oracleContract.methods.fillRequest(event.returnValues.id, selectedData).send({
+      from: web3.eth.defaultAccount,
+      gas,
+    }).then(console.log);
   }
 }
 
