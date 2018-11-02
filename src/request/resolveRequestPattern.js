@@ -40,6 +40,7 @@ const getPath = (request, type) => {
     }
   }
 };
+/* eslint-enable consistent-return, default-case */
 
 const resolveRequestPattern = (request) => {
   const type = getRequestType(request);
