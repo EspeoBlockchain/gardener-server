@@ -15,7 +15,8 @@ const selectData = (data, { type, path }) => {
 
       return JSON.stringify(value);
     }
-    case 'xml': {
+    case 'xml':
+    case 'html': {
       const doc = (new DOMParser()).parseFromString(data);
 
       if (xpath.select(path, doc)[0].firstChild.data) {
@@ -24,7 +25,7 @@ const selectData = (data, { type, path }) => {
       return (new XMLSerializer()).serializeToString(xpath.select(path, doc)[0].firstChild);
     }
     default:
-      throw new Error('Invalid type: neither json nor xml');
+      throw new Error('Invalid type: neither json nor xml nor html');
   }
 };
 
