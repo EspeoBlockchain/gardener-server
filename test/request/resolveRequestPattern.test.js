@@ -30,16 +30,16 @@ describe('resolveRequestPattern', () => {
   });
 
   it('should correctly resolve html pattern', () => {
-      // given
-      const request = 'html(http://someurl.example.com)/html/head';
+    // given
+    const request = 'html(http://someurl.example.com)/html/head';
 
-      // when
-      const res = resolveRequestPattern(request);
+    // when
+    const res = resolveRequestPattern(request);
 
-      // then
-      assert.equal(res.type, 'html', 'Request type should be html');
-      assert.equal(res.url, 'http://someurl.example.com', 'Request url doesn\'t match');
-      assert.equal(res.path, '/html/head', 'Request path doesn\'t match');
+    // then
+    assert.equal(res.type, 'html', 'Request type should be html');
+    assert.equal(res.url, 'http://someurl.example.com', 'Request url doesn\'t match');
+    assert.equal(res.path, '/html/head', 'Request path doesn\'t match');
   });
 
   it('should correctly resolve nested path', () => {
@@ -73,6 +73,6 @@ describe('resolveRequestPattern', () => {
     const request = 'invalid(https://someurl.example.com).value1';
 
     // when
-    assert.throws(() => resolveRequestPattern(request), Error, 'Request type is neither json nor xml');
+    assert.throws(() => resolveRequestPattern(request), Error, 'Request type is neither json nor xml nor html');
   });
 });

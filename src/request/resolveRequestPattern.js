@@ -32,8 +32,6 @@ const getPath = (request, type) => {
 
       return path;
     }
-    default:
-      throw new Error('Request type is neither json nor xml nor html');
   }
 };
 
