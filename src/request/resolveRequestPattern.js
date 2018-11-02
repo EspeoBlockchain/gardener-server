@@ -17,6 +17,12 @@ const getRequestUrl = (request) => {
   return matched.substring(1, matched.length - 1);
 };
 
+/*
+  Consistent-return and default-case has been disabled just for eslint proposes.
+  Default switch case will never happen because of getRequestType method.
+  Regex is validating only specific types and throw error if there will be any incorrect type.
+ */
+/* eslint-disable consistent-return, default-case */
 const getPath = (request, type) => {
   switch (type) {
     case 'json': {
