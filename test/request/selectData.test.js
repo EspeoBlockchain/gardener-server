@@ -54,7 +54,7 @@ describe('selectData', () => {
     it('should return value1 from key1 from xml payload', () => {
       // given
       const xmlString = '<key1>value1</key1>';
-      const request = { type: 'xml', path: 'key1' };
+      const request = { type: 'xml', path: '/key1' };
 
       // when
       const res = selectData(xmlString, request);
@@ -66,7 +66,33 @@ describe('selectData', () => {
     it('should return object under key1 from xml payload', () => {
       // given
       const xmlString = '<key1><key3>value3</key3></key1><key2>value2</key2>';
-      const request = { type: 'xml', path: 'key1' };
+      const request = { type: 'xml', path: '/key1' };
+
+      // when
+      const res = selectData(xmlString, request);
+
+      // then
+      assert.equal(res, '<key3>value3</key3>', 'Selected data doesn\'t match');
+    });
+  });
+
+  describe('html selection', () => {
+    it('should return value1 from key1 from html payload', () => {
+      // given
+      const htmlString = '<html><body><key1>value1</key1></body></html>';
+      const request = { type: 'html', path: '/html/body/key1' };
+
+      // when
+      const res = selectData(htmlString, request);
+
+      // then
+      assert.equal(res, 'value1', 'Selected data doesn\'t match');
+    });
+
+    it('should return object under key1 from html payload', () => {
+      // given
+      const xmlString = '<html><head><key1><key3>value3</key3></key1></head><body><key2>value2</key2></body></html>';
+      const request = { type: 'html', path: '/html/head/key1' };
 
       // when
       const res = selectData(xmlString, request);
