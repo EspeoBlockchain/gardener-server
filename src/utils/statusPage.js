@@ -1,7 +1,7 @@
 /* eslint no-console: 0 */
 const express = require('express');
 const config = require('config');
-
+const mongoose = require('mongoose');
 const app = express();
 const port = config.get('port');
 
@@ -16,3 +16,8 @@ app.get('/status', (req, res) => {
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+
+mongoose.connect('mongodb://localhost/oracle-server',
+  { useNewUrlParser: true })
+  .then(() => console.log('Server is running'))
+  .catch(err => console.log(err));
