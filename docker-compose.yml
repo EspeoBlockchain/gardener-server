@@ -1,6 +1,7 @@
 version: '3'
 services:
     app:
+        container_name: oracle-server
         build: .
         env_file:
             - .env
@@ -13,3 +14,9 @@ services:
         ports:
             - 8545:8545
             - 8546:8546
+    mongo:
+        image: mongo
+        ports: 
+            - 27017:27017
+            - 27018:27018
+
