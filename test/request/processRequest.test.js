@@ -27,7 +27,11 @@ describe('processRequest', () => {
       // given
       const request = 'xml(http://someurl.example.com)/key1';
       const mockedResponse = '<key1>value1</key1>';
-      nock('http://someurl.example.com').get('/').reply(200, mockedResponse);
+      nock('http://someurl.example.com')
+        .defaultReplyHeaders({
+          'Content-Type': 'application/xml',
+        })
+        .get('/').reply(200, mockedResponse);
 
       // when
       const res = await processRequest(request);

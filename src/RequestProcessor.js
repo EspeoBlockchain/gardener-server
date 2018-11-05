@@ -18,11 +18,10 @@ class RequestProcessor {
         console.log(event);
 
         const selectedData = await processRequest(event.returnValues.url);
-
-        this.oracleContract.methods.fillRequest(event.returnValues.id, selectedData).send({
-          from: web3.eth.defaultAccount,
-          gas: 200000,
-        }).then(console.log);
+        const method = this.oracleContract.methods.fillRequest(event.returnValues.id, selectedData);
+        const gas = await method.estimateGas({ from: web3.eth.defaultAccount });
+        const result = await method.send({ from: web3.eth.defaultAccount, gas });
+        console.log(result);
       })
       .on('error', console.error);
   }

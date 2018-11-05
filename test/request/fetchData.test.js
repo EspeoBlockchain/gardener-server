@@ -38,7 +38,11 @@ describe('fetchData', () => {
     // given
     const url = 'http://someurl.example.com';
     const mockedResponse = '<key1>value1</key1>';
-    nock(url).get('/').reply(200, mockedResponse);
+    nock(url)
+      .defaultReplyHeaders({
+        'Content-Type': 'application/xml',
+      })
+      .get('/').reply(200, mockedResponse);
 
     // when
     const responseData = await fetchData(url);
@@ -47,5 +51,60 @@ describe('fetchData', () => {
     const expectedData = '<key1>value1</key1>';
 
     assert.deepEqual(responseData, expectedData, 'Response data doesn\'t match');
+  });
+
+  it('should return string response data on text content-type', async () => {
+    // given
+    const url = 'http://someurl.example.com';
+    const mockedResponse = 'test text';
+    nock(url)
+      .defaultReplyHeaders({
+        'Content-Type': 'text',
+      })
+      .get('/')
+      .reply(200, mockedResponse);
+
+    // when
+    const responseData = await fetchData(url);
+
+    // then
+    const expectedData = 'test text';
+
+    assert.deepEqual(responseData, expectedData, 'Response data doesn\'t match');
+  });
+
+  it('should return base64 response data on image content-type', async () => {
+    // given
+    const url = 'http://someurl.example.com';
+    const mockedResponse = 'PNG file content';
+    nock(url)
+      .defaultReplyHeaders({
+        'Content-Type': 'image/png',
+      })
+      .get('/')
+      .reply(200, mockedResponse);
+
+    // when
+    const responseData = await fetchData(url);
+
+    // then
+    const expectedData = 'UE5HIGZpbGUgY29udGVudA==';
+
+    assert.deepEqual(responseData, expectedData, 'Response data doesn\'t match');
+  });
+
+  it('should throw error on unrecognized content-type', async () => {
+    // given
+    const url = 'http://someurl.example.com';
+    const mockedResponse = 'test text';
+    nock(url)
+      .defaultReplyHeaders({
+        'Content-Type': 'unrecognized',
+      })
+      .get('/')
+      .reply(200, mockedResponse);
+
+    // when
+    return assert.isRejected(fetchData(url), Error, 'Request failed');
   });
 });
