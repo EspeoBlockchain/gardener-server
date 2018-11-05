@@ -105,6 +105,6 @@ describe('fetchData', () => {
       .reply(200, mockedResponse);
 
     // when
-    assert.throws(() => fetchData(url), Error, 'Request failed');
+    return assert.isRejected(fetchData(url), Error, 'Request failed');
   });
 });
