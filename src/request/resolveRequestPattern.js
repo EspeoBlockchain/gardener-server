@@ -7,11 +7,11 @@ const getRequestType = (request) => {
     return regex.exec(request)[1];
   }
 
-  throw new Error('Request type is neither json nor xml nor html');
+  throw new Error('Request type is neither json nor xml nor html nor ipfs');
 };
-
+/* eslint-disable consistent-return */
 const getRequestUrl = (request, type) => {
-  if (type === 'json' || type === 'xml') {
+  if (type === 'json' || type === 'xml' || type === 'html') {
     const urlRegex = new RegExp(/\(https?:\/\/.+\)/);
     const matched = urlRegex.exec(request)[0];
     return matched.substring(1, matched.length - 1);
@@ -21,9 +21,8 @@ const getRequestUrl = (request, type) => {
     const matched = ipfsRegex.exec(request)[1];
     return `https://gateway.ipfs.io/ipfs/${matched}`;
   }
-
-  throw new Error('Invalid type: neither json nor xml nor ipfs');
 };
+/* eslint-enable consistent-return */
 
 /*
   Consistent-return and default-case has been disabled just for eslint proposes.
@@ -46,9 +45,9 @@ const getPath = (request, type) => {
 
       return path;
     }
-      case 'ipfs': {
-          return '';
-      }
+    case 'ipfs': {
+      return '';
+    }
   }
 };
 /* eslint-enable consistent-return, default-case */

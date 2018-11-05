@@ -38,7 +38,11 @@ describe('fetchData', () => {
     // given
     const url = 'http://someurl.example.com';
     const mockedResponse = '<key1>value1</key1>';
-    nock(url).get('/').reply(200, mockedResponse);
+    nock(url)
+      .defaultReplyHeaders({
+        'Content-Type': 'application/xml',
+      })
+      .get('/').reply(200, mockedResponse);
 
     // when
     const responseData = await fetchData(url);
@@ -72,7 +76,7 @@ describe('fetchData', () => {
   it('should return base64 response data on image content-type', async () => {
     // given
     const url = 'http://someurl.example.com';
-    const mockedResponse = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==';
+    const mockedResponse = 'PNG file content';
     nock(url)
       .defaultReplyHeaders({
         'Content-Type': 'image/png',
@@ -84,7 +88,7 @@ describe('fetchData', () => {
     const responseData = await fetchData(url);
 
     // then
-    const expectedData = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==';
+    const expectedData = 'UE5HIGZpbGUgY29udGVudA==';
 
     assert.deepEqual(responseData, expectedData, 'Response data doesn\'t match');
   });
@@ -101,6 +105,6 @@ describe('fetchData', () => {
       .reply(200, mockedResponse);
 
     // when
-    assert.throws(() => fetchData(url), Error, 'Content-Type is unrecognized');
+    assert.throws(() => fetchData(url), Error, 'Request failed');
   });
 });
