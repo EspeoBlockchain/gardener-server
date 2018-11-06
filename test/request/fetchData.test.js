@@ -105,6 +105,6 @@ describe('fetchData', () => {
       .reply(200, mockedResponse);
 
     // when
-    return assert.isRejected(fetchData(url), Error, 'Request failed');
+    return assert.isRejected(fetchData(url), Error, 'Content-Type is unrecognized');
   });
 });

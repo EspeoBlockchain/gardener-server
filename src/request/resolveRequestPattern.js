@@ -9,20 +9,19 @@ const getRequestType = (request) => {
 
   throw new Error('Request type is neither json nor xml nor html nor ipfs');
 };
-/* eslint-disable consistent-return */
+
 const getRequestUrl = (request, type) => {
   if (type === 'json' || type === 'xml' || type === 'html') {
     const urlRegex = new RegExp(/\(https?:\/\/.+\)/);
     const matched = urlRegex.exec(request)[0];
     return matched.substring(1, matched.length - 1);
   }
-  if (type === 'ipfs') {
-    const ipfsRegex = new RegExp(/\(([^)]+)\)/);
-    const matched = ipfsRegex.exec(request)[1];
-    return `https://gateway.ipfs.io/ipfs/${matched}`;
-  }
+
+  // otherwise the type must be ipfs
+  const ipfsRegex = new RegExp(/\(([^)]+)\)/);
+  const matched = ipfsRegex.exec(request)[1];
+  return `https://gateway.ipfs.io/ipfs/${matched}`;
 };
-/* eslint-enable consistent-return */
 
 /*
   Consistent-return and default-case has been disabled just for eslint proposes.
