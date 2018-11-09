@@ -1,12 +1,10 @@
 const { describe, it } = require('mocha');
 const { assert } = require('chai').use(require('chai-as-promised'));
 const nock = require('nock');
-const perf = require('execution-time')();
 const { fetchData } = require('../../src/request');
 
 
 describe('fetchData', () => {
-
   const url = 'http://someurl.example.com';
 
   it('should throw Error if response status is not 200', () => {
@@ -39,7 +37,11 @@ describe('fetchData', () => {
   it('should return xml string response data on successful request', async () => {
     // given
     const mockedResponse = '<key1>value1</key1>';
-    nock(url).get('/').reply(200, mockedResponse);
+    nock(url)
+      .defaultReplyHeaders({
+        'Content-Type': 'application/xml',
+      })
+      .get('/').reply(200, mockedResponse);
 
     // when
     const responseData = await fetchData(url);
@@ -50,22 +52,55 @@ describe('fetchData', () => {
     assert.deepEqual(responseData, expectedData, 'Response data doesn\'t match');
   });
 
-  it('should return json string response data on successful request AND wait for a given period of time', async () => {
+  it('should return string response data on text content-type', async () => {
     // given
-    const mockedResponse = {
-      key1: 'value1',
-    };
-    const delayTime = 5;
-    nock(url).get('/').reply(200, mockedResponse);
-
+    const mockedResponse = 'test text';
+    nock(url)
+      .defaultReplyHeaders({
+        'Content-Type': 'text',
+      })
+      .get('/')
+      .reply(200, mockedResponse);
 
     // when
-    perf.start('delayedRequest');
-    const responseData = await fetchData(url, delayTime);
-    const results = perf.stop('delayedRequest');
+    const responseData = await fetchData(url);
+
     // then
-    const expectedData = JSON.stringify({ key1: 'value1' });
+    const expectedData = 'test text';
+
     assert.deepEqual(responseData, expectedData, 'Response data doesn\'t match');
-    assert.isAtLeast(results.time, delayTime * 1000, 'Request doesn\'t wait for given period of time');
+  });
+
+  it('should return base64 response data on image content-type', async () => {
+    // given
+    const mockedResponse = 'PNG file content';
+    nock(url)
+      .defaultReplyHeaders({
+        'Content-Type': 'image/png',
+      })
+      .get('/')
+      .reply(200, mockedResponse);
+
+    // when
+    const responseData = await fetchData(url);
+
+    // then
+    const expectedData = 'UE5HIGZpbGUgY29udGVudA==';
+
+    assert.deepEqual(responseData, expectedData, 'Response data doesn\'t match');
+  });
+
+  it('should throw error on unrecognized content-type', async () => {
+    // given
+    const mockedResponse = 'test text';
+    nock(url)
+      .defaultReplyHeaders({
+        'Content-Type': 'unrecognized',
+      })
+      .get('/')
+      .reply(200, mockedResponse);
+
+    // when
+    return assert.isRejected(fetchData(url), Error, 'Content-Type is unrecognized');
   });
 });

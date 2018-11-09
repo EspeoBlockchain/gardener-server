@@ -101,4 +101,18 @@ describe('selectData', () => {
       assert.equal(res, '<key3>value3</key3>', 'Selected data doesn\'t match');
     });
   });
+
+  describe('ipfs selection', () => {
+    it('should return data', () => {
+      // given
+      const ipfsData = 'hello world';
+      const request = { type: 'ipfs', path: '' };
+
+      // when
+      const res = selectData(ipfsData, request);
+
+      // then
+      assert.equal(res, 'hello world', 'Selected data doesn\'t match');
+    });
+  });
 });

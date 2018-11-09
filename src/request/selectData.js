@@ -24,6 +24,9 @@ const selectData = (data, { type, path }) => {
       }
       return (new XMLSerializer()).serializeToString(xpath.select(path, doc)[0].firstChild);
     }
+    case 'ipfs': {
+      return data;
+    }
     default:
       throw new Error('Invalid type: neither json nor xml nor html');
   }

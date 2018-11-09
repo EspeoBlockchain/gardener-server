@@ -1,20 +1,26 @@
 
 
 const getRequestType = (request) => {
-  const regex = new RegExp(/^(json|xml|html)\(.+\)/);
+  const regex = new RegExp(/^(json|xml|html|ipfs)\(.+\)/);
 
   if (regex.test(request)) {
     return regex.exec(request)[1];
   }
 
-  throw new Error('Request type is neither json nor xml nor html');
+  throw new Error('Request type is neither json nor xml nor html nor ipfs');
 };
 
-const getRequestUrl = (request) => {
-  const urlRegex = new RegExp(/\(https?:\/\/.+\)/);
-  const matched = urlRegex.exec(request)[0];
+const getRequestUrl = (request, type) => {
+  if (type === 'json' || type === 'xml' || type === 'html') {
+    const urlRegex = new RegExp(/\(https?:\/\/.+\)/);
+    const matched = urlRegex.exec(request)[0];
+    return matched.substring(1, matched.length - 1);
+  }
 
-  return matched.substring(1, matched.length - 1);
+  // otherwise the type must be ipfs
+  const ipfsRegex = new RegExp(/\(([^)]+)\)/);
+  const matched = ipfsRegex.exec(request)[1];
+  return `https://gateway.ipfs.io/ipfs/${matched}`;
 };
 
 /*
@@ -38,13 +44,16 @@ const getPath = (request, type) => {
 
       return path;
     }
+    case 'ipfs': {
+      return '';
+    }
   }
 };
 /* eslint-enable consistent-return, default-case */
 
 const resolveRequestPattern = (request) => {
   const type = getRequestType(request);
-  const url = getRequestUrl(request);
+  const url = getRequestUrl(request, type);
 
   return {
     type,

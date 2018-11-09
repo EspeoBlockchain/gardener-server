@@ -42,6 +42,19 @@ describe('resolveRequestPattern', () => {
     assert.equal(res.path, '/html/head', 'Request path doesn\'t match');
   });
 
+  it('should correctly resolve ipfs pattern', () => {
+    // given
+    const request = 'ipfs(QmT78zSuBmuS4z925WZfrqQ1qHaJ56DQaTfyMUF7F8ff5o)';
+
+    // when
+    const res = resolveRequestPattern(request);
+
+    // then
+    assert.equal(res.type, 'ipfs', 'Request type should be ipfs');
+    assert.equal(res.url, 'https://gateway.ipfs.io/ipfs/QmT78zSuBmuS4z925WZfrqQ1qHaJ56DQaTfyMUF7F8ff5o', 'Request url doesn\'t match');
+    assert.equal(res.path, '', 'Request path doesn\'t match');
+  });
+
   it('should correctly resolve nested path', () => {
     // given
     const request = 'json(http://someurl.example.com).value1.value2';
@@ -68,11 +81,11 @@ describe('resolveRequestPattern', () => {
     assert.equal(res.path, 'value1', 'Request path doesn\'t match');
   });
 
-  it('should throw Error if request type is neither json nor xml nor html', () => {
+  it('should throw Error if request type is neither json nor xml nor html nor ipfs', () => {
     // given
     const request = 'invalid(https://someurl.example.com).value1';
 
     // when
-    assert.throws(() => resolveRequestPattern(request), Error, 'Request type is neither json nor xml nor html');
+    assert.throws(() => resolveRequestPattern(request), Error, 'Request type is neither json nor xml nor html nor ipfs');
   });
 });
