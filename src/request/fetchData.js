@@ -1,8 +1,9 @@
 const axios = require('axios');
+const scheduler = require('node-schedule');
 
 const base64Encode = data => Buffer.from(data).toString('base64');
 
-const fetchData = async (url) => {
+const fetchData = async (url, time = 0) => {
   const response = await axios.get(url);
   const contentType = response.headers['content-type'];
 
