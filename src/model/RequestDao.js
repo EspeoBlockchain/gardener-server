@@ -1,4 +1,4 @@
-/* eslint-disable class-methods-use-this */
+/* eslint-disable class-methods-use-this, no-console */
 const mongoose = require('mongoose');
 const RequestSchema = require('./requestSchema');
 
