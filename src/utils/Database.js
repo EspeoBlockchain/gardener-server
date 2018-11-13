@@ -1,5 +1,5 @@
-/* eslint-disable no-console */
 const mongoose = require('mongoose');
+const logger = require('../../src/config/winston');
 
 class Database {
   constructor(server, database) {
@@ -10,10 +10,10 @@ class Database {
   connect() {
     mongoose.connect(`mongodb://${this.server}/${this.database}`, { useNewUrlParser: true })
       .then(() => {
-        console.log('Database connection successful');
+        logger.info('Database connection successful');
       })
       .catch((err) => {
-        console.error(`Database connection error: ${err}`);
+        logger.error(`Database connection error: ${err}`);
       });
   }
 }

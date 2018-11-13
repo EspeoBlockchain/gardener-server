@@ -1,6 +1,6 @@
-/* eslint no-console: 0 */
 const express = require('express');
 const config = require('config');
+const logger = require('../../src/config/winston');
 
 const app = express();
 const port = config.get('port');
@@ -15,4 +15,4 @@ app.get('/status', (req, res) => {
   res.send(okResponse);
 });
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port, () => logger.info(`Example app listening on port ${port}!`));
