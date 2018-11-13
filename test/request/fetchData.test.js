@@ -63,7 +63,7 @@ describe('fetchData', () => {
       .reply(200, mockedResponse);
 
     // when
-    const responseData = await fetchData(url);
+    const responseData = await fetchData(url, 5);
 
     // then
     const expectedData = 'test text';
