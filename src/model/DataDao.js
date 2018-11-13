@@ -30,3 +30,5 @@ class DataDao {
     });
   }
 }
+
+module.exports = DataDao;
