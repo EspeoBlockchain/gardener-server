@@ -24,8 +24,9 @@ class RequestDao {
   findSingleRequestReadyToExecute(dateTime) {
     return RequestSchema.find({ validFrom: { $lte: dateTime } })
       .then((requestObject) => {
-        if (requestObject.status && requestObject.request.length > 0) {
-          const request = requestObject.request[0];
+        console.log(requestObject);
+        if (requestObject.length > 0) {
+          const request = requestObject[0];
           logger.info(`Found request: ${request}`);
 
           return request;

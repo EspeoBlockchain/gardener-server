@@ -21,7 +21,9 @@ class RequestProcessor {
       .on('data', async (event) => {
         logger.info(event);
 
-        this.requestDao.saveRequest(event.returnValues.url);
+        const request = Object.assign({}, event.returnValues, { startedAt: Date.now() });
+
+        this.requestDao.saveRequest(request);
       })
       .on('error', logger.error);
   }
@@ -38,11 +40,16 @@ class RequestProcessor {
 
       try {
         request = await this.requestDao.findSingleRequestReadyToExecute(new Date());
-        if (!request) return;
+        if (!request) {
+          guard = false;
+          return;
+        }
         requestedData = await processRequest(request.url);
       } catch (e) {
         errorCode = getErrorCode(e);
       }
+
+      logger.info(`Sending answer for request ${request._id}: (value: ${requestedData}, error: ${errorCode})`);
 
       const method = this.oracleContract.methods.fillRequest(
         // eslint-disable-next-line no-underscore-dangle
