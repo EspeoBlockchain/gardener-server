@@ -22,18 +22,17 @@ class RequestDao {
   }
 
   findSingleRequestReadyToExecute(dateTime) {
-    return RequestSchema.find({ validFrom: { $lte: dateTime } }, (err, requestObject) => {
-      if (err) throw err;
+    return RequestSchema.find({ validFrom: { $lte: dateTime } })
+      .then((requestObject) => {
+        if (requestObject.status && requestObject.request.length > 0) {
+          const request = requestObject.request[0];
+          logger.info(`Found request: ${request}`);
 
-      if (requestObject.status && requestObject.request.length > 0) {
-        const request = requestObject.request[0];
-        logger.info(`Found request: ${request}`);
+          return request;
+        }
 
-        return request;
-      }
-
-      return '';
-    });
+        return '';
+      });
   }
 }
 

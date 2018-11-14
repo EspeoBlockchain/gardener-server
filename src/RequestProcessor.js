@@ -37,7 +37,7 @@ class RequestProcessor {
       let errorCode;
 
       try {
-        request = this.requestDao.findSingleRequestReadyToExecute(new Date());
+        request = await this.requestDao.findSingleRequestReadyToExecute(new Date());
         if (!request) return;
         requestedData = await processRequest(request.url);
       } catch (e) {
