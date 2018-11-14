@@ -8,3 +8,4 @@ database.connect();
 
 const requestProcessor = new RequestProcessor(process.env.ORACLE_ADDRESS);
 requestProcessor.listen();
+requestProcessor.execute();

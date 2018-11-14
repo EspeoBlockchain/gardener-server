@@ -16,7 +16,8 @@ class RequestDao {
     newRequest.save((err) => {
       if (err) throw err;
 
-      logger.info('Request successfully saved');
+      // eslint-disable-next-line no-underscore-dangle
+      logger.info(`Request ${newRequest._id} successfully saved`);
     });
   }
 

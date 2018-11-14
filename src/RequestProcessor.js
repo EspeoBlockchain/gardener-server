@@ -2,7 +2,7 @@ const config = require('config');
 const scheduler = require('node-schedule');
 const web3 = require('./utils/createAndUnlockWeb3');
 const getErrorCode = require('./utils/getErrorCode');
-const { executeRequest } = require('./request');
+const { processRequest } = require('./request');
 const logger = require('../src/config/winston');
 const RequestDao = require('./model/RequestDao');
 
@@ -28,28 +28,32 @@ class RequestProcessor {
 
   execute() {
     let guard = false;
-    scheduler.scheduleJobn('* * * * * *', async (event) => {
+    scheduler.scheduleJob('* * * * * *', async () => {
       if (guard) return;
       guard = true;
+
       let request;
+      let requestedData;
       let errorCode;
 
-      let resolvedRequest;
-
       try {
-        resolvedRequest = await executeRequest(new Date());
+        request = this.requestDao.findSingleRequestReadyToExecute(new Date());
+        if (!request) return;
+        requestedData = await processRequest(request.url);
       } catch (e) {
         errorCode = getErrorCode(e);
       }
 
       const method = this.oracleContract.methods.fillRequest(
-        event.returnValues.id,
-        request || '',
+        // eslint-disable-next-line no-underscore-dangle
+        request._id,
+        requestedData || '',
         errorCode || 0,
       );
       const gas = await method.estimateGas({ from: web3.eth.defaultAccount });
       const result = await method.send({ from: web3.eth.defaultAccount, gas });
       logger.info(result);
+
       guard = false;
     });
   }
