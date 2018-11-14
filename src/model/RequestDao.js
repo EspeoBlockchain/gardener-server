@@ -1,6 +1,7 @@
 /* eslint-disable class-methods-use-this */
 const mongoose = require('mongoose');
 const RequestSchema = require('./requestSchema');
+const logger = require('../../src/config/winston');
 
 class RequestDao {
   saveRequest(url, ended) {
@@ -13,7 +14,7 @@ class RequestDao {
     newRequest.save((err) => {
       if (err) throw err;
 
-      console.log('Request successfully saved');
+      logger.info('Request successfully saved');
     });
   }
 
@@ -23,9 +24,11 @@ class RequestDao {
 
       if (requestObject.status && requestObject.request.length > 0) {
         const request = requestObject.request[0];
-        console.log(`Found request: ${request}`);
+        logger.info(`Found request: ${request}`);
+
         return request.url;
       }
+
       return '';
     });
   }

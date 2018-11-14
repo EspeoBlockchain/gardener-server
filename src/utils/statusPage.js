@@ -1,7 +1,6 @@
-/* eslint no-console: 0 */
 const express = require('express');
 const config = require('config');
-const mongoose = require('mongoose');
+const logger = require('../../src/config/winston');
 
 const app = express();
 const port = config.get('port');
@@ -16,9 +15,4 @@ app.get('/status', (req, res) => {
   res.send(okResponse);
 });
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-
-mongoose.connect('mongodb://localhost/oracle-server',
-  { useNewUrlParser: true })
-  .then(() => console.log('Server is running'))
-  .catch(err => console.log(err));
+app.listen(port, () => logger.info(`Example app listening on port ${port}!`));

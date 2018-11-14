@@ -1,6 +1,7 @@
 /* eslint-disable class-methods-use-this */
 const mongoose = require('mongoose');
 const DataSchema = require('./dataSchema');
+const logger = require('../../src/config/winston');
 
 class DataDao {
   saveData(requestId, data) {
@@ -13,7 +14,7 @@ class DataDao {
     newData.save((err) => {
       if (err) throw err;
 
-      console.log('Data successfully saved');
+      logger.info('Data successfully saved');
     });
   }
 
@@ -23,10 +24,13 @@ class DataDao {
 
       if (dataObject.status && dataObject.data.length > 0) {
         const data = dataObject.data[0];
-        console.log(`Found data: ${data}`);
+        logger.info(`Found data: ${data}`);
+
         return data.value;
       }
       return '';
     });
   }
 }
+
+module.exports = DataDao;
