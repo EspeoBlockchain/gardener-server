@@ -1,10 +1,11 @@
 /* eslint-disable class-methods-use-this */
-const mongoose = require('mongoose');
 const RequestSchema = require('./requestSchema');
 const logger = require('../../src/config/winston');
 
 class RequestDao {
-  saveRequest({ id, url, validFrom, startedAt }) {
+  saveRequest({
+    id, url, validFrom, startedAt,
+  }) {
     const newRequest = RequestSchema({
       _id: id,
       url,

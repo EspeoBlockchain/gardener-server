@@ -64,7 +64,12 @@ describe('RequestDao', () => {
     RequestMock.expects('find').yields(null, expectedFind);
 
     // then
-    requestDao.saveRequest(url, new Date());
+    requestDao.saveRequest({
+      id,
+      url,
+      validFrom: date,
+      startedAt: date,
+    });
     const result = requestDao.findSingleRequestReadyToExecute(new Date());
     expect(url).to.equal(result.url);
     RequestMock.verify();
