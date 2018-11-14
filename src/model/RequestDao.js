@@ -4,11 +4,12 @@ const RequestSchema = require('./requestSchema');
 const logger = require('../../src/config/winston');
 
 class RequestDao {
-  saveRequest(url, ended) {
+  saveRequest({ id, url, validFrom, startedAt }) {
     const newRequest = RequestSchema({
-      _id: new mongoose.Types.ObjectId(),
+      _id: id,
       url,
-      ended,
+      validFrom,
+      startedAt,
     });
 
     newRequest.save((err) => {
@@ -18,15 +19,15 @@ class RequestDao {
     });
   }
 
-  findSingleRequestUrlByEndDate(end) {
-    return RequestSchema.find({ ended: { $lte: end } }, (err, requestObject) => {
+  findSingleRequestReadyToExecute(dateTime) {
+    return RequestSchema.find({ validFrom: { $lte: dateTime } }, (err, requestObject) => {
       if (err) throw err;
 
       if (requestObject.status && requestObject.request.length > 0) {
         const request = requestObject.request[0];
         logger.info(`Found request: ${request}`);
 
-        return request.url;
+        return request;
       }
 
       return '';

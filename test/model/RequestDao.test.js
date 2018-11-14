@@ -36,8 +36,8 @@ describe('RequestDao', () => {
     RequestMock.expects('find').yields(null, expected);
 
     // then
-    const url = new RequestDao().findSingleRequestUrlByEndDate(new Date());
-    expect(url).to.equal(expected);
+    const result = new RequestDao().findSingleRequestReadyToExecute(new Date());
+    expect(result).to.equal(expected);
     RequestMock.verify();
     RequestMock.restore();
     done();
@@ -47,17 +47,26 @@ describe('RequestDao', () => {
     // given
     const RequestMock = sinon.mock(RequestSchema);
     const requestDao = new RequestDao();
+    const id = '1';
     const url = 'https://abc.def';
     const date = new Date();
-    const expectedFind = { status: true, request: [{ url, ended: date }] };
+    const expectedFind = {
+      status: true,
+      request: [{
+        _id: id,
+        url,
+        validFrom: date,
+        finishedAt: date,
+      }],
+    };
 
     // when
     RequestMock.expects('find').yields(null, expectedFind);
 
     // then
     requestDao.saveRequest(url, new Date());
-    const result = requestDao.findSingleRequestUrlByEndDate(new Date());
-    expect(url).to.equal(result);
+    const result = requestDao.findSingleRequestReadyToExecute(new Date());
+    expect(url).to.equal(result.url);
     RequestMock.verify();
     RequestMock.restore();
     done();

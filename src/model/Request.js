@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const RequestSchema = mongoose.Schema;
 
 const Request = new RequestSchema({
-  txId: {
+  hash: {
     type: String,
     unique: true,
     required: true,
@@ -11,10 +11,7 @@ const Request = new RequestSchema({
   validFrom: {
     type: Date,
     default: Date.now,
-  },
-  errorCode: {
-    type: String,
-    required: false,
+    required: true,
   },
 });
 

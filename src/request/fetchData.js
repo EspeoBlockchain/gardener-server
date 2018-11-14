@@ -1,5 +1,4 @@
 const axios = require('axios');
-const scheduler = require('node-schedule');
 
 const base64Encode = data => Buffer.from(data).toString('base64');
 
