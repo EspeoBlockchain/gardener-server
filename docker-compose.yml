@@ -5,11 +5,17 @@ services:
         env_file:
             - .env
         depends_on:
+            - mongo
             - ganache-cli
-        command: ["./wait-for-it.sh", "ganache-cli:8545", "--", "npm", "start"]
+        command: bash -c "./wait-for-it.sh mongo:27017 && ./wait-for-it.sh ganache-cli:8545 && node index.js"
     ganache-cli:
         image: "trufflesuite/ganache-cli"
         command: ganache-cli -d
         ports:
             - 8545:8545
             - 8546:8546
+    mongo:
+        image: mongo
+        ports:
+            - 27017:27017
+            - 27018:27018
