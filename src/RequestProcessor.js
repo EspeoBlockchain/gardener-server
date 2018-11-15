@@ -48,7 +48,7 @@ class RequestProcessor {
       } catch (e) {
         errorCode = getErrorCode(e);
       }
-
+      // eslint-disable-next-line no-underscore-dangle
       logger.info(`Sending answer for request ${request._id}: (value: ${requestedData}, error: ${errorCode})`);
 
       const method = this.oracleContract.methods.fillRequest(
