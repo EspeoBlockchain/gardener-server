@@ -22,9 +22,8 @@ class RequestDao {
   }
 
   findSingleRequestReadyToExecute(dateTime) {
-    return RequestSchema.find({ validFrom: { $lte: dateTime } })
+    return RequestSchema.find({ validFrom: { $lte: dateTime }, finishedAt: null })
       .then((requestObject) => {
-        console.log(requestObject);
         if (requestObject.length > 0) {
           const request = requestObject[0];
           logger.info(`Found request: ${request}`);
@@ -34,6 +33,10 @@ class RequestDao {
 
         return '';
       });
+  }
+
+  tagRequestAsFinished(id) {
+    return RequestSchema.findOneAndUpdate({ _id: id }, { $set: { finishedAt: Date.now() } });
   }
 }
 
