@@ -16,6 +16,11 @@ class Database {
         logger.error(`Database connection error: ${err}`);
       });
   }
+
+  // eslint-disable-next-line class-methods-use-this
+  disconnect() {
+    mongoose.disconnect();
+  }
 }
 
 module.exports = Database;

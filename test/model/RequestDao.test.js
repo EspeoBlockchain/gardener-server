@@ -2,6 +2,7 @@
 const { describe, it } = require('mocha');
 const sinon = require('sinon');
 const { assert } = require('chai').use(require('chai-as-promised'));
+const Database = require('../../src/utils/Database');
 require('sinon-mongoose');
 
 const RequestSchema = require('../../src/model/RequestSchema');
@@ -63,5 +64,30 @@ describe('RequestDao', () => {
     requestSchemaMock.verify();
     requestSchemaMock.restore();
     assert.isAbove(result.finishedAt, new Date(1));
+  });
+
+  it('should save request', async () => {
+    // given
+    const request = {
+      id: '1',
+      url: 'url',
+      validFrom: new Date(),
+      startedAt: new Date(),
+    };
+
+
+    const database = new Database('localhost:37017', 'oracle-server');
+    database.connect();
+    await RequestSchema.remove({});
+
+    const requestsAmountBefore = await RequestSchema.count();
+
+    // when
+    await new RequestDao().saveRequest(request);
+
+    // then
+    const requestsAmountAfter = await RequestSchema.count();
+    assert.equal(requestsAmountAfter - requestsAmountBefore, 1, 'Should add one document');
+    Database.disconnect();
   });
 });
