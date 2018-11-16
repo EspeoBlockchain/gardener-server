@@ -18,7 +18,11 @@ describe('processRequest', () => {
       const res = await processRequest(request);
 
       // then
-      assert.equal(res, 'value1', 'Invalid return data from processing');
+      const expected = {
+        fetchedData: '{"key1":"value1"}',
+        selectedData: 'value1',
+      };
+      assert.deepEqual(res, expected, 'Invalid return data from processing');
     });
   });
 
@@ -37,7 +41,12 @@ describe('processRequest', () => {
       const res = await processRequest(request);
 
       // then
-      assert.equal(res, 'value1', 'Invalid return data from processing');
+      const expected = {
+        fetchedData: '<key1>value1</key1>',
+        selectedData: 'value1',
+      };
+
+      assert.deepEqual(res, expected, 'Invalid return data from processing');
     });
   });
 });

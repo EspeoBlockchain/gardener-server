@@ -6,6 +6,8 @@ const getErrorCode = require('./utils/getErrorCode');
 const { processRequest } = require('./request');
 const logger = require('../src/config/winston');
 const RequestDao = require('./model/RequestDao');
+const DataDao = require('./model/DataDao');
+const _ = require('lodash');
 
 
 class RequestProcessor {
@@ -15,6 +17,7 @@ class RequestProcessor {
       oracleAddress,
     );
     this.requestDao = new RequestDao();
+    this.dataDao = new DataDao();
   }
 
   listen() {
@@ -56,6 +59,7 @@ class RequestProcessor {
           return;
         }
         requestedData = await processRequest(request.url);
+        await this.dataDao.saveData(request._id, requestedData);
       } catch (e) {
         errorCode = getErrorCode(e);
       }
@@ -65,12 +69,12 @@ class RequestProcessor {
 
       const method = this.oracleContract.methods.fillRequest(
         request._id,
-        requestedData || '',
+        _.get(requestedData, 'selectedData', ''),
         errorCode || 0,
       );
       const gas = await method.estimateGas({ from: web3.eth.defaultAccount });
       const result = await method.send({ from: web3.eth.defaultAccount, gas });
-      logger.info(result);
+      logger.info(JSON.stringify(result));
 
       guard = false;
     });
