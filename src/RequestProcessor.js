@@ -1,13 +1,13 @@
 /* eslint-disable no-underscore-dangle */
 const config = require('config');
 const scheduler = require('node-schedule');
+const _ = require('lodash');
 const web3 = require('./utils/createAndUnlockWeb3');
 const getErrorCode = require('./utils/getErrorCode');
 const { processRequest } = require('./request');
 const logger = require('../src/config/winston');
 const RequestDao = require('./model/RequestDao');
 const DataDao = require('./model/DataDao');
-const _ = require('lodash');
 
 
 class RequestProcessor {
