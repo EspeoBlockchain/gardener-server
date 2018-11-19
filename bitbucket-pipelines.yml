@@ -11,7 +11,7 @@ pipelines:
                 caches:
                     - node
                 script: # Modify the commands below to build your repository.
-                    - mv .env.bitbucket .env.test -f
+                    - cp -f .env.bitbucket .env.test
                     - npm install
                     - npm run lint
                     - npm test
