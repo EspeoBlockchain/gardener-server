@@ -26,7 +26,7 @@ const logger = createLogger({
   ),
   transports: [new transports.Console(options.console)],
   exitOnError: false,
-  silent: env === 'test',
+  // silent: env === 'test',
 });
 
 module.exports = logger;
