@@ -5,9 +5,10 @@ const { fetchData } = require('../../src/request');
 
 
 describe('fetchData', () => {
+  const url = 'http://someurl.example.com';
+
   it('should throw Error if response status is not 200', () => {
     // given
-    const url = 'http://someurl.example.com';
     nock(url).get('/').reply(400);
 
     // when
@@ -19,7 +20,6 @@ describe('fetchData', () => {
 
   it('should return json string response data on successful request', async () => {
     // given
-    const url = 'http://someurl.example.com';
     const mockedResponse = {
       key1: 'value1',
     };
@@ -36,7 +36,6 @@ describe('fetchData', () => {
 
   it('should return xml string response data on successful request', async () => {
     // given
-    const url = 'http://someurl.example.com';
     const mockedResponse = '<key1>value1</key1>';
     nock(url)
       .defaultReplyHeaders({
@@ -55,7 +54,6 @@ describe('fetchData', () => {
 
   it('should return string response data on text content-type', async () => {
     // given
-    const url = 'http://someurl.example.com';
     const mockedResponse = 'test text';
     nock(url)
       .defaultReplyHeaders({
@@ -65,7 +63,7 @@ describe('fetchData', () => {
       .reply(200, mockedResponse);
 
     // when
-    const responseData = await fetchData(url);
+    const responseData = await fetchData(url, 5);
 
     // then
     const expectedData = 'test text';
@@ -75,7 +73,6 @@ describe('fetchData', () => {
 
   it('should return base64 response data on image content-type', async () => {
     // given
-    const url = 'http://someurl.example.com';
     const mockedResponse = 'PNG file content';
     nock(url)
       .defaultReplyHeaders({
@@ -95,7 +92,6 @@ describe('fetchData', () => {
 
   it('should throw error on unrecognized content-type', async () => {
     // given
-    const url = 'http://someurl.example.com';
     const mockedResponse = 'test text';
     nock(url)
       .defaultReplyHeaders({

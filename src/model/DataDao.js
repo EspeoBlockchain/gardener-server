@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 const mongoose = require('mongoose');
-const DataSchema = require('./dataSchema');
+const DataSchema = require('./DataSchema');
 const logger = require('../../src/config/winston');
 
 class DataDao {
@@ -8,28 +8,18 @@ class DataDao {
     const newData = DataSchema({
       _id: new mongoose.Types.ObjectId(),
       request_id: requestId,
-      data,
+      ...data,
     });
 
-    newData.save((err) => {
-      if (err) throw err;
+    return newData.save().then((result) => {
+      logger.info(`Data for request ${result.request_id} successfully saved`);
 
-      logger.info('Data successfully saved');
+      return result;
     });
   }
 
   findDataByRequestId(requestId) {
-    return DataSchema.find({ request_id: requestId }, (err, dataObject) => {
-      if (err) throw err;
-
-      if (dataObject.status && dataObject.data.length > 0) {
-        const data = dataObject.data[0];
-        logger.info(`Found data: ${data}`);
-
-        return data.value;
-      }
-      return '';
-    });
+    return DataSchema.findOne({ request_id: requestId }).exec();
   }
 }
 

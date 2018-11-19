@@ -8,13 +8,16 @@ class Database {
   }
 
   connect() {
-    mongoose.connect(`mongodb://${this.server}/${this.database}`, { useNewUrlParser: true })
-      .then(() => {
-        logger.info('Database connection successful');
-      })
-      .catch((err) => {
-        logger.error(`Database connection error: ${err}`);
-      });
+    return mongoose.connect(`mongodb://${this.server}/${this.database}`, { useNewUrlParser: true })
+      .then(() => logger.info('Database connection successful'))
+      .catch(err => logger.error(`Database connection error: ${err}`));
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  disconnect() {
+    return mongoose.disconnect()
+      .then(() => logger.info('Database connection closed'))
+      .catch(err => logger.error(`Error when closing connection to database: ${err}`));
   }
 }
 

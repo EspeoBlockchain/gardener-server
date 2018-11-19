@@ -8,7 +8,10 @@ const processRequest = async (url) => {
   const requestPattern = resolveRequestPattern(url);
   const data = await fetchData(requestPattern.url);
 
-  return selectData(data, _.pick(requestPattern, ['type', 'path']));
+  return {
+    fetchedData: data,
+    selectedData: selectData(data, _.pick(requestPattern, ['type', 'path'])),
+  };
 };
 
 module.exports = processRequest;

@@ -4,16 +4,21 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const requestSchema = new Schema({
-  _id: mongoose.Schema.Types.ObjectId,
+  _id: String,
   url: {
     type: String,
     require: true,
   },
-  started: {
+  validFrom: {
+    type: Date,
+    default: Date.now,
+    required: true,
+  },
+  startedAt: {
     type: Date,
     default: Date.now,
   },
-  ended: {
+  finishedAt: {
     type: Date,
   },
 });

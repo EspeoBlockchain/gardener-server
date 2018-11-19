@@ -5,10 +5,14 @@ const Schema = mongoose.Schema;
 
 const dataSchema = new Schema({
   _id: mongoose.Schema.Types.ObjectId,
-  request_id: mongoose.Schema.Types.ObjectId,
-  value: {
+  request_id: String,
+  fetchedData: {
     type: String,
-    require: true,
+    required: true,
+  },
+  selectedData: {
+    type: String,
+    required: true,
   },
   created: {
     type: Date,

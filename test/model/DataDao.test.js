@@ -1,84 +1,74 @@
 /* eslint-disable no-unused-expressions,array-callback-return */
-const { describe, it } = require('mocha');
+const {
+  describe, it, before, after,
+} = require('mocha');
 const sinon = require('sinon');
-const { expect } = require('chai');
+const { assert } = require('chai');
 require('sinon-mongoose');
+const connectDatabase = require('../../src/utils/connectDatabase');
 
-const DataSchema = require('../../src/model/dataSchema');
+
+const DataSchema = require('../../src/model/DataSchema');
+const RequestSchema = require('../../src/model/RequestSchema');
 const DataDao = require('../../src/model/DataDao');
+const RequestDao = require('../../src/model/RequestDao');
 
 describe('DataDao', () => {
-  it('should return all data', (done) => {
-    // given
-    const DataMock = sinon.mock(DataSchema);
-    const expected = { status: true, request: [] };
+  const sut = {};
 
-    // when
-    DataMock.expects('find').yields(null, expected);
-
-    // then
-    DataSchema.find((err, result) => {
-      DataMock.verify();
-      DataMock.restore();
-      expect(err).to.not.exist;
-      expect(result).to.equal(expected);
-      expect(result.status).to.be.true;
-      done();
-    });
+  before(async () => {
+    sut.db = await connectDatabase();
   });
 
-  it('should return expected data', (done) => {
-    // given
-    const DataMock = sinon.mock(DataSchema);
-    const valueExpected = 'some data';
-    const expected = { status: true, data: [{ value: `${valueExpected}` }] };
-
-    // when
-    DataMock.expects('find').yields(null, expected);
-
-    // then
-    const data = new DataDao().findDataByRequestId('507f191e810c19729de860ea');
-    expect(data).to.equal(valueExpected);
-    DataMock.verify();
-    DataMock.restore();
-    done();
+  after(async () => {
+    await sut.db.disconnect();
   });
 
-  it('should save and get data', (done) => {
+  it('should find data for request id', async () => {
     // given
-    const DataMock = sinon.mock(DataSchema);
-    const dataDao = new DataDao();
-    const expectedValue = 'some data';
-    const requestId = '507f191e810c19729de860ea';
-    const expectedFind = { status: true, data: [{ value: `${expectedValue}` }] };
+    const data = {
+      request_id: '1',
+      fetchedData: 'fetchedData',
+      selectedData: 'selectedData',
+    };
+    const dataMock = sinon.mock(DataSchema);
+    dataMock.expects('findOne').chain('exec').resolves(data).once();
 
     // when
-    DataMock.expects('find').yields(null, expectedFind);
+    const result = await new DataDao().findDataByRequestId('1');
 
     // then
-    dataDao.saveData(requestId, expectedValue);
-    const result = dataDao.findDataByRequestId(requestId);
-    expect(expectedValue).to.equal(result);
-    DataMock.verify();
-    DataMock.restore();
-    done();
+    dataMock.verify();
+    dataMock.restore();
+    assert.deepEqual(result, data);
   });
 
-  it('should return empty collection if there was no save', (done) => {
+  it('should save data', async () => {
     // given
-    const DataMock = sinon.mock(DataSchema);
-    const dataDao = new DataDao();
-    const requestId = '507f191e810c19729de860ea';
-    const expectedFind = { status: true, data: [] };
+    const request = {
+      id: '1',
+      url: 'url',
+      validFrom: new Date(),
+      startedAt: new Date(),
+    };
+
+    const data = {
+      fetchedData: 'fetched',
+      selectedData: 'selected',
+    };
+
+    await RequestSchema.deleteMany({});
+    await DataSchema.deleteMany({});
+
+    await new RequestDao().saveRequest(request);
+
+    const dataAmountBefore = await DataSchema.countDocuments();
 
     // when
-    DataMock.expects('find').yields(null, expectedFind);
+    await new DataDao().saveData(request.id, data);
 
     // then
-    const result = dataDao.findDataByRequestId(requestId);
-    expect('').to.equal(result);
-    DataMock.verify();
-    DataMock.restore();
-    done();
+    const dataAmountAfter = await DataSchema.countDocuments();
+    assert.equal(dataAmountAfter - dataAmountBefore, 1, 'Should add one document');
   });
 });
