@@ -1,9 +1,12 @@
 /* eslint-disable no-unused-expressions,array-callback-return */
-const { describe, it } = require('mocha');
+const {
+  describe, it, before, after,
+} = require('mocha');
 const sinon = require('sinon');
 const { assert } = require('chai');
-const Database = require('../../src/utils/Database');
 require('sinon-mongoose');
+const connectDatabase = require('../../src/utils/connectDatabase');
+
 
 const DataSchema = require('../../src/model/DataSchema');
 const RequestSchema = require('../../src/model/RequestSchema');
@@ -11,6 +14,16 @@ const DataDao = require('../../src/model/DataDao');
 const RequestDao = require('../../src/model/RequestDao');
 
 describe('DataDao', () => {
+  const sut = {};
+
+  before(async () => {
+    sut.db = await connectDatabase();
+  });
+
+  after(async () => {
+    await sut.db.disconnect();
+  });
+
   it('should find data for request id', async () => {
     // given
     const data = {
@@ -44,22 +57,18 @@ describe('DataDao', () => {
       selectedData: 'selected',
     };
 
-
-    const database = new Database('localhost:37017', 'oracle-server');
-    database.connect();
-    await RequestSchema.remove({});
-    await DataSchema.remove({});
+    await RequestSchema.deleteMany({});
+    await DataSchema.deleteMany({});
 
     await new RequestDao().saveRequest(request);
 
-    const dataAmountBefore = await DataSchema.count();
+    const dataAmountBefore = await DataSchema.countDocuments();
 
     // when
     await new DataDao().saveData(request.id, data);
 
     // then
-    const dataAmountAfter = await DataSchema.count();
+    const dataAmountAfter = await DataSchema.countDocuments();
     assert.equal(dataAmountAfter - dataAmountBefore, 1, 'Should add one document');
-    Database.disconnect();
   });
 });

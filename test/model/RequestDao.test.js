@@ -1,14 +1,27 @@
 /* eslint-disable no-unused-expressions,array-callback-return */
-const { describe, it } = require('mocha');
+const {
+  describe, it, before, after,
+} = require('mocha');
 const sinon = require('sinon');
 const { assert } = require('chai').use(require('chai-as-promised'));
-const Database = require('../../src/utils/Database');
 require('sinon-mongoose');
+const connectDatabase = require('../../src/utils/connectDatabase');
+
 
 const RequestSchema = require('../../src/model/RequestSchema');
 const RequestDao = require('../../src/model/RequestDao');
 
 describe('RequestDao', () => {
+  const sut = {};
+
+  before(async () => {
+    sut.db = await connectDatabase();
+  });
+
+  after(async () => {
+    await sut.db.disconnect();
+  });
+
   it('should return a promise with one request ready to execute', async () => {
     // given
     const request = {
@@ -75,19 +88,15 @@ describe('RequestDao', () => {
       startedAt: new Date(),
     };
 
+    await RequestSchema.deleteMany({});
 
-    const database = new Database('localhost:37017', 'oracle-server');
-    database.connect();
-    await RequestSchema.remove({});
-
-    const requestsAmountBefore = await RequestSchema.count();
+    const requestsAmountBefore = await RequestSchema.countDocuments();
 
     // when
     await new RequestDao().saveRequest(request);
 
     // then
-    const requestsAmountAfter = await RequestSchema.count();
+    const requestsAmountAfter = await RequestSchema.countDocuments();
     assert.equal(requestsAmountAfter - requestsAmountBefore, 1, 'Should add one document');
-    Database.disconnect();
   });
 });

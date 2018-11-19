@@ -6,11 +6,19 @@
 image: node:10.13.0 # latest LTS
 
 pipelines:
-  default:
-    - step:
-        caches:
-          - node
-        script: # Modify the commands below to build your repository.
-          - npm install
-          - npm run lint
-          - npm test
+    default:
+        -   step:
+                caches:
+                    - node
+                script: # Modify the commands below to build your repository.
+                    - mv .env.bitbucket .env.test
+                    - npm install
+                    - npm run lint
+                    - npm test
+                services:
+                    - mongo
+
+definitions:
+    services:
+        mongo:
+            image: mongo

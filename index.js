@@ -1,10 +1,9 @@
 require('dotenv').load();
 require('./src/utils/statusPage');
-const Database = require('./src/utils/Database');
+const connectDatabase = require('./src/utils/connectDatabase');
 const RequestProcessor = require('./src/RequestProcessor');
 
-const database = new Database(process.env.DATABASE_URL, process.env.DATABASE_NAME);
-database.connect();
+connectDatabase();
 
 const requestProcessor = new RequestProcessor(process.env.ORACLE_ADDRESS);
 requestProcessor.listen();
