@@ -1,17 +1,7 @@
 const { createLogger, format, transports } = require('winston');
 
 const env = process.env.NODE_ENV || 'development';
-
-const baseOptions = {
-  handleExceptions: true,
-  format: format.combine(
-    format.json(),
-    format.colorize(),
-    format.printf(
-      info => `${info.timestamp} ${info.level}: ${info.message}`,
-    ),
-  ),
-};
+const printFormat = format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`);
 
 const options = {
   /* console options, add additional one for file if required */
@@ -20,9 +10,7 @@ const options = {
     format: format.combine(
       format.json(),
       format.colorize(),
-      format.printf(
-        info => `${info.timestamp} ${info.level}: ${info.message}`,
-      ),
+      printFormat,
     ),
   },
   file: {
@@ -30,9 +18,7 @@ const options = {
     handleExceptions: true,
     format: format.combine(
       format.json(),
-      format.printf(
-        info => `${info.timestamp} ${info.level}: ${info.message}`,
-      ),
+      printFormat,
     ),
   },
 };
