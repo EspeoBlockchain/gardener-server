@@ -15,4 +15,6 @@ app.get('/status', (req, res) => {
   res.send(okResponse);
 });
 
-app.listen(port, () => logger.info(`Example app listening on port ${port}!`));
+const server = app.listen(port, () => logger.info(`Example app listening on port ${port}!`));
+
+module.exports = server;

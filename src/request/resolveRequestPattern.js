@@ -1,5 +1,3 @@
-
-
 const getRequestType = (request) => {
   const regex = new RegExp(/^(json|xml|html|ipfs)\(.+\)/);
 

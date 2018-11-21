@@ -8,6 +8,7 @@ const { processRequest } = require('./request');
 const logger = require('../src/config/winston');
 const RequestDao = require('./model/RequestDao');
 const DataDao = require('./model/DataDao');
+const checkNodeConnection = require('./utils/checkNodeConnection');
 
 
 class RequestProcessor {
@@ -20,7 +21,12 @@ class RequestProcessor {
     this.dataDao = new DataDao();
   }
 
-  listen() {
+  async listen() {
+    const connected = await checkNodeConnection();
+    if (!connected) {
+      process.exit(1);
+    }
+
     this.oracleContract.events.DataRequested()
       .on('data', async (event) => {
         logger.info(event);
@@ -29,7 +35,7 @@ class RequestProcessor {
 
         this.requestDao.saveRequest(request);
       })
-      .on('error', logger.error);
+      .on('error', err => logger.error(err));
 
     this.oracleContract.events.DelayedDataRequested()
       .on('data', async (event) => {
@@ -39,7 +45,7 @@ class RequestProcessor {
         request.validFrom *= 1000;
         this.requestDao.saveRequest(request);
       })
-      .on('error', logger.error);
+      .on('error', err => logger.error(err));
   }
 
   execute() {

@@ -8,7 +8,7 @@ class Database {
   }
 
   connect() {
-    return mongoose.connect(`mongodb://${this.server}/${this.database}`, { useNewUrlParser: true })
+    return mongoose.connect(`mongodb://${this.server}/${this.database}`, { useNewUrlParser: true, autoReconnect: false })
       .then(() => logger.info('Database connection successful'))
       .catch(err => logger.error(`Database connection error: ${err}`));
   }

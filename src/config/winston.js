@@ -1,6 +1,7 @@
 const { createLogger, format, transports } = require('winston');
 
 const env = process.env.NODE_ENV || 'development';
+const printFormat = format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`);
 
 const options = {
   /* console options, add additional one for file if required */
@@ -9,9 +10,15 @@ const options = {
     format: format.combine(
       format.json(),
       format.colorize(),
-      format.printf(
-        info => `${info.timestamp} ${info.level}: ${info.message}`,
-      ),
+      printFormat,
+    ),
+  },
+  file: {
+    filename: 'logs/combined.log',
+    handleExceptions: true,
+    format: format.combine(
+      format.json(),
+      printFormat,
     ),
   },
 };
@@ -24,7 +31,10 @@ const logger = createLogger({
     }),
     format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`),
   ),
-  transports: [new transports.Console(options.console)],
+  transports: [
+    new transports.Console(options.console),
+    new transports.File(options.file),
+  ],
   exitOnError: false,
 });
 

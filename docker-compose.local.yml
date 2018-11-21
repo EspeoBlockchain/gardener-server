@@ -1,0 +1,13 @@
+version: '3'
+services:
+    app:
+        depends_on:
+            - ganache-cli
+        command: bash -c "./wait-for-it.sh mongo:27017 && ./wait-for-it.sh ganache-cli:8545 && node index.js"
+    ganache-cli:
+        container_name: test-blockchain
+        image: "trufflesuite/ganache-cli"
+        command: ganache-cli -d
+        ports:
+            - 8545:8545
+            - 8546:8546
