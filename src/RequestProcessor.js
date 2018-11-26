@@ -1,5 +1,4 @@
 /* eslint-disable no-underscore-dangle */
-const config = require('config');
 const scheduler = require('node-schedule');
 const _ = require('lodash');
 const web3 = require('./utils/createAndUnlockWeb3');
@@ -9,12 +8,13 @@ const logger = require('../src/config/winston');
 const RequestDao = require('./model/RequestDao');
 const DataDao = require('./model/DataDao');
 const checkNodeConnection = require('./utils/checkNodeConnection');
+const oracleAbi = require('./config/abi/oracle.abi');
 
 
 class RequestProcessor {
   constructor(oracleAddress) {
     this.oracleContract = new web3.eth.Contract(
-      config.get('contracts.oracle.abi'),
+      oracleAbi,
       oracleAddress,
     );
     this.requestDao = new RequestDao();
