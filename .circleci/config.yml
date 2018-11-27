@@ -1,0 +1,40 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:10.13
+      - image: circleci/mongo
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: 
+          name: Install dependencies
+          command: npm install
+          
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      
+      - run:
+          name: Copy environment variables
+          command: cp -f .env.bitbucket .env.test
+      
+      - run:
+          name: Check code style
+          command: npm run lint
+          
+      - run:
+          name: Run tests
+          command: npm test
+          
