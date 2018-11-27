@@ -17,24 +17,27 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: 
+      - run:
           name: Install dependencies
           command: npm install
-          
+
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      
+
       - run:
           name: Copy environment variables
           command: cp -f .env.bitbucket .env.test
-      
+
       - run:
           name: Check code style
           command: npm run lint
-          
+
       - run:
           name: Run tests
           command: npm test
-          
+
+      - run:
+          name: Generate coverage
+          command: NODE_ENV=test npx nyc --reporter=text-lcov mocha test/* --timeout 10000 | npx coveralls
