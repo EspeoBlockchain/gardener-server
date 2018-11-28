@@ -7,6 +7,8 @@ services:
             - .env
         depends_on:
             - mongo
+        ports:
+            - ${API_PORT}:${API_PORT}
         command: bash -c "./wait-for-it.sh mongo:27017 && node index.js"
     mongo:
         container_name: oracle-db

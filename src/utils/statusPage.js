@@ -1,9 +1,8 @@
 const express = require('express');
-const config = require('config');
 const logger = require('../../src/config/winston');
 
 const app = express();
-const port = config.get('port');
+const port = process.env.API_PORT;
 
 
 const okResponse = {
