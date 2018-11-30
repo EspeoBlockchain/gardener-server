@@ -80,7 +80,7 @@ class RequestProcessor {
     ).then(events => events.forEach((event) => {
       logger.info(`DataRequested event: ${JSON.stringify(event)}`);
 
-      const request = Object.assign({}, event.returnValues, { startedAt: Date.now() });
+      const request = { ...event.returnValues, startedAt: Date.now() };
 
       this.requestDao.saveRequest(request);
     }));
@@ -91,7 +91,7 @@ class RequestProcessor {
     ).then(events => events.forEach((event) => {
       logger.info(`DelayedDataRequested event: ${JSON.stringify(event)}`);
 
-      const request = Object.assign({}, event.returnValues, { startedAt: Date.now() });
+      const request = { ...event.returnValues, startedAt: Date.now() };
       request.validFrom *= 1000;
       this.requestDao.saveRequest(request);
     }));
