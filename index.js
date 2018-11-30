@@ -2,16 +2,15 @@ require('dotenv').load();
 const server = require('./src/utils/statusPage');
 const connectDatabase = require('./src/utils/connectDatabase');
 const RequestProcessor = require('./src/RequestProcessor');
+const ActualBlockEmitter = require('./src/ActualBlockEmitter');
 const logger = require('./src/config/winston');
 
-const runProcessing = async () => {
-  const requestProcessor = new RequestProcessor(process.env.ORACLE_ADDRESS);
-  await requestProcessor.listen();
-  requestProcessor.execute();
-};
-
 const db = connectDatabase();
-runProcessing();
+const blockEmitter = new ActualBlockEmitter();
+blockEmitter.listen();
+const requestProcessor = new RequestProcessor(process.env.ORACLE_ADDRESS, blockEmitter);
+requestProcessor.listen();
+requestProcessor.execute();
 
 
 process.on('exit', async () => {
