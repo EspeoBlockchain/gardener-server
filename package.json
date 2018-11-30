@@ -1,7 +1,7 @@
 {
   "name": "oracle-server",
   "version": "0.0.1",
-  "description": "Offchain oracle server for listening about data request from Ethereum blockchain",
+  "description": "Off-chain oracle server for listening on data requests from Ethereum blockchain",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -9,8 +9,16 @@
     "ganache": "ganache-cli -d",
     "lint": "eslint . --fix"
   },
-  "author": "Krzysztof Wędrowicz",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/espeo/blockchain-oracle-server.git"
+  },
+  "author": "Espeo Blockchain",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/espeo/blockchain-oracle-server/issues"
+  },
+  "homepage": "https://github.com/espeo/blockchain-oracle-server",
   "dependencies": {
     "axios": "^0.18.0",
     "delay": "^4.1.0",
