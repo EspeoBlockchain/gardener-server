@@ -23,11 +23,11 @@ class RequestProcessor {
 
   listen() {
     this.blockEmitter.on('actualBlock', (blockNumber) => {
-      if (!this.lastProcessedBlock) {
-        this.processEvents(blockNumber - process.env.BLOCKS_TO_LOAD_AT_START, blockNumber);
-      } else {
-        this.processEvents(this.lastProcessedBlock + 1, blockNumber);
-      }
+      const startBlock = this.lastProcessedBlock
+        ? this.lastProcessedBlock + 1
+        : blockNumber - process.env.BLOCKS_TO_LOAD_AT_START;
+
+      this.processEvents(startBlock, blockNumber);
 
       this.lastProcessedBlock = blockNumber;
     });
