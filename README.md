@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/espeo/blockchain-oracle-server/badge.svg)](https://coveralls.io/github/espeo/blockchain-oracle-server)
 
 This repository is a part of open source oracle project. Initially developed by Espeo Software. 
-Contains off-chain server for processing requests from Oracle contract.
+Contains off-chain server for processing requests from the `Oracle` contract.
 
 Table of contents:
 - [Oracle theory](#oracle-theory)
@@ -12,55 +12,45 @@ Table of contents:
 - [Installation](#installation)
 
 ## Oracle theory
-Oracle is a concept of getting informations from outside blockchain into smart contracts. Basically smart contracts cannot call anything which is outside the blockchain network. That's were oracle idea goes into. Smart contract emits event with needed informations and trusted offchain server listening on that parses it, get data from offchain data source and pass it back using it's credentials.
+Oracle is a concept of getting information from outside of the blockchain to the smart contracts. Out of the box smart contracts cannot access anything outside of the blockchain network. That's were the oracle idea fits. The information exchange begins with the smart contract emitting an event describing the necessary information. A trusted off-chain server listening for such events parses it, gets data from a data source and passes it back to the smart contract.
 
 ## Architecture
 [Oracle architecture sketch](images/OracleArchitecture.png) 
 
 ## Installation
 
-Before start please clone `.env.tpl` file into `.env` and fill with values.
+As a first step please clone `.env.tpl` file into `.env` and fill with values:
+- `PUBLIC_KEY` - address of the server's account, from which it sends the results of request to the smart contracts
+- `PRIVATE_KEY` - private key of the server's account
+- `ORACLE_ADDRESS` - address of the `Oracle` smart contract
+- `DATABASE_URL` - URL with port for MongoDB connection
+- `DATABASE_NAME` - MongoDB database name
+- `NODE_URL` - URL for the WebSocket provider to blockchain network
 
-Variables explanation:
-- `PUBLIC_KEY` - address of account, from which server should send result of request
-- `PRIVATE_KEY` - private key of account, from which server should send result of request
-- `ORACLE_ADDRESS` - address of deployed oracle smart contract
-- `DATABASE_URL` - url and port for mongoDB connection
-- `DATABASE_NAME` - database name
-- `NODE_URL` - url for websocket(!!) provider to blockchain network
-
-### Natively
+### Bare-metal
 
 Requirements:
-- `NodeJS >= 7.6` - async/await support
+- `Node.js >= 7.6` - async/await support
 
 Dev environment:
 1. Run `npm install` to install dependencies.
-2. Run `npm run ganache` to start test blockchain.
-3. Deploy needed smart contracts from `oracle-sm` repository: `truffle migrate --network development`.
-4. Update `.env` file if needed.
-5. Start oracle server by typing `npm start`.
+2. Run `npm run ganache` to start a test blockchain.
+3. Deploy necessary smart contracts from `oracle-sm` repository: `cd oracle-sm/ && truffle migrate --network development`.
+4. Update the `.env` file if necessary.
+5. Start the server by running `npm start`.
 
 ### Using docker
 
-####Local environment with test blockchain (ganache):
-Run:
-1. Type `make local` (single command build)
+#### Local environment with test blockchain (ganache)
 
-Build:
-1. Type `make build-local`
+1. Run: `make local` (single command build)
+1. Build: `make build-local`
+1. Clean: `make clean-local`
 
-Clean:
-1. Type `make clean-local`
+#### Environment using public blockchain
 
-####Environment using public blockchain:
-Run:
-1. Type `make` (single command build)
+1. Run: `make` (single command build)
+1. Build: `make build`
+1. Clean: `make clean`
 
-Build:
-1. Type `make build`
-
-Clean:
-1. Type `make clean`
-
-**Attention!** Check if variables in .env file are correct.
+**Attention!** Check if variables in `.env` file are correct.
