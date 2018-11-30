@@ -13,12 +13,22 @@ class RequestDao {
       startedAt,
     });
 
-    return newRequest.save().then((result) => {
-      // eslint-disable-next-line no-underscore-dangle
-      logger.info(`Request ${result._id} successfully saved`);
+    return newRequest.save()
+      .then((result) => {
+        // eslint-disable-next-line no-underscore-dangle
+        logger.info(`Request ${result._id} successfully saved`);
 
-      return result;
-    });
+        return result;
+      })
+      .catch((error) => {
+        switch (error.code) {
+          case 11000:
+            logger.info(`Request ${id} duplication`);
+            break;
+          default:
+            throw error;
+        }
+      });
   }
 
   findSingleRequestReadyToExecute(dateTime) {
