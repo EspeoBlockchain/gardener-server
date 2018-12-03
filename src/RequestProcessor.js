@@ -92,6 +92,8 @@ class RequestProcessor {
       logger.info(`DelayedDataRequested event: ${JSON.stringify(event)}`);
 
       const request = { ...event.returnValues, startedAt: Date.now() };
+      // Ethereum timebased variables operates on epoch seconds, JS on epoch millis.
+      // Conversion from seconds to millis needed.
       request.validFrom *= 1000;
       this.requestDao.saveRequest(request);
     }));
