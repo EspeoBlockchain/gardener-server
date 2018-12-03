@@ -1,6 +1,7 @@
 /* eslint-disable class-methods-use-this */
 const RequestSchema = require('./RequestSchema');
 const logger = require('../../src/config/winston');
+const MongoErrorCode = require('../utils/MongoErrorCode');
 
 class RequestDao {
   saveRequest({
@@ -22,7 +23,7 @@ class RequestDao {
       })
       .catch((error) => {
         switch (error.code) {
-          case 11000:
+          case MongoErrorCode.DUPLICATION:
             logger.info(`Request ${id} duplication`);
             break;
           default:
