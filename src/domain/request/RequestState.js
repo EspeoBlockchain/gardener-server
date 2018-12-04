@@ -1,4 +1,4 @@
-const State = require('../State');
+const State = require('../common/State');
 
 const SCHEDULED = 'Scheduled';
 const READY = 'Ready';

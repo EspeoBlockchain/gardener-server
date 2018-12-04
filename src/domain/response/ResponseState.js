@@ -1,4 +1,4 @@
-const State = require('../State');
+const State = require('../common/State');
 
 const PROCESSED = 'Processed';
 const SENT = 'Sent';
