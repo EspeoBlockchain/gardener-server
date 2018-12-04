@@ -14,28 +14,23 @@ class RequestState extends State {
   }
 
   markAsScheduled() {
-    this._checkState(name => name === undefined);
-    this.name = SCHEDULED;
+    this._setState(SCHEDULED, name => name === undefined);
   }
 
   markAsReady() {
-    this._checkState(name => [undefined, SCHEDULED].includes(name));
-    this.name = READY;
+    this._setState(READY, name => [undefined, SCHEDULED].includes(name));
   }
 
   markAsProcessed() {
-    this._checkState(name => name === READY);
-    this.name = PROCESSED;
+    this._setState(PROCESSED, name => name === READY);
   }
 
   markAsFinished() {
-    this._checkState(name => name === PROCESSED);
-    this.name = FINISHED;
+    this._setState(FINISHED, name => name === PROCESSED);
   }
 
   markAsFailed() {
-    this._checkState(name => name === PROCESSED);
-    this.name = FAILED;
+    this._setState(FAILED, name => name === PROCESSED);
   }
 }
 
