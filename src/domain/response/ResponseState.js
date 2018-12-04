@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 const State = require('../State');
 
 const PROCESSED = 'Processed';
