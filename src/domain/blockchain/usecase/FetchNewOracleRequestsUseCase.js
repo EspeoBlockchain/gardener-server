@@ -8,13 +8,11 @@ class FetchNewOracleRequestsUseCase {
 
   async fetchNewRequests(blockNumber) {
     if (blockNumber > this.lastBlock) {
-      const requests = await this.oracle.getRequests(lastBlock, blockNumber);
+      const requests = await this.oracle.getRequests(this.lastBlock, blockNumber);
       this.logger.info(`Fetched requests [requests=${JSON.stringify(requests)},fromBlock=${this.lastBlock},toBlock=${blockNumber}]`);
-      if (requests.length > 0) {
-        return requests;
-      }
-
       this.lastBlock = blockNumber;
+
+      return requests;
     }
 
     return [];

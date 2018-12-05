@@ -14,7 +14,7 @@ class BlockListener {
   }
 
   async pollBlockNumber() {
-    const blockNumber = await blockchain.getBlockNumber();
+    const blockNumber = await this.blockchain.getBlockNumber();
     this.logger.info(`Block number: ${blockNumber}`);
 
     const event = new CurrentBlockEvent(blockNumber);
