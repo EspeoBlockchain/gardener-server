@@ -1,12 +1,25 @@
 const RequestStateFactory = require('./RequestStateFactory');
+const RequestUrlParser = require('./RequestUrlParserService');
 
 class Request {
-  constructor(id, url, validFrom) {
+  constructor(id, url, validFrom, state) {
     // TODO param validation?
     this.id = id;
     this.url = url;
     this.validFrom = validFrom;
-    this.state = RequestStateFactory.createState(validFrom);
+    this.state = state || RequestStateFactory.createState(validFrom);
+  }
+
+  getRawUrl() {
+    return RequestUrlParser.resolveRawUrl(this.url);
+  }
+
+  getContentType() {
+    return RequestUrlParser.resolveContentType(this.url);
+  }
+
+  getSelectionPath() {
+    return RequestUrlParser.resolveSelectionPath(this.url);
   }
 }
 

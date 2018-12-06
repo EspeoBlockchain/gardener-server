@@ -5,9 +5,8 @@ class RequestStateFactory {
     const state = new RequestState();
     if (Date.now() >= validFrom) {
       state.markAsReady();
-    } else {
-      state.markAsScheduled();
     }
+
     return state;
   }
 }

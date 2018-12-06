@@ -7,9 +7,12 @@ const FINISHED = 'Finished';
 const FAILED = 'Failed';
 
 class RequestState extends State {
-  constructor() {
+  constructor(name = SCHEDULED) {
     super();
-    this.name = undefined;
+    if (![SCHEDULED, READY, PROCESSED, FINISHED, FAILED].includes(name)) {
+      throw new Error(`Invalid request state: ${name}`);
+    }
+    this.name = name;
   }
 
   markAsScheduled() {

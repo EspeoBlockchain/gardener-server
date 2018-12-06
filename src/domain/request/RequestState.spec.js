@@ -4,31 +4,8 @@ const RequestState = require('./RequestState');
 
 const stateMachine = [
   {
-    name: 'empty state',
-    given: () => new RequestState(),
-    correctTransitions: [
-      {
-        when: s => s.markAsScheduled(),
-        then: s => expect(s.name).is.equal('Scheduled'),
-      },
-      {
-        when: s => s.markAsReady(),
-        then: s => expect(s.name).is.equal('Ready'),
-      },
-    ],
-    incorrectTransitions: [
-      { when: s => s.markAsProcessed() },
-      { when: s => s.markAsFinished() },
-      { when: s => s.markAsFailed() },
-    ],
-  },
-  {
     name: 'Scheduled state',
-    given: () => {
-      const state = new RequestState();
-      state.markAsScheduled();
-      return state;
-    },
+    given: () => new RequestState(),
     correctTransitions: [
       {
         when: s => s.markAsReady(),
@@ -125,8 +102,20 @@ const stateMachine = [
 ];
 
 describe('RequestState', () => {
+  it('should create new state as Scheduled', () => {
+    // when
+    const state = new RequestState();
+    // then
+    expect(state.name).to.equal('Scheduled');
+  });
+
+  it('should not allow create state with invalid name', () => {
+    // when
+    expect(() => new RequestState('invalid')).to.throw();
+  });
+
   stateMachine.forEach((testCase) => {
-    it(`${testCase.name} transitions`, () => {
+    it(`should pass ${testCase.name} transitions`, () => {
       testCase.correctTransitions.forEach((transition) => {
         // given
         const state = testCase.given();
