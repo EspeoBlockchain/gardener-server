@@ -4,6 +4,10 @@ const { XMLSerializer, DOMParser } = require('xmldom');
 const DataSelectorPort = require('../domain/common/port/DataSelectorPort');
 
 class XmlSelectorAdapter extends DataSelectorPort {
+  canHandle(contentType) {
+    return ['xml', 'html'].includes(contentType);
+  }
+
   select(data, path) {
     const doc = (new DOMParser()).parseFromString(data);
 

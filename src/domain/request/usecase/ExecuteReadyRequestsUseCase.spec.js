@@ -7,9 +7,15 @@ const Response = require('../../response/Response');
 describe('ExecuteReadyRequestsUseCase', () => {
   const oneMinuteMillis = 60 * 1000;
 
-  const requestRepository = () => ({
-    getReadyRequests: () => [new Request('123', '123', Date.now() - oneMinuteMillis)],
-  });
+  const requestRepository = () => {
+    const requests = [];
+
+    return {
+      getReadyRequests: () => [new Request('123', '123', Date.now() - oneMinuteMillis)],
+      list: () => requests,
+      save: request => requests.push(request),
+    };
+  };
 
   const responseRepository = () => {
     const responses = [];
@@ -33,15 +39,31 @@ describe('ExecuteReadyRequestsUseCase', () => {
       const response = new Response(request.id);
       response.addFetchedData('fetchedData');
 
-      return response;
+      return { request, response };
+    },
+  });
+
+  const failedFetchDataUseCase = () => ({
+    fetchDataForRequest: (request) => {
+      request.state.markAsFailed();
+
+      return { request };
     },
   });
 
   const selectDataUseCase = () => ({
-    selectFromRawData: (response) => {
+    selectFromRawData: (request, response) => {
       response.addSelectedData('selectedData');
 
-      return response;
+      return { request, response };
+    },
+  });
+
+  const failedSelectDataUseCase = () => ({
+    selectFromRawData: (request, response) => {
+      request.state.markAsFailed();
+
+      return { request };
     },
   });
 
@@ -62,6 +84,36 @@ describe('ExecuteReadyRequestsUseCase', () => {
     expect(response.fetchedData).to.equal('fetchedData');
     expect(response.selectedData).to.equal('selectedData');
     expect(response.state.name).to.equal('Sent');
-    expect(sut.logger.list()).to.have.lengthOf(2);
+    expect(sut.logger.list()).to.have.lengthOf(3);
+  });
+
+  it('should mark request as failed if cannot fetch data', async () => {
+    // given
+    const sut = new ExecuteReadyRequestsUseCase(
+      failedFetchDataUseCase(),
+      selectDataUseCase(),
+      requestRepository(),
+      responseRepository(),
+      logger(),
+    );
+    // when
+    await sut.executeReadyRequests();
+    // then
+    expect(sut.requestRepository.list()[0].state.name).to.equal('Failed');
+  });
+
+  it('should mark request as failed if cannot select data', async () => {
+    // given
+    const sut = new ExecuteReadyRequestsUseCase(
+      fetchDataUseCase(),
+      failedSelectDataUseCase(),
+      requestRepository(),
+      responseRepository(),
+      logger(),
+    );
+    // when
+    await sut.executeReadyRequests();
+    // then
+    expect(sut.requestRepository.list()[0].state.name).to.equal('Failed');
   });
 });

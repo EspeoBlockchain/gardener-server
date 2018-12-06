@@ -2,6 +2,10 @@
 const DataSelectorPort = require('../domain/common/port/DataSelectorPort');
 
 class IdentitySelectorAdapter extends DataSelectorPort {
+  canHandle(contentType) {
+    return contentType === 'ipfs';
+  }
+
   select(data, path) {
     return data;
   }

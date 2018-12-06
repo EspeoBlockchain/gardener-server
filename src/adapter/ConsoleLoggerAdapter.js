@@ -6,6 +6,10 @@ class ConsoleLoggerAdapter extends LoggerPort {
   info(message) {
     console.log(message);
   }
+
+  error(message) {
+    console.error(message);
+  }
 }
 
 module.exports = ConsoleLoggerAdapter;

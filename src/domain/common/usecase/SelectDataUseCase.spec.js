@@ -33,7 +33,7 @@ describe('SelectDataUseCase', () => {
     const response = new Response('id');
     response.addFetchedData('fetchedData');
     // when
-    const responseWithSelectedData = await sut.selectFromRawData(request, response);
+    const { request: req, response: responseWithSelectedData } = await sut.selectFromRawData(request, response);
     // then
     expect(responseWithSelectedData.selectedData).to.equal('selectedData');
     expect(sut.logger.list()).to.have.lengthOf(1);

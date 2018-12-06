@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 require('dotenv').load();
+const _ = require('lodash');
 const EventBus = require('./infrastructure/event/EventBus');
 const web3 = require('./infrastructure/blockchain/ethereum/createAndUnlockWeb3');
 const oracleAbi = require('./config/abi/oracle.abi');
@@ -47,7 +48,7 @@ const dataSelectorFinder = new DataSelectorFinder([jsonSelector, xmlSelector, id
 const createRequestUseCase = new CreateRequestUseCase(requestRepository, logger);
 const fetchNewOracleRequestsUseCase = new FetchNewOracleRequestsUseCase(oracle, logger);
 const markValidRequestsAsReadyUseCase = new MarkValidRequestsAsReadyUseCase(requestRepository);
-const fetchDataUseCase = new FetchDataUseCase(dataClient, responseRepository, logger);
+const fetchDataUseCase = new FetchDataUseCase(dataClient, logger);
 const selectDataUseCase = new SelectDataUseCase(dataSelectorFinder, responseRepository, logger);
 const executeReadyRequestsUseCase = new ExecuteReadyRequestsUseCase(fetchDataUseCase, selectDataUseCase, requestRepository, responseRepository, logger);
 
@@ -74,7 +75,7 @@ blockListener.listen();
 // setTimeout(() => eventBus.emit(CreateRequestEvent.name(), event3), 3000);
 
 setTimeout(() => {
-  console.log(requestRepository.requests);
-  console.log(responseRepository.responses);
+  console.log(Array.from(requestRepository.requests.values()).map(r => _.pick(r, ['id', 'state'])));
+  console.log(Array.from(responseRepository.responses.values()).map(r => _.pick(r, ['requestId', 'state'])));
   process.exit(1);
-}, 20000);
+}, 15000);

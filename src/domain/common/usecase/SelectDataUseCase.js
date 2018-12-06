@@ -8,7 +8,7 @@ class SelectDataUseCase {
   async selectFromRawData(request, response) {
     const contentType = request.getContentType();
     const path = request.getSelectionPath();
-    const selectedData = this._selectData(contentType, path);
+    const selectedData = this._selectData(response.fetchedData, contentType, path);
     this.logger.info(`
       Data selected: ${selectedData} 
       [fetchedData=${response.fetchedData},contentType=${contentType},path=${path}
@@ -17,7 +17,7 @@ class SelectDataUseCase {
     response.addSelectedData(selectedData);
     this.responseRepository.save(response);
 
-    return response;
+    return { request, response };
   }
 
   _selectData(fetchedData, contentType, path) {

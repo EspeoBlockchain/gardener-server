@@ -3,11 +3,11 @@ const ResponseRepositoryPort = require('../domain/response/port/ResponseReposito
 class InMemoryResponseRepositoryAdapter extends ResponseRepositoryPort {
   constructor() {
     super();
-    this.responses = [];
+    this.responses = new Map();
   }
 
   save(response) {
-    this.responses.push(response);
+    this.responses.set(response.requestId, response);
   }
 }
 
