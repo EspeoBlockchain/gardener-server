@@ -1,10 +1,7 @@
 const State = require('../common/State');
-
-const SCHEDULED = 'Scheduled';
-const READY = 'Ready';
-const PROCESSED = 'Processed';
-const FINISHED = 'Finished';
-const FAILED = 'Failed';
+const {
+  SCHEDULED, READY, PROCESSED, FINISHED, FAILED,
+} = require('./RequestStateEnum');
 
 class RequestState extends State {
   constructor(name = SCHEDULED) {
