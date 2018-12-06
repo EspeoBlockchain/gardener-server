@@ -2,7 +2,7 @@ class RequestUrlParserService {
   static resolveRawUrl(wrappedUrl) {
     const urlRegex = new RegExp(/\(https?:\/\/.+\)/);
     const matched = urlRegex.exec(wrappedUrl);
-    if (matched.length === 0) {
+    if (!matched) {
       throw new Error(`Url not found in ${wrappedUrl}`);
     }
     const firstMatched = matched[0];
