@@ -55,7 +55,7 @@ describe('ResponseState', () => {
   });
 
   stateMachine.forEach((testCase) => {
-    it(`${testCase.name} transitions`, () => {
+    it(`should pass ${testCase.name} transitions`, () => {
       testCase.correctTransitions.forEach((transition) => {
         // given
         const state = testCase.given();
