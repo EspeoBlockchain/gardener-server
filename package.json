@@ -19,6 +19,11 @@
     "url": "https://github.com/espeo/blockchain-oracle-server/issues"
   },
   "homepage": "https://github.com/espeo/blockchain-oracle-server",
+  "nyc": {
+    "exclude": [
+      "**/*.spec.js"
+    ]
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "delay": "^4.1.0",
