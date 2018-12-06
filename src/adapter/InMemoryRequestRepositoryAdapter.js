@@ -17,6 +17,10 @@ class InMemoryRequestRepositoryAdapter extends RequestRepositoryPort {
         && request.validFrom < Date.now(),
     );
   }
+
+  getReadyRequests() {
+    return this.requests.filter(request => request.state.name === RequestStateEnum.READY);
+  }
 }
 
 module.exports = InMemoryRequestRepositoryAdapter;

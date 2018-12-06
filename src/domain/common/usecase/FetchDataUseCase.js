@@ -1,8 +1,8 @@
 const Response = require('../../response/Response');
 
 class FetchDataUseCase {
-  constructor(crawler, responseRepository, logger) {
-    this.crawler = crawler;
+  constructor(dataClient, responseRepository, logger) {
+    this.dataClient = dataClient;
     this.responseRepository = responseRepository;
     this.logger = logger;
   }
@@ -10,7 +10,7 @@ class FetchDataUseCase {
   async fetchDataForRequest(request) {
     const rawUrl = request.getRawUrl();
 
-    const rawData = await this.crawler.fetch(rawUrl);
+    const rawData = await this.dataClient.fetch(rawUrl);
     this.logger.info(`Data fetched for request ${request.id}: ${rawData}`);
 
     const response = new Response(request.id);

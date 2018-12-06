@@ -23,7 +23,7 @@ describe('FetchNewOracleRequestUseCase', () => {
     sut = new FetchNewOracleRequestsUseCase(oracle(), logger());
   });
 
-  it('should fetch new oracle requests', async () => {
+  it('should fetch new oracle responses', async () => {
     // when
     const requests = await sut.fetchNewRequests(4);
     // then

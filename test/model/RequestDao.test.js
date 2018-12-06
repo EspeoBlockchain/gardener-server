@@ -42,7 +42,7 @@ describe('RequestDao', () => {
     requestSchemaMock.restore();
   });
 
-  it('should return a promise with null if there are no requests ready to execute', async () => {
+  it('should return a promise with null if there are no responses ready to execute', async () => {
     // given
     const request = null;
     const requestSchemaMock = sinon.mock(RequestSchema);

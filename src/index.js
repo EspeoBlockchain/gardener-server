@@ -10,24 +10,46 @@ const CreateRequestEventHandler = require('./infrastructure/event/CreateRequestE
 const CurrentBlockEventHandler = require('./infrastructure/event/CurrentBlockEventHandler');
 
 const MarkValidRequestsAsReadyScheduler = require('./infrastructure/scheduling/MarkValidRequestsAsReadyScheduler');
+const ExecuteReadyRequestsScheduler = require('./infrastructure/scheduling/ExecuteReadyRequestsScheduler');
 
 const Logger = require('./adapter/ConsoleLoggerAdapter');
 const RequestRepository = require('./adapter/InMemoryRequestRepositoryAdapter');
+const ResponseRepository = require('./adapter/InMemoryResponseRepositoryAdapter');
 const Oracle = require('./infrastructure/blockchain/ethereum/EthereumOracleAdapter');
 const Blockchain = require('./infrastructure/blockchain/ethereum/EthereumBlockchainAdapter');
+const DataClient = require('./adapter/AxiosDataClientAdapter');
+const JsonSelector = require('./adapter/JsonSelectorAdapter');
+const XmlSelector = require('./adapter/XmlSelectorAdapter');
+const IdentitySelector = require('./adapter/IdentitySelectorAdapter');
 
+const DataSelectorFinder = require('./domain/common/DataSelectorFinder');
 const CreateRequestUseCase = require('./domain/request/usecase/CreateRequestUseCase');
 const FetchNewOracleRequestsUseCase = require('./domain/blockchain/usecase/FetchNewOracleRequestsUseCase');
 const MarkValidRequestsAsReadyUseCase = require('./domain/request/usecase/MarkValidRequestsAsReadyUseCase');
+const FetchDataUseCase = require('./domain/common/usecase/FetchDataUseCase');
+const SelectDataUseCase = require('./domain/common/usecase/SelectDataUseCase');
+const ExecuteReadyRequestsUseCase = require('./domain/request/usecase/ExecuteReadyRequestsUseCase');
 
 const BlockListener = require('./infrastructure/blockchain/BlockListener');
 
 const logger = new Logger();
 const requestRepository = new RequestRepository();
+const responseRepository = new ResponseRepository();
 const oracle = new Oracle(web3, oracleAbi, process.env.ORACLE_ADDRESS);
+const dataClient = new DataClient();
+const jsonSelector = new JsonSelector();
+const xmlSelector = new XmlSelector();
+const identitySelector = new IdentitySelector();
+const dataSelectorFinder = new DataSelectorFinder([jsonSelector, xmlSelector, identitySelector]);
+
+
+
 const createRequestUseCase = new CreateRequestUseCase(requestRepository, logger);
 const fetchNewOracleRequestsUseCase = new FetchNewOracleRequestsUseCase(oracle, logger);
 const markValidRequestsAsReadyUseCase = new MarkValidRequestsAsReadyUseCase(requestRepository);
+const fetchDataUseCase = new FetchDataUseCase(dataClient, responseRepository, logger);
+const selectDataUseCase = new SelectDataUseCase(dataSelectorFinder, responseRepository, logger);
+const executeReadyRequestsUseCase = new ExecuteReadyRequestsUseCase(fetchDataUseCase, selectDataUseCase, requestRepository, responseRepository, logger);
 
 const eventBus = new EventBus();
 
@@ -36,6 +58,8 @@ const currentBlockEventHandler = new CurrentBlockEventHandler(fetchNewOracleRequ
 
 const markValidRequestsAsReadyScheduler = new MarkValidRequestsAsReadyScheduler(markValidRequestsAsReadyUseCase);
 markValidRequestsAsReadyScheduler.schedule();
+const executeReadyRequestsScheduler = new ExecuteReadyRequestsScheduler(executeReadyRequestsUseCase);
+executeReadyRequestsScheduler.schedule();
 
 const blockchain = new Blockchain(web3);
 const blockListener = new BlockListener(eventBus, blockchain, logger);
@@ -48,3 +72,9 @@ blockListener.listen();
 // setTimeout(() => eventBus.emit(CreateRequestEvent.name(), event1), 1000);
 // setTimeout(() => eventBus.emit(CreateRequestEvent.name(), event2), 2000);
 // setTimeout(() => eventBus.emit(CreateRequestEvent.name(), event3), 3000);
+
+setTimeout(() => {
+  console.log(requestRepository.requests);
+  console.log(responseRepository.responses);
+  process.exit(1);
+}, 20000);

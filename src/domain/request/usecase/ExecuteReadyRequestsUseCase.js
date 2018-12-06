@@ -14,7 +14,9 @@ class ExecuteReadyRequestsUseCase {
       request.state.markAsProcessed();
       this.logger.info(`Request ${request.id} marked as processed`);
       let response = await this.fetchDataUseCase.fetchDataForRequest(request);
-      response = await this.selectDataUseCase.selectFromRawData(response);
+      response = await this.selectDataUseCase.selectFromRawData(request, response);
+      request.state.markAsFinished();
+      this.logger.info(`Request ${request.id} marked as finished`);
       response.state.markAsSent();
       this.logger.info(`Response for request ${response.requestId} marked as sent`);
       this.responseRepository.save(response);

@@ -12,6 +12,10 @@ class RequestRepositoryPort {
   getScheduledRequestsWithValidFromBeforeNow() {
     throw new Error('Not implemented');
   }
+
+  getReadyRequests() {
+    throw new Error('Not implemented');
+  }
 }
 
 module.exports = RequestRepositoryPort;

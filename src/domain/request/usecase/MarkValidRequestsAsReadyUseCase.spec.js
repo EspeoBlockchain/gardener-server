@@ -25,7 +25,7 @@ describe('CreateRequestUseCase', () => {
     };
   };
 
-  it('should mark all scheduled requests with validFrom less than now as ready', () => {
+  it('should mark all scheduled responses with validFrom less than now as ready', () => {
     // given
     const requestRepository = repository();
     requestRepository.save(new Request('1', 'url', Date.now(), RequestStateEnum.SCHEDULED));
