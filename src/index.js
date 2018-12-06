@@ -2,7 +2,7 @@
 
 require('dotenv').load();
 const EventBus = require('./infrastructure/event/EventBus');
-const web3 = require('./infrastructure/blockchain/createAndUnlockWeb3');
+const web3 = require('./infrastructure/blockchain/ethereum/createAndUnlockWeb3');
 const oracleAbi = require('./config/abi/oracle.abi');
 
 const CreateRequestEvent = require('./infrastructure/event/CreateRequestEvent');
