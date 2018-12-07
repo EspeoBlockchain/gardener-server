@@ -45,7 +45,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
   });
 
   const failedFetchDataUseCase = () => ({
-    fetchDataForRequest: (request) => { throw new Error(); },
+    fetchDataForRequest: () => { throw new Error(); },
   });
 
   const selectDataUseCase = () => ({
@@ -57,7 +57,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
   });
 
   const failedSelectDataUseCase = () => ({
-    selectFromRawData: (request, response) => { throw new Error(); },
+    selectFromRawData: () => { throw new Error(); },
   });
 
   const sendResponseToOracleUseCase = () => ({

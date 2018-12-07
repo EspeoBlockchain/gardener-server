@@ -6,7 +6,7 @@ const OracleGateway = require('../../../domain/blockchain/port/OracleGateway');
 class EthereumOracleAdapter extends OracleGateway {
   constructor(web3, abi, address) {
     super();
-    this.contract = new web3.eth.Contract(abi, address, {from: web3.eth.defaultAccount });
+    this.contract = new web3.eth.Contract(abi, address, { from: web3.eth.defaultAccount });
 
     this.pendingResponses = [];
     this.emitter = new EventEmitter();
@@ -71,7 +71,6 @@ class EthereumOracleAdapter extends OracleGateway {
       const gas = await method.estimateGas();
       await method.send({ gas });
     } catch (e) {
-      console.log(e);
       error = e;
     }
 
