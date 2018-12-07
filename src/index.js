@@ -2,6 +2,8 @@
 
 require('dotenv').load();
 const _ = require('lodash');
+const express = require('express');
+
 const EventBus = require('./infrastructure/event/EventBus');
 const web3 = require('./infrastructure/blockchain/ethereum/createAndUnlockWeb3');
 const oracleAbi = require('./config/abi/oracle.abi');
@@ -31,6 +33,7 @@ const FetchDataUseCase = require('./domain/common/usecase/FetchDataUseCase');
 const SelectDataUseCase = require('./domain/common/usecase/SelectDataUseCase');
 const SendResponseToOracleUseCase = require('./domain/blockchain/usecase/SendResponseToOracleUseCase');
 const ExecuteReadyRequestsUseCase = require('./domain/request/usecase/ExecuteReadyRequestsUseCase');
+const CheckHealthStatusUseCase = require('./domain/common/usecase/CheckHealthStatusUseCase');
 
 const BlockListener = require('./infrastructure/blockchain/BlockListener');
 
@@ -53,6 +56,7 @@ const fetchDataUseCase = new FetchDataUseCase(dataClient, logger);
 const selectDataUseCase = new SelectDataUseCase(dataSelectorFinder, logger);
 const sendResponseToOracleUseCase = new SendResponseToOracleUseCase(oracle, logger);
 const executeReadyRequestsUseCase = new ExecuteReadyRequestsUseCase(fetchDataUseCase, selectDataUseCase, sendResponseToOracleUseCase, requestRepository, responseRepository, logger);
+const checkHealthStatusUseCase = new CheckHealthStatusUseCase();
 
 const eventBus = new EventBus();
 
@@ -67,6 +71,11 @@ executeReadyRequestsScheduler.schedule();
 const blockchain = new Blockchain(web3);
 const blockListener = new BlockListener(eventBus, blockchain, logger);
 blockListener.listen();
+
+const app = express();
+const port = process.env.API_PORT;
+require('./infrastructure/systemHealth/statusEndpoint')(app, checkHealthStatusUseCase);
+app.listen(port);
 
 // const event1 = new CreateRequestEvent('id1', 'url1', Date.now());
 // const event2 = new CreateRequestEvent('id2', 'url2', Date.now() - 1000);
