@@ -29,6 +29,7 @@ const FetchNewOracleRequestsUseCase = require('./domain/blockchain/usecase/Fetch
 const MarkValidRequestsAsReadyUseCase = require('./domain/request/usecase/MarkValidRequestsAsReadyUseCase');
 const FetchDataUseCase = require('./domain/common/usecase/FetchDataUseCase');
 const SelectDataUseCase = require('./domain/common/usecase/SelectDataUseCase');
+const SendResponseToOracleUseCase = require('./domain/blockchain/usecase/SendResponseToOracleUseCase');
 const ExecuteReadyRequestsUseCase = require('./domain/request/usecase/ExecuteReadyRequestsUseCase');
 
 const BlockListener = require('./infrastructure/blockchain/BlockListener');
@@ -49,8 +50,9 @@ const createRequestUseCase = new CreateRequestUseCase(requestRepository, logger)
 const fetchNewOracleRequestsUseCase = new FetchNewOracleRequestsUseCase(oracle, logger);
 const markValidRequestsAsReadyUseCase = new MarkValidRequestsAsReadyUseCase(requestRepository);
 const fetchDataUseCase = new FetchDataUseCase(dataClient, logger);
-const selectDataUseCase = new SelectDataUseCase(dataSelectorFinder, responseRepository, logger);
-const executeReadyRequestsUseCase = new ExecuteReadyRequestsUseCase(fetchDataUseCase, selectDataUseCase, requestRepository, responseRepository, logger);
+const selectDataUseCase = new SelectDataUseCase(dataSelectorFinder, logger);
+const sendResponseToOracleUseCase = new SendResponseToOracleUseCase(oracle, logger);
+const executeReadyRequestsUseCase = new ExecuteReadyRequestsUseCase(fetchDataUseCase, selectDataUseCase, sendResponseToOracleUseCase, requestRepository, responseRepository, logger);
 
 const eventBus = new EventBus();
 
@@ -74,8 +76,8 @@ blockListener.listen();
 // setTimeout(() => eventBus.emit(CreateRequestEvent.name(), event2), 2000);
 // setTimeout(() => eventBus.emit(CreateRequestEvent.name(), event3), 3000);
 
-setTimeout(() => {
-  console.log(Array.from(requestRepository.requests.values()).map(r => _.pick(r, ['id', 'state'])));
-  console.log(Array.from(responseRepository.responses.values()).map(r => _.pick(r, ['requestId', 'state'])));
-  process.exit(1);
-}, 15000);
+// setTimeout(() => {
+//   console.log(Array.from(requestRepository.requests.values()).map(r => _.pick(r, ['id', 'state'])));
+//   console.log(Array.from(responseRepository.responses.values()).map(r => _.pick(r, ['requestId', 'state'])));
+//   process.exit(1);
+// }, 15000);

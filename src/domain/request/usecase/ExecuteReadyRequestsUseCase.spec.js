@@ -30,6 +30,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
     const logs = [];
     return {
       info: log => logs.push(log),
+      error: log => logs.push(log),
       list: () => logs,
     };
   };
@@ -39,31 +40,31 @@ describe('ExecuteReadyRequestsUseCase', () => {
       const response = new Response(request.id);
       response.addFetchedData('fetchedData');
 
-      return { request, response };
+      return response;
     },
   });
 
   const failedFetchDataUseCase = () => ({
-    fetchDataForRequest: (request) => {
-      request.state.markAsFailed();
-
-      return { request };
-    },
+    fetchDataForRequest: (request) => { throw new Error(); },
   });
 
   const selectDataUseCase = () => ({
     selectFromRawData: (request, response) => {
       response.addSelectedData('selectedData');
 
-      return { request, response };
+      return response;
     },
   });
 
   const failedSelectDataUseCase = () => ({
-    selectFromRawData: (request, response) => {
-      request.state.markAsFailed();
+    selectFromRawData: (request, response) => { throw new Error(); },
+  });
 
-      return { request };
+  const sendResponseToOracleUseCase = () => ({
+    sendResponse: (response) => {
+      response.state.markAsSent();
+
+      return response;
     },
   });
 
@@ -72,6 +73,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
     const sut = new ExecuteReadyRequestsUseCase(
       fetchDataUseCase(),
       selectDataUseCase(),
+      sendResponseToOracleUseCase(),
       requestRepository(),
       responseRepository(),
       logger(),
@@ -79,12 +81,13 @@ describe('ExecuteReadyRequestsUseCase', () => {
     // when
     await sut.executeReadyRequests();
     // then
+
     const response = await sut.responseRepository.list()[0];
     expect(response.requestId).to.equal('123');
     expect(response.fetchedData).to.equal('fetchedData');
     expect(response.selectedData).to.equal('selectedData');
     expect(response.state.name).to.equal('Sent');
-    expect(sut.logger.list()).to.have.lengthOf(3);
+    expect(sut.logger.list()).to.have.lengthOf(2);
   });
 
   it('should mark request as failed if cannot fetch data', async () => {
@@ -92,6 +95,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
     const sut = new ExecuteReadyRequestsUseCase(
       failedFetchDataUseCase(),
       selectDataUseCase(),
+      sendResponseToOracleUseCase(),
       requestRepository(),
       responseRepository(),
       logger(),
@@ -107,6 +111,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
     const sut = new ExecuteReadyRequestsUseCase(
       fetchDataUseCase(),
       failedSelectDataUseCase(),
+      sendResponseToOracleUseCase(),
       requestRepository(),
       responseRepository(),
       logger(),

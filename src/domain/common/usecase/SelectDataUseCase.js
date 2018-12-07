@@ -1,7 +1,6 @@
 class SelectDataUseCase {
-  constructor(dataSelectorFinder, responseRepository, logger) {
+  constructor(dataSelectorFinder, logger) {
     this.dataSelectorFinder = dataSelectorFinder;
-    this.responseRepository = responseRepository;
     this.logger = logger;
   }
 
@@ -10,14 +9,13 @@ class SelectDataUseCase {
     const path = request.getSelectionPath();
     const selectedData = this._selectData(response.fetchedData, contentType, path);
     this.logger.info(`
-      Data selected: ${selectedData} 
-      [fetchedData=${response.fetchedData},contentType=${contentType},path=${path}
-     `);
+    Data selected: ${selectedData} 
+    [fetchedData=${response.fetchedData},contentType=${contentType},path=${path}
+   `);
 
     response.addSelectedData(selectedData);
-    this.responseRepository.save(response);
 
-    return { request, response };
+    return response;
   }
 
   _selectData(fetchedData, contentType, path) {

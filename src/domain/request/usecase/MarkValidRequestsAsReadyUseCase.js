@@ -10,8 +10,8 @@ class MarkValidRequestsAsReadyUseCase {
 
     requests.forEach((request) => {
       request.state.markAsReady();
-      this.logger.info(`Request ${request.id} marked as ready`);
       this.requestRepository.save(request);
+      this.logger.info(`Request ${request.id} marked as ready`);
     });
   }
 }

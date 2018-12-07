@@ -6,14 +6,6 @@ const RequestStateEnum = require('../../request/RequestStateEnum');
 const Response = require('../../response/Response');
 
 describe('SelectDataUseCase', () => {
-  const repository = () => {
-    const requests = [];
-    return {
-      save: req => requests.push(req),
-      list: () => requests,
-    };
-  };
-
   const logger = () => {
     const logs = [];
     return {
@@ -28,14 +20,14 @@ describe('SelectDataUseCase', () => {
 
   it('should select appropriate data from fetch one', async () => {
     // given
-    const sut = new SelectDataUseCase(finder(), repository(), logger());
+    const sut = new SelectDataUseCase(finder(), logger());
     const request = new Request('id', 'json(http://xample.com).key1', Date.now(), RequestStateEnum.PROCESSED);
-    const response = new Response('id');
+    let response = new Response('id');
     response.addFetchedData('fetchedData');
     // when
-    const { request: req, response: responseWithSelectedData } = await sut.selectFromRawData(request, response);
+    response = await sut.selectFromRawData(request, response);
     // then
-    expect(responseWithSelectedData.selectedData).to.equal('selectedData');
+    expect(response.selectedData).to.equal('selectedData');
     expect(sut.logger.list()).to.have.lengthOf(1);
   });
 });

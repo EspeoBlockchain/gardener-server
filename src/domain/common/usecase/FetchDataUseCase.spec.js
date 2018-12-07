@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 const { describe, it } = require('mocha');
-const { expect } = require('chai');
+const { expect } = require('chai').use(require('chai-as-promised'));
 const FetchDataUseCase = require('./FetchDataUseCase');
 const Request = require('../../request/Request');
 const RequestStateEnum = require('../../request/RequestStateEnum');
@@ -28,20 +28,17 @@ describe('FetchDataUseCase', () => {
     const request = new Request('1', 'json(http://example.com).key1', Date.now());
     const sut = new FetchDataUseCase(crawler(), logger());
     // when
-    const { request: finalRequest, response } = await sut.fetchDataForRequest(request);
+    const response = await sut.fetchDataForRequest(request);
     // then
     expect(response.requestId).to.equal('1');
     expect(response.fetchedData).to.equal(JSON.stringify({ key1: 'value1' }));
     expect(sut.logger.list()).to.have.lengthOf(2);
   });
 
-  it('should return request marked as failed if data fetch was failed', async () => {
+  it('should throw error if data fetch was failed', () => {
     const request = new Request('1', 'json(http://example.com).key1', Date.now(), RequestStateEnum.PROCESSED);
     const sut = new FetchDataUseCase(brokenDataClient(), logger());
     // when
-    const { request: finalRequest } = await sut.fetchDataForRequest(request);
-    // then
-    expect(finalRequest.state.name).to.equal('Failed');
-    expect(sut.logger.list()).to.have.lengthOf(1);
+    return expect(sut.fetchDataForRequest(request)).to.be.rejected;
   });
 });
