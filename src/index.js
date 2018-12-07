@@ -8,7 +8,6 @@ const EventBus = require('./infrastructure/event/EventBus');
 const web3 = require('./infrastructure/blockchain/ethereum/createAndUnlockWeb3');
 const oracleAbi = require('./config/abi/oracle.abi');
 
-const CreateRequestEvent = require('./infrastructure/event/CreateRequestEvent');
 const CreateRequestEventHandler = require('./infrastructure/event/CreateRequestEventHandler');
 const CurrentBlockEventHandler = require('./infrastructure/event/CurrentBlockEventHandler');
 
@@ -60,8 +59,8 @@ const checkHealthStatusUseCase = new CheckHealthStatusUseCase();
 
 const eventBus = new EventBus();
 
-const createRequestEventHandler = new CreateRequestEventHandler(createRequestUseCase, eventBus);
-const currentBlockEventHandler = new CurrentBlockEventHandler(fetchNewOracleRequestsUseCase, eventBus);
+new CreateRequestEventHandler(createRequestUseCase, eventBus);
+new CurrentBlockEventHandler(fetchNewOracleRequestsUseCase, eventBus);
 
 const markValidRequestsAsReadyScheduler = new MarkValidRequestsAsReadyScheduler(markValidRequestsAsReadyUseCase);
 markValidRequestsAsReadyScheduler.schedule();
@@ -77,16 +76,3 @@ const port = process.env.API_PORT;
 require('./infrastructure/systemHealth/statusEndpoint')(app, checkHealthStatusUseCase);
 app.listen(port);
 
-// const event1 = new CreateRequestEvent('id1', 'url1', Date.now());
-// const event2 = new CreateRequestEvent('id2', 'url2', Date.now() - 1000);
-// const event3 = new CreateRequestEvent('id3', 'url3', Date.now() + 1000000);
-//
-// setTimeout(() => eventBus.emit(CreateRequestEvent.name(), event1), 1000);
-// setTimeout(() => eventBus.emit(CreateRequestEvent.name(), event2), 2000);
-// setTimeout(() => eventBus.emit(CreateRequestEvent.name(), event3), 3000);
-
-// setTimeout(() => {
-//   console.log(Array.from(requestRepository.requests.values()).map(r => _.pick(r, ['id', 'state'])));
-//   console.log(Array.from(responseRepository.responses.values()).map(r => _.pick(r, ['requestId', 'state'])));
-//   process.exit(1);
-// }, 15000);
