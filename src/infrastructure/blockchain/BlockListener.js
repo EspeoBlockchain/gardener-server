@@ -3,10 +3,11 @@ const CurrentBlockEvent = require('../event/CurrentBlockEvent');
 const CHECK_INTERVAL_MILLIS = 5000;
 
 class BlockListener {
-  constructor(eventBus, blockchain, logger) {
+  constructor(eventBus, blockchain, logger, safeBlockDelay) {
     this.eventBus = eventBus;
     this.blockchain = blockchain;
     this.logger = logger;
+    this.safeBlockDelay = safeBlockDelay;
   }
 
   listen() {
@@ -15,9 +16,10 @@ class BlockListener {
 
   async pollBlockNumber() {
     const blockNumber = await this.blockchain.getBlockNumber();
-    this.logger.info(`Block number: ${blockNumber}`);
+    const safeBlockNumber = blockNumber - this.safeBlockDelay;
+    this.logger.info(`Block number: ${safeBlockNumber}`);
 
-    const event = new CurrentBlockEvent(blockNumber);
+    const event = new CurrentBlockEvent(safeBlockNumber);
     this.eventBus.emit(CurrentBlockEvent.name(), event);
   }
 }

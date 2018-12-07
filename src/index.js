@@ -68,7 +68,7 @@ const executeReadyRequestsScheduler = new ExecuteReadyRequestsScheduler(executeR
 executeReadyRequestsScheduler.schedule();
 
 const blockchain = new Blockchain(web3);
-const blockListener = new BlockListener(eventBus, blockchain, logger);
+const blockListener = new BlockListener(eventBus, blockchain, logger, process.env.SAFE_BLOCK_DELAY);
 blockListener.listen();
 
 const app = express();
