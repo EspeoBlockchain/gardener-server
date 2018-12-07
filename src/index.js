@@ -49,7 +49,7 @@ const dataSelectorFinder = new DataSelectorFinder([jsonSelector, xmlSelector, id
 
 
 const createRequestUseCase = new CreateRequestUseCase(requestRepository, logger);
-const fetchNewOracleRequestsUseCase = new FetchNewOracleRequestsUseCase(oracle, logger);
+const fetchNewOracleRequestsUseCase = new FetchNewOracleRequestsUseCase(oracle, logger, process.env.START_BLOCK);
 const markValidRequestsAsReadyUseCase = new MarkValidRequestsAsReadyUseCase(requestRepository);
 const fetchDataUseCase = new FetchDataUseCase(dataClient, logger);
 const selectDataUseCase = new SelectDataUseCase(dataSelectorFinder, logger);

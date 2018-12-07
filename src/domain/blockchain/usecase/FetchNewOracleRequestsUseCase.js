@@ -1,9 +1,9 @@
 class FetchNewOracleRequestsUseCase {
-  constructor(oracle, logger) {
+  constructor(oracle, logger, startBlockNumber = 0) {
     this.oracle = oracle;
     this.logger = logger;
 
-    this.lastBlock = 0;
+    this.lastBlock = startBlockNumber - 1;
   }
 
   async fetchNewRequests(blockNumber) {

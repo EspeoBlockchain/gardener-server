@@ -20,7 +20,7 @@ describe('FetchNewOracleRequestUseCase', () => {
 
   beforeEach(() => {
     // given
-    sut = new FetchNewOracleRequestsUseCase(oracle(), logger());
+    sut = new FetchNewOracleRequestsUseCase(oracle(), logger(), 1);
   });
 
   it('should fetch new oracle responses', async () => {
