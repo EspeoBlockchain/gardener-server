@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 const jp = require('jsonpath');
 const DataSelectorPort = require('../domain/common/port/DataSelectorPort');
 

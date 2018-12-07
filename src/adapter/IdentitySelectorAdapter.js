@@ -1,4 +1,4 @@
-/* eslint-disable class-methods-use-this, no-unused-vars */
+/* eslint-disable no-unused-vars */
 const DataSelectorPort = require('../domain/common/port/DataSelectorPort');
 
 class IdentitySelectorAdapter extends DataSelectorPort {

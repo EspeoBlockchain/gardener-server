@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 const axios = require('axios');
 const DataClient = require('../domain/common/port/DataClient');
 

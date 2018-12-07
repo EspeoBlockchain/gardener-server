@@ -1,5 +1,5 @@
 const RequestRepositoryPort = require('../domain/request/port/RequestRepositoryPort');
-const RequestStateEnum = require('../domain/request/RequestStateEnum');
+const { SCHEDULED, READY } = require('../domain/request/RequestStateEnum');
 
 class InMemoryRequestRepositoryAdapter extends RequestRepositoryPort {
   constructor() {
@@ -12,15 +12,14 @@ class InMemoryRequestRepositoryAdapter extends RequestRepositoryPort {
   }
 
   getScheduledRequestsWithValidFromBeforeNow() {
-    return Array.from(this.requests.values()).filter(
-      request => request.state.name === RequestStateEnum.SCHEDULED
-        && request.validFrom < Date.now(),
-    );
+    return Array.from(this.requests.values())
+      .filter(request => request.state.name === SCHEDULED)
+      .filter(request => request.validFrom < Date.now());
   }
 
   getReadyRequests() {
     return Array.from(this.requests.values())
-      .filter(request => request.state.name === RequestStateEnum.READY);
+      .filter(request => request.state.name === READY);
   }
 }
 

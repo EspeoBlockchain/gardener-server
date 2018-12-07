@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 const xpath = require('xpath');
 const { XMLSerializer, DOMParser } = require('xmldom');
 const DataSelectorPort = require('../domain/common/port/DataSelectorPort');
