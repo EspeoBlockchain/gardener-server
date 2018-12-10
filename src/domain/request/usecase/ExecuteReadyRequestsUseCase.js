@@ -28,7 +28,6 @@ class ExecuteReadyRequestsUseCase {
         response = await this.sendResponseToOracleUseCase.sendResponse(response);
         this.responseRepository.save(response);
       } catch (e) {
-        console.log(e);
         request.state.markAsFailed();
         this.requestRepository.save(request);
         this.logger.error(`Request marked as failed [requestId=${request.id}]`);

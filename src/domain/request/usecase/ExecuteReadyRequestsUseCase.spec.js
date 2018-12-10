@@ -27,7 +27,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
   };
 
   const fetchDataUseCase = () => ({
-    fetchData: (requestId, url) => {
+    fetchData: (requestId) => {
       const response = new Response(requestId);
       response.addFetchedData('fetchedData');
 
