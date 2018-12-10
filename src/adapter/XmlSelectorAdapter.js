@@ -9,12 +9,13 @@ class XmlSelectorAdapter extends DataSelectorPort {
 
   select(data, path) {
     const doc = (new DOMParser()).parseFromString(data);
+    const { firstChild } = xpath.select(path, doc)[0];
 
-    if (xpath.select(path, doc)[0].firstChild.data) {
-      return xpath.select(path, doc)[0].firstChild.data;
+    if (firstChild.data) {
+      return firstChild.data;
     }
 
-    return (new XMLSerializer()).serializeToString(xpath.select(path, doc)[0].firstChild);
+    return (new XMLSerializer()).serializeToString(firstChild);
   }
 }
 

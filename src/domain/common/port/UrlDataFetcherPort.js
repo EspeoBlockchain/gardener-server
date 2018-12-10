@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 
-class DataClient {
+class UrlDataFetcherPort {
   fetch(url) {
     throw new Error('Not implemented');
   }
 }
 
-module.exports = DataClient;
+module.exports = UrlDataFetcherPort;

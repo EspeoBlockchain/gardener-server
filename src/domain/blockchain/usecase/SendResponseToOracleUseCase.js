@@ -7,13 +7,13 @@ class SendResponseToOracleUseCase {
   async sendResponse(response) {
     try {
       await this.oracle.sendResponse(response);
-      this.logger.info(`Response for request ${response.requestId} sent to blockchain`);
+      this.logger.info(`Response sent to blockchain  [requestId=${response.requestId}]`);
       response.state.markAsSent();
-      this.logger.info(`Response for request ${response.requestId} marked as sent`);
+      this.logger.info(`Response marked as sent [requestId=${response.requestId}]`);
     } catch (e) {
-      this.logger.error(`Cannot send response for request ${response.requestId} to blockchain`);
+      this.logger.error(`Failed to send response to blockchain [requestId=${response.requestId}]`);
       response.state.markAsFailed();
-      this.logger.info(`Response for request ${response.requestId} marked as failed`);
+      this.logger.info(`Response marked as failed [requestId=${response.requestId}]`);
     }
 
     return response;

@@ -4,9 +4,9 @@ const responseBody = {
 
 const statusEndpoint = (app, checkHealthStatusUseCase) => {
   app.get('/status', (req, res) => {
-    const { server } = checkHealthStatusUseCase.checkHeathStatus();
+    const { server: isAlive } = checkHealthStatusUseCase.checkStatus();
 
-    if (server) {
+    if (isAlive) {
       responseBody.status = 'alive';
     }
 

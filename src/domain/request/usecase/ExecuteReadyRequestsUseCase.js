@@ -20,22 +20,24 @@ class ExecuteReadyRequestsUseCase {
 
     const promises = requests.map(async (request) => {
       request.state.markAsProcessed();
-      this.logger.info(`Request ${request.id} marked as processed`);
+      this.requestRepository.save(request);
+      this.logger.info(`Request marked as processed [requestId=${request.id}]`);
       try {
-        let response = await this.fetchDataUseCase.fetchDataForRequest(request);
+        let response = await this.fetchDataUseCase.fetchData(request.id, request.getRawUrl());
         response = await this.selectDataUseCase.selectFromRawData(request, response);
         response = await this.sendResponseToOracleUseCase.sendResponse(response);
         this.responseRepository.save(response);
       } catch (e) {
+        console.log(e);
         request.state.markAsFailed();
         this.requestRepository.save(request);
-        this.logger.error(`Request ${request.id} marked as failed`);
+        this.logger.error(`Request marked as failed [requestId=${request.id}]`);
         return;
       }
 
       request.state.markAsFinished();
       this.requestRepository.save(request);
-      this.logger.info(`Request ${request.id} marked as finished`);
+      this.logger.info(`Request marked as finished [requestId=${request.id}]`);
     });
 
     return Promise.all(promises);

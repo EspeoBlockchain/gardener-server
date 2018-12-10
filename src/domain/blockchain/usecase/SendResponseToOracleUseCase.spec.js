@@ -15,21 +15,21 @@ describe('SendResponseUseCase', () => {
 
   it('should send response back to oracle and mark response as sent', async () => {
     // given
-    let response = new Response('id');
+    const response = new Response('id');
     const sut = new SendResponseToOracleUseCase(oracle(), logger());
     // when
-    response = await sut.sendResponse(response);
+    const actual = await sut.sendResponse(response);
     // then
-    expect(response.state.name).to.equal('Sent');
+    expect(actual.state.name).to.equal('Sent');
   });
 
   it('should mark response as failed if sending failed', async () => {
     // given
-    let response = new Response('id');
+    const response = new Response('id');
     const sut = new SendResponseToOracleUseCase(failingOracle(), logger());
     // when
-    response = await sut.sendResponse(response);
+    const actual = await sut.sendResponse(response);
     // then
-    expect(response.state.name).to.equal('Failed');
+    expect(actual.state.name).to.equal('Failed');
   });
 });

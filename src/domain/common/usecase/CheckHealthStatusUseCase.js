@@ -1,8 +1,6 @@
 class CheckHealthStatusUseCase {
-  checkHeathStatus() {
-    const server = true;
-
-    return { server };
+  checkStatus() {
+    return { server: true };
   }
 }
 

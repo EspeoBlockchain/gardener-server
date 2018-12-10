@@ -11,7 +11,7 @@ describe('SelectDataUseCase', () => {
     find: () => ({ select: () => 'selectedData' }),
   });
 
-  it('should select appropriate data from fetch one', async () => {
+  it('should select appropriate data', async () => {
     // given
     const sut = new SelectDataUseCase(finder(), logger());
     const request = new Request('id', 'json(http://xample.com).key1', Date.now(), RequestStateEnum.PROCESSED);

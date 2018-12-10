@@ -12,7 +12,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
     const requests = [];
 
     return {
-      getReadyRequests: () => [new Request('123', '123', Date.now() - oneMinuteMillis)],
+      getReadyRequests: () => [new Request('123', 'json(http://example.com).key1', Date.now() - oneMinuteMillis)],
       list: () => requests,
       save: request => requests.push(request),
     };
@@ -27,8 +27,8 @@ describe('ExecuteReadyRequestsUseCase', () => {
   };
 
   const fetchDataUseCase = () => ({
-    fetchDataForRequest: (request) => {
-      const response = new Response(request.id);
+    fetchData: (requestId, url) => {
+      const response = new Response(requestId);
       response.addFetchedData('fetchedData');
 
       return response;
@@ -72,7 +72,6 @@ describe('ExecuteReadyRequestsUseCase', () => {
     // when
     await sut.executeReadyRequests();
     // then
-
     const response = await sut.responseRepository.list()[0];
     expect(response.requestId).to.equal('123');
     expect(response.fetchedData).to.equal('fetchedData');
@@ -81,7 +80,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
     expect(sut.logger.list()).to.have.lengthOf(2);
   });
 
-  it('should mark request as failed if cannot fetch data', async () => {
+  it('should mark request as failed if data cannot be fetched', async () => {
     // given
     const sut = new ExecuteReadyRequestsUseCase(
       failedFetchDataUseCase(),
@@ -97,7 +96,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
     expect(sut.requestRepository.list()[0].state.name).to.equal('Failed');
   });
 
-  it('should mark request as failed if cannot select data', async () => {
+  it('should mark request as failed if data cannot be selected', async () => {
     // given
     const sut = new ExecuteReadyRequestsUseCase(
       fetchDataUseCase(),

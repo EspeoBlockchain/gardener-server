@@ -26,7 +26,7 @@ describe('FetchNewOracleRequestUseCase', () => {
     expect(sut.logger.list().length).to.equal(1);
   });
 
-  it('should return empty array if new block is equal current one', async () => {
+  it('should return empty array if new block is equal to current one', async () => {
     // when
     const requests = await sut.fetchNewRequests(0);
     // then
