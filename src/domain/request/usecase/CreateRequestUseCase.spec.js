@@ -1,6 +1,7 @@
 const { describe, it } = require('mocha');
 const { expect } = require('chai');
 const CreateRequestUseCase = require('./CreateRequestUseCase');
+const { logger } = require('../../common/utils/TestMocks');
 
 describe('CreateRequestUseCase', () => {
   const repository = () => {
@@ -8,14 +9,6 @@ describe('CreateRequestUseCase', () => {
     return {
       save: req => requests.push(req),
       list: () => requests,
-    };
-  };
-
-  const logger = () => {
-    const logs = [];
-    return {
-      info: log => logs.push(log),
-      list: () => logs,
     };
   };
 

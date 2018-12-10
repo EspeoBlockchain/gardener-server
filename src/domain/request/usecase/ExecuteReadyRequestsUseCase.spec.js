@@ -3,6 +3,7 @@ const { expect } = require('chai');
 const ExecuteReadyRequestsUseCase = require('./ExecuteReadyRequestsUseCase');
 const Request = require('../Request');
 const Response = require('../../response/Response');
+const { logger } = require('../../common/utils/TestMocks');
 
 describe('ExecuteReadyRequestsUseCase', () => {
   const oneMinuteMillis = 60 * 1000;
@@ -22,16 +23,6 @@ describe('ExecuteReadyRequestsUseCase', () => {
     return {
       save: res => responses.push(res),
       list: () => responses,
-    };
-  };
-
-
-  const logger = () => {
-    const logs = [];
-    return {
-      info: log => logs.push(log),
-      error: log => logs.push(log),
-      list: () => logs,
     };
   };
 

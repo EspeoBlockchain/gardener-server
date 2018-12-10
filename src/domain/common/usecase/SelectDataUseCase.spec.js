@@ -4,16 +4,9 @@ const SelectDataUseCase = require('./SelectDataUseCase');
 const Request = require('../../request/Request');
 const RequestStateEnum = require('../../request/RequestStateEnum');
 const Response = require('../../response/Response');
+const { logger } = require('../utils/TestMocks');
 
 describe('SelectDataUseCase', () => {
-  const logger = () => {
-    const logs = [];
-    return {
-      info: log => logs.push(log),
-      list: () => logs,
-    };
-  };
-
   const finder = () => ({
     find: () => ({ select: () => 'selectedData' }),
   });

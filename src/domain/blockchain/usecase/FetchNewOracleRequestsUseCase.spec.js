@@ -1,20 +1,13 @@
 const { describe, it, beforeEach } = require('mocha');
 const { expect } = require('chai');
 const FetchNewOracleRequestsUseCase = require('./FetchNewOracleRequestsUseCase');
+const { logger } = require('../../common/utils/TestMocks');
 
 describe('FetchNewOracleRequestUseCase', () => {
   const oracle = () => ({
     // eslint-disable-next-line no-unused-vars
     getRequests: (fromBlock, toBlock) => Promise.resolve([{ id: 'abc', url: 'abc', validFrom: Date.now() }]),
   });
-
-  const logger = () => {
-    const logs = [];
-    return {
-      info: log => logs.push(log),
-      list: () => logs,
-    };
-  };
 
   let sut;
 

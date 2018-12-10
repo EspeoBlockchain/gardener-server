@@ -4,6 +4,7 @@ const { expect } = require('chai').use(require('chai-as-promised'));
 const FetchDataUseCase = require('./FetchDataUseCase');
 const Request = require('../../request/Request');
 const RequestStateEnum = require('../../request/RequestStateEnum');
+const { logger } = require('../utils/TestMocks');
 
 describe('FetchDataUseCase', () => {
   const crawler = () => ({
@@ -13,15 +14,6 @@ describe('FetchDataUseCase', () => {
   const brokenDataClient = () => ({
     fetch: (url) => { throw new Error(); },
   });
-
-  const logger = () => {
-    const logs = [];
-    return {
-      info: log => logs.push(log),
-      error: log => logs.push(log),
-      list: () => logs,
-    };
-  };
 
   it('should fetch data for request, create response and pass result into it', async () => {
     // given

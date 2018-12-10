@@ -2,6 +2,7 @@ const { describe, it } = require('mocha');
 const { expect } = require('chai');
 const SendResponseToOracleUseCase = require('./SendResponseToOracleUseCase');
 const Response = require('../../response/Response');
+const { logger } = require('../../common/utils/TestMocks');
 
 describe('SendResponseUseCase', () => {
   const oracle = () => ({
@@ -11,15 +12,6 @@ describe('SendResponseUseCase', () => {
   const failingOracle = () => ({
     sendResponse: () => { throw new Error(); },
   });
-
-  const logger = () => {
-    const logs = [];
-    return {
-      info: log => logs.push(log),
-      error: log => logs.push(log),
-      list: () => logs,
-    };
-  };
 
   it('should send response back to oracle and mark response as sent', async () => {
     // given

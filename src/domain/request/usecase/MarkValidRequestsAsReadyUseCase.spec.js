@@ -5,6 +5,7 @@ const { expect } = require('chai');
 const Request = require('../Request');
 const RequestStateEnum = require('../RequestStateEnum');
 const MarkValidRequestsAsReadyUseCase = require('./MarkValidRequestsAsReadyUseCase');
+const { logger } = require('../../common/utils/TestMocks');
 
 describe('CreateRequestUseCase', () => {
   const repository = () => {
@@ -14,14 +15,6 @@ describe('CreateRequestUseCase', () => {
       list: () => requests,
       getScheduledRequestsWithValidFromBeforeNow: () => requests,
       getById: id => requests[0],
-    };
-  };
-
-  const logger = () => {
-    const logs = [];
-    return {
-      info: log => logs.push(log),
-      list: () => logs,
     };
   };
 
