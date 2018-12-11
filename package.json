@@ -4,8 +4,8 @@
   "description": "Off-chain oracle server for listening on data requests from Ethereum blockchain",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "NODE_ENV=test nyc mocha test/* --timeout 10000",
+    "start": "node src/index.js",
+    "test": "mocha 'src/**/*.spec.js'",
     "ganache": "ganache-cli -d",
     "lint": "eslint . --fix"
   },
@@ -19,6 +19,11 @@
     "url": "https://github.com/espeo/blockchain-oracle-server/issues"
   },
   "homepage": "https://github.com/espeo/blockchain-oracle-server",
+  "nyc": {
+    "exclude": [
+      "**/*.spec.js"
+    ]
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "delay": "^4.1.0",

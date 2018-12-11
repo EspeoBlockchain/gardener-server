@@ -40,4 +40,4 @@ jobs:
 
       - run:
           name: Generate coverage
-          command: NODE_ENV=test npx nyc --reporter=text-lcov mocha test/* --timeout 10000 | npx coveralls
+          command: npx nyc --reporter=text-lcov npm test | npx coveralls
