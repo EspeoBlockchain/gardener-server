@@ -1,6 +1,6 @@
 class CheckHealthStatusUseCase {
   checkStatus() {
-    return { server: true };
+    return { isAlive: true };
   }
 }
 

@@ -8,8 +8,8 @@ describe('CheckHealthStatusUseCase', () => {
     // given
     const sut = new CheckHealthStatusUseCase();
     // when
-    const { server } = await sut.checkStatus();
+    const { isAlive } = await sut.checkStatus();
     // then
-    expect(server).to.equal(true);
+    expect(isAlive).to.equal(true);
   });
 });

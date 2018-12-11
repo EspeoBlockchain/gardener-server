@@ -2,6 +2,7 @@ const _ = require('lodash');
 const EventEmitter = require('events');
 const OracleGateway = require('../../../domain/blockchain/port/OracleGateway');
 
+const ONE_SECOND_MILLIS = 1000;
 
 class EthereumOracleAdapter extends OracleGateway {
   constructor(web3, abi, address) {
@@ -12,7 +13,7 @@ class EthereumOracleAdapter extends OracleGateway {
     this.emitter = new EventEmitter();
     this.guard = false;
 
-    setInterval(() => this._sendPendingResponse(), 1000);
+    setInterval(() => this._sendPendingResponse(), ONE_SECOND_MILLIS);
   }
 
   getRequests(fromBlock, toBlock) {

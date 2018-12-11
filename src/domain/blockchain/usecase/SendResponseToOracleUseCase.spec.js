@@ -10,7 +10,7 @@ describe('SendResponseUseCase', () => {
   });
 
   const failingOracle = () => ({
-    sendResponse: () => { throw new Error(); },
+    sendResponse: () => Promise.reject(new Error()),
   });
 
   it('should send response back to oracle without throwing error', async () => {

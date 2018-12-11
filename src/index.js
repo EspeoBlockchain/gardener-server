@@ -1,7 +1,6 @@
-/* eslint-disable */
+/* eslint-disable no-new */
 
 require('dotenv').load();
-const _ = require('lodash');
 const express = require('express');
 
 const { EventBus } = require('./infrastructure/event');
@@ -26,13 +25,13 @@ const {
 const {
   CreateRequestUseCase,
   MarkValidRequestsAsReadyUseCase,
-  ExecuteReadyRequestsUseCase
+  ExecuteReadyRequestsUseCase,
 } = require('./domain/request/usecase');
 
 const {
   FetchDataUseCase,
   SelectDataUseCase,
-  CheckHealthStatusUseCase
+  CheckHealthStatusUseCase,
 } = require('./domain/common/usecase');
 
 const {
@@ -55,14 +54,24 @@ const identitySelector = new IdentitySelector();
 const dataSelectorFinder = new DataSelectorFinder([jsonSelector, xmlSelector, identitySelector]);
 
 
-
 const createRequestUseCase = new CreateRequestUseCase(requestRepository, logger);
-const fetchNewOracleRequestsUseCase = new FetchNewOracleRequestsUseCase(oracle, logger, process.env.START_BLOCK);
+const fetchNewOracleRequestsUseCase = new FetchNewOracleRequestsUseCase(
+  oracle,
+  logger,
+  process.env.START_BLOCK,
+);
 const markValidRequestsAsReadyUseCase = new MarkValidRequestsAsReadyUseCase(requestRepository);
 const fetchDataUseCase = new FetchDataUseCase(urlDataFetcher, logger);
 const selectDataUseCase = new SelectDataUseCase(dataSelectorFinder, logger);
 const sendResponseToOracleUseCase = new SendResponseToOracleUseCase(oracle, logger);
-const executeReadyRequestsUseCase = new ExecuteReadyRequestsUseCase(fetchDataUseCase, selectDataUseCase, sendResponseToOracleUseCase, requestRepository, responseRepository, logger);
+const executeReadyRequestsUseCase = new ExecuteReadyRequestsUseCase(
+  fetchDataUseCase,
+  selectDataUseCase,
+  sendResponseToOracleUseCase,
+  requestRepository,
+  responseRepository,
+  logger,
+);
 const checkHealthStatusUseCase = new CheckHealthStatusUseCase();
 
 const eventBus = new EventBus();
@@ -70,9 +79,13 @@ const eventBus = new EventBus();
 new CreateRequestEventHandler(createRequestUseCase, eventBus);
 new CurrentBlockEventHandler(fetchNewOracleRequestsUseCase, eventBus);
 
-const markValidRequestsAsReadyScheduler = new MarkValidRequestsAsReadyScheduler(markValidRequestsAsReadyUseCase);
+const markValidRequestsAsReadyScheduler = new MarkValidRequestsAsReadyScheduler(
+  markValidRequestsAsReadyUseCase,
+);
 markValidRequestsAsReadyScheduler.schedule();
-const executeReadyRequestsScheduler = new ExecuteReadyRequestsScheduler(executeReadyRequestsUseCase);
+const executeReadyRequestsScheduler = new ExecuteReadyRequestsScheduler(
+  executeReadyRequestsUseCase,
+);
 executeReadyRequestsScheduler.schedule();
 
 const blockchain = new Blockchain(web3);
@@ -82,5 +95,5 @@ blockListener.listen();
 const app = express();
 const port = process.env.API_PORT;
 require('./infrastructure/systemHealth/statusEndpoint')(app, checkHealthStatusUseCase);
-app.listen(port);
 
+app.listen(port);

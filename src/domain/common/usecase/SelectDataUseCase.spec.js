@@ -5,7 +5,7 @@ const { logger } = require('../utils/TestMocks');
 
 describe('SelectDataUseCase', () => {
   const finder = () => ({
-    find: () => ({ select: () => 'selectedData' }),
+    find: () => ({ select: () => Promise.resolve('selectedData') }),
   });
 
   it('should select appropriate data', async () => {

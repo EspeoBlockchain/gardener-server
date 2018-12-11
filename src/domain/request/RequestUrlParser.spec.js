@@ -1,14 +1,14 @@
 const { describe, it } = require('mocha');
 const { expect } = require('chai');
-const RequestUrlParserService = require('./RequestUrlParserService');
+const RequestUrlParser = require('./RequestUrlParser');
 
-describe('RequestUrlParserService', () => {
+describe('RequestUrlParser', () => {
   describe('resolving raw url from wrapped url', () => {
     it('should return raw http url', () => {
       // given
       const wrappedUrl = 'json(http://example.com).key1';
       // when
-      const rawUrl = RequestUrlParserService.resolveRawUrl(wrappedUrl);
+      const rawUrl = RequestUrlParser.resolveRawUrl(wrappedUrl);
 
       // then
       expect(rawUrl).to.equal('http://example.com');
@@ -18,7 +18,7 @@ describe('RequestUrlParserService', () => {
       // given
       const wrappedUrl = 'json(https://example.com).key1';
       // when
-      const rawUrl = RequestUrlParserService.resolveRawUrl(wrappedUrl);
+      const rawUrl = RequestUrlParser.resolveRawUrl(wrappedUrl);
 
       // then
       expect(rawUrl).to.equal('https://example.com');
@@ -28,7 +28,7 @@ describe('RequestUrlParserService', () => {
       // given
       const wrappedUrl = 'json(example.com).key1';
       // when
-      expect(() => RequestUrlParserService.resolveRawUrl(wrappedUrl)).to.throw();
+      expect(() => RequestUrlParser.resolveRawUrl(wrappedUrl)).to.throw();
     });
   });
 
@@ -37,7 +37,7 @@ describe('RequestUrlParserService', () => {
       // given
       const wrappedUrl = 'json(http://someurl.example.com).value1';
       // when
-      const type = RequestUrlParserService.resolveContentType(wrappedUrl);
+      const type = RequestUrlParser.resolveContentType(wrappedUrl);
       // then
       expect(type).to.equal('json');
     });
@@ -46,7 +46,7 @@ describe('RequestUrlParserService', () => {
       // given
       const wrappedUrl = 'xml(http://someurl.example.com)/value1';
       // when
-      const type = RequestUrlParserService.resolveContentType(wrappedUrl);
+      const type = RequestUrlParser.resolveContentType(wrappedUrl);
       // then
       expect(type).to.equal('xml');
     });
@@ -55,7 +55,7 @@ describe('RequestUrlParserService', () => {
       // given
       const wrappedUrl = 'html(http://someurl.example.com)/html/head';
       // when
-      const type = RequestUrlParserService.resolveContentType(wrappedUrl);
+      const type = RequestUrlParser.resolveContentType(wrappedUrl);
       // then
       expect(type).to.equal('html');
     });
@@ -64,7 +64,7 @@ describe('RequestUrlParserService', () => {
       // given
       const wrappedUrl = 'ipfs(QmT78zSuBmuS4z925WZfrqQ1qHaJ56DQaTfyMUF7F8ff5o)';
       // when
-      const type = RequestUrlParserService.resolveContentType(wrappedUrl);
+      const type = RequestUrlParser.resolveContentType(wrappedUrl);
       // then
       expect(type).to.equal('ipfs');
     });
@@ -73,7 +73,7 @@ describe('RequestUrlParserService', () => {
       // given
       const wrappedUrl = 'notexist(http://someurl.example.com).value1';
       // when
-      expect(() => RequestUrlParserService.resolveContentType(wrappedUrl)).to.throw();
+      expect(() => RequestUrlParser.resolveContentType(wrappedUrl)).to.throw();
     });
   });
 
@@ -82,7 +82,7 @@ describe('RequestUrlParserService', () => {
       // given
       const wrappedUrl = 'json(http://someurl.example.com).value1';
       // when
-      const path = RequestUrlParserService.resolveSelectionPath(wrappedUrl);
+      const path = RequestUrlParser.resolveSelectionPath(wrappedUrl);
       // then
       expect(path).to.equal('.value1');
     });

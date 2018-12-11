@@ -1,4 +1,4 @@
-/* eslint-disable no-console, class-methods-use-this */
+/* eslint-disable no-console */
 
 const LoggerPort = require('../domain/common/port/LoggerPort');
 

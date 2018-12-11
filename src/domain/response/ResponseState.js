@@ -7,7 +7,7 @@ const FAILED = 'Failed';
 class ResponseState extends State {
   constructor() {
     super();
-    this._setState(PROCESSED, name => name === undefined);
+    this._setState(PROCESSED, () => true);
   }
 
   markAsSent() {

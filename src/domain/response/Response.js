@@ -15,7 +15,7 @@ class Response {
 
   addSelectedData(selectedData) {
     if (!this.fetchedData) {
-      throw new Error('Cannot add selected data when fetched data not added');
+      throw new Error('Cannot add selected data without fetched data');
     }
     if (this.selectedData) {
       throw new Error('Selected data already added');

@@ -1,5 +1,5 @@
 const RequestStateFactory = require('./RequestStateFactory');
-const RequestUrlParser = require('./RequestUrlParserService');
+const RequestUrlParser = require('./RequestUrlParser');
 const RequestState = require('./RequestState');
 
 class Request {

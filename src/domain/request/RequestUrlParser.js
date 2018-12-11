@@ -1,4 +1,4 @@
-class RequestUrlParserService {
+class RequestUrlParser {
   static resolveRawUrl(wrappedUrl) {
     const urlRegex = new RegExp(/\(https?:\/\/.+\)/);
     const matched = urlRegex.exec(wrappedUrl);
@@ -28,4 +28,4 @@ class RequestUrlParserService {
   }
 }
 
-module.exports = RequestUrlParserService;
+module.exports = RequestUrlParser;

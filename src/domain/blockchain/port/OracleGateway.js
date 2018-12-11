@@ -1,4 +1,4 @@
-/* eslint-disable */
+/* eslint-disable no-unused-vars */
 
 class OracleGateway {
   getRequests(fromBlock, toBlock) {
