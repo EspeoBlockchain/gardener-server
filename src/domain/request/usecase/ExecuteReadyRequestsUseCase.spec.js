@@ -2,7 +2,6 @@ const { describe, it } = require('mocha');
 const { expect } = require('chai');
 const ExecuteReadyRequestsUseCase = require('./ExecuteReadyRequestsUseCase');
 const Request = require('../Request');
-const Response = require('../../response/Response');
 const { logger } = require('../../common/utils/TestMocks');
 
 describe('ExecuteReadyRequestsUseCase', () => {
@@ -27,36 +26,23 @@ describe('ExecuteReadyRequestsUseCase', () => {
   };
 
   const fetchDataUseCase = () => ({
-    fetchData: (requestId) => {
-      const response = new Response(requestId);
-      response.addFetchedData('fetchedData');
-
-      return response;
-    },
+    fetchData: () => Promise.resolve('fetchedData'),
   });
 
   const failedFetchDataUseCase = () => ({
-    fetchDataForRequest: () => { throw new Error(); },
+    fetchData: () => Promise.reject(new Error()),
   });
 
   const selectDataUseCase = () => ({
-    selectFromRawData: (request, response) => {
-      response.addSelectedData('selectedData');
-
-      return response;
-    },
+    selectFromRawData: () => Promise.resolve('selectedData'),
   });
 
   const failedSelectDataUseCase = () => ({
-    selectFromRawData: () => { throw new Error(); },
+    selectFromRawData: () => Promise.reject(new Error()),
   });
 
   const sendResponseToOracleUseCase = () => ({
-    sendResponse: (response) => {
-      response.state.markAsSent();
-
-      return response;
-    },
+    sendResponse: () => Promise.resolve(),
   });
 
   it('should execute ready request which is finished after that and generate response', async () => {
@@ -77,7 +63,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
     expect(response.fetchedData).to.equal('fetchedData');
     expect(response.selectedData).to.equal('selectedData');
     expect(response.state.name).to.equal('Sent');
-    expect(sut.logger.list()).to.have.lengthOf(2);
+    expect(sut.logger.list()).to.have.lengthOf(4);
   });
 
   it('should mark request as failed if data cannot be fetched', async () => {

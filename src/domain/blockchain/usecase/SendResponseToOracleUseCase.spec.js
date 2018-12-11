@@ -1,5 +1,5 @@
 const { describe, it } = require('mocha');
-const { expect } = require('chai');
+const { expect } = require('chai').use(require('chai-as-promised'));
 const SendResponseToOracleUseCase = require('./SendResponseToOracleUseCase');
 const Response = require('../../response/Response');
 const { logger } = require('../../common/utils/TestMocks');
@@ -13,23 +13,19 @@ describe('SendResponseUseCase', () => {
     sendResponse: () => { throw new Error(); },
   });
 
-  it('should send response back to oracle and mark response as sent', async () => {
+  it('should send response back to oracle without throwing error', async () => {
     // given
     const response = new Response('id');
     const sut = new SendResponseToOracleUseCase(oracle(), logger());
-    // when
-    const actual = await sut.sendResponse(response);
-    // then
-    expect(actual.state.name).to.equal('Sent');
+    // when, then
+    return expect(sut.sendResponse(response)).to.be.fulfilled;
   });
 
-  it('should mark response as failed if sending failed', async () => {
+  it('should throw error when sending response failed', async () => {
     // given
     const response = new Response('id');
     const sut = new SendResponseToOracleUseCase(failingOracle(), logger());
-    // when
-    const actual = await sut.sendResponse(response);
-    // then
-    expect(actual.state.name).to.equal('Failed');
+    // when, then
+    return expect(sut.sendResponse(response)).to.be.rejected;
   });
 });
