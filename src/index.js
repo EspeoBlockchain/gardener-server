@@ -4,35 +4,43 @@ require('dotenv').load();
 const _ = require('lodash');
 const express = require('express');
 
-const EventBus = require('./infrastructure/event/EventBus');
-const web3 = require('./infrastructure/blockchain/ethereum/createAndUnlockWeb3');
+const { EventBus } = require('./infrastructure/event');
+const {
+  web3,
+  EthereumOracleAdapter: Oracle,
+  EthereumBlockchainAdapter: Blockchain,
+} = require('./infrastructure/blockchain/ethereum');
 const oracleAbi = require('./config/abi/oracle.abi');
+const { CreateRequestEventHandler, CurrentBlockEventHandler } = require('./infrastructure/event');
+const { MarkValidRequestsAsReadyScheduler, ExecuteReadyRequestsScheduler } = require('./infrastructure/scheduling');
+const {
+  ConsoleLoggerAdapter: Logger,
+  InMemoryRequestRepositoryAdapter: RequestRepository,
+  InMemoryResponseRepositoryAdapter: ResponseRepository,
+  AxiosUrlDataFetcherAdapter: UrlDataFetcher,
+  JsonSelectorAdapter: JsonSelector,
+  XmlSelectorAdapter: XmlSelector,
+  IdentitySelectorAdapter: IdentitySelector,
+} = require('./adapter');
 
-const CreateRequestEventHandler = require('./infrastructure/event/CreateRequestEventHandler');
-const CurrentBlockEventHandler = require('./infrastructure/event/CurrentBlockEventHandler');
+const {
+  CreateRequestUseCase,
+  MarkValidRequestsAsReadyUseCase,
+  ExecuteReadyRequestsUseCase
+} = require('./domain/request/usecase');
 
-const MarkValidRequestsAsReadyScheduler = require('./infrastructure/scheduling/MarkValidRequestsAsReadyScheduler');
-const ExecuteReadyRequestsScheduler = require('./infrastructure/scheduling/ExecuteReadyRequestsScheduler');
+const {
+  FetchDataUseCase,
+  SelectDataUseCase,
+  CheckHealthStatusUseCase
+} = require('./domain/common/usecase');
 
-const Logger = require('./adapter/ConsoleLoggerAdapter');
-const RequestRepository = require('./adapter/InMemoryRequestRepositoryAdapter');
-const ResponseRepository = require('./adapter/InMemoryResponseRepositoryAdapter');
-const Oracle = require('./infrastructure/blockchain/ethereum/EthereumOracleAdapter');
-const Blockchain = require('./infrastructure/blockchain/ethereum/EthereumBlockchainAdapter');
-const UrlDataFetcher = require('./adapter/AxiosUrlDataFetcherAdapter');
-const JsonSelector = require('./adapter/JsonSelectorAdapter');
-const XmlSelector = require('./adapter/XmlSelectorAdapter');
-const IdentitySelector = require('./adapter/IdentitySelectorAdapter');
+const {
+  FetchNewOracleRequestsUseCase,
+  SendResponseToOracleUseCase,
+} = require('./domain/blockchain/usecase');
 
 const DataSelectorFinder = require('./domain/common/DataSelectorFinder');
-const CreateRequestUseCase = require('./domain/request/usecase/CreateRequestUseCase');
-const FetchNewOracleRequestsUseCase = require('./domain/blockchain/usecase/FetchNewOracleRequestsUseCase');
-const MarkValidRequestsAsReadyUseCase = require('./domain/request/usecase/MarkValidRequestsAsReadyUseCase');
-const FetchDataUseCase = require('./domain/common/usecase/FetchDataUseCase');
-const SelectDataUseCase = require('./domain/common/usecase/SelectDataUseCase');
-const SendResponseToOracleUseCase = require('./domain/blockchain/usecase/SendResponseToOracleUseCase');
-const ExecuteReadyRequestsUseCase = require('./domain/request/usecase/ExecuteReadyRequestsUseCase');
-const CheckHealthStatusUseCase = require('./domain/common/usecase/CheckHealthStatusUseCase');
 
 const BlockListener = require('./infrastructure/blockchain/BlockListener');
 
