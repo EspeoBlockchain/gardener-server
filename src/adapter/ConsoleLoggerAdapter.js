@@ -7,8 +7,8 @@ class ConsoleLoggerAdapter extends LoggerPort {
     console.log(message);
   }
 
-  error(message) {
-    console.error(message);
+  error(message, error) {
+    console.error(message, error);
   }
 }
 

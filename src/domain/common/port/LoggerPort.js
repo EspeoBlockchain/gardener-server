@@ -5,7 +5,7 @@ class LoggerPort {
     throw new Error('Not implemented');
   }
 
-  error(message) {
+  error(message, error) {
     throw new Error('Not implemented');
   }
 }

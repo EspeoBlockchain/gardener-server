@@ -41,12 +41,7 @@ const stateMachine = [
   },
   {
     name: 'Processed state',
-    given: () => {
-      const state = new RequestState();
-      state.markAsReady();
-      state.markAsProcessed();
-      return state;
-    },
+    given: () => new RequestState('Processed'),
     correctTransitions: [
       {
         when: s => s.markAsFinished(),
@@ -65,13 +60,7 @@ const stateMachine = [
   },
   {
     name: 'Finished state',
-    given: () => {
-      const state = new RequestState();
-      state.markAsReady();
-      state.markAsProcessed();
-      state.markAsFinished();
-      return state;
-    },
+    given: () => new RequestState('Finished'),
     correctTransitions: [],
     incorrectTransitions: [
       { when: s => s.markAsScheduled() },
@@ -83,13 +72,7 @@ const stateMachine = [
   },
   {
     name: 'Failed state',
-    given: () => {
-      const state = new RequestState();
-      state.markAsReady();
-      state.markAsProcessed();
-      state.markAsFailed();
-      return state;
-    },
+    given: () => new RequestState('Failed'),
     correctTransitions: [],
     incorrectTransitions: [
       { when: s => s.markAsScheduled() },
