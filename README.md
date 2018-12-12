@@ -1,7 +1,7 @@
 # Oracle server
 
-[![CircleCI](https://circleci.com/gh/espeo/blockchain-oracle-server.svg?style=shield)](https://circleci.com/gh/espeo/blockchain-oracle-server)
-[![Coverage Status](https://coveralls.io/repos/github/espeo/blockchain-oracle-server/badge.svg)](https://coveralls.io/github/espeo/blockchain-oracle-server)
+[![CircleCI](https://circleci.com/gh/EspeoBlockchain/gardener-server.svg?style=shield)](https://circleci.com/gh/EspeoBlockchain/gardener-server)
+[![Coverage Status](https://coveralls.io/repos/github/EspeoBlockchain/gardener-server/badge.svg)](https://coveralls.io/github/EspeoBlockchain/gardener-server)
 
 This repository is a part of open source oracle project. Initially developed by Espeo Software. 
 Contains off-chain server for processing requests from the `Oracle` contract.
