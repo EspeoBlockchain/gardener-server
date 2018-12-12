@@ -1,6 +1,6 @@
 # Introduction
 
-To begin with, I'd like to welcome you to contribute to the open-source blockchain oracle project. Thank you for your effort, it's what makes this project a viable alternative to commercial solutions.
+To begin with, we'd like to welcome you to contribute to this project. Thank you for your effort, it's what makes this project a viable alternative to commercial solutions.
 
 Please read through these guidelines to get to know how to join the development, submit new issues, pull requests etc... This should increase the effectiveness of time spent by the maintainers.
 
@@ -30,21 +30,16 @@ For issues, code reviews etc. please be respectful and considerate, promote open
 
 # Getting started
 
-A general guide on contributing code to open source projects can be seen at [contribution-guide.org](https://www.contribution-guide.org).
-
-We've got two branches:
-- `dev` for new features
-- `master` as a stable production branch (and hotfixes)
-
-1. Fork the `dev` branch
+A general guide on contributing code to open source projects can be seen at [contribution-guide.org](https://www.contribution-guide.org). Here's a brief instruction:
+1. Fork the `master` branch
 1. Hack away
 1. Make sure you've met the DoD
-1. Create a merge request to the `dev` branch
+1. Create a merge request to the `master` branch
 1. Wait for code review and apply suggestions
 
 # How to report a bug
 
-First of all, any *security vulnerabilities should be submitted directly to security@espeo.eu*.
+First of all, **any security vulnerabilities should be submitted directly to security@espeo.eu**.
 
 Other bugs should be reported as GitHub issues. Please include:
 - a short description explaining the bug and its impact,
@@ -57,7 +52,7 @@ Other bugs should be reported as GitHub issues. Please include:
 
 # How to suggest a feature or enhancement
 
-If you think the project is lacking a certain feature or enhancement that could be useful for a wider audience please report this fact as a GitHub issue. Describe the potential use case, what problem it solves and why you would like to see this change implemented. If you have an idea of how it should be implemented please feel free to include such suggestions.
+If you think the project is lacking a certain feature or enhancement that could be useful for a wider audience please report this fact as a GitHub issue. Describe the potential use case, what problem it solves and why you would like to see this change implemented. If you also have an idea of how it should be implemented please feel free to include such suggestions.
 
 # Code review process
 
