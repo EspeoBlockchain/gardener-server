@@ -1,4 +1,4 @@
-# Oracle server
+# Gardener server
 
 [![CircleCI](https://circleci.com/gh/espeo/blockchain-oracle-server.svg?style=shield)](https://circleci.com/gh/espeo/blockchain-oracle-server)
 
@@ -9,6 +9,16 @@ Table of contents:
 - [Oracle theory](#oracle-theory)
 - [Architecture](#architecture)
 - [Installation](#installation)
+
+## What does the name mean?
+There is very pretty metaphore about smart contracts functioning into blockchain network. 
+
+Let's imagine a beautiful, big garden in which plants grows. Plants are extra natural and they can communicate with each other.
+Unfortunatelly the garden is surrounded by really high wall, so noone can see anything over it. Plants don't know anything about outside world even they want so very much.
+Luckily for them there is the Gardener, who comes to the garden in order to take care of plants. He relates them what they want to know about what happens outside the garden.
+Plants trusts everything what Gardener says, and he also feels weight of information he passed to the plants as he is their only version of truth about world outside.
+
+The Gardener is our fiction person made up for this project but we think it's a perfect match as a name.
 
 ## Oracle theory
 Oracle is a concept of getting informations from outside blockchain into smart contracts. Basically smart contracts cannot call anything which is outside the blockchain network. That's were oracle idea goes into. Smart contract emits event with needed informations and trusted offchain server listening on that parses it, get data from offchain data source and pass it back using it's credentials.
