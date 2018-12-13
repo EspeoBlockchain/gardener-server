@@ -18,6 +18,9 @@ Unfortunatelly the garden is surrounded by really high wall, so noone can see an
 Luckily for them there is the Gardener, who comes to the garden in order to take care of plants. He relates them what they want to know about what happens outside the garden.
 Plants trusts everything what Gardener says, and he also feels weight of information he passed to the plants as he is their only version of truth about world outside.
 
+Sometimes plants want to prove them information. Let's say that they want to know if any apples grows outside. They want to see an apple which isn't from the garden.
+Then Gardener has to bring an apple with him in order to convince plants that he says truth. Gardener knows that he has to always tell them truth, as if they would check him and discover that he lied, will never ever trust him again and he would lost all friends he has in the garden. It's some kind of symbiosis, plants need the Gardener to know information about outside world and Gardener needs plants to have someone he can take care. Otherwise his work has no sense.
+
 The Gardener is our fiction person made up for this project but we think it's a perfect match as a name.
 
 ## Oracle theory
