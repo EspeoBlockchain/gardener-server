@@ -1,4 +1,6 @@
-const { describe, it, beforeEach, afterEach } = require('mocha');
+const {
+  describe, it, beforeEach, afterEach,
+} = require('mocha');
 const { expect } = require('chai').use(require('chai-as-promised'));
 const mongoose = require('mongoose');
 const Request = require('../../../domain/request/Request');

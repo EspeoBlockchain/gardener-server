@@ -4,7 +4,6 @@ const CreateRequestUseCase = require('./CreateRequestUseCase');
 const { logger, repository } = require('../../common/utils/TestMocks');
 
 describe('CreateRequestUseCase', () => {
-
   it('should save request in the repository and log message', async () => {
     // given
     const id = '123';

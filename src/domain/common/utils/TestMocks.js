@@ -19,5 +19,5 @@ const repository = () => {
 
 module.exports = {
   logger,
-  repository
+  repository,
 };
