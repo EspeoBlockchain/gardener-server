@@ -2,6 +2,7 @@
 
 require('dotenv').load();
 const express = require('express');
+const mongoose = require('mongoose');
 
 const { EventBus } = require('./infrastructure/event');
 const {
@@ -14,8 +15,6 @@ const { CreateRequestEventHandler, CurrentBlockEventHandler } = require('./infra
 const { MarkValidRequestsAsReadyScheduler, ExecuteReadyRequestsScheduler } = require('./infrastructure/scheduling');
 const {
   ConsoleLoggerAdapter: Logger,
-  InMemoryRequestRepositoryAdapter: RequestRepository,
-  InMemoryResponseRepositoryAdapter: ResponseRepository,
   AxiosUrlDataFetcherAdapter: UrlDataFetcher,
   JsonSelectorAdapter: JsonSelector,
   XmlSelectorAdapter: XmlSelector,
@@ -43,9 +42,15 @@ const DataSelectorFinder = require('./domain/common/DataSelectorFinder');
 
 const BlockListener = require('./infrastructure/blockchain/BlockListener');
 
+const { RequestRepositoryFactory, ResponseRepositoryFactory } = require('./infrastructure/persistance');
+
+if (process.env.PERSISTANCE === 'MONGODB') {
+  mongoose.connect(`mongodb://${process.env.DATABASE_URL}/${process.env.DATABASE_NAME}`, { useNewUrlParser: true });
+}
+
 const logger = new Logger();
-const requestRepository = new RequestRepository();
-const responseRepository = new ResponseRepository();
+const requestRepository = RequestRepositoryFactory.create(process.env.PERSISTANCE, logger);
+const responseRepository = ResponseRepositoryFactory.create(process.env.PERSISTANCE, logger);
 const oracle = new Oracle(web3, oracleAbi, process.env.ORACLE_ADDRESS);
 const urlDataFetcher = new UrlDataFetcher();
 const jsonSelector = new JsonSelector();
@@ -60,7 +65,10 @@ const fetchNewOracleRequestsUseCase = new FetchNewOracleRequestsUseCase(
   logger,
   process.env.START_BLOCK,
 );
-const markValidRequestsAsReadyUseCase = new MarkValidRequestsAsReadyUseCase(requestRepository);
+const markValidRequestsAsReadyUseCase = new MarkValidRequestsAsReadyUseCase(
+  requestRepository,
+  logger,
+);
 const fetchDataUseCase = new FetchDataUseCase(urlDataFetcher, logger);
 const selectDataUseCase = new SelectDataUseCase(dataSelectorFinder, logger);
 const sendResponseToOracleUseCase = new SendResponseToOracleUseCase(oracle, logger);

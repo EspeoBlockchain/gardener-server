@@ -18,7 +18,7 @@ describe('MarkValidRequestsAsReadyUseCase', () => {
     };
   };
 
-  it('should mark all scheduled responses with validFrom before now as ready', () => {
+  it('should mark all scheduled responses with validFrom before now as ready', async () => {
     // given
     const requestRepository = repository();
     requestRepository.save(new Request('1', 'url', Date.now(), RequestStateEnum.SCHEDULED));
@@ -26,7 +26,7 @@ describe('MarkValidRequestsAsReadyUseCase', () => {
     const sut = new MarkValidRequestsAsReadyUseCase(requestRepository, logger());
 
     // when
-    sut.markValidRequestsAsReady();
+    await sut.markValidRequestsAsReady();
     // then
     expect(requestRepository.getById('1').state.name).to.equal(RequestStateEnum.READY);
     expect(sut.logger.list().length).to.equal(1);

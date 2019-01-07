@@ -6,9 +6,13 @@ class CreateRequestUseCase {
     this.logger = logger;
   }
 
-  createRequest(id, url, validFrom) {
+  async createRequest(id, url, validFrom) {
+    if (await this.requestRepository.exists(id)) {
+      throw new Error(`Request already in the system [id=${id}]`);
+    }
+
     const request = new Request(id, url, validFrom);
-    this.requestRepository.save(request);
+    await this.requestRepository.save(request);
     this.logger.info(`Created request [request=${JSON.stringify(request)}]`);
   }
 }

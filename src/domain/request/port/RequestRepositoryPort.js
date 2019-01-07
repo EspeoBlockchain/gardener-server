@@ -1,6 +1,10 @@
 /* eslint-disable  no-unused-vars */
 
 class RequestRepositoryPort {
+  exists(id) {
+    throw new Error('Not implemented');
+  }
+
   save(request) {
     throw new Error('Not implemented');
   }
