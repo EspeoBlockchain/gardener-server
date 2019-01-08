@@ -5,7 +5,7 @@ const { expect } = require('chai');
 const Request = require('../Request');
 const RequestStateEnum = require('../RequestStateEnum');
 const MarkValidRequestsAsReadyUseCase = require('./MarkValidRequestsAsReadyUseCase');
-const { logger } = require('../../common/utils/TestMocks');
+const { Logger } = require('../../common/utils/TestMocks');
 
 describe('MarkValidRequestsAsReadyUseCase', () => {
   const repository = () => {
@@ -18,15 +18,15 @@ describe('MarkValidRequestsAsReadyUseCase', () => {
     };
   };
 
-  it('should mark all scheduled responses with validFrom before now as ready', () => {
+  it('should mark all scheduled responses with validFrom before now as ready', async () => {
     // given
     const requestRepository = repository();
     requestRepository.save(new Request('1', 'url', Date.now(), RequestStateEnum.SCHEDULED));
 
-    const sut = new MarkValidRequestsAsReadyUseCase(requestRepository, logger());
+    const sut = new MarkValidRequestsAsReadyUseCase(requestRepository, new Logger());
 
     // when
-    sut.markValidRequestsAsReady();
+    await sut.markValidRequestsAsReady();
     // then
     expect(requestRepository.getById('1').state.name).to.equal(RequestStateEnum.READY);
     expect(sut.logger.list().length).to.equal(1);

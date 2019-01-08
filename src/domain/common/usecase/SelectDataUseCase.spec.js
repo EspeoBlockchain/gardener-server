@@ -1,7 +1,7 @@
 const { describe, it } = require('mocha');
 const { expect } = require('chai');
 const SelectDataUseCase = require('./SelectDataUseCase');
-const { logger } = require('../utils/TestMocks');
+const { Logger } = require('../utils/TestMocks');
 
 describe('SelectDataUseCase', () => {
   const finder = () => ({
@@ -10,7 +10,7 @@ describe('SelectDataUseCase', () => {
 
   it('should select appropriate data', async () => {
     // given
-    const sut = new SelectDataUseCase(finder(), logger());
+    const sut = new SelectDataUseCase(finder(), new Logger());
     // when
     const selectedData = await sut.selectFromRawData('fetchedData', 'json', '.key1');
     // then

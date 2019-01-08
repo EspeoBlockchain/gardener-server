@@ -1,27 +1,34 @@
-const { describe, it } = require('mocha');
-const { expect } = require('chai');
+const { describe, it, beforeEach } = require('mocha');
+const { expect } = require('chai').use(require('chai-as-promised'));
 const CreateRequestUseCase = require('./CreateRequestUseCase');
-const { logger } = require('../../common/utils/TestMocks');
+const { Logger, Repository } = require('../../common/utils/TestMocks');
 
 describe('CreateRequestUseCase', () => {
-  const repository = () => {
-    const requests = [];
-    return {
-      save: req => requests.push(req),
-      list: () => requests,
-    };
-  };
+  let sut;
 
-  it('should save request in the repository and log message', () => {
+  beforeEach(() => {
+    sut = new CreateRequestUseCase(new Repository(), new Logger());
+  });
+
+  it('should save request in the repository and log message', async () => {
     // given
     const id = '123';
     const url = 'qwerty';
     const validFrom = Date.now();
-    const sut = new CreateRequestUseCase(repository(), logger());
     // when
-    sut.createRequest(id, url, validFrom);
+    await sut.createRequest(id, url, validFrom);
     // then
     expect(sut.requestRepository.list()[0].id).to.equal(id);
     expect(sut.logger.list().length).to.equal(1);
+  });
+
+  it('should throw error if the same request is passed twice', async () => {
+    // given
+    const id = '123';
+    const url = 'qwerty';
+    const validFrom = Date.now();
+    await sut.createRequest(id, url, validFrom);
+    // when, then
+    return expect(sut.createRequest(id, url, validFrom)).to.be.rejected;
   });
 });

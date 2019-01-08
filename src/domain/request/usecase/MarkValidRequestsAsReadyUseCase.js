@@ -5,8 +5,8 @@ class MarkValidRequestsAsReadyUseCase {
   }
 
 
-  markValidRequestsAsReady() {
-    const requests = this.requestRepository.getScheduledRequestsWithValidFromBeforeNow();
+  async markValidRequestsAsReady() {
+    const requests = await this.requestRepository.getScheduledRequestsWithValidFromBeforeNow();
 
     requests.forEach((request) => {
       request.state.markAsReady();

@@ -1,10 +1,14 @@
-const RequestRepositoryPort = require('../domain/request/port/RequestRepositoryPort');
-const { SCHEDULED, READY } = require('../domain/request/RequestStateEnum');
+const RequestRepositoryPort = require('../../../domain/request/port/RequestRepositoryPort');
+const { SCHEDULED, READY } = require('../../../domain/request/RequestStateEnum');
 
 class InMemoryRequestRepositoryAdapter extends RequestRepositoryPort {
   constructor() {
     super();
     this.requests = new Map();
+  }
+
+  exists(id) {
+    return this.requests.has(id);
   }
 
   save(request) {

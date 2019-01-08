@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node src/index.js",
     "test": "mocha 'src/**/*.spec.js'",
+    "integration-test": "mocha 'src/**/*.integration.js'",
     "ganache": "ganache-cli -d",
     "lint": "eslint . --fix"
   },
