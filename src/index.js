@@ -42,15 +42,20 @@ const DataSelectorFinder = require('./domain/common/DataSelectorFinder');
 
 const BlockListener = require('./infrastructure/blockchain/BlockListener');
 
-const { RequestRepositoryFactory, ResponseRepositoryFactory } = require('./infrastructure/persistance');
+const { RequestRepositoryFactory, ResponseRepositoryFactory } = require('./infrastructure/persistence');
+const PersistenceType = require('./infrastructure/persistence/PersistenceType');
 
-if (process.env.PERSISTANCE === 'MONGODB') {
-  mongoose.connect(`mongodb://${process.env.DATABASE_URL}/${process.env.DATABASE_NAME}`, { useNewUrlParser: true });
+const {
+  DATABASE_URL, DATABASE_NAME, PERSISTENCE, START_BLOCK, SAFE_BLOCK_DELAY, API_PORT,
+} = process.env;
+
+if (PERSISTENCE === PersistenceType.MongoDB) {
+  mongoose.connect(`mongodb://${DATABASE_URL}/${DATABASE_NAME}`, { useNewUrlParser: true });
 }
 
 const logger = new Logger();
-const requestRepository = RequestRepositoryFactory.create(process.env.PERSISTANCE, logger);
-const responseRepository = ResponseRepositoryFactory.create(process.env.PERSISTANCE, logger);
+const requestRepository = RequestRepositoryFactory.create(PERSISTENCE, logger);
+const responseRepository = ResponseRepositoryFactory.create(PERSISTENCE, logger);
 const oracle = new Oracle(web3, oracleAbi, process.env.ORACLE_ADDRESS);
 const urlDataFetcher = new UrlDataFetcher();
 const jsonSelector = new JsonSelector();
@@ -63,7 +68,7 @@ const createRequestUseCase = new CreateRequestUseCase(requestRepository, logger)
 const fetchNewOracleRequestsUseCase = new FetchNewOracleRequestsUseCase(
   oracle,
   logger,
-  process.env.START_BLOCK,
+  START_BLOCK,
 );
 const markValidRequestsAsReadyUseCase = new MarkValidRequestsAsReadyUseCase(
   requestRepository,
@@ -97,11 +102,11 @@ const executeReadyRequestsScheduler = new ExecuteReadyRequestsScheduler(
 executeReadyRequestsScheduler.schedule();
 
 const blockchain = new Blockchain(web3);
-const blockListener = new BlockListener(eventBus, blockchain, logger, process.env.SAFE_BLOCK_DELAY);
+const blockListener = new BlockListener(eventBus, blockchain, logger, SAFE_BLOCK_DELAY);
 blockListener.listen();
 
 const app = express();
-const port = process.env.API_PORT;
+const port = API_PORT;
 require('./infrastructure/systemHealth/statusEndpoint')(app, checkHealthStatusUseCase);
 
 app.listen(port);

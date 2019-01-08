@@ -5,7 +5,7 @@ const { SCHEDULED, READY } = require('../../../domain/request/RequestStateEnum')
 const RequestModel = require('./RequestModel');
 const Request = require('../../../domain/request/Request');
 
-class MongoDBRequestRepositoryAdapter extends RequestRepositoryPort {
+class MongoDbRequestRepositoryAdapter extends RequestRepositoryPort {
   constructor(logger) {
     super();
     this.logger = logger;
@@ -57,4 +57,4 @@ class MongoDBRequestRepositoryAdapter extends RequestRepositoryPort {
   }
 }
 
-module.exports = MongoDBRequestRepositoryAdapter;
+module.exports = MongoDbRequestRepositoryAdapter;

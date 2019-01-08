@@ -2,7 +2,7 @@ const { describe, it } = require('mocha');
 const { expect } = require('chai');
 const RequestRepositoryFactory = require('./RequestRepositoryFactory');
 const InMemoryRequestRepository = require('./inmemory/InMemoryRequestRepositoryAdapter');
-const MongoDBRequestRepository = require('./mongodb/MongoDBRequestRepositoryAdapter');
+const MongoDBRequestRepository = require('./mongodb/MongoDbRequestRepositoryAdapter');
 const { logger } = require('../../domain/common/utils/TestMocks');
 
 describe('RequestRepositoryFactory', () => {

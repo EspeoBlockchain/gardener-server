@@ -1,6 +1,6 @@
-const { InMemory, MongoDB } = require('./PersistanceTypesEnum');
+const { InMemory, MongoDB } = require('./PersistenceType');
 const InMemoryResponseRepository = require('./inmemory/InMemoryResponseRepositoryAdapter');
-const MongoDBResponseRepository = require('./mongodb/MongoDBResponseRepositoryAdapter');
+const MongoDBResponseRepository = require('./mongodb/MongoDbResponseRepositoryAdapter');
 
 class ResponseRepositoryFactory {
   static create(type, logger) {

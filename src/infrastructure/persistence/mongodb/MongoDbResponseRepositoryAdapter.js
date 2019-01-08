@@ -1,9 +1,9 @@
-const _ = require('lodash');
+const { omit } = require('lodash');
 const ResponseRepositoryPort = require('../../../domain/response/port/ResponseRepositoryPort');
 const ResponseModel = require('./ResponseModel');
 
 
-class MongoDBResponseRepositoryAdapter extends ResponseRepositoryPort {
+class MongoDbResponseRepositoryAdapter extends ResponseRepositoryPort {
   constructor(logger) {
     super();
     this.logger = logger;
@@ -17,7 +17,7 @@ class MongoDBResponseRepositoryAdapter extends ResponseRepositoryPort {
       state: response.state.name,
     });
 
-    const upsertDocument = _.omit(mongoResponse.toObject(), ['_id']);
+    const upsertDocument = omit(mongoResponse.toObject(), ['_id']);
 
     return ResponseModel.findOneAndUpdate(
       { _id: mongoResponse._id },
@@ -27,4 +27,4 @@ class MongoDBResponseRepositoryAdapter extends ResponseRepositoryPort {
   }
 }
 
-module.exports = MongoDBResponseRepositoryAdapter;
+module.exports = MongoDbResponseRepositoryAdapter;
