@@ -4,7 +4,7 @@ const { expect } = require('chai').use(require('chai-as-promised'));
 const FetchDataUseCase = require('./FetchDataUseCase');
 const Request = require('../../request/Request');
 const RequestStateEnum = require('../../request/RequestStateEnum');
-const { logger } = require('../utils/TestMocks');
+const { Logger } = require('../utils/TestMocks');
 
 describe('FetchDataUseCase', () => {
   const urlDataFetcher = () => ({
@@ -18,7 +18,7 @@ describe('FetchDataUseCase', () => {
   it('should fetch data for request and return rawData', async () => {
     // given
     const request = new Request('1', 'json(http://example.com).key1', Date.now());
-    const sut = new FetchDataUseCase(urlDataFetcher(), logger());
+    const sut = new FetchDataUseCase(urlDataFetcher(), new Logger());
     // when
     const fetchedData = await sut.fetchData(request.id, 'http://example.com');
     // then
@@ -28,7 +28,7 @@ describe('FetchDataUseCase', () => {
 
   it('should throw error if data fetch failed', () => {
     const request = new Request('1', 'json(http://example.com).key1', Date.now(), RequestStateEnum.PROCESSED);
-    const sut = new FetchDataUseCase(failingDataFetcher(), logger());
+    const sut = new FetchDataUseCase(failingDataFetcher(), new Logger());
     // when
     return expect(sut.fetchData(request.id, request.getRawUrl())).to.be.rejected;
   });

@@ -2,7 +2,7 @@ const { describe, it } = require('mocha');
 const { expect } = require('chai');
 const ExecuteReadyRequestsUseCase = require('./ExecuteReadyRequestsUseCase');
 const Request = require('../Request');
-const { logger } = require('../../common/utils/TestMocks');
+const { Logger } = require('../../common/utils/TestMocks');
 
 describe('ExecuteReadyRequestsUseCase', () => {
   const oneMinuteMillis = 60 * 1000;
@@ -53,7 +53,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
       sendResponseToOracleUseCase(),
       requestRepository(),
       responseRepository(),
-      logger(),
+      new Logger(),
     );
     // when
     await sut.executeReadyRequests();
@@ -74,7 +74,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
       sendResponseToOracleUseCase(),
       requestRepository(),
       responseRepository(),
-      logger(),
+      new Logger(),
     );
     // when
     await sut.executeReadyRequests();
@@ -90,7 +90,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
       sendResponseToOracleUseCase(),
       requestRepository(),
       responseRepository(),
-      logger(),
+      new Logger(),
     );
     // when
     await sut.executeReadyRequests();

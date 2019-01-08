@@ -1,7 +1,7 @@
 const { describe, it, beforeEach } = require('mocha');
 const { expect } = require('chai');
 const FetchNewOracleRequestsUseCase = require('./FetchNewOracleRequestsUseCase');
-const { logger } = require('../../common/utils/TestMocks');
+const { Logger } = require('../../common/utils/TestMocks');
 
 describe('FetchNewOracleRequestUseCase', () => {
   const oracle = () => ({
@@ -13,7 +13,7 @@ describe('FetchNewOracleRequestUseCase', () => {
 
   beforeEach(() => {
     // given
-    sut = new FetchNewOracleRequestsUseCase(oracle(), logger(), 1);
+    sut = new FetchNewOracleRequestsUseCase(oracle(), new Logger(), 1);
   });
 
   it('should fetch new oracle responses', async () => {
