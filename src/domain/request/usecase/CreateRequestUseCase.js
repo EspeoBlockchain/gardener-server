@@ -8,7 +8,7 @@ class CreateRequestUseCase {
 
   async createRequest(id, url, validFrom) {
     if (await this.requestRepository.exists(id)) {
-      throw new Error(`Request already in the system [id=${id}]`);
+      throw new Error(`Request ${id} already in the system`);
     }
 
     const request = new Request(id, url, validFrom);
