@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
-const { MongoDB } = require('./PersistenceType');
+const { MongoDb } = require('./PersistenceType');
 
 class PersistenceConnectionInitializer {
   init(type, options) {
     // eslint-disable-next-line default-case
     switch (type) {
-      case MongoDB:
+      case MongoDb:
         this._initMongo(options);
         break;
     }

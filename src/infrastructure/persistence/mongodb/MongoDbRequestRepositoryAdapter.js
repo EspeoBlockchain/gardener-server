@@ -1,4 +1,4 @@
-const _ = require('lodash');
+const { omit } = require('lodash');
 
 const RequestRepositoryPort = require('../../../domain/request/port/RequestRepositoryPort');
 const { SCHEDULED, READY } = require('../../../domain/request/RequestStateEnum');
@@ -25,7 +25,7 @@ class MongoDbRequestRepositoryAdapter extends RequestRepositoryPort {
       state: request.state.name,
     });
 
-    const upsertDocument = _.omit(mongoRequest.toObject(), ['_id']);
+    const upsertDocument = omit(mongoRequest.toObject(), ['_id']);
 
     return RequestModel.findOneAndUpdate(
       { _id: mongoRequest._id },

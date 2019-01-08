@@ -1,14 +1,14 @@
-const { InMemory, MongoDB } = require('./PersistenceType');
+const { InMemory, MongoDb } = require('./PersistenceType');
 const InMemoryRequestRepository = require('./inmemory/InMemoryRequestRepositoryAdapter');
-const MongoDBRequestRepository = require('./mongodb/MongoDbRequestRepositoryAdapter');
+const MongoDbRequestRepository = require('./mongodb/MongoDbRequestRepositoryAdapter');
 
 class RequestRepositoryFactory {
   static create(type, logger) {
     switch (type) {
       case InMemory:
         return new InMemoryRequestRepository();
-      case MongoDB:
-        return new MongoDBRequestRepository(logger);
+      case MongoDb:
+        return new MongoDbRequestRepository(logger);
       default:
         throw new Error('Invalid peristence type');
     }

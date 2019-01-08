@@ -1,6 +1,6 @@
 const PersistenceType = Object.freeze({
   InMemory: 'INMEMORY',
-  MongoDB: 'MONGODB',
+  MongoDb: 'MONGODB',
 });
 
 module.exports = PersistenceType;

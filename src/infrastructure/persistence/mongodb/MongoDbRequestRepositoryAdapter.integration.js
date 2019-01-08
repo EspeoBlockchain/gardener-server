@@ -1,6 +1,7 @@
 const {
   describe, it, beforeEach, afterEach,
 } = require('mocha');
+require('dotenv').load({ path: '.env.test' });
 const { expect } = require('chai').use(require('chai-as-promised'));
 const mongoose = require('mongoose');
 const Request = require('../../../domain/request/Request');
@@ -12,7 +13,9 @@ describe('MongoDbRequestRepositoryAdapter', () => {
   let sut;
 
   beforeEach(async () => {
-    await mongoose.connect('mongodb://localhost:37017/oracle-server', { useNewUrlParser: true });
+    const { DATABASE_URL, DATABASE_NAME } = process.env;
+
+    await mongoose.connect(`mongodb://${DATABASE_URL}/${DATABASE_NAME}`, { useNewUrlParser: true });
     await RequestModel.deleteMany({});
     const logger = new ConsoleLoggerAdapter();
     sut = new MongoDbRequestRepositoryAdapter(logger);

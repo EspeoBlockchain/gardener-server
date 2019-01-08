@@ -22,7 +22,7 @@ describe('CreateRequestUseCase', () => {
     expect(sut.logger.list().length).to.equal(1);
   });
 
-  it('should throw error if the same request is passing twice', async () => {
+  it('should throw error if the same request is passed twice', async () => {
     // given
     const id = '123';
     const url = 'qwerty';
