@@ -2,8 +2,6 @@
 
 require('dotenv').load();
 const express = require('express');
-const mongoose = require('mongoose');
-
 const { EventBus } = require('./infrastructure/event');
 const {
   web3,
@@ -43,15 +41,18 @@ const DataSelectorFinder = require('./domain/common/DataSelectorFinder');
 const BlockListener = require('./infrastructure/blockchain/BlockListener');
 
 const { RequestRepositoryFactory, ResponseRepositoryFactory } = require('./infrastructure/persistence');
-const PersistenceType = require('./infrastructure/persistence/PersistenceType');
+const PersistenceConnectionInitializer = require('./infrastructure/persistence/PersistenceConnectionInitializer');
 
 const {
   DATABASE_URL, DATABASE_NAME, PERSISTENCE, START_BLOCK, SAFE_BLOCK_DELAY, API_PORT,
 } = process.env;
 
-if (PERSISTENCE === PersistenceType.MongoDB) {
-  mongoose.connect(`mongodb://${DATABASE_URL}/${DATABASE_NAME}`, { useNewUrlParser: true });
-}
+const persistenceOptions = {
+  databaseUrl: DATABASE_URL,
+  databaseName: DATABASE_NAME,
+};
+
+new PersistenceConnectionInitializer().init(PERSISTENCE, persistenceOptions);
 
 const logger = new Logger();
 const requestRepository = RequestRepositoryFactory.create(PERSISTENCE, logger);

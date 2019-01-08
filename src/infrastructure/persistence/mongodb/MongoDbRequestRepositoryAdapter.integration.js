@@ -4,18 +4,18 @@ const {
 const { expect } = require('chai').use(require('chai-as-promised'));
 const mongoose = require('mongoose');
 const Request = require('../../../domain/request/Request');
-const MongoDBRequestRepositoryAdapter = require('./MongoDbRequestRepositoryAdapter');
+const MongoDbRequestRepositoryAdapter = require('./MongoDbRequestRepositoryAdapter');
 const ConsoleLoggerAdapter = require('../../../adapter/ConsoleLoggerAdapter');
 const RequestModel = require('./RequestModel');
 
-describe('MongoDBRequestRepositoryAdapter', () => {
+describe('MongoDbRequestRepositoryAdapter', () => {
   let sut;
 
   beforeEach(async () => {
     await mongoose.connect('mongodb://localhost:37017/oracle-server', { useNewUrlParser: true });
     await RequestModel.deleteMany({});
     const logger = new ConsoleLoggerAdapter();
-    sut = new MongoDBRequestRepositoryAdapter(logger);
+    sut = new MongoDbRequestRepositoryAdapter(logger);
   });
 
   afterEach(async () => {

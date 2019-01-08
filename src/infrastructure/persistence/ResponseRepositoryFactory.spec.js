@@ -2,7 +2,7 @@ const { describe, it } = require('mocha');
 const { expect } = require('chai');
 const ResponseRepositoryFactory = require('./ResponseRepositoryFactory');
 const InMemoryResponseRepository = require('./inmemory/InMemoryResponseRepositoryAdapter');
-const MongoDBResponseRepository = require('./mongodb/MongoDbResponseRepositoryAdapter');
+const MongoDbResponseRepository = require('./mongodb/MongoDbResponseRepositoryAdapter');
 const { logger } = require('../../domain/common/utils/TestMocks');
 
 
@@ -14,11 +14,11 @@ describe('ResponseRepositoryFactory', () => {
     expect(responseRepository).to.be.an.instanceOf(InMemoryResponseRepository);
   });
 
-  it('should create MongoDBResponseRepository when type if MONGODB', () => {
+  it('should create MongoDbResponseRepository when type if MONGODB', () => {
     // when
     const responseRepository = ResponseRepositoryFactory.create('MONGODB', logger);
     // then
-    expect(responseRepository).to.be.an.instanceOf(MongoDBResponseRepository);
+    expect(responseRepository).to.be.an.instanceOf(MongoDbResponseRepository);
   });
 
   it('should fail if type is neither INMEMORY nor MONGODB', () => {
