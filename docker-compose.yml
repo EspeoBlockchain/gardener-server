@@ -9,7 +9,7 @@ services:
             - mongo
         ports:
             - ${API_PORT}:${API_PORT}
-        command: bash -c "./wait-for-it.sh mongo:27017 && node index.js"
+        command: bash -c "./wait-for-it.sh mongo:27017 && node src/index.js"
     mongo:
         container_name: oracle-db
         image: mongo
