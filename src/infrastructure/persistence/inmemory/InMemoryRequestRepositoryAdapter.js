@@ -11,14 +11,14 @@ class InMemoryRequestRepositoryAdapter extends RequestRepositoryPort {
     return this.requests.has(id);
   }
 
-  save(request) {
+  async save(request) {
     this.requests.set(request.id, request);
   }
 
   getScheduledRequestsWithValidFromBeforeNow() {
     return Array.from(this.requests.values())
       .filter(request => request.state.name === SCHEDULED)
-      .filter(request => request.validFrom < Date.now());
+      .filter(request => request.validFrom <= Date.now());
   }
 
   getReadyRequests() {

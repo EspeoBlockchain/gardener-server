@@ -1,5 +1,5 @@
 const { describe, it, beforeEach } = require('mocha');
-const { expect } = require('chai');
+const { expect } = require('chai').use(require('chai-as-promised'));
 const Request = require('../../../domain/request/Request');
 const InMemoryRequestRepository = require('./InMemoryRequestRepositoryAdapter');
 
@@ -30,8 +30,8 @@ describe('InMemoryRequestRepositoryAdapter', () => {
 
   it('should get scheduled requests with validFrom parameter before now', async () => {
     // given
-    const request1 = new Request('1', 'url', new Date(), 'Scheduled');
-    const request2 = new Request('2', 'url', new Date(Date.now() + 2000), 'Scheduled');
+    const request1 = new Request('1', 'url', new Date(Date.now() - 10000), 'Scheduled');
+    const request2 = new Request('2', 'url', new Date(Date.now() + 10000), 'Scheduled');
     await sut.save(request1);
     await sut.save(request2);
 

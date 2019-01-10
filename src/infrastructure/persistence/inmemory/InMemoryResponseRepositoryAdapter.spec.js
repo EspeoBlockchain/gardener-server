@@ -1,5 +1,5 @@
 const { describe, it, beforeEach } = require('mocha');
-const { expect } = require('chai').use(require('chai-as-promised'));;
+const { expect } = require('chai').use(require('chai-as-promised'));
 const Response = require('../../../domain/response/Response');
 const InMemoryResponseRepository = require('./InMemoryResponseRepositoryAdapter');
 
