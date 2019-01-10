@@ -6,7 +6,7 @@ class InMemoryResponseRepositoryAdapter extends ResponseRepositoryPort {
     this.responses = new Map();
   }
 
-  save(response) {
+  async save(response) {
     this.responses.set(response.requestId, response);
   }
 }

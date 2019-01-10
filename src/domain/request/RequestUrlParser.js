@@ -1,9 +1,13 @@
+const ErrorFactory = require('../common/utils/error/ErrorFactory');
+const { NO_VALID_URL, INVALID_CONTENT_TYPE } = require('../common/utils/error/ErrorCode');
+
+
 class RequestUrlParser {
   static resolveRawUrl(wrappedUrl) {
     const urlRegex = new RegExp(/\(https?:\/\/.+\)/);
     const matched = urlRegex.exec(wrappedUrl);
     if (!matched) {
-      throw new Error(`Url not found in ${wrappedUrl}`);
+      throw ErrorFactory.create(`Url not found in ${wrappedUrl}`, NO_VALID_URL);
     }
     const firstMatched = matched[0];
 
@@ -17,7 +21,7 @@ class RequestUrlParser {
       return typeRegex.exec(wrappedUrl)[1];
     }
 
-    throw new Error('Request type is neither json nor xml nor html nor ipfs');
+    throw ErrorFactory.create('Request type is neither json nor xml nor html nor ipfs', INVALID_CONTENT_TYPE);
   }
 
   static resolveSelectionPath(wrappedUrl) {

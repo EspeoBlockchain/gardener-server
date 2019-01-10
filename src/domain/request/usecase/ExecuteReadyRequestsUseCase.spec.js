@@ -3,6 +3,7 @@ const { expect } = require('chai');
 const ExecuteReadyRequestsUseCase = require('./ExecuteReadyRequestsUseCase');
 const Request = require('../Request');
 const { Logger } = require('../../common/utils/TestMocks');
+const ErrorFactory = require('../../common/utils/error/ErrorFactory');
 
 describe('ExecuteReadyRequestsUseCase', () => {
   const oneMinuteMillis = 60 * 1000;
@@ -30,7 +31,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
   });
 
   const failedFetchDataUseCase = () => ({
-    fetchData: () => Promise.reject(new Error()),
+    fetchData: () => Promise.reject(ErrorFactory.create('message', 1000)),
   });
 
   const selectDataUseCase = () => ({
@@ -43,6 +44,10 @@ describe('ExecuteReadyRequestsUseCase', () => {
 
   const sendResponseToOracleUseCase = () => ({
     sendResponse: () => Promise.resolve(),
+  });
+
+  const failedSendResponseToOracleUseCase = () => ({
+    sendResponse: () => Promise.reject(new Error()),
   });
 
   it('should execute ready request which is finished after that and generate response', async () => {
@@ -66,23 +71,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
     expect(sut.logger.list()).to.have.lengthOf(4);
   });
 
-  it('should mark request as failed if data cannot be fetched', async () => {
-    // given
-    const sut = new ExecuteReadyRequestsUseCase(
-      failedFetchDataUseCase(),
-      selectDataUseCase(),
-      sendResponseToOracleUseCase(),
-      requestRepository(),
-      responseRepository(),
-      new Logger(),
-    );
-    // when
-    await sut.executeReadyRequests();
-    // then
-    expect(sut.requestRepository.list()[0].state.name).to.equal('Failed');
-  });
-
-  it('should mark request as failed if data cannot be selected', async () => {
+  it('should mark request as failed if error does not have code property', async () => {
     // given
     const sut = new ExecuteReadyRequestsUseCase(
       fetchDataUseCase(),
@@ -96,5 +85,45 @@ describe('ExecuteReadyRequestsUseCase', () => {
     await sut.executeReadyRequests();
     // then
     expect(sut.requestRepository.list()[0].state.name).to.equal('Failed');
+  });
+
+  it('should create response with errorCode if error with code property handled', async () => {
+    // given
+    const sut = new ExecuteReadyRequestsUseCase(
+      failedFetchDataUseCase(),
+      selectDataUseCase(),
+      sendResponseToOracleUseCase(),
+      requestRepository(),
+      responseRepository(),
+      new Logger(),
+    );
+    // when
+    await sut.executeReadyRequests();
+    // then
+    const response = await sut.responseRepository.list()[0];
+    expect(response.requestId).to.equal('123');
+    expect(response.selectedData).to.equal(undefined);
+    expect(response.errorCode).to.equal(1000);
+    expect(response.state.name).to.equal('Sent');
+  });
+
+  it('should marked response as failed if cannot send to oracle', async () => {
+    // given
+    const sut = new ExecuteReadyRequestsUseCase(
+      fetchDataUseCase(),
+      selectDataUseCase(),
+      failedSendResponseToOracleUseCase(),
+      requestRepository(),
+      responseRepository(),
+      new Logger(),
+    );
+    // when
+    await sut.executeReadyRequests();
+    // then
+    const response = await sut.responseRepository.list()[0];
+    expect(response.requestId).to.equal('123');
+    expect(response.fetchedData).to.equal('fetchedData');
+    expect(response.selectedData).to.equal('selectedData');
+    expect(response.state.name).to.equal('Failed');
   });
 });
