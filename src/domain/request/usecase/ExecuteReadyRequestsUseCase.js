@@ -1,4 +1,5 @@
 const Response = require('../../response/Response');
+const InvalidRequestError = require('../../common/utils/error/InvalidRequestError');
 
 class ExecuteReadyRequestsUseCase {
   constructor(
@@ -58,7 +59,7 @@ class ExecuteReadyRequestsUseCase {
 
       return response;
     } catch (e) {
-      if ('code' in e) {
+      if (e instanceof InvalidRequestError) {
         response.setError(e.code);
 
         return response;

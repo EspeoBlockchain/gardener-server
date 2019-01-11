@@ -1,9 +1,9 @@
+const InvalidRequestError = require('./InvalidRequestError');
 const { INVALID_CONTENT_TYPE } = require('./ErrorCode');
 
-class InvalidContentTypeError extends Error {
+class InvalidContentTypeError extends InvalidRequestError {
   constructor(message) {
-    super(message);
-    this.code = INVALID_CONTENT_TYPE;
+    super(message, INVALID_CONTENT_TYPE);
   }
 }
 

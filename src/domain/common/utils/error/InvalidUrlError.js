@@ -1,9 +1,9 @@
+const InvalidRequestError = require('./InvalidRequestError');
 const { INVALID_URL } = require('./ErrorCode');
 
-class InvalidUrlError extends Error {
+class InvalidUrlError extends InvalidRequestError {
   constructor(message) {
-    super(message);
-    this.code = INVALID_URL;
+    super(message, INVALID_URL);
   }
 }
 
