@@ -1,5 +1,5 @@
 class FetchNewOracleRequestsUseCase {
-  constructor(oracle, logger, startBlockNumber = 0) {
+  constructor(oracle, logger, startBlockNumber) {
     this.oracle = oracle;
     this.logger = logger;
 

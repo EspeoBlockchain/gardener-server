@@ -63,8 +63,8 @@ class EthereumOracleAdapter extends OracleGateway {
 
     const method = this.contract.methods.fillRequest(
       response.requestId,
-      response.selectedData,
-      0,
+      response.selectedData || '',
+      response.errorCode,
     );
 
     let error;

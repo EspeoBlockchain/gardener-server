@@ -4,6 +4,7 @@ class Response {
   constructor(requestId) {
     this.requestId = requestId;
     this.state = new ResponseState();
+    this.errorCode = 0;
   }
 
   addFetchedData(fetchedData) {
@@ -21,6 +22,10 @@ class Response {
       throw new Error('Selected data already added');
     }
     this.selectedData = selectedData;
+  }
+
+  setError(errorCode) {
+    this.errorCode = errorCode;
   }
 }
 

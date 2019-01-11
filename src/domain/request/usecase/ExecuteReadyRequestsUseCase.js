@@ -1,4 +1,5 @@
 const Response = require('../../response/Response');
+const InvalidRequestError = require('../../common/utils/error/InvalidRequestError');
 
 class ExecuteReadyRequestsUseCase {
   constructor(
@@ -42,12 +43,12 @@ class ExecuteReadyRequestsUseCase {
   }
 
   async _fetchAndSelectData(request) {
+    const response = new Response(request.id);
+    this.logger.info(`Created response [response=${JSON.stringify(response)}]`);
+
     try {
       const fetchedData = await this.fetchDataUseCase.fetchData(request.id, request.getRawUrl());
-
-      const response = new Response(request.id);
       response.addFetchedData(fetchedData);
-      this.logger.info(`Created response [response=${JSON.stringify(response)}]`);
 
       const selectedData = await this.selectDataUseCase.selectFromRawData(
         response.fetchedData,
@@ -58,6 +59,12 @@ class ExecuteReadyRequestsUseCase {
 
       return response;
     } catch (e) {
+      if (e instanceof InvalidRequestError) {
+        response.setError(e.code);
+
+        return response;
+      }
+
       request.state.markAsFailed();
       this.requestRepository.save(request);
       this.logger.error(`Request marked as failed [requestId=${request.id}]`, e);

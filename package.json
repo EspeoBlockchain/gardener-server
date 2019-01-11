@@ -22,7 +22,9 @@
   "homepage": "https://github.com/espeo/blockchain-oracle-server",
   "nyc": {
     "exclude": [
-      "**/*.spec.js"
+      "**/*.spec.js",
+      "**/*.integration.js",
+      "**/*Port.js"
     ]
   },
   "dependencies": {

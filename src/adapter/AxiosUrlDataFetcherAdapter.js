@@ -1,12 +1,17 @@
 const axios = require('axios');
 const UrlDataFetcher = require('../domain/common/port/UrlDataFetcherPort');
+const { HttpError } = require('../domain/common/utils/error');
 
 
 class AxiosUrlDataFetcherAdapter extends UrlDataFetcher {
   async fetch(url) {
-    const response = await axios.get(url);
+    try {
+      const response = await axios.get(url);
 
-    return response.data;
+      return response.data;
+    } catch (e) {
+      throw new HttpError(e.response.statusText, e.response.status);
+    }
   }
 }
 

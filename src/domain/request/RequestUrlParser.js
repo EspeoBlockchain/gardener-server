@@ -1,9 +1,12 @@
+const { InvalidUrlError, InvalidContentTypeError } = require('../common/utils/error');
+
+
 class RequestUrlParser {
   static resolveRawUrl(wrappedUrl) {
     const urlRegex = new RegExp(/\(https?:\/\/.+\)/);
     const matched = urlRegex.exec(wrappedUrl);
     if (!matched) {
-      throw new Error(`Url not found in ${wrappedUrl}`);
+      throw new InvalidUrlError(`Url not found in ${wrappedUrl}`);
     }
     const firstMatched = matched[0];
 
@@ -17,7 +20,7 @@ class RequestUrlParser {
       return typeRegex.exec(wrappedUrl)[1];
     }
 
-    throw new Error('Request type is neither json nor xml nor html nor ipfs');
+    throw new InvalidContentTypeError('Request type is neither json nor xml nor html nor ipfs');
   }
 
   static resolveSelectionPath(wrappedUrl) {
