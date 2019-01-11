@@ -11,7 +11,7 @@ class InMemoryRequestRepositoryAdapter extends RequestRepositoryPort {
     return this.requests.has(id);
   }
 
-  async save(request) {
+  save(request) {
     this.requests.set(request.id, request);
   }
 

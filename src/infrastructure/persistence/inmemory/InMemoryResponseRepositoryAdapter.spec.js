@@ -16,6 +16,6 @@ describe('InMemoryResponseRepositoryAdapter', () => {
     const response = new Response('1');
 
     // when, then
-    return expect(sut.save(response)).to.be.fulfilled;
+    return expect(() => sut.save(response)).to.not.throw();
   });
 });

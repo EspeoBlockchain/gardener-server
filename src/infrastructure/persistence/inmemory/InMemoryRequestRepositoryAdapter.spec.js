@@ -25,7 +25,7 @@ describe('InMemoryRequestRepositoryAdapter', () => {
     const request = new Request('1', 'url', new Date(), 'Processed');
 
     // when, then
-    return expect(sut.save(request)).to.be.fulfilled;
+    return expect(() => sut.save(request)).to.not.throw();
   });
 
   it('should get scheduled requests with validFrom parameter before now', async () => {
