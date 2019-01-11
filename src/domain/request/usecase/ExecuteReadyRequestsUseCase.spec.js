@@ -3,7 +3,7 @@ const { expect } = require('chai');
 const ExecuteReadyRequestsUseCase = require('./ExecuteReadyRequestsUseCase');
 const Request = require('../Request');
 const { Logger } = require('../../common/utils/TestMocks');
-const ErrorFactory = require('../../common/utils/error/ErrorFactory');
+const InvalidUrlError = require('../../common/utils/error/InvalidUrlError');
 
 describe('ExecuteReadyRequestsUseCase', () => {
   const oneMinuteMillis = 60 * 1000;
@@ -31,7 +31,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
   });
 
   const failedFetchDataUseCase = () => ({
-    fetchData: () => Promise.reject(ErrorFactory.create('message', 1000)),
+    fetchData: () => Promise.reject(new InvalidUrlError('message')),
   });
 
   const selectDataUseCase = () => ({
