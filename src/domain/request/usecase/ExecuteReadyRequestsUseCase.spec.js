@@ -107,7 +107,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
     expect(response.state.name).to.equal('Sent');
   });
 
-  it('should marked response as failed if cannot send to oracle', async () => {
+  it('should mark response as failed if it failed to send to oracle', async () => {
     // given
     const sut = new ExecuteReadyRequestsUseCase(
       fetchDataUseCase(),

@@ -10,7 +10,7 @@ class ResponseRepositoryFactory {
       case MongoDb:
         return new MongoDBResponseRepository(logger);
       default:
-        throw new Error('Invalid peristence type');
+        throw new Error('Invalid persistence type');
     }
   }
 }
