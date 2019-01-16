@@ -2,6 +2,8 @@
 
 [![CircleCI](https://circleci.com/gh/EspeoBlockchain/gardener-server.svg?style=shield)](https://circleci.com/gh/EspeoBlockchain/gardener-server)
 [![Coverage Status](https://coveralls.io/repos/github/EspeoBlockchain/gardener-server/badge.svg)](https://coveralls.io/github/EspeoBlockchain/gardener-server)
+[![Documentation Status](https://readthedocs.org/projects/gardener/badge/?version=latest)](https://gardener.readthedocs.io/en/latest/?badge=latest)
+
 
 This repository is a part of open source oracle project. Initially developed by Espeo Software. 
 Contains off-chain server for processing requests from the `Oracle` contract.
