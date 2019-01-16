@@ -16,11 +16,15 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
+import datetime
+
 
 # -- Project information -----------------------------------------------------
 
+now = datetime.datetime.now()
+
 project = 'Gardener'
-copyright = '2019, Espeo Blockchain'
+copyright = str(now.year) + ', Espeo Blockchain'
 author = 'Espeo Blockchain'
 
 # The short X.Y version
