@@ -6,6 +6,8 @@
 This repository is a part of open source oracle project. Initially developed by Espeo Software. 
 Contains off-chain server for processing requests from the `Oracle` contract.
 
+Detailed documentation here: https://gardener.readthedocs.io
+
 Table of contents:
 - [Oracle theory](#oracle-theory)
 - [Architecture](#architecture)
