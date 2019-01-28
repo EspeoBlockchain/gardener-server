@@ -7,6 +7,11 @@ Gardener
 ====================================
 This open source project solves the problem of getting knowledge from outside of the blockchain into smart contracts.
 
+Oracle theory
+-------------
+Oracle is a concept of getting information from outside of the blockchain to the smart contracts. Out of the box smart contracts cannot access anything outside of the blockchain network. That's where the oracle idea fits. The information exchange begins with the smart contract emitting an event describing the necessary information. A trusted off-chain server listening for such events parses it, gets data from a data source and passes it back to the smart contract.
+
+
 Contents
 ========
 
@@ -15,8 +20,9 @@ Contents
 .. toctree::
    :maxdepth: 2
 
+   introduction
+   prerequisites
    getting-started
+   
+    
 
-Oracle theory
--------------
-Oracle is a concept of getting information from outside of the blockchain to the smart contracts. Out of the box smart contracts cannot access anything outside of the blockchain network. That's where the oracle idea fits. The information exchange begins with the smart contract emitting an event describing the necessary information. A trusted off-chain server listening for such events parses it, gets data from a data source and passes it back to the smart contract.
