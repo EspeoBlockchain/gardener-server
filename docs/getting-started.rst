@@ -81,16 +81,9 @@ At this moment we are in a console of truffle framework, which is responsible fo
 
 JSON
 ***************
+::
 
    truffle(ganache)> UsingOracle.deployed().then(instance => instance.request("json(https://api.coindesk.com/v1/bpi/currentprice.json).chartName"))
-
-
-XML
-***************
-
-ANYTHING
-***************
-Just some steps here, nothing important at this moment.
 
 
 If you did everything correctly you should see something simmilar to

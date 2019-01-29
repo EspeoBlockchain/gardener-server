@@ -18,8 +18,10 @@ Blockchains function in a closed, trustless environment and can’t get any info
 
 However, sometimes the information available in the network isn’t enough. Let’s say I need to know what the price of gold is on a blockchain-based derivatives trading app. Using only data from inside the blockchain we have no way of knowing that. Because the smart contract lives in the sandboxed environment it has no option to retrieve that data by itself, the only viable alternative is to request that data and wait for some external party we trust to send it back. That’s where the utility of blockchain oracles come in.
 
-How does Gardener works?
----------------
+.. WIP
+.. How does Gardener works?
+.. ---------------
 
+.. Oracle architecture 
 
 

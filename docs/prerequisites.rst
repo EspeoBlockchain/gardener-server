@@ -7,7 +7,8 @@ Before you start using Gardener, you may wish to check if that you have all requ
 Docker 
 ========
 
-You can download docker here.
+Docker toolbox can be downloaded 
+`here <https://docs.docker.com/toolbox/>`_.
 
 You can verify if you have successfully installed docker running this command.
 
@@ -18,7 +19,7 @@ Node
 ========
 Gardener needs to have Node.js installed. Node is available and you can download it here.
 
-Verify your installation by typing in command line 
+Make sure you have successfully installed it by typing in command line 
 
   node ---version
 
