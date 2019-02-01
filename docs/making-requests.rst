@@ -61,7 +61,7 @@ Example response with error
 ::
 
     value: ""
-    error: 404
+    error: 4004
 
 XML format
 ~~~~~~~~~~
@@ -89,12 +89,25 @@ To parse and select response from HTML site use HTML(...) wrapper. You can also 
 Example request
 ::
 
-    html(https://espeoblockchain.com)/title
+    html(https://www.w3schools.com)/html/head/title
 
 
 Example response
 ::
 
-    value: "Blockchain Consulting - Espeo Blockchain"
+    value: "W3Schools Online Web Tutorials"
     error: 0
 
+Response error codes
+====================
+
+When you requests can be fulfilled succesfully you would get value with error code equals to 0. Any non zero error code means some problems. We support standard HTTP status codes, which are simply proxy from http client. Moreover we support some custom errors, which are gathered in a table below.
+
+========================== ========== ===========
+Error name                 Error code Description
+========================== ========== ===========
+INVALID_URL                1000       Text between type(...) wrapper isn't valid url
+INVALID_CONTENT_TYPE       1001       This response format wrapper isn't supported
+INVALID_SELECTOR           4000       Your selector isn't valid JsonPath or XmlPath
+NO_MATCHING_ELEMENTS_FOUND 4004       Applying your selector results in zero found elements
+========================== ========== ===========

@@ -12,45 +12,53 @@ Gardener server contains two main repositories: Gardener-sm which holds smart co
 
 1. Gardener server
 ::
+
   git clone https://github.com/EspeoBlockchain/gardener-server.git
 
 2. Gardener smart contract
 ::
+
   git clone https://github.com/EspeoBlockchain/gardener-smart-contracts.git
 
 
 Running blockchain
---------------
+------------------
 
 Before we will get information from external sources to our blockchain, we have to run it first. Let's use ganache for it.
 Make sure that you are in gardener-server catalog, then:
 ::
+
   make ganache
 
 If you see this information:
 ::
+
   Creating test-blockchain ... done
+
 That means you have created test blockchain successfully. You can verify its status using:
 ::
+
   docker ps
 
-
 After that you need to copy our smart contracts variables from template:
-:: 
+::
+
   cd gardener-smart-contracts
   make copy-env
 
 Same attempt for gardener server:
 ::
+
   cd ../gardener-server
   make copy-env
 
 
 Install dependencies
---------------
+--------------------
 
 Now, we are going to install dependencies that Gardener smart contract reliies on. You can do it by:
 ::
+
   cd ../gardener-smart-contract
   npm install
 
@@ -64,19 +72,21 @@ We are now able to migrate our contracts to test blockchain network
    npx truffle migrate --network ganache --reset
 
 Start gardener server
-------------------
+---------------------
 
 We are just one step behind sending sample request to blockchain network.
 ::
+
    cd ../gardener-server
    make local
 
 Make example oracle request
-------------------
+---------------------------
 ::
 
    cd ../gardener-smart-contracts
    npx truffle console --network ganache
+
 At this moment we are in a console of truffle framework, which is responsible for communicating with blockchain network. Let's make a sample request. We can make specified type of request
 
 JSON

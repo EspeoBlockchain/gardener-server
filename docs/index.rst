@@ -24,6 +24,4 @@ Contents
    prerequisites
    getting-started
    making-requests
-
-
-
+   configuration
