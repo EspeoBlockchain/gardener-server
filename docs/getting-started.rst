@@ -8,7 +8,8 @@ Getting started
 Repositories
 ------------
 
-Gardener server contains two main repositories: Gardener-sm which holds smart contracts, and gardener-server, which is responsible for fetching data from third party data sources. You can easily clone them.
+Gardener contains three repositories, two main ones: gardener-smart-contracts which holds smart contracts, and gardener-server, which is responsible for fetching data from third party data sources.
+The third one, gardener-monitor is optional and it helps visualizing requests. You can easily clone them.
 
 1. Gardener server
 ::
@@ -19,6 +20,11 @@ Gardener server contains two main repositories: Gardener-sm which holds smart co
 ::
 
   git clone https://github.com/EspeoBlockchain/gardener-smart-contracts.git
+
+3. Gardener monitor (optional)
+::
+
+  git clone https://github.com/EspeoBlockchain/gardener-monitor.git
 
 
 Running blockchain
@@ -56,7 +62,7 @@ Same attempt for gardener server:
 Install dependencies
 --------------------
 
-Now, we are going to install dependencies that Gardener smart contract reliies on. You can do it by:
+Now, we are going to install dependencies that Gardener smart contract relies on. You can do it by:
 ::
 
   cd ../gardener-smart-contract
@@ -80,6 +86,14 @@ We are just one step behind sending sample request to blockchain network.
    cd ../gardener-server
    make local
 
+Start monitor (optional)
+------------------------
+::
+
+  cd ../gardener-monitor
+  yarn install
+  npm start
+
 Make example oracle request
 ---------------------------
 ::
@@ -87,14 +101,13 @@ Make example oracle request
    cd ../gardener-smart-contracts
    npx truffle console --network ganache
 
-At this moment we are in a console of truffle framework, which is responsible for communicating with blockchain network. Let's make a sample request. We can make specified type of request
+At this moment we are in a console of truffle framework, which is responsible for communicating with blockchain network. Let's make a sample request. More about request specification you will find in :ref:`making-requests` section.
 
-JSON
+Example
 ***************
 ::
 
    truffle(ganache)> UsingOracle.deployed().then(instance => instance.request("json(https://api.coindesk.com/v1/bpi/currentprice.json).chartName"))
-
 
 If you did everything correctly you should see something simmilar to
 ::
@@ -129,7 +142,7 @@ If you did everything correctly you should see something simmilar to
 
 Server logs
 --------------
-Go to server container logs to check if response was sent.
+Go to server container logs to check if response was sent. Moreover you can check request and response in the monitor if you installed and ran it.
 
 Read more
 ------------

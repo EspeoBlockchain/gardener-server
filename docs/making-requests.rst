@@ -1,3 +1,5 @@
+.. _making-requests:
+
 ---------------
 Making requests
 ---------------
