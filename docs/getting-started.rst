@@ -8,8 +8,8 @@ Getting started
 Repositories
 ------------
 
-Gardener contains three repositories, two main ones: gardener-smart-contracts which holds smart contracts, and gardener-server, which is responsible for fetching data from third party data sources.
-The third one, gardener-monitor is optional and it helps visualizing requests. You can easily clone them.
+Gardener consists of three repositories, two main ones: gardener-smart-contracts which holds smart contracts, and gardener-server, which is responsible for fetching data from third party data sources.
+The third one, gardener-monitor is optional and it helps visualizing requests.
 
 1. Gardener server
 ::
@@ -31,7 +31,7 @@ Running blockchain
 ------------------
 
 Before we will get information from external sources to our blockchain, we have to run it first. Let's use ganache for it.
-Make sure that you are in gardener-server catalog, then:
+Make sure that you are in gardener-server directory, then:
 ::
 
   make ganache
@@ -46,26 +46,24 @@ That means you have created test blockchain successfully. You can verify its sta
 
   docker ps
 
-After that you need to copy our smart contracts variables from template:
+After that you need to copy our smart contracts variables from template. 
+Make sure that you are in gardener-smart-contracts directory, then:
 ::
 
-  cd gardener-smart-contracts
   make copy-env
 
-Same attempt for gardener server:
+Proceed with the same in the gardener-server directory:
 ::
 
-  cd ../gardener-server
   make copy-env
 
 
 Install dependencies
 --------------------
 
-Now, we are going to install dependencies that Gardener smart contract relies on. You can do it by:
+Now, we are going to install dependencies that Gardener smart contract relies on. When you are in gardener-smart-contracts directory, then:
 ::
 
-  cd ../gardener-smart-contract
   npm install
 
 
@@ -80,10 +78,9 @@ We are now able to migrate our contracts to test blockchain network
 Start gardener server
 ---------------------
 
-We are just one step behind sending sample request to blockchain network.
+Last step before sending a sample request to the blockchain network. Go to `gardener-server` directory, then:
 ::
 
-   cd ../gardener-server
    make local
 
 Start monitor (optional)
@@ -101,7 +98,7 @@ Make example oracle request
    cd ../gardener-smart-contracts
    npx truffle console --network ganache
 
-At this moment we are in a console of truffle framework, which is responsible for communicating with blockchain network. Let's make a sample request. More about request specification you will find in :ref:`making-requests` section.
+At this moment we are in Truffle Framework console, which can be used for communicating with blockchain network. Let's make a sample request. You can find more information about request specification :ref:`making-requests` section.
 
 Example
 ***************
@@ -142,7 +139,7 @@ If you did everything correctly you should see something simmilar to
 
 Server logs
 --------------
-Go to server container logs to check if response was sent. Moreover you can check request and response in the monitor if you installed and ran it.
+Look up the server container logs to check if response was sent. Moreover, you can check the request and response in the monitor if you've installed and ran it.
 
 Read more
 ------------
