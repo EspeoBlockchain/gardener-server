@@ -16,7 +16,7 @@ The third one, gardener-monitor is optional and it helps visualizing requests.
 
   git clone https://github.com/EspeoBlockchain/gardener-server.git
 
-2. Gardener smart contract
+2. Gardener smart contracts
 ::
 
   git clone https://github.com/EspeoBlockchain/gardener-smart-contracts.git
@@ -31,7 +31,12 @@ Running blockchain - Server
 ------------------
 
 Before we will get information from external sources to our blockchain, we have to run it first. Let's use ganache for it.
-Make sure that you are in gardener-server directory, then:
+First of all, copy server variables from template:
+::
+
+  make copy-env
+
+After that, we can run our blockchain. Let's use ganache for it:  
 ::
 
   make ganache
@@ -46,23 +51,13 @@ That means you have created test blockchain successfully. You can verify its sta
 
   docker ps
 
-Proceed with the same in the gardener-server directory:
-::
-
-  make copy-env
-
-Last step before sending a sample request to the blockchain network. Go to `gardener-server` directory, then:
-::
-
-   make local
-
 Running blockchain - Monitor (optional)
 ------------------------
 
 ::
 
   cd ../gardener-monitor
-  yarn install
+  npm install
   npm start
 
 Running blockchain - Smart contracts
@@ -88,7 +83,13 @@ After installing dependencies, we are going to migrate our contracts to test blo
 
 Make example oracle request
 ---------------------------
-After we have successfully configured environment, we can make example oracle request. Change your directory to `gardener-smart-contract`, then:
+After we have successfully configured environment, we can make example oracle request. 
+Go to `gardener-server` directory, then:
+::
+
+   make local
+
+Change your directory to `gardener-smart-contract`, then:
 
 ::
 
