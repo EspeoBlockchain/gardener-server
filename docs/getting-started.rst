@@ -27,7 +27,7 @@ The third one, gardener-monitor is optional and it helps visualizing requests.
   git clone https://github.com/EspeoBlockchain/gardener-monitor.git
 
 
-Running blockchain
+Running blockchain - Server
 ------------------
 
 Before we will get information from external sources to our blockchain, we have to run it first. Let's use ganache for it.
@@ -46,20 +46,33 @@ That means you have created test blockchain successfully. You can verify its sta
 
   docker ps
 
-After that you need to copy our smart contracts variables from template. 
-Make sure that you are in gardener-smart-contracts directory, then:
-::
-
-  make copy-env
-
 Proceed with the same in the gardener-server directory:
 ::
 
   make copy-env
 
+Last step before sending a sample request to the blockchain network. Go to `gardener-server` directory, then:
+::
 
-Install dependencies
---------------------
+   make local
+
+Running blockchain - Monitor (optional)
+------------------------
+
+::
+
+  cd ../gardener-monitor
+  yarn install
+  npm start
+
+Running blockchain - Smart contracts
+-------------------
+
+After starting blockchain, we need to copy our smart contracts variables from template. 
+Make sure that you are in gardener-smart-contracts directory, then:
+::
+
+  make copy-env
 
 Now, we are going to install dependencies that Gardener smart contract relies on. When you are in gardener-smart-contracts directory, then:
 ::
@@ -67,35 +80,18 @@ Now, we are going to install dependencies that Gardener smart contract relies on
   npm install
 
 
-Migrate contracts
------------------
-
-We are now able to migrate our contracts to test blockchain network
+After installing dependencies, we are going to migrate our contracts to test blockchain network
 ::
 
    npx truffle migrate --network ganache --reset
 
-Start gardener server
----------------------
-
-Last step before sending a sample request to the blockchain network. Go to `gardener-server` directory, then:
-::
-
-   make local
-
-Start monitor (optional)
-------------------------
-::
-
-  cd ../gardener-monitor
-  yarn install
-  npm start
 
 Make example oracle request
 ---------------------------
+After we have successfully configured environment, we can make example oracle request. Change your directory to `gardener-smart-contract`, then:
+
 ::
 
-   cd ../gardener-smart-contracts
    npx truffle console --network ganache
 
 At this moment we are in Truffle Framework console, which can be used for communicating with blockchain network. Let's make a sample request. You can find more information about request specification :ref:`making-requests` section.
