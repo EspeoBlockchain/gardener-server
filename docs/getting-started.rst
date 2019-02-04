@@ -53,10 +53,10 @@ That means you have created test blockchain successfully. You can verify its sta
 
 Running blockchain - Monitor (optional)
 ------------------------
-
 ::
 
   cd ../gardener-monitor
+  cp .env.tpl .env
   npm install
   npm start
 
