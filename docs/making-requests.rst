@@ -19,7 +19,7 @@ Delayed requests
 
 To perform request, which will be executed in the future you need to call :code:`delayedRequest(string url, uint delay)` method in :code:`Oracle` contract passing as it's first parameter wrapped url and amount of time you need to wait before execution.
 
-You can pass delay parameter in two ways, as a unix timestamp or as a relative number of seconds. Both options you can set as 2 years from now at maximum.
+The delay parameter can be given in two ways: as a unix timestamp or as a relative number of seconds. Using both options you can delay a request for a maximum of as 2 years from now at maximum.
 
 Request sources
 ===============
