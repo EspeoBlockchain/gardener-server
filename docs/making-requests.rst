@@ -7,7 +7,7 @@ Making requests
 Request types
 =============
 
-You have at your disposal two types of requests. You can use either request, which should fulfill as fast as possible or make a schedule one at some point of time in a future.
+At your disposal you have two types of requests. You can use either an instant request, which should fulfill as fast as possible or schedule a delyed request, performed at a specific point of time in the future.
 
 Instant requests
 ~~~~~~~~~~~~~~~~
@@ -17,7 +17,7 @@ To perform instant request you need to call :code:`request(string _url)` method 
 Delayed requests
 ~~~~~~~~~~~~~~~~
 
-To perform request, which will be executed in a future you need to call :code:`delayedRequest(string url, uint delay)` method in :code:`Oracle` contract passing as it's first parameter wrapped url and amount of time you need to wait before execution.
+To perform request, which will be executed in the future you need to call :code:`delayedRequest(string url, uint delay)` method in :code:`Oracle` contract passing as it's first parameter wrapped url and amount of time you need to wait before execution.
 
 You can pass delay parameter in two ways, as a unix timestamp or as a relative number of seconds. Both options you can set as 2 years from now at maximum.
 
