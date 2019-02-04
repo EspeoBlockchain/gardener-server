@@ -19,6 +19,7 @@ How does Gardener work?
 This section describes request workflow starting with asking contract with specific request and finishing up to returning result into it. During reading it could be helpful to take a look at the architecture diagram in the `Gardener architecture`_ section.
 
 According to the diagram, let's start from UsingOracle 1 contract. It interacts with the Oracle contract by passing request parameter to fetch the data it needs. The Oracle contract emits then a DataRequested (or DelayedDataRequested) event. Gardener server is listening to both of these event types and stores every incoming event into its persistence layer (in memory or MongoDB currently). When requests are ready to execute, they are pulled by the server, the data is fetched from external data sources, parsed accordingly and result data in a form of value and error code (0 when the request is fulfilled successfully) is passed to the Oracle contract using configured account. In the current model all costs related to transaction fees are covered by this account (in the future we plan to introduce other pricing models). Oracle contract then proxies this data to the Using Oracle 1 contract fulfilling the whole workflow.
+
 Gardener architecture
 ---------------------
 

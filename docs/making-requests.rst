@@ -12,7 +12,7 @@ At your disposal you have two types of requests. You can use either an instant r
 Instant requests
 ~~~~~~~~~~~~~~~~
 
-To perform instant request you need to call :code:`request(string _url)` method in :code:`Oracle` contract passing as it's only parameter url wrapped in a format type you want to get back. More about format types here.
+To perform instant request you need to call :code:`request(string _url)` method in :code:`Oracle` contract passing as it's only parameter url wrapped in a format type you want to get back. More about format types in `Response formats`_ section.
 
 Delayed requests
 ~~~~~~~~~~~~~~~~
