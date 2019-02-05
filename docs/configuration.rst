@@ -3,7 +3,7 @@ Configuration
 -------------
 
 Each repository of Gardener project (smart contracts, server, monitor) contains an .env variables file.
-This section is going to explain parameters from them. Default parameters are set in a way everything should work correctly when using local test blockchain (ganache) and following `getting-started guide <https://gardener.readthedocs.io/en/latest/getting-started.html>`__.
+This section is going to explain parameters from them. Default parameters are set in a way everything should work correctly when using local test blockchain (ganache) and following the :ref:`getting-started` guide.
 
 Server
 ======

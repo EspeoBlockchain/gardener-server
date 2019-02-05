@@ -1,3 +1,5 @@
+.. _getting-started:
+
 ---------------
 Getting started
 ---------------
@@ -28,7 +30,7 @@ The third one, gardener-monitor is optional and it helps visualizing requests.
 
 
 Running blockchain - Server
-------------------
+---------------------------
 
 Before we will get information from external sources to our blockchain, we have to run it first. Let's use ganache for it.
 First of all, copy server variables from template:
@@ -36,7 +38,7 @@ First of all, copy server variables from template:
 
   make copy-env
 
-After that, we can run our blockchain. Let's use ganache for it:  
+After that, we can run our blockchain. Let's use ganache for it:
 ::
 
   make ganache
@@ -52,7 +54,7 @@ That means you have created test blockchain successfully. You can verify its sta
   docker ps
 
 Running blockchain - Monitor (optional)
-------------------------
+---------------------------------------
 ::
 
   cd ../gardener-monitor
@@ -61,9 +63,9 @@ Running blockchain - Monitor (optional)
   npm start
 
 Running blockchain - Smart contracts
--------------------
+------------------------------------
 
-After starting blockchain, we need to copy our smart contracts variables from template. 
+After starting blockchain, we need to copy our smart contracts variables from template.
 Make sure that you are in gardener-smart-contracts directory, then:
 ::
 
@@ -83,7 +85,7 @@ After installing dependencies, we are going to migrate our contracts to test blo
 
 Make example oracle request
 ---------------------------
-After we have successfully configured environment, we can make example oracle request. 
+After we have successfully configured environment, we can make example oracle request.
 Go to `gardener-server` directory, then:
 ::
 
@@ -98,7 +100,7 @@ Change your directory to `gardener-smart-contract`, then:
 At this moment we are in Truffle Framework console, which can be used for communicating with blockchain network. Let's make a sample request. You can find more information about request specification :ref:`making-requests` section.
 
 Example
-***************
+*******
 ::
 
    truffle(ganache)> UsingOracle.deployed().then(instance => instance.request("json(https://api.coindesk.com/v1/bpi/currentprice.json).chartName"))
@@ -135,10 +137,10 @@ If you did everything correctly you should see something simmilar to
           args: [Object] } ] }
 
 Server logs
---------------
+-----------
 Look up the server container logs to check if response was sent. Moreover, you can check the request and response in the monitor if you've installed and ran it.
 
 Read more
-------------
+---------
 https://truffleframework.com/ganache - Information about Ganache
 
