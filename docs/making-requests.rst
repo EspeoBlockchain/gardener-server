@@ -19,7 +19,7 @@ Delayed requests
 
 To perform request, which will be executed in the future you need to call :code:`delayedRequest(string url, uint delay)` method in :code:`Oracle` contract passing as it's first parameter wrapped url and amount of time you need to wait before execution.
 
-The delay parameter can be given in two ways: as a unix timestamp or as a relative number of seconds. Using both options you can delay a request for a maximum of as 2 years from now at maximum.
+The delay parameter can be given in two ways: as a unix timestamp or as a relative number of seconds. Using both options you can delay a request for a maximum of 2 years from now.
 
 Request sources
 ===============
@@ -39,7 +39,7 @@ Currently we support JSON, XML and HTML formats. In the future we plan to suppor
 JSON format
 ~~~~~~~~~~~
 
-To parse and select response in a JSON format use JSON(...) wrapper. You can also query response following JsonPath.
+To parse and select response in a JSON format use the json() wrapper. You can also query response following JsonPath.
 
 Example request
 ::
@@ -68,7 +68,7 @@ Example response with error
 XML format
 ~~~~~~~~~~
 
-To parse and select response in a XML format use XML(...) wrapper. You can also query response following XPath.
+To parse and select response in a XML format use the xml() wrapper. You can also query response following XPath.
 
 
 Example request
