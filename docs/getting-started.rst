@@ -29,16 +29,16 @@ The third one, gardener-monitor is optional and it helps visualizing requests.
   git clone https://github.com/EspeoBlockchain/gardener-monitor.git
 
 
-Running blockchain - Server
+Running the test blockchain - Ganache
 ---------------------------
 
-Before we will get information from external sources to our blockchain, we have to run it first. Let's use ganache for it.
+Before we will get information from external sources to our blockchain, we have to run it first.
 First of all, copy server variables from template:
 ::
 
   make copy-env
 
-After that, we can run our blockchain. Let's use ganache for it:
+After that, we can run our blockchain. Let's use Ganache for it:
 ::
 
   make ganache
@@ -53,16 +53,15 @@ That means you have created test blockchain successfully. You can verify its sta
 
   docker ps
 
-Running blockchain - Monitor (optional)
+Running the Monitor (optional)
 ---------------------------------------
 ::
 
-  cd ../gardener-monitor
   cp .env.tpl .env
   npm install
   npm start
 
-Running blockchain - Smart contracts
+Deploying the Smart contracts
 ------------------------------------
 
 After starting blockchain, we need to copy our smart contracts variables from template.
@@ -71,7 +70,7 @@ Make sure that you are in gardener-smart-contracts directory, then:
 
   make copy-env
 
-Now, we are going to install dependencies that Gardener smart contract relies on. When you are in gardener-smart-contracts directory, then:
+Now, we are going to install dependencies that Gardener smart contract relies on.
 ::
 
   npm install
