@@ -14,10 +14,13 @@ const { MarkValidRequestsAsReadyScheduler, ExecuteReadyRequestsScheduler } = req
 const {
   ConsoleLoggerAdapter: Logger,
   AxiosUrlDataFetcherAdapter: UrlDataFetcher,
+} = require('./adapter');
+
+const {
   JsonSelectorAdapter: JsonSelector,
   XmlSelectorAdapter: XmlSelector,
   IdentitySelectorAdapter: IdentitySelector,
-} = require('./adapter');
+} = require('./infrastructure/selectors');
 
 const {
   CreateRequestUseCase,

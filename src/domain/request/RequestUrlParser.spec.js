@@ -86,5 +86,14 @@ describe('RequestUrlParser', () => {
       // then
       expect(path).to.equal('.value1');
     });
+
+    it('should allow to resolve empty path from wrapped url', () => {
+      // given
+      const wrappedUrl = 'json(http://someurl.example.com)';
+      // when
+      const path = RequestUrlParser.resolveSelectionPath(wrappedUrl);
+      // then
+      expect(path).to.equal('');
+    });
   });
 });
