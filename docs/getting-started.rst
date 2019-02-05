@@ -30,7 +30,7 @@ The third one, gardener-monitor is optional and it helps visualizing requests.
 
 
 Running the test blockchain - Ganache
----------------------------
+--------------------------------------
 
 Before we will get information from external sources to our blockchain, we have to run it first.
 First of all, copy server variables from template in `gardener-server` directory:
@@ -83,7 +83,7 @@ After installing dependencies, we are going to migrate our contracts to test blo
 
 
 Making example oracle request
----------------------------
+-------------------------------
 After we have successfully configured environment, we can make example oracle request.
 Go to `gardener-server` directory, then:
 ::

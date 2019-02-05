@@ -86,7 +86,7 @@ Example response
 HTML format
 ~~~~~~~~~~~
 
-To parse and select response from HTML site use HTML(...) wrapper. You can also query response following XPath.
+To parse and select response from HTML site use the html() wrapper. You can also query response following XPath.
 
 Example request
 ::
