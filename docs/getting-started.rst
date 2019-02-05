@@ -33,7 +33,7 @@ Running the test blockchain - Ganache
 ---------------------------
 
 Before we will get information from external sources to our blockchain, we have to run it first.
-First of all, copy server variables from template:
+First of all, copy server variables from template in `gardener-server` directory:
 ::
 
   make copy-env
