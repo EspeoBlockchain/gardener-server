@@ -9,7 +9,7 @@ describe('IdentitySelectorAdapter', () => {
     sut = new IdentitySelectorAdapter();
   });
 
-  it('should accept xml content type', () => {
+  it('should accept ipfs content type', () => {
     // given
     const contentType = 'ipfs';
     // when

@@ -84,7 +84,7 @@ describe('JsonSelectorAdapter', () => {
     expect(() => sut.select(jsonString, responsePath)).to.throw();
   });
 
-  it('should select multiple  simple results in a form of stringified array', () => {
+  it('should select multiple simple results in a form of stringified array', () => {
     const jsonString = JSON.stringify({ key1: ['value', 'value2'] });
     const responsePath = '.key1';
 
@@ -95,7 +95,7 @@ describe('JsonSelectorAdapter', () => {
     expect(res).to.equal('["value","value2"]');
   });
 
-  it('should select multiple object results ni a form of stringified array', () => {
+  it('should select multiple object results in a form of stringified array', () => {
     const jsonString = JSON.stringify({
       key1: [
         { key2: 'value' },

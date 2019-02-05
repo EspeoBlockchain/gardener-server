@@ -38,8 +38,6 @@ class XmlSelectorAdapter extends DataSelectorPort {
     }
 
     return selected.toString();
-
-    // return this.xmlSerializer.serializeToString(selected);
   }
 }
 
