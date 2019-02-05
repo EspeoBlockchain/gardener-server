@@ -34,7 +34,7 @@ Currently we support only open REST API sources. In the future we plan to implem
 Response formats
 ================
 
-Currently we support JSON, XML and HTML formats. In the future we plan to support only raw binary data.
+Currently we support JSON, XML and HTML formats. In the future we plan to support also raw binary data.
 
 JSON format
 ~~~~~~~~~~~
@@ -103,13 +103,13 @@ Example response
 Response error codes
 ====================
 
-When you requests can be fulfilled succesfully you would get value with error code equals to 0. Any non zero error code means some problems. We support standard HTTP status codes, which are simply proxy from http client. Moreover we support some custom errors, which are gathered in a table below.
+When your requests can be fulfilled succesfully you would get value with error code equals to 0. Any non zero error code means that the request failed to process. Any three-digit code is standard HTTP status code, proxied from the HTTP client. Four-digit errors come from the Gardener server and are listed in the table below.
 
 ========================== ========== ===========
 Error name                 Error code Description
 ========================== ========== ===========
 INVALID_URL                1000       Text between type(...) wrapper isn't valid url
 INVALID_CONTENT_TYPE       1001       This response format wrapper isn't supported
-INVALID_SELECTOR           4000       Your selector isn't valid JsonPath or XmlPath
-NO_MATCHING_ELEMENTS_FOUND 4004       Applying your selector results in zero found elements
+INVALID_SELECTOR           4000       The selector isn't valid JsonPath or XmlPath
+NO_MATCHING_ELEMENTS_FOUND 4004       No elements found for given selector
 ========================== ========== ===========

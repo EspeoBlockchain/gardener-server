@@ -82,7 +82,7 @@ After installing dependencies, we are going to migrate our contracts to test blo
    npx truffle migrate --network ganache --reset
 
 
-Make example oracle request
+Making example oracle request
 ---------------------------
 After we have successfully configured environment, we can make example oracle request.
 Go to `gardener-server` directory, then:
@@ -104,7 +104,7 @@ Example
 
    truffle(ganache)> UsingOracle.deployed().then(instance => instance.request("json(https://api.coindesk.com/v1/bpi/currentprice.json).chartName"))
 
-If you did everything correctly you should see something simmilar to
+If you did everything correctly you should see something similar to
 ::
 
    { tx: '0x57a34e45e1f187ddeb4cbd1be3597561855563e5735a483a5b1edeb73a511278',

@@ -10,7 +10,7 @@ Docker
 Docker toolbox can be downloaded
 `here <https://docs.docker.com/toolbox/>`__.
 
-You can verify if you have successfully installed docker running this command.
+You can verify if you have successfully installed docker by running the following command.
 
 
   docker ---version
