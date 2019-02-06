@@ -1,62 +1,110 @@
+.. _getting-started:
+
+---------------
 Getting started
 ---------------
 
-Requirements:
 
-- ``docker`` installed and running
-- ``Node.js`` >= 7.6 - ``async/await`` support
 
-1. Download repositories: gardener-server, gardener-smart-contracts
+
+Repositories
+------------
+
+Gardener consists of three repositories, two main ones: gardener-smart-contracts which holds smart contracts, and gardener-server, which is responsible for fetching data from third party data sources.
+The third one, gardener-monitor is optional and it helps visualizing requests.
+
+1. Gardener server
 ::
 
-   git clone https://github.com/EspeoBlockchain/gardener-server.git
-   git clone https://github.com/EspeoBlockchain/gardener-smart-contracts.git
+  git clone https://github.com/EspeoBlockchain/gardener-server.git
 
-
-2. Copy smart contracts variables from template
+2. Gardener smart contracts
 ::
 
-   cd gardener-smart-contracts
-   make copy-env
+  git clone https://github.com/EspeoBlockchain/gardener-smart-contracts.git
 
-3. Copy server variables from template
+3. Gardener monitor (optional)
 ::
 
-   cd ../gardener-server
-   make copy-env
+  git clone https://github.com/EspeoBlockchain/gardener-monitor.git
 
-4. Run test blockchain
+
+Running the test blockchain - Ganache
+--------------------------------------
+
+Before we will get information from external sources to our blockchain, we have to run it first.
+First of all, copy server variables from template in `gardener-server` directory:
 ::
 
-   make ganache
-   docker ps
+  make copy-env
 
-5. Install smart contracts dependencies
+After that, we can run our blockchain. Let's use Ganache for it:
 ::
 
-   cd ../gardener-smart-contracts
-   npm install
+  make ganache
 
-6. Migrate contracts to test blockchain
+If you see this information:
+::
+
+  Creating test-blockchain ... done
+
+That means you have created test blockchain successfully. You can verify its status using:
+::
+
+  docker ps
+
+Running the Monitor (optional)
+---------------------------------------
+::
+
+  cp .env.tpl .env
+  npm install
+  npm start
+
+Deploying the Smart contracts
+------------------------------------
+
+After starting blockchain, we need to copy our smart contracts variables from template.
+Make sure that you are in gardener-smart-contracts directory, then:
+::
+
+  make copy-env
+
+Now, we are going to install dependencies that Gardener smart contract relies on.
+::
+
+  npm install
+
+
+After installing dependencies, we are going to migrate our contracts to test blockchain network
 ::
 
    npx truffle migrate --network ganache --reset
 
-7. Run server
+
+Making example oracle request
+-------------------------------
+After we have successfully configured environment, we can make example oracle request.
+Go to `gardener-server` directory, then:
 ::
 
-   cd ../gardener-server
    make local
 
-8. Make example oracle request
+Change your directory to `gardener-smart-contract`, then:
+
 ::
 
-   cd ../gardener-smart-contracts
    npx truffle console --network ganache
+
+At this moment we are in Truffle Framework console, which can be used for communicating with blockchain network. Let's make a sample request. You can find more information about request specification :ref:`making-requests` section.
+
+Example
+*******
+::
 
    truffle(ganache)> UsingOracle.deployed().then(instance => instance.request("json(https://api.coindesk.com/v1/bpi/currentprice.json).chartName"))
 
-If you did everything correctly you should see something simmilar to
+If you did everything correctly you should see something similar to
 ::
 
    { tx: '0x57a34e45e1f187ddeb4cbd1be3597561855563e5735a483a5b1edeb73a511278',
@@ -87,5 +135,11 @@ If you did everything correctly you should see something simmilar to
           event: 'DataRequestedFromOracle',
           args: [Object] } ] }
 
+Server logs
+-----------
+Look up the server container logs to check if response was sent. Moreover, you can check the request and response in the monitor if you've installed and ran it.
 
-9. Go to server container logs to check if response was sent.
+Read more
+---------
+https://truffleframework.com/ganache - Information about Ganache
+
