@@ -17,11 +17,8 @@ class XmlSelectorAdapter extends DataSelectorPort {
     const doc = this.domParser.parseFromString(data);
     this.xmlSerializer.serializeToString(doc); // this throw an error when doc is invalid xml
 
-    if (path === null) {
-      return doc.toString();
-    }
-
-    const selected = xpath.select(path, doc);
+    const expression = path === null ? '//*' : path;
+    const selected = xpath.select(expression, doc);
 
     if (selected instanceof Array && selected.length === 0) {
       return null;
