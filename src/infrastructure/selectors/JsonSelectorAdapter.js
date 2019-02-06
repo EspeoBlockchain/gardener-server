@@ -13,17 +13,20 @@ class JsonSelectorAdapter extends DataSelectorPort {
       return JSON.stringify(json);
     }
 
-    const value = jp.value(json, `$${path}`);
+    const results = jp.query(json, `$${path}`);
 
-    if (!value) {
+    if (results.length === 0) {
       return null;
     }
 
-    if (typeof value === 'string') {
-      return value;
+    if (results.length === 1) {
+      if (typeof results[0] === 'string') {
+        return results[0];
+      }
+      return JSON.stringify(results[0]);
     }
 
-    return JSON.stringify(value);
+    return JSON.stringify(results);
   }
 }
 
