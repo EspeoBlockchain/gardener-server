@@ -15,8 +15,6 @@ Oracle is a concept of getting information from outside of the blockchain to the
 Contents
 ========
 
-:ref:`Keyword Index <genindex>`, :ref:`Search Page <search>`
-
 .. toctree::
    :maxdepth: 2
 
