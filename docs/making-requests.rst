@@ -7,7 +7,7 @@ Making requests
 Request types
 =============
 
-At your disposal you have two types of requests. You can use either an instant request, which should fulfill as fast as possible or schedule a delyed request, performed at a specific point of time in the future.
+At your disposal you have two types of requests. You can use either an instant request, which should fulfill as fast as possible or schedule a delayed request, performed at a specific point of time in the future.
 
 Instant requests
 ~~~~~~~~~~~~~~~~

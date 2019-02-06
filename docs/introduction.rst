@@ -4,7 +4,7 @@ Introduction
 
 What is blockchain oracle?
 --------------------------
-Oracle is a concept of getting information from outside of the blockchain to the smart contracts. Out of the box smart contracts cannot access anything outside of the blockchain network. That's where the oracle idea fits. The information exchange begins with the smart contract emitting an event describing the necessary information. A trusted off-chain server listening for such events parses it, gets data from a data source and passes it back to the smart contract. The name of a blockchain oracle project is Oracle because of reasons explained `here <https://espeoblockchain.com/blog/gardener-open-source-ethereum-oracle/>`__.
+Oracle is a concept of getting information from outside of the blockchain to the smart contracts. Out of the box smart contracts cannot access anything outside of the blockchain network. That's where the oracle idea fits. The information exchange begins with the smart contract emitting an event describing the necessary information. A trusted off-chain server listening for such events parses it, gets data from a data source and passes it back to the smart contract. The name of our blockchain oracle project is Gardener because of reasons explained `here <https://espeoblockchain.com/blog/gardener-open-source-ethereum-oracle/>`__.
 
 
 Why do we need Gardener?
