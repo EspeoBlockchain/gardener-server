@@ -3,6 +3,7 @@ const ConsoleLoggerAdapter = require('./ConsoleLoggerAdapter');
 const IdentitySelectorAdapter = require('./IdentitySelectorAdapter');
 const JsonSelectorAdapter = require('./JsonSelectorAdapter');
 const XmlSelectorAdapter = require('./XmlSelectorAdapter');
+const RandomSelectorAdapter = require('./RandomSelectorAdapter');
 
 module.exports = {
   AxiosUrlDataFetcherAdapter,
@@ -10,4 +11,5 @@ module.exports = {
   IdentitySelectorAdapter,
   JsonSelectorAdapter,
   XmlSelectorAdapter,
+  RandomSelectorAdapter,
 };
