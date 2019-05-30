@@ -14,6 +14,7 @@ const { MarkValidRequestsAsReadyScheduler, ExecuteReadyRequestsScheduler } = req
 const {
   ConsoleLoggerAdapter: Logger,
   AxiosUrlDataFetcherAdapter: UrlDataFetcher,
+  RandomDotOrgDataFetcherAdapter: RandomDotOrgDataFetcher,
   JsonSelectorAdapter: JsonSelector,
   RandomSelectorAdapter: RandomSelector,
   XmlSelectorAdapter: XmlSelector,
@@ -45,7 +46,7 @@ const { RequestRepositoryFactory, ResponseRepositoryFactory } = require('./infra
 const PersistenceConnectionInitializer = require('./infrastructure/persistence/PersistenceConnectionInitializer');
 
 const {
-  DATABASE_URL, DATABASE_NAME, PERSISTENCE, START_BLOCK, SAFE_BLOCK_DELAY, API_PORT, SGX_ENABLE
+  DATABASE_URL, DATABASE_NAME, PERSISTENCE, START_BLOCK, SAFE_BLOCK_DELAY, API_PORT, SGX_ENABLED,
 } = process.env;
 
 const persistenceOptions = {
@@ -60,8 +61,9 @@ const requestRepository = RequestRepositoryFactory.create(PERSISTENCE, logger);
 const responseRepository = ResponseRepositoryFactory.create(PERSISTENCE, logger);
 const oracle = new Oracle(web3, oracleAbi, process.env.ORACLE_ADDRESS);
 const urlDataFetcher = new UrlDataFetcher();
+const randomDataFetcher = new RandomDotOrgDataFetcher();
 const jsonSelector = new JsonSelector();
-const randomSelector = new RandomSelector(SGX_ENABLE);
+const randomSelector = new RandomSelector(SGX_ENABLED);
 const xmlSelector = new XmlSelector();
 const identitySelector = new IdentitySelector();
 const dataSelectorFinder = new DataSelectorFinder(
@@ -79,7 +81,7 @@ const markValidRequestsAsReadyUseCase = new MarkValidRequestsAsReadyUseCase(
   requestRepository,
   logger,
 );
-const fetchDataUseCase = new FetchDataUseCase(urlDataFetcher, logger);
+const fetchDataUseCase = new FetchDataUseCase(urlDataFetcher, randomDataFetcher, logger);
 const selectDataUseCase = new SelectDataUseCase(dataSelectorFinder, logger);
 const sendResponseToOracleUseCase = new SendResponseToOracleUseCase(oracle, logger);
 const executeReadyRequestsUseCase = new ExecuteReadyRequestsUseCase(

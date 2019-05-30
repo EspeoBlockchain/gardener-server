@@ -47,7 +47,7 @@ class ExecuteReadyRequestsUseCase {
     this.logger.info(`Created response [response=${JSON.stringify(response)}]`);
 
     try {
-      const fetchedData = await this.fetchDataUseCase.fetchData(request.id, request.getRawUrl());
+      const fetchedData = await this._fetch(request);
       response.addFetchedData(fetchedData);
 
       const selectedData = await this.selectDataUseCase.selectFromRawData(
@@ -70,6 +70,14 @@ class ExecuteReadyRequestsUseCase {
       this.logger.error(`Request marked as failed [requestId=${request.id}]`, e);
       return null;
     }
+  }
+
+  async _fetch(request) {
+    if (request.getContentType() === 'random') {
+      return this.fetchDataUseCase.fetchRandomData(request.id, 1, 10);
+    }
+
+    return this.fetchDataUseCase.fetchData(request.id, request.getRawUrl());
   }
 
   async _sendResponse(response) {
