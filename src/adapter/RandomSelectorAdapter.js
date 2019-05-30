@@ -14,7 +14,7 @@ class RandomSelectorAdapter extends DataSelectorPort {
     if (this.sgxEnable === 'true') {
       throw new Error('Not implemented');
     } else {
-      return 123;
+      return '123';
     }
   }
 }

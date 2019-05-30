@@ -6,6 +6,8 @@ class RequestUrlParser {
     const urlRegex = new RegExp(/\(https?:\/\/.+\)/);
     const matched = urlRegex.exec(wrappedUrl);
     if (!matched) {
+      // TODO Assuming that it's url based (not the case in eg. random),
+      // shouldn't this validation be done per provider?
       throw new InvalidUrlError(`Url not found in ${wrappedUrl}`);
     }
     const firstMatched = matched[0];
@@ -14,13 +16,15 @@ class RequestUrlParser {
   }
 
   static resolveContentType(wrappedUrl) {
-    const typeRegex = new RegExp(/^(json|xml|html|ipfs)\(.+\)/);
+    // TODO This is duplicating information, and also with hardcoded literals
+    // We shoiuld have a mapping of contentType -> provider somewhere
+    const typeRegex = new RegExp(/^(json|xml|html|ipfs|random)\(.+\)/);
 
     if (typeRegex.test(wrappedUrl)) {
       return typeRegex.exec(wrappedUrl)[1];
     }
 
-    throw new InvalidContentTypeError('Request type is neither json nor xml nor html nor ipfs');
+    throw new InvalidContentTypeError('Request type is neither json nor xml nor html nor ipfs nor random');
   }
 
   static resolveSelectionPath(wrappedUrl) {
