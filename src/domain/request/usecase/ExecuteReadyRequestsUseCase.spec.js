@@ -27,11 +27,11 @@ describe('ExecuteReadyRequestsUseCase', () => {
   };
 
   const fetchDataUseCase = () => ({
-    fetchData: () => Promise.resolve('fetchedData'),
+    fetchHttpData: () => Promise.resolve('fetchedData'),
   });
 
   const failedFetchDataUseCase = () => ({
-    fetchData: () => Promise.reject(new InvalidUrlError('message')),
+    fetchHttpData: () => Promise.reject(new InvalidUrlError('message')),
   });
 
   const selectDataUseCase = () => ({
