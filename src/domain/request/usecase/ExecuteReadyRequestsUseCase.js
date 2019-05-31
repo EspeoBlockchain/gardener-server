@@ -50,11 +50,7 @@ class ExecuteReadyRequestsUseCase {
       const fetchedData = await this._fetch(request);
       response.addFetchedData(fetchedData);
 
-      const selectedData = await this.selectDataUseCase.selectFromRawData(
-        response.fetchedData,
-        request.getContentType(),
-        request.getSelectionPath(),
-      );
+      const selectedData = await this._select(response.fetchedData, request);
       response.addSelectedData(selectedData);
 
       return response;
@@ -74,10 +70,24 @@ class ExecuteReadyRequestsUseCase {
 
   async _fetch(request) {
     if (request.getContentType() === 'random') {
-      return this.fetchDataUseCase.fetchRandomData(request.id, 1, 10);
+      return this.fetchDataUseCase.fetchRandomData(
+        request.id, request.getLeftSideBound(), request.getRightSideBound(),
+      );
     }
 
     return this.fetchDataUseCase.fetchData(request.id, request.getRawUrl());
+  }
+
+  async _select(fetchedData, request) {
+    if (request.getContentType() === 'random') {
+      return this.selectDataUseCase.selectFromRandomRawData(fetchedData);
+    }
+
+    return this.selectDataUseCase.selectFromRawData(
+      fetchedData,
+      request.getContentType(),
+      request.getSelectionPath(),
+    );
   }
 
   async _sendResponse(response) {

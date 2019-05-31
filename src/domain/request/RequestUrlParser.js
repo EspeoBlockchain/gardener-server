@@ -33,6 +33,26 @@ class RequestUrlParser {
 
     return wrappedUrl.substr(pathStartIndex);
   }
+
+  static resolveLeftSideBound(wrappedUrl) {
+    const typeRegex = new RegExp(/^random\((\d+),(\d+)\)/);
+
+    if (typeRegex.test(wrappedUrl)) {
+      return typeRegex.exec(wrappedUrl)[1];
+    }
+
+    throw new InvalidContentTypeError('Invalid numeric bounds format');
+  }
+
+  static resolveRightSideBound(wrappedUrl) {
+    const typeRegex = new RegExp(/^random\((\d+),(\d+)\)/);
+
+    if (typeRegex.test(wrappedUrl)) {
+      return typeRegex.exec(wrappedUrl)[2];
+    }
+
+    throw new InvalidContentTypeError('Invalid numeric bounds format');
+  }
 }
 
 module.exports = RequestUrlParser;
