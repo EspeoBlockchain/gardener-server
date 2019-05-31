@@ -4,6 +4,10 @@ const { HttpError } = require('../domain/common/utils/error');
 
 
 class RandomDotOrgDataFetcherAdapter {
+  constructor(apiKey) {
+    this.apiKey = apiKey;
+  }
+
   async fetch(min, max) {
     try {
       const config = {
@@ -12,7 +16,7 @@ class RandomDotOrgDataFetcherAdapter {
         headers: {
           'Content-Type': 'application/json',
         },
-        data: `{"jsonrpc":"2.0","method":"generateIntegers","params":{"apiKey":"00000000-0000-0000-0000-000000000000","n":1,"min":${min},"max":${max},"replacement":true,"base":10},"id":0}`,
+        data: `{"jsonrpc":"2.0","method":"generateIntegers","params":{"apiKey":"${this.apiKey}","n":1,"min":${min},"max":${max},"replacement":true,"base":10},"id":0}`,
       };
 
       const response = await axios(config);

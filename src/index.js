@@ -46,7 +46,8 @@ const { RequestRepositoryFactory, ResponseRepositoryFactory } = require('./infra
 const PersistenceConnectionInitializer = require('./infrastructure/persistence/PersistenceConnectionInitializer');
 
 const {
-  DATABASE_URL, DATABASE_NAME, PERSISTENCE, START_BLOCK, SAFE_BLOCK_DELAY, API_PORT, SGX_ENABLED,
+  DATABASE_URL, DATABASE_NAME, PERSISTENCE, START_BLOCK, SAFE_BLOCK_DELAY, API_PORT,
+  SGX_ENABLED, RANDOMDOTORG_API_KEY,
 } = process.env;
 
 const persistenceOptions = {
@@ -61,7 +62,7 @@ const requestRepository = RequestRepositoryFactory.create(PERSISTENCE, logger);
 const responseRepository = ResponseRepositoryFactory.create(PERSISTENCE, logger);
 const oracle = new Oracle(web3, oracleAbi, process.env.ORACLE_ADDRESS);
 const urlDataFetcher = new UrlDataFetcher();
-const randomDataFetcher = new RandomDotOrgDataFetcher();
+const randomDataFetcher = new RandomDotOrgDataFetcher(RANDOMDOTORG_API_KEY);
 const jsonSelector = new JsonSelector();
 const randomSelector = new RandomSelector(SGX_ENABLED);
 const xmlSelector = new XmlSelector();
