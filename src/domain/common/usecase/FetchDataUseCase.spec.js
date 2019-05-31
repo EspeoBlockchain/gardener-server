@@ -20,7 +20,7 @@ describe('FetchDataUseCase', () => {
     const request = new Request('1', 'json(http://example.com).key1', Date.now());
     const sut = new FetchDataUseCase(urlDataFetcher(), failingDataFetcher(), new Logger());
     // when
-    const fetchedData = await sut.fetchData(request.id, 'http://example.com');
+    const fetchedData = await sut.fetchHttpData(request.id, 'http://example.com');
     // then
     expect(fetchedData).to.equal('{"key1":"value1"}');
     expect(sut.logger.list()).to.have.lengthOf(1);
@@ -30,6 +30,6 @@ describe('FetchDataUseCase', () => {
     const request = new Request('1', 'json(http://example.com).key1', Date.now(), RequestStateEnum.PROCESSED);
     const sut = new FetchDataUseCase(failingDataFetcher(), failingDataFetcher, new Logger());
     // when
-    return expect(sut.fetchData(request.id, request.getRawUrl())).to.be.rejected;
+    return expect(sut.fetchHttpData(request.id, request.getRawUrl())).to.be.rejected;
   });
 });

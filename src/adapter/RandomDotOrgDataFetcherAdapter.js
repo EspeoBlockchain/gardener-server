@@ -16,7 +16,6 @@ class RandomDotOrgDataFetcherAdapter {
       };
 
       const response = await axios(config);
-      console.log(jp.value(response.data, 'result.random.data[0]'));
 
       return jp.value(response.data, 'result.random.data[0]').toString();
     } catch (e) {

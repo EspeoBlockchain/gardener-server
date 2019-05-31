@@ -75,7 +75,7 @@ class ExecuteReadyRequestsUseCase {
       );
     }
 
-    return this.fetchDataUseCase.fetchData(request.id, request.getRawUrl());
+    return this.fetchDataUseCase.fetchHttpData(request.id, request.getRawUrl());
   }
 
   async _select(fetchedData, request) {

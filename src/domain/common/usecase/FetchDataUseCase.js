@@ -5,7 +5,7 @@ class FetchDataUseCase {
     this.logger = logger;
   }
 
-  async fetchData(requestId, rawUrl) {
+  async fetchHttpData(requestId, rawUrl) {
     const rawData = await this.urlDataFetcher.fetch(rawUrl);
     this.logger.info(`Data fetched [requestId=${requestId}, rawData=${rawData}]`);
 
