@@ -18,7 +18,7 @@ describe('FetchDataUseCase', () => {
   it('should fetch data for request and return rawData', async () => {
     // given
     const request = new Request('1', 'json(http://example.com).key1', Date.now());
-    const sut = new FetchDataUseCase(urlDataFetcher(), new Logger());
+    const sut = new FetchDataUseCase(urlDataFetcher(), failingDataFetcher(), new Logger());
     // when
     const fetchedData = await sut.fetchData(request.id, 'http://example.com');
     // then
@@ -28,7 +28,7 @@ describe('FetchDataUseCase', () => {
 
   it('should throw error if data fetch failed', () => {
     const request = new Request('1', 'json(http://example.com).key1', Date.now(), RequestStateEnum.PROCESSED);
-    const sut = new FetchDataUseCase(failingDataFetcher(), new Logger());
+    const sut = new FetchDataUseCase(failingDataFetcher(), failingDataFetcher, new Logger());
     // when
     return expect(sut.fetchData(request.id, request.getRawUrl())).to.be.rejected;
   });
