@@ -24,7 +24,7 @@ class RequestUrlParser {
       return typeRegex.exec(wrappedUrl)[1];
     }
 
-    throw new InvalidContentTypeError('Request type is neither json nor xml nor html nor ipfs nor random');
+    throw new InvalidContentTypeError('Request type has to be one of [json,xml,html,ipfs,random]');
   }
 
   static resolveSelectionPath(wrappedUrl) {

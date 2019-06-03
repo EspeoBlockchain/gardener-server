@@ -47,11 +47,8 @@ class ExecuteReadyRequestsUseCase {
     this.logger.info(`Created response [response=${JSON.stringify(response)}]`);
 
     try {
-      const fetchedData = await this._fetch(request);
-      response.addFetchedData(fetchedData);
-
-      const selectedData = await this._select(response.fetchedData, request);
-      response.addSelectedData(selectedData);
+      response.addFetchedData(await this._fetch(request));
+      response.addSelectedData(await this._select(response.fetchedData, request));
 
       return response;
     } catch (e) {

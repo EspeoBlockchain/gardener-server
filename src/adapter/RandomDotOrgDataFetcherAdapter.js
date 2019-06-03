@@ -9,8 +9,10 @@ class RandomDotOrgDataFetcherAdapter {
   }
 
   async fetch(min, max) {
+    let response;
+
     try {
-      const response = await axios({
+      response = await axios({
         method: 'post',
         url: 'https://api.random.org/json-rpc/2/invoke',
         headers: {
@@ -18,11 +20,11 @@ class RandomDotOrgDataFetcherAdapter {
         },
         data: `{"jsonrpc":"2.0","method":"generateIntegers","params":{"apiKey":"${this.apiKey}","n":1,"min":${min},"max":${max},"replacement":true,"base":10},"id":0}`,
       });
-
-      return jp.value(response.data, 'result.random.data[0]').toString();
     } catch (e) {
-      throw new HttpError('Error when calling random.org', e.response.status);
+      throw new HttpError(e.response.statusText, e.response.status);
     }
+
+    return jp.value(response.data, 'result.random.data[0]').toString();
   }
 }
 
