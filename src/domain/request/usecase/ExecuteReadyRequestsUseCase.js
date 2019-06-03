@@ -77,7 +77,7 @@ class ExecuteReadyRequestsUseCase {
 
   async _select(fetchedData, request) {
     if (request.getContentType() === 'random') {
-      return this.selectDataUseCase.selectFromRandomRawData(fetchedData);
+      return this.selectDataUseCase.selectFromRawData(fetchedData, request.getContentType());
     }
 
     return this.selectDataUseCase.selectFromRawData(
