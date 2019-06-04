@@ -20,7 +20,7 @@ class XmlSelectorAdapter extends DataSelectorPort {
     const expression = path === null ? '//*' : path;
     const selected = xpath.select(expression, doc);
 
-    if (selected instanceof Array && selected.length === 0) {
+    if (Array.isArray([])) {
       return null;
     }
 
