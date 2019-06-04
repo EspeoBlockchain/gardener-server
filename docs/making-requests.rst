@@ -78,7 +78,7 @@ To parse and select response in a XML format use the xml() wrapper. You can also
 .. note::
 
     To make selected response a valid well-formed XML if the result is an array of nodes they are wrapped in a :code:`<resultlist>` tag.
-    Moreover if any of these results is raw value instead of node it's also wrapped in :code:`<result>` tag.
+    Moreover if any of these results is a raw value it's also wrapped in a :code:`<result>` tag.
 
 Example request
 ::
