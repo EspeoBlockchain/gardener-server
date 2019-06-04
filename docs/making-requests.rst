@@ -41,6 +41,11 @@ JSON format
 
 To parse and select response in a JSON format use the json() wrapper. You can also query response following JsonPath.
 
+.. note::
+
+    :code:`json(...)` wrapper is treated as :code:`$` in JsonPath. Omit it when constructing request. In order to fetch :code:`sth` parameter from response make following request
+    :code:`json(...).sth` (instead of :code:`json(...)$.sth`).
+
 Example request
 ::
 
@@ -70,11 +75,15 @@ XML format
 
 To parse and select response in a XML format use the xml() wrapper. You can also query response following XPath.
 
+.. note::
+
+    To make selected response valid well formed xml if the result is an array of nodes they are wrapped in :code:`<resultlist>` tag.
+    Moreover if any of these results is raw value instead of node it's also wrapped in :code:`<result>` tag.
 
 Example request
 ::
 
-    xml(http://samples.openweathermap.org/data/2.5/weather?q=London&mode=xml&appid=b6907d289e10d714a6e88b30761fae22)/current/temperature/@value
+    xml(http://samples.openweathermap.org/data/2.5/weather?q=London&mode=xml&appid=b6907d289e10d714a6e88b30761fae22)string(/current/temperature/@value)
 
 
 Example response
