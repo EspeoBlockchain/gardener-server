@@ -12,13 +12,13 @@ services:
         command: bash -c "./wait-for-it.sh mongo:27017 && node src/index.js"
     mongo:
         container_name: oracle-db
-        image: mongo
+        image: mongo:4.1.13
         ports:
             - 27017:27017
             - 27018:27018
     mongo-test:
         container_name: test-db
-        image: mongo
+        image: mongo:4.1.13
         ports:
             - 37017:27017
             - 37018:27018
