@@ -1,6 +1,7 @@
 const { describe, it } = require('mocha');
-const { expect } = require('chai').use(require('chai-as-promised'));;
+const { expect } = require('chai').use(require('chai-as-promised'));
 const SelectDataUseCase = require('./SelectDataUseCase');
+const { InvalidSelectorDataError, NoMatchingElementsFoundError } = require('../utils/error');
 const { Logger } = require('../utils/TestMocks');
 
 describe('SelectDataUseCase', () => {
@@ -24,16 +25,16 @@ describe('SelectDataUseCase', () => {
     });
     const sut = new SelectDataUseCase(finder(), new Logger());
     // when, then
-    return expect(sut.selectFromRawData('fetchedData', 'json', '.key1')).to.be.rejected;
+    return expect(sut.selectFromRawData('fetchedData', 'json', '.key1')).to.be.rejectedWith(NoMatchingElementsFoundError);
   });
 
-  it('should throw InvalidSelectorDataError selector throw any error', async () => {
+  it('should throw InvalidSelectorDataError if selector throw any error', async () => {
     // given
     const finder = () => ({
-      find: () => ({ select: () => Promise.reject() }),
+      find: () => ({ select: () => Promise.reject(new Error('fail')) }),
     });
     const sut = new SelectDataUseCase(finder(), new Logger());
     // when, then
-    return expect(sut.selectFromRawData('fetchedData', 'json', '.key1')).to.be.rejected;
+    return expect(sut.selectFromRawData('fetchedData', 'json', '.key1')).to.be.rejectedWith(InvalidSelectorDataError);
   });
 });
