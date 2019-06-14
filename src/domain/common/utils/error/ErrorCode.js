@@ -1,6 +1,9 @@
 const ErrorCode = Object.freeze({
   INVALID_URL: 1000,
   INVALID_CONTENT_TYPE: 1001,
+  INVALID_SELECTOR_DATA: 4000,
+  NO_MATCHING_ELEMENTS_FOUND: 4004,
+  INTERNAL_SERVER_ERROR: 5000,
 });
 
 module.exports = ErrorCode;
