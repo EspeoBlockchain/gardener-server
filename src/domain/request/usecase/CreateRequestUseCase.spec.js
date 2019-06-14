@@ -29,6 +29,6 @@ describe('CreateRequestUseCase', () => {
     const validFrom = Date.now();
     await sut.createRequest(id, url, validFrom);
     // when, then
-    return expect(sut.createRequest(id, url, validFrom)).to.be.rejected;
+    return expect(() => sut.createRequest(id, url, validFrom)).to.be.rejected;
   });
 });
