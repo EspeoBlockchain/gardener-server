@@ -1,5 +1,5 @@
 const { describe, it, beforeEach } = require('mocha');
-const { expect } = require('chai');
+const { expect } = require('chai').use(require('dirty-chai'));
 const IdentitySelectorAdapter = require('./IdentitySelectorAdapter');
 
 describe('IdentitySelectorAdapter', () => {
@@ -15,7 +15,7 @@ describe('IdentitySelectorAdapter', () => {
     // when
     const result = sut.canHandle(contentType);
     // then
-    expect(result).to.equal(true);
+    expect(result).to.be.true();
   });
 
   it('should select always all data', () => {
