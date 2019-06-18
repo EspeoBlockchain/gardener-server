@@ -5,7 +5,11 @@
         "noImplicitReturns": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
-        "strictBindCallApply": true
+        "strictBindCallApply": true,
+        "baseUrl": "./src",
+        "paths": {
+            "@core/*": ["./*"]
+        }
     },
     "files": ["./src/index.ts"],
     "exclude": ["node_modules"]
