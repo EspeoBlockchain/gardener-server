@@ -1,5 +1,5 @@
-import Response from '../../response/Response';
 import InvalidRequestError from '../../common/utils/error/InvalidRequestError';
+import Response from '../../response/Response';
 
 class ExecuteReadyRequestsUseCase {
   constructor(

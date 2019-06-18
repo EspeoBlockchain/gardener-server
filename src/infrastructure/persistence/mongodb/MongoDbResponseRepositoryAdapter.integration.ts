@@ -3,7 +3,7 @@ const {
 } = require('mocha');
 const { expect } = require('chai').use(require('chai-as-promised'));
 
-import mongoose from 'mongoose';
+import * as mongoose from 'mongoose';
 import Response from '../../../domain/response/Response';
 import MongoDbResponseRepositoryAdapter from './MongoDbResponseRepositoryAdapter';
 import ConsoleLoggerAdapter from '../../../application/logger/ConsoleLoggerAdapter';

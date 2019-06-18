@@ -1,9 +1,9 @@
 import { omit } from 'lodash';
 
 import RequestRepositoryPort from '../../../domain/request/port/RequestRepositoryPort';
+import Request from '../../../domain/request/Request';
 import { RequestStateEnum } from '../../../domain/request/RequestStateEnum';
 import RequestModel from './RequestModel';
-import Request from '../../../domain/request/Request';
 
 class MongoDbRequestRepositoryAdapter extends RequestRepositoryPort {
   constructor(private logger) {

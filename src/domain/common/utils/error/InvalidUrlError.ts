@@ -1,5 +1,5 @@
-import InvalidRequestError from './InvalidRequestError';
 import { ErrorCode } from './ErrorCode';
+import InvalidRequestError from './InvalidRequestError';
 
 class InvalidUrlError extends InvalidRequestError {
   constructor(message) {

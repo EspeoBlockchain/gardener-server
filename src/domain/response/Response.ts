@@ -5,13 +5,15 @@ class Response {
   state: any;
   errorCode: number;
   selectedData: any;
-    fetchedData(fetchedData: any, arg1: any, arg2: any) {
-        throw new Error("Method not implemented.");
-    }
+
   constructor(requestId) {
     this.requestId = requestId;
     this.state = new ResponseState();
     this.errorCode = 0;
+  }
+
+  fetchedData(fetchedData: any, arg1: any, arg2: any) {
+    throw new Error('Method not implemented.');
   }
 
   addFetchedData(fetchedData) {

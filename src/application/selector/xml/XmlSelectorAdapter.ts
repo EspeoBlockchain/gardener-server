@@ -1,10 +1,12 @@
-import xpath from 'xpath';
-import { XMLSerializer, DOMParser } from 'xmldom';
-import DataSelectorPort from '../../../domain/common/port/DataSelectorPort';
-import XmlResultConverter from './XmlResultConverter';
+import { DOMParser, XMLSerializer } from 'xmldom';
+import * as xpath from 'xpath';
 
+import XmlResultConverter from './XmlResultConverter';
+import DataSelectorPort from '../../../domain/common/port/DataSelectorPort';
 
 class XmlSelectorAdapter extends DataSelectorPort {
+  domParser: DOMParser;
+  xmlSerializer: XMLSerializer;
   constructor() {
     super();
     this.domParser = new DOMParser();
@@ -34,4 +36,4 @@ class XmlSelectorAdapter extends DataSelectorPort {
   }
 }
 
-module.exports = XmlSelectorAdapter;
+export default XmlSelectorAdapter;

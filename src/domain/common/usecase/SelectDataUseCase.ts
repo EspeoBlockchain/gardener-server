@@ -1,4 +1,4 @@
-import { NoMatchingElementsFoundError, InvalidSelectorDataError } from '../utils/error';
+import { InvalidSelectorDataError, NoMatchingElementsFoundError } from '../utils/error';
 
 class SelectDataUseCase {
   constructor(private dataSelectorFinder, public logger) {
@@ -12,7 +12,6 @@ class SelectDataUseCase {
     } catch (e) {
       throw new InvalidSelectorDataError(e.toString());
     }
-
 
     if (selectedData === null) {
       throw new NoMatchingElementsFoundError('No matched elements');

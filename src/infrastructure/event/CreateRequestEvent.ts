@@ -1,12 +1,12 @@
 class CreateRequestEvent {
-  id: any;
-  url: any;
-  validFrom: any;
 
   // @ts-ignore
   static name() {
     return 'CreateRequestEvent';
   }
+  id: any;
+  url: any;
+  validFrom: any;
 
   constructor(id, url, validFrom) {
     this.id = id;

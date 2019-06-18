@@ -6,7 +6,6 @@ class MarkValidRequestsAsReadyUseCase {
     this.logger = logger;
   }
 
-
   async markValidRequestsAsReady() {
     const requests = await this.requestRepository.getScheduledRequestsWithValidFromBeforeNow();
 

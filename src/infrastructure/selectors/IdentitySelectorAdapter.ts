@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import DataSelectorPort from '../../../domain/common/port/DataSelectorPort';
+import { DataSelectorPort } from "../../domain/common/port";
 
 class IdentitySelectorAdapter extends DataSelectorPort {
   canHandle(contentType) {

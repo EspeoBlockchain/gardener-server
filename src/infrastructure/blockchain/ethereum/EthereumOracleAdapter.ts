@@ -1,14 +1,19 @@
+import * as EventEmitter from 'events';
 import _ from 'lodash';
-import EventEmitter from 'events';
+
 import OracleGateway from '../../../domain/blockchain/port/OracleGateway';
 
 const ONE_SECOND_MILLIS = 1000;
 
 class EthereumOracleAdapter extends OracleGateway {
+  static _finishedEventName(requestId) {
+    return `finished-${requestId}`;
+  }
   contract: any;
   pendingResponses: any[];
   emitter: EventEmitter;
   guard: boolean;
+
   constructor(web3, abi, address) {
     super();
     this.contract = new web3.eth.Contract(abi, address, { from: web3.eth.defaultAccount });
@@ -81,10 +86,6 @@ class EthereumOracleAdapter extends OracleGateway {
 
     this.emitter.emit(EthereumOracleAdapter._finishedEventName(response.requestId), error);
     this.guard = false;
-  }
-
-  static _finishedEventName(requestId) {
-    return `finished-${requestId}`;
   }
 }
 

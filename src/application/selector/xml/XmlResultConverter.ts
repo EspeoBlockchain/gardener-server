@@ -25,4 +25,4 @@ class XmlResultConverter {
   }
 }
 
-module.exports = XmlResultConverter;
+export default XmlResultConverter;

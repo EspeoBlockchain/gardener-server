@@ -20,5 +20,4 @@ class RequestModel extends mongoose.Schema {
   }
 }
 
-
 export default mongoose.model('Request', new RequestModel());

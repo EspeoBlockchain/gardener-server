@@ -4,7 +4,7 @@ import IdentitySelectorAdapter from '../infrastructure/selectors/IdentitySelecto
 import JsonSelectorAdapter from '../infrastructure/selectors/JsonSelectorAdapter';
 import XmlSelectorAdapter from '../infrastructure/selectors/XmlSelectorAdapter';
 
-export default {
+export {
   AxiosUrlDataFetcherAdapter,
   ConsoleLoggerAdapter,
   IdentitySelectorAdapter,

@@ -1,6 +1,6 @@
+import RequestState from './RequestState';
 import RequestStateFactory from './RequestStateFactory';
 import RequestUrlParser from './RequestUrlParser';
-import RequestState from './RequestState';
 
 class Request {
   id: any;

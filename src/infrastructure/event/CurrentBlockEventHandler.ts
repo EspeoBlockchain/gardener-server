@@ -1,5 +1,5 @@
-import CurrentBlockEvent from './CurrentBlockEvent';
 import CreateRequestEvent from './CreateRequestEvent';
+import CurrentBlockEvent from './CurrentBlockEvent';
 
 class CurrentBlockEventHandler {
   useCase: any;

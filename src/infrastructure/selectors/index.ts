@@ -3,7 +3,7 @@ import JsonSelectorAdapter from './JsonSelectorAdapter';
 import XmlSelectorAdapter from './XmlSelectorAdapter';
 
 
-export default {
+export {
   IdentitySelectorAdapter,
   JsonSelectorAdapter,
   XmlSelectorAdapter,

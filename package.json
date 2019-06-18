@@ -9,7 +9,7 @@
     "test": "mocha -r ts-node/register 'src/**/*.spec.ts'",
     "integration-test": "mocha -r ts-node/register 'src/**/*.integration.ts'",
     "ganache": "ganache-cli -d",
-    "lint": "eslint . --fix"
+    "lint": "tslint --config ./tslint.json --project ./tsconfig.json 'src/**/*.ts'"
   },
   "repository": {
     "type": "git",
@@ -49,9 +49,6 @@
     "chai-as-promised": "7.1.1",
     "coveralls": "3.0.2",
     "dirty-chai": "2.0.1",
-    "eslint": "5.4.0",
-    "eslint-config-airbnb-base": "13.1.0",
-    "eslint-plugin-import": "2.14.0",
     "ganache-cli": "6.1.8",
     "mocha": "5.2.0",
     "nock": "9.6.1",
@@ -59,6 +56,7 @@
     "sinon": "7.1.1",
     "sinon-mongoose": "2.2.1",
     "ts-node": "^8.3.0",
+    "tslint": "^5.17.0",
     "typescript": "^3.5.2"
   }
 }

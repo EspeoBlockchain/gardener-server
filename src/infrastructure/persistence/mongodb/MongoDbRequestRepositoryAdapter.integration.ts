@@ -4,7 +4,8 @@ const {
 require('dotenv').load({ path: '.env.test' });
 const { expect } = require('chai').use(require('chai-as-promised'));
 
-import mongoose from 'mongoose';
+import * as mongoose from 'mongoose';
+
 import Request from '../../../domain/request/Request';
 import MongoDbRequestRepositoryAdapter from './MongoDbRequestRepositoryAdapter';
 import ConsoleLoggerAdapter from '../../../application/logger/ConsoleLoggerAdapter';

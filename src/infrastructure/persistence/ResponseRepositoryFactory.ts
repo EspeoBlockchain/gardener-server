@@ -1,6 +1,6 @@
-import { PersistenceType } from './PersistenceType';
 import InMemoryResponseRepository from './inmemory/InMemoryResponseRepositoryAdapter';
 import MongoDBResponseRepository from './mongodb/MongoDbResponseRepositoryAdapter';
+import { PersistenceType } from './PersistenceType';
 
 class ResponseRepositoryFactory {
   static create(type, logger) {

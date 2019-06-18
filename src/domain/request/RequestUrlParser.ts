@@ -1,5 +1,4 @@
-import { InvalidUrlError, InvalidContentTypeError } from '../common/utils/error';
-
+import { InvalidContentTypeError, InvalidUrlError } from '../common/utils/error';
 
 class RequestUrlParser {
   static resolveRawUrl(wrappedUrl) {

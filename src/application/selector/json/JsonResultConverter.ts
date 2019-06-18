@@ -11,4 +11,4 @@ class JsonResultConverter {
   }
 }
 
-module.exports = JsonResultConverter;
+export default JsonResultConverter;

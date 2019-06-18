@@ -2,7 +2,6 @@ import { omit } from 'lodash';
 import ResponseRepositoryPort from '../../../domain/response/port/ResponseRepositoryPort';
 import ResponseModel from './ResponseModel';
 
-
 class MongoDbResponseRepositoryAdapter extends ResponseRepositoryPort {
   logger: any;
   constructor(logger) {

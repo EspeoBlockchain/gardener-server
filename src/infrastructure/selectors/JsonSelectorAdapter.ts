@@ -1,6 +1,7 @@
-import jp from 'jsonpath';
-import DataSelectorPort from '../../../domain/common/port/DataSelectorPort';
-import JsonResultConverter from './JsonResultConverter';
+import * as jp from 'jsonpath';
+
+import JsonResultConverter from '../../application/selector/json/JsonResultConverter';
+import DataSelectorPort from '../../domain/common/port/DataSelectorPort';
 
 class JsonSelectorAdapter extends DataSelectorPort {
   canHandle(contentType) {

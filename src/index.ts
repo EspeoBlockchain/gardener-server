@@ -1,42 +1,43 @@
-/* eslint-disable no-new */
-
+// tslint:disable-next-line
 require('dotenv').load();
-import express from 'express';
-import { EventBus } from './infrastructure/event';
-const {
-  web3,
-  EthereumOracleAdapter: Oracle,
-  EthereumBlockchainAdapter: Blockchain,
-} = require('./infrastructure/blockchain/ethereum');
 
+import express from 'express';
+
+import {
+  EthereumBlockchainAdapter as Blockchain,
+  EthereumOracleAdapter as Oracle,
+  web3,
+} from './infrastructure/blockchain/ethereum';
+import { EventBus } from './infrastructure/event';
+
+import UrlDataFetcher from './application/dataFetcher/AxiosUrlDataFetcherAdapter';
+import Logger from './application/logger/ConsoleLoggerAdapter';
 import oracleAbi from './config/abi/oracle.abi';
 import { CreateRequestEventHandler, CurrentBlockEventHandler } from './infrastructure/event';
-import { MarkValidRequestsAsReadyScheduler, ExecuteReadyRequestsScheduler } from './infrastructure/scheduling';
-import Logger from './application/logger/ConsoleLoggerAdapter';
-import UrlDataFetcher from './application/dataFetcher/AxiosUrlDataFetcherAdapter';
+import { ExecuteReadyRequestsScheduler, MarkValidRequestsAsReadyScheduler } from './infrastructure/scheduling';
 
-const {
-  JsonSelectorAdapter: JsonSelector,
-  XmlSelectorAdapter: XmlSelector,
-  IdentitySelectorAdapter: IdentitySelector,
-} = require('./application/selector');
+import {
+  IdentitySelectorAdapter as IdentitySelector,
+  JsonSelectorAdapter as JsonSelector,
+  XmlSelectorAdapter as XmlSelector,
+} from './application/selector';
 
-const {
+import {
   CreateRequestUseCase,
-  MarkValidRequestsAsReadyUseCase,
   ExecuteReadyRequestsUseCase,
-} = require('./domain/request/usecase');
+  MarkValidRequestsAsReadyUseCase,
+} from './domain/request/usecase';
 
-const {
+import {
+  CheckHealthStatusUseCase,
   FetchDataUseCase,
   SelectDataUseCase,
-  CheckHealthStatusUseCase,
-} = require('./domain/common/usecase');
+} from './domain/common/usecase';
 
-const {
+import {
   FetchNewOracleRequestsUseCase,
   SendResponseToOracleUseCase,
-} = require('./domain/blockchain/usecase');
+} from './domain/blockchain/usecase';
 
 import DataSelectorFinder from './domain/common/DataSelectorFinder';
 
@@ -66,7 +67,6 @@ const xmlSelector = new XmlSelector();
 const identitySelector = new IdentitySelector();
 const dataSelectorFinder = new DataSelectorFinder([jsonSelector, xmlSelector, identitySelector]);
 
-
 const createRequestUseCase = new CreateRequestUseCase(requestRepository, logger);
 const fetchNewOracleRequestsUseCase = new FetchNewOracleRequestsUseCase(
   oracle,
@@ -92,7 +92,9 @@ const checkHealthStatusUseCase = new CheckHealthStatusUseCase();
 
 const eventBus = new EventBus();
 
+// tslint:disable-next-line
 new CreateRequestEventHandler(createRequestUseCase, eventBus);
+// tslint:disable-next-line
 new CurrentBlockEventHandler(fetchNewOracleRequestsUseCase, eventBus);
 
 const markValidRequestsAsReadyScheduler = new MarkValidRequestsAsReadyScheduler(
@@ -110,6 +112,7 @@ blockListener.listen();
 
 const app = express();
 const port = API_PORT;
+// tslint:disable-next-line
 require('./infrastructure/systemHealth/statusEndpoint')(app, checkHealthStatusUseCase);
 
 app.listen(port);

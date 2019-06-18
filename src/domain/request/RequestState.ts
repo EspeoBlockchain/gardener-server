@@ -1,10 +1,16 @@
 import State from '../common/State';
-import { RequestStateEnum } from './RequestStateEnum'
+import { RequestStateEnum } from './RequestStateEnum';
 
 class RequestState extends State {
   constructor(name = RequestStateEnum.SCHEDULED) {
     super();
-    if (![RequestStateEnum.SCHEDULED, RequestStateEnum.READY, RequestStateEnum.PROCESSED, RequestStateEnum.FINISHED, RequestStateEnum.FAILED].includes(name)) {
+    if (![
+      RequestStateEnum.SCHEDULED,
+      RequestStateEnum.READY,
+      RequestStateEnum.PROCESSED,
+      RequestStateEnum.FINISHED,
+      RequestStateEnum.FAILED,
+    ].includes(name)) {
       throw new Error(`Invalid request state: ${name}`);
     }
     this.name = name;

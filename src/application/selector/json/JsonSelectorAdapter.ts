@@ -1,4 +1,4 @@
-import jp from 'jsonpath';
+import * as jp from 'jsonpath';
 import DataSelectorPort from '../../../domain/common/port/DataSelectorPort';
 import JsonResultConverter from './JsonResultConverter';
 
