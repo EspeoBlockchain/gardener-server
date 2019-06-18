@@ -26,6 +26,6 @@ describe('SendResponseUseCase', () => {
     const response = new Response('id');
     const sut = new SendResponseToOracleUseCase(failingOracle(), new Logger());
     // when, then
-    return expect(sut.sendResponse(response)).to.be.rejected;
+    return expect(() => sut.sendResponse(response)).to.be.rejected;
   });
 });

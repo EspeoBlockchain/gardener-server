@@ -5,7 +5,7 @@ const { expect } = require('chai').use(require('chai-as-promised'));
 const mongoose = require('mongoose');
 const Response = require('../../../domain/response/Response');
 const MongoDbResponseRepositoryAdapter = require('./MongoDbResponseRepositoryAdapter');
-const ConsoleLoggerAdapter = require('../../../adapter/ConsoleLoggerAdapter');
+const ConsoleLoggerAdapter = require('../../../application/logger/ConsoleLoggerAdapter');
 const ResponseModel = require('./ResponseModel');
 
 describe('MongoDbResponseRepositoryAdapter', () => {

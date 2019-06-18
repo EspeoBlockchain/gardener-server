@@ -11,16 +11,14 @@ const {
 const oracleAbi = require('./config/abi/oracle.abi');
 const { CreateRequestEventHandler, CurrentBlockEventHandler } = require('./infrastructure/event');
 const { MarkValidRequestsAsReadyScheduler, ExecuteReadyRequestsScheduler } = require('./infrastructure/scheduling');
-const {
-  ConsoleLoggerAdapter: Logger,
-  AxiosUrlDataFetcherAdapter: UrlDataFetcher,
-} = require('./adapter');
+const Logger = require('./application/logger/ConsoleLoggerAdapter');
+const UrlDataFetcher = require('./application/dataFetcher/AxiosUrlDataFetcherAdapter');
 
 const {
   JsonSelectorAdapter: JsonSelector,
   XmlSelectorAdapter: XmlSelector,
   IdentitySelectorAdapter: IdentitySelector,
-} = require('./infrastructure/selectors');
+} = require('./application/selector');
 
 const {
   CreateRequestUseCase,
