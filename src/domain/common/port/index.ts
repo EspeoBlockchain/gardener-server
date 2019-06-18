@@ -1,5 +1,5 @@
-const DataSelectorPort = require('./DataSelectorPort');
-const LoggerPort = require('./LoggerPort');
-const UrlDataFetcherPort = require('./UrlDataFetcherPort');
+import DataSelectorPort from './DataSelectorPort';
+import LoggerPort from './LoggerPort';
+import UrlDataFetcherPort from './UrlDataFetcherPort';
 
-module.exports = { DataSelectorPort, LoggerPort, UrlDataFetcherPort };
+export default { DataSelectorPort, LoggerPort, UrlDataFetcherPort };

@@ -1,10 +1,10 @@
-const InvalidContentTypeError = require('./InvalidContentTypeError');
-const InvalidUrlError = require('./InvalidUrlError');
-const HttpError = require('./HttpError');
-const InvalidSelectorDataError = require('./InvalidSelectorDataError');
-const NoMatchingElementsFoundError = require('./NoMatchingElementsFoundError');
+import InvalidContentTypeError from './InvalidContentTypeError';
+import InvalidUrlError from './InvalidUrlError';
+import HttpError from './HttpError';
+import InvalidSelectorDataError from './InvalidSelectorDataError';
+import NoMatchingElementsFoundError from './NoMatchingElementsFoundError';
 
-module.exports = {
+export default {
   InvalidContentTypeError,
   InvalidUrlError,
   HttpError,

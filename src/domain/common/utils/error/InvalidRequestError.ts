@@ -5,4 +5,4 @@ class InvalidRequestError extends Error {
   }
 }
 
-module.exports = InvalidRequestError;
+export default InvalidRequestError;

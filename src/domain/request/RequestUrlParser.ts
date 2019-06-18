@@ -1,4 +1,4 @@
-const { InvalidUrlError, InvalidContentTypeError } = require('../common/utils/error');
+import { InvalidUrlError, InvalidContentTypeError } from '../common/utils/error';
 
 
 class RequestUrlParser {
@@ -31,4 +31,4 @@ class RequestUrlParser {
   }
 }
 
-module.exports = RequestUrlParser;
+export default RequestUrlParser;

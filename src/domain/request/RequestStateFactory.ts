@@ -1,4 +1,4 @@
-const RequestState = require('./RequestState');
+import RequestState from './RequestState';
 
 class RequestStateFactory {
   static createState(validFrom) {
@@ -11,4 +11,4 @@ class RequestStateFactory {
   }
 }
 
-module.exports = RequestStateFactory;
+export default RequestStateFactory;

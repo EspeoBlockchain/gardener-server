@@ -1,6 +1,6 @@
-const { describe, it } = require('mocha');
-const { expect } = require('chai');
-const RequestUrlParser = require('./RequestUrlParser');
+import { describe, it } from 'mocha';
+import { expect } from 'chai';
+import RequestUrlParser from './RequestUrlParser';
 
 describe('RequestUrlParser', () => {
   describe('resolving raw url from wrapped url', () => {

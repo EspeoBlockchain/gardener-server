@@ -6,4 +6,4 @@ const ErrorCode = Object.freeze({
   INTERNAL_SERVER_ERROR: 5000,
 });
 
-module.exports = ErrorCode;
+export default ErrorCode;

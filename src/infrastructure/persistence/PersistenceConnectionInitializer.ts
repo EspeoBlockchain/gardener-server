@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const { MongoDb } = require('./PersistenceType');
+import mongoose from 'mongoose';
+import { MongoDb } from './PersistenceType';
 
 class PersistenceConnectionInitializer {
   init(type, options) {
@@ -16,4 +16,4 @@ class PersistenceConnectionInitializer {
   }
 }
 
-module.exports = PersistenceConnectionInitializer;
+export default PersistenceConnectionInitializer;

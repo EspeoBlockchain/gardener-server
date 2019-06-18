@@ -13,4 +13,4 @@ class MarkValidRequestsAsReadyScheduler {
   }
 }
 
-module.exports = MarkValidRequestsAsReadyScheduler;
+export default MarkValidRequestsAsReadyScheduler;

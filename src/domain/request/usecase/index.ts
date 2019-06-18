@@ -1,8 +1,8 @@
-const CreateRequestUseCase = require('./CreateRequestUseCase');
-const ExecuteReadyRequestsUseCase = require('./ExecuteReadyRequestsUseCase');
-const MarkValidRequestsAsReadyUseCase = require('./MarkValidRequestsAsReadyUseCase');
+import CreateRequestUseCase from './CreateRequestUseCase';
+import ExecuteReadyRequestsUseCase from './ExecuteReadyRequestsUseCase';
+import MarkValidRequestsAsReadyUseCase from './MarkValidRequestsAsReadyUseCase';
 
-module.exports = {
+export default {
   CreateRequestUseCase,
   ExecuteReadyRequestsUseCase,
   MarkValidRequestsAsReadyUseCase,

@@ -1,10 +1,10 @@
-const CreateRequestEvent = require('./CreateRequestEvent');
-const CreateRequestEventHandler = require('./CreateRequestEventHandler');
-const CurrentBlockEvent = require('./CurrentBlockEvent');
-const CurrentBlockEventHandler = require('./CurrentBlockEventHandler');
-const EventBus = require('./EventBus');
+import CreateRequestEvent from './CreateRequestEvent';
+import CreateRequestEventHandler from './CreateRequestEventHandler';
+import CurrentBlockEvent from './CurrentBlockEvent';
+import CurrentBlockEventHandler from './CurrentBlockEventHandler';
+import EventBus from './EventBus';
 
-module.exports = {
+export default {
   CreateRequestEvent,
   CreateRequestEventHandler,
   CurrentBlockEvent,

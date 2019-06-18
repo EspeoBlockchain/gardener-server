@@ -18,4 +18,4 @@ class DataSelectorFinder {
   }
 }
 
-module.exports = DataSelectorFinder;
+export default DataSelectorFinder;

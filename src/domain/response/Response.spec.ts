@@ -1,6 +1,6 @@
-const { describe, it } = require('mocha');
-const { expect } = require('chai');
-const Response = require('./Response');
+import { describe, it } from 'mocha';
+import { expect } from 'chai';
+import Response from './Response';
 
 describe('Response', () => {
   it('should be created in Processed state for given requestId', () => {

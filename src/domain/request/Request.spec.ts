@@ -1,7 +1,7 @@
-const { describe, it } = require('mocha');
-const { expect } = require('chai');
-const Request = require('./Request');
-const RequestState = require('./RequestState');
+import { describe, it } from 'mocha';
+import { expect } from 'chai';
+import Request from './Request';
+import RequestState from './RequestState';
 
 describe('Request', () => {
   it('should save given parameters and have a state', () => {

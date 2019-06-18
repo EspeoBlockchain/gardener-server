@@ -1,5 +1,5 @@
-const InvalidRequestError = require('./InvalidRequestError');
-const { NO_MATCHING_ELEMENTS_FOUND } = require('./ErrorCode');
+import InvalidRequestError from './InvalidRequestError';
+import { NO_MATCHING_ELEMENTS_FOUND } from './ErrorCode';
 
 class NoMatchingElementsFoundError extends InvalidRequestError {
   constructor(message) {
@@ -7,4 +7,4 @@ class NoMatchingElementsFoundError extends InvalidRequestError {
   }
 }
 
-module.exports = NoMatchingElementsFoundError;
+export default NoMatchingElementsFoundError;

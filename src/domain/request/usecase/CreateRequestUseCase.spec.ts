@@ -1,7 +1,7 @@
-const { describe, it, beforeEach } = require('mocha');
+import { describe, it, beforeEach } from 'mocha';
 const { expect } = require('chai').use(require('chai-as-promised'));
-const CreateRequestUseCase = require('./CreateRequestUseCase');
-const { Logger, Repository } = require('../../common/utils/TestMocks');
+import CreateRequestUseCase from './CreateRequestUseCase';
+import { Logger, Repository } from '../../common/utils/TestMocks';
 
 describe('CreateRequestUseCase', () => {
   let sut;

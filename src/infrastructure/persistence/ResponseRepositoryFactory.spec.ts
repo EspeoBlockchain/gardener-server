@@ -1,9 +1,9 @@
-const { describe, it } = require('mocha');
-const { expect } = require('chai');
-const ResponseRepositoryFactory = require('./ResponseRepositoryFactory');
-const InMemoryResponseRepository = require('./inmemory/InMemoryResponseRepositoryAdapter');
-const MongoDbResponseRepository = require('./mongodb/MongoDbResponseRepositoryAdapter');
-const { logger } = require('../../domain/common/utils/TestMocks');
+import { describe, it } from 'mocha';
+import { expect } from 'chai';
+import ResponseRepositoryFactory from './ResponseRepositoryFactory';
+import InMemoryResponseRepository from './inmemory/InMemoryResponseRepositoryAdapter';
+import MongoDbResponseRepository from './mongodb/MongoDbResponseRepositoryAdapter';
+import { logger } from '../../domain/common/utils/TestMocks';
 
 
 describe('ResponseRepositoryFactory', () => {

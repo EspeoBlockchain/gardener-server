@@ -4,4 +4,4 @@ class BlockchainPort {
   }
 }
 
-module.exports = BlockchainPort;
+export default BlockchainPort;

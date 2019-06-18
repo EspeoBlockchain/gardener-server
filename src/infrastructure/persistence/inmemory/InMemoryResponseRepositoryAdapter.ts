@@ -1,4 +1,4 @@
-const ResponseRepositoryPort = require('../../../domain/response/port/ResponseRepositoryPort');
+import ResponseRepositoryPort from '../../../domain/response/port/ResponseRepositoryPort';
 
 class InMemoryResponseRepositoryAdapter extends ResponseRepositoryPort {
   constructor() {
@@ -11,4 +11,4 @@ class InMemoryResponseRepositoryAdapter extends ResponseRepositoryPort {
   }
 }
 
-module.exports = InMemoryResponseRepositoryAdapter;
+export default InMemoryResponseRepositoryAdapter;

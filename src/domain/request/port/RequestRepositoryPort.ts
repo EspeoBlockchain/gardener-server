@@ -18,4 +18,4 @@ class RequestRepositoryPort {
   }
 }
 
-module.exports = RequestRepositoryPort;
+export default RequestRepositoryPort;

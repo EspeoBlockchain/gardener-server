@@ -1,5 +1,5 @@
-const InvalidRequestError = require('./InvalidRequestError');
-const { INVALID_CONTENT_TYPE } = require('./ErrorCode');
+import InvalidRequestError from './InvalidRequestError';
+import { INVALID_CONTENT_TYPE } from './ErrorCode';
 
 class InvalidContentTypeError extends InvalidRequestError {
   constructor(message) {
@@ -7,4 +7,4 @@ class InvalidContentTypeError extends InvalidRequestError {
   }
 }
 
-module.exports = InvalidContentTypeError;
+export default InvalidContentTypeError;

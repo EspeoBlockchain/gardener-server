@@ -1,4 +1,4 @@
-const RequestRepositoryFactory = require('./RequestRepositoryFactory');
-const ResponseRepositoryFactory = require('./ResponseRepositoryFactory');
+import RequestRepositoryFactory from './RequestRepositoryFactory';
+import ResponseRepositoryFactory from './ResponseRepositoryFactory';
 
-module.exports = { RequestRepositoryFactory, ResponseRepositoryFactory };
+export default { RequestRepositoryFactory, ResponseRepositoryFactory };

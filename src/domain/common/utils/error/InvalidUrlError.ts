@@ -1,5 +1,5 @@
-const InvalidRequestError = require('./InvalidRequestError');
-const { INVALID_URL } = require('./ErrorCode');
+import InvalidRequestError from './InvalidRequestError';
+import { INVALID_URL } from './ErrorCode';
 
 class InvalidUrlError extends InvalidRequestError {
   constructor(message) {
@@ -7,4 +7,4 @@ class InvalidUrlError extends InvalidRequestError {
   }
 }
 
-module.exports = InvalidUrlError;
+export default InvalidUrlError;

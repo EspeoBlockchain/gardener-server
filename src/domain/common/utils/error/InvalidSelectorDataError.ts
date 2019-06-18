@@ -1,5 +1,5 @@
-const InvalidRequestError = require('./InvalidRequestError');
-const { INVALID_SELECTOR_DATA } = require('./ErrorCode');
+import InvalidRequestError from './InvalidRequestError';
+import { INVALID_SELECTOR_DATA } from './ErrorCode';
 
 class InvalidSelectorDataError extends InvalidRequestError {
   constructor(message) {
@@ -7,4 +7,4 @@ class InvalidSelectorDataError extends InvalidRequestError {
   }
 }
 
-module.exports = InvalidSelectorDataError;
+export default InvalidSelectorDataError;

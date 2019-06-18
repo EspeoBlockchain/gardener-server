@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 class ResponseModel extends mongoose.Schema {
   constructor() {
@@ -14,4 +14,4 @@ class ResponseModel extends mongoose.Schema {
   }
 }
 
-module.exports = mongoose.model('Response', new ResponseModel());
+export default mongoose.model('Response', new ResponseModel());

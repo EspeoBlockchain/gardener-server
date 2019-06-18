@@ -1,4 +1,4 @@
-const CreateRequestEvent = require('./CreateRequestEvent');
+import CreateRequestEvent from './CreateRequestEvent';
 
 class CreateRequestEventHandler {
   constructor(createRequestUseCase, eventBus) {
@@ -11,4 +11,4 @@ class CreateRequestEventHandler {
   }
 }
 
-module.exports = CreateRequestEventHandler;
+export default CreateRequestEventHandler;

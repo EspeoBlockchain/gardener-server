@@ -1,8 +1,8 @@
-const { describe, it } = require('mocha');
+import { describe, it } from 'mocha';
 const { expect } = require('chai').use(require('chai-as-promised'));
-const SendResponseToOracleUseCase = require('./SendResponseToOracleUseCase');
-const Response = require('../../response/Response');
-const { Logger } = require('../../common/utils/TestMocks');
+import SendResponseToOracleUseCase from './SendResponseToOracleUseCase';
+import Response from '../../response/Response';
+import { Logger } from '../../common/utils/TestMocks';
 
 describe('SendResponseUseCase', () => {
   const oracle = () => ({

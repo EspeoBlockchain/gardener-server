@@ -1,3 +1,3 @@
-const ResponseRepositoryPort = require('./ResponseRepositoryPort');
+import ResponseRepositoryPort from './ResponseRepositoryPort';
 
-module.exports = { ResponseRepositoryPort };
+export default { ResponseRepositoryPort };

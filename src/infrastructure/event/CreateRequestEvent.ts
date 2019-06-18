@@ -10,4 +10,4 @@ class CreateRequestEvent {
   }
 }
 
-module.exports = CreateRequestEvent;
+export default CreateRequestEvent;

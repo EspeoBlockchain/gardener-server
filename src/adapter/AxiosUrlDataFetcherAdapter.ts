@@ -1,6 +1,6 @@
-const axios = require('axios');
-const UrlDataFetcher = require('../domain/common/port/UrlDataFetcherPort');
-const { HttpError } = require('../domain/common/utils/error');
+import axios from 'axios';
+import UrlDataFetcher from '../domain/common/port/UrlDataFetcherPort';
+import { HttpError } from '../domain/common/utils/error';
 
 
 class AxiosUrlDataFetcherAdapter extends UrlDataFetcher {
@@ -15,4 +15,4 @@ class AxiosUrlDataFetcherAdapter extends UrlDataFetcher {
   }
 }
 
-module.exports = AxiosUrlDataFetcherAdapter;
+export default AxiosUrlDataFetcherAdapter;

@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
-const { describe, it } = require('mocha');
+import { describe, it } from 'mocha';
 const { expect } = require('chai').use(require('chai-as-promised'));
-const FetchDataUseCase = require('./FetchDataUseCase');
-const Request = require('../../request/Request');
-const RequestStateEnum = require('../../request/RequestStateEnum');
-const { Logger } = require('../utils/TestMocks');
+import FetchDataUseCase from './FetchDataUseCase';
+import Request from '../../request/Request';
+import RequestStateEnum from '../../request/RequestStateEnum';
+import { Logger } from '../utils/TestMocks';
 
 describe('FetchDataUseCase', () => {
   const urlDataFetcher = () => ({

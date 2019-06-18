@@ -8,4 +8,4 @@ class CurrentBlockEvent {
   }
 }
 
-module.exports = CurrentBlockEvent;
+export default CurrentBlockEvent;

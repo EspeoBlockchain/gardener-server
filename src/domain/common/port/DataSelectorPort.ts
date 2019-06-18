@@ -10,4 +10,4 @@ class DataSelectorPort {
   }
 }
 
-module.exports = DataSelectorPort;
+export default DataSelectorPort;

@@ -1,6 +1,6 @@
-const xpath = require('xpath');
-const { XMLSerializer, DOMParser } = require('xmldom');
-const DataSelectorPort = require('../../domain/common/port/DataSelectorPort');
+import xpath from 'xpath';
+import { XMLSerializer, DOMParser } from 'xmldom';
+import DataSelectorPort from '../../domain/common/port/DataSelectorPort';
 
 class XmlSelectorAdapter extends DataSelectorPort {
   constructor() {
@@ -41,4 +41,4 @@ class XmlSelectorAdapter extends DataSelectorPort {
   }
 }
 
-module.exports = XmlSelectorAdapter;
+export default XmlSelectorAdapter;

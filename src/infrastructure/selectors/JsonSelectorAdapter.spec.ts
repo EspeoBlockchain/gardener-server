@@ -1,6 +1,6 @@
-const { describe, it, beforeEach } = require('mocha');
-const { expect } = require('chai');
-const JsonSelectorAdapter = require('./JsonSelectorAdapter');
+import { describe, it, beforeEach } from 'mocha';
+import { expect } from 'chai';
+import JsonSelectorAdapter from './JsonSelectorAdapter';
 
 describe('JsonSelectorAdapter', () => {
   let sut;

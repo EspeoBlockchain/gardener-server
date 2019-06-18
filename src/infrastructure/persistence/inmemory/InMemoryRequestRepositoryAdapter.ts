@@ -1,5 +1,5 @@
-const RequestRepositoryPort = require('../../../domain/request/port/RequestRepositoryPort');
-const { SCHEDULED, READY } = require('../../../domain/request/RequestStateEnum');
+import RequestRepositoryPort from '../../../domain/request/port/RequestRepositoryPort';
+import { SCHEDULED, READY } from '../../../domain/request/RequestStateEnum';
 
 class InMemoryRequestRepositoryAdapter extends RequestRepositoryPort {
   constructor() {
@@ -27,4 +27,4 @@ class InMemoryRequestRepositoryAdapter extends RequestRepositoryPort {
   }
 }
 
-module.exports = InMemoryRequestRepositoryAdapter;
+export default InMemoryRequestRepositoryAdapter;

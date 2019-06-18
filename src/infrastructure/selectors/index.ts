@@ -1,9 +1,9 @@
-const IdentitySelectorAdapter = require('./IdentitySelectorAdapter');
-const JsonSelectorAdapter = require('./JsonSelectorAdapter');
-const XmlSelectorAdapter = require('./XmlSelectorAdapter');
+import IdentitySelectorAdapter from './IdentitySelectorAdapter';
+import JsonSelectorAdapter from './JsonSelectorAdapter';
+import XmlSelectorAdapter from './XmlSelectorAdapter';
 
 
-module.exports = {
+export default {
   IdentitySelectorAdapter,
   JsonSelectorAdapter,
   XmlSelectorAdapter,

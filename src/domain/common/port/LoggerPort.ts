@@ -10,4 +10,4 @@ class LoggerPort {
   }
 }
 
-module.exports = LoggerPort;
+export default LoggerPort;

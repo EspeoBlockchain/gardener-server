@@ -1,4 +1,4 @@
-const BlockchainPort = require('./BlockchainPort');
-const OracleGateway = require('./OracleGateway');
+import BlockchainPort from './BlockchainPort';
+import OracleGateway from './OracleGateway';
 
-module.exports = { BlockchainPort, OracleGateway };
+export default { BlockchainPort, OracleGateway };

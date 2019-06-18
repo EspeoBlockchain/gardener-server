@@ -1,6 +1,6 @@
-const { describe, it } = require('mocha');
-const { expect } = require('chai');
-const RequestState = require('./RequestState');
+import { describe, it } from 'mocha';
+import { expect } from 'chai';
+import RequestState from './RequestState';
 
 const stateMachine = [
   {

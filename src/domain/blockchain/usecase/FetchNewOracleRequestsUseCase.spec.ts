@@ -1,7 +1,7 @@
-const { describe, it, beforeEach } = require('mocha');
-const { expect } = require('chai');
-const FetchNewOracleRequestsUseCase = require('./FetchNewOracleRequestsUseCase');
-const { Logger } = require('../../common/utils/TestMocks');
+import { describe, it, beforeEach } from 'mocha';
+import { expect } from 'chai';
+import FetchNewOracleRequestsUseCase from './FetchNewOracleRequestsUseCase';
+import { Logger } from '../../common/utils/TestMocks';
 
 describe('FetchNewOracleRequestUseCase', () => {
   const oracle = () => ({

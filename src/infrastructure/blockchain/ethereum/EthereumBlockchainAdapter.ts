@@ -1,4 +1,4 @@
-const BlockchainPort = require('../../../domain/blockchain/port/BlockchainPort');
+import BlockchainPort from '../../../domain/blockchain/port/BlockchainPort';
 
 class EthereumBlockchainAdapter extends BlockchainPort {
   constructor(web3) {
@@ -11,4 +11,4 @@ class EthereumBlockchainAdapter extends BlockchainPort {
   }
 }
 
-module.exports = EthereumBlockchainAdapter;
+export default EthereumBlockchainAdapter;

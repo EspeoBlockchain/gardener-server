@@ -1,6 +1,6 @@
-const { describe, it, beforeEach } = require('mocha');
-const { expect } = require('chai');
-const XmlSelectorAdapter = require('./XmlSelectorAdapter');
+import { describe, it, beforeEach } from 'mocha';
+import { expect } from 'chai';
+import XmlSelectorAdapter from './XmlSelectorAdapter';
 
 describe('XmlSelectorAdapter', () => {
   let sut;

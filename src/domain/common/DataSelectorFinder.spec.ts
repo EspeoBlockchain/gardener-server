@@ -1,6 +1,6 @@
-const { describe, it } = require('mocha');
+import { describe, it } from 'mocha';
 const { expect } = require('chai').use(require('chai-as-promised'));
-const DataSelectorFinder = require('./DataSelectorFinder');
+import DataSelectorFinder from './DataSelectorFinder';
 
 
 describe('DataSelectorFinder', () => {

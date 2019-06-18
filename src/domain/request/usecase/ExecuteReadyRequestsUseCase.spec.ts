@@ -1,9 +1,9 @@
-const { describe, it } = require('mocha');
-const { expect } = require('chai');
-const ExecuteReadyRequestsUseCase = require('./ExecuteReadyRequestsUseCase');
-const Request = require('../Request');
-const { Logger } = require('../../common/utils/TestMocks');
-const InvalidUrlError = require('../../common/utils/error/InvalidUrlError');
+import { describe, it } from 'mocha';
+import { expect } from 'chai';
+import ExecuteReadyRequestsUseCase from './ExecuteReadyRequestsUseCase';
+import Request from '../Request';
+import { Logger } from '../../common/utils/TestMocks';
+import InvalidUrlError from '../../common/utils/error/InvalidUrlError';
 
 describe('ExecuteReadyRequestsUseCase', () => {
   const oneMinuteMillis = 60 * 1000;

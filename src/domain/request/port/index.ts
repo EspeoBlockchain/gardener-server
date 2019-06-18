@@ -1,3 +1,3 @@
-const RequestRepositoryPort = require('./RequestRepositoryPort');
+import RequestRepositoryPort from './RequestRepositoryPort';
 
-module.exports = { RequestRepositoryPort };
+export default { RequestRepositoryPort };

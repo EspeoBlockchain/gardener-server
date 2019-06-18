@@ -1,4 +1,4 @@
-const ResponseState = require('./ResponseState');
+import ResponseState from './ResponseState';
 
 class Response {
   constructor(requestId) {
@@ -29,4 +29,4 @@ class Response {
   }
 }
 
-module.exports = Response;
+export default Response;

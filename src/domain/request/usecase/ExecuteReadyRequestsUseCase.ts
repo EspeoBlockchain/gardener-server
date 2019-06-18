@@ -1,5 +1,5 @@
-const Response = require('../../response/Response');
-const InvalidRequestError = require('../../common/utils/error/InvalidRequestError');
+import Response from '../../response/Response';
+import InvalidRequestError from '../../common/utils/error/InvalidRequestError';
 
 class ExecuteReadyRequestsUseCase {
   constructor(
@@ -85,4 +85,4 @@ class ExecuteReadyRequestsUseCase {
   }
 }
 
-module.exports = ExecuteReadyRequestsUseCase;
+export default ExecuteReadyRequestsUseCase;

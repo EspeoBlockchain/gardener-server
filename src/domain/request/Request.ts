@@ -1,6 +1,6 @@
-const RequestStateFactory = require('./RequestStateFactory');
-const RequestUrlParser = require('./RequestUrlParser');
-const RequestState = require('./RequestState');
+import RequestStateFactory from './RequestStateFactory';
+import RequestUrlParser from './RequestUrlParser';
+import RequestState from './RequestState';
 
 class Request {
   constructor(id, url, validFrom, state) {
@@ -24,4 +24,4 @@ class Request {
   }
 }
 
-module.exports = Request;
+export default Request;

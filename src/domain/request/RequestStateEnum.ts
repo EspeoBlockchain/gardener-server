@@ -6,4 +6,4 @@ const RequestStateEnum = Object.freeze({
   FAILED: 'Failed',
 });
 
-module.exports = RequestStateEnum;
+export default RequestStateEnum;

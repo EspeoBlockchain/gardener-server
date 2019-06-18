@@ -1,4 +1,4 @@
-const { createLogger, format, transports } = require('winston');
+import { createLogger, format, transports } from 'winston';
 
 const env = process.env.NODE_ENV || 'development';
 const printFormat = format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`);
@@ -38,4 +38,4 @@ const logger = createLogger({
   exitOnError: false,
 });
 
-module.exports = logger;
+export default logger;

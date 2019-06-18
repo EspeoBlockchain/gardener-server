@@ -3,4 +3,4 @@ const PersistenceType = Object.freeze({
   MongoDb: 'MONGODB',
 });
 
-module.exports = PersistenceType;
+export default PersistenceType;

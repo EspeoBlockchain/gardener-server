@@ -1,6 +1,6 @@
-const { omit } = require('lodash');
-const ResponseRepositoryPort = require('../../../domain/response/port/ResponseRepositoryPort');
-const ResponseModel = require('./ResponseModel');
+import { omit } from 'lodash';
+import ResponseRepositoryPort from '../../../domain/response/port/ResponseRepositoryPort';
+import ResponseModel from './ResponseModel';
 
 
 class MongoDbResponseRepositoryAdapter extends ResponseRepositoryPort {
@@ -27,4 +27,4 @@ class MongoDbResponseRepositoryAdapter extends ResponseRepositoryPort {
   }
 }
 
-module.exports = MongoDbResponseRepositoryAdapter;
+export default MongoDbResponseRepositoryAdapter;

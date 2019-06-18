@@ -6,4 +6,4 @@ class UrlDataFetcherPort {
   }
 }
 
-module.exports = UrlDataFetcherPort;
+export default UrlDataFetcherPort;

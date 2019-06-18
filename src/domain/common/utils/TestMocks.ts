@@ -35,7 +35,7 @@ class Repository {
   }
 }
 
-module.exports = {
+export default {
   Logger,
   Repository,
 };

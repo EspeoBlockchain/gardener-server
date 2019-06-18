@@ -1,6 +1,6 @@
-const { InMemory, MongoDb } = require('./PersistenceType');
-const InMemoryRequestRepository = require('./inmemory/InMemoryRequestRepositoryAdapter');
-const MongoDbRequestRepository = require('./mongodb/MongoDbRequestRepositoryAdapter');
+import { InMemory, MongoDb } from './PersistenceType';
+import InMemoryRequestRepository from './inmemory/InMemoryRequestRepositoryAdapter';
+import MongoDbRequestRepository from './mongodb/MongoDbRequestRepositoryAdapter';
 
 class RequestRepositoryFactory {
   static create(type, logger) {
@@ -15,4 +15,4 @@ class RequestRepositoryFactory {
   }
 }
 
-module.exports = RequestRepositoryFactory;
+export default RequestRepositoryFactory;

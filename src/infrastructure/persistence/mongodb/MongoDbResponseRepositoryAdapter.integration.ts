@@ -2,11 +2,11 @@ const {
   describe, it, beforeEach, afterEach,
 } = require('mocha');
 const { expect } = require('chai').use(require('chai-as-promised'));
-const mongoose = require('mongoose');
-const Response = require('../../../domain/response/Response');
-const MongoDbResponseRepositoryAdapter = require('./MongoDbResponseRepositoryAdapter');
-const ConsoleLoggerAdapter = require('../../../adapter/ConsoleLoggerAdapter');
-const ResponseModel = require('./ResponseModel');
+import mongoose from 'mongoose';
+import Response from '../../../domain/response/Response';
+import MongoDbResponseRepositoryAdapter from './MongoDbResponseRepositoryAdapter';
+import ConsoleLoggerAdapter from '../../../adapter/ConsoleLoggerAdapter';
+import ResponseModel from './ResponseModel';
 
 describe('MongoDbResponseRepositoryAdapter', () => {
   let sut;

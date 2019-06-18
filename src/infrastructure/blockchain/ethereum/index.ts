@@ -1,8 +1,8 @@
-const web3 = require('./createAndUnlockWeb3');
-const EthereumBlockchainAdapter = require('./EthereumBlockchainAdapter');
-const EthereumOracleAdapter = require('./EthereumOracleAdapter');
+import web3 from './createAndUnlockWeb3';
+import EthereumBlockchainAdapter from './EthereumBlockchainAdapter';
+import EthereumOracleAdapter from './EthereumOracleAdapter';
 
-module.exports = {
+export default {
   web3,
   EthereumBlockchainAdapter,
   EthereumOracleAdapter,

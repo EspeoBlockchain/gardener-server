@@ -1,4 +1,4 @@
-const ExecuteReadyRequestsScheduler = require('./ExecuteReadyRequestsScheduler');
-const MarkValidRequestsAsReadyScheduler = require('./MarkValidRequestsAsReadyScheduler');
+import ExecuteReadyRequestsScheduler from './ExecuteReadyRequestsScheduler';
+import MarkValidRequestsAsReadyScheduler from './MarkValidRequestsAsReadyScheduler';
 
-module.exports = { ExecuteReadyRequestsScheduler, MarkValidRequestsAsReadyScheduler };
+export default { ExecuteReadyRequestsScheduler, MarkValidRequestsAsReadyScheduler };

@@ -1,5 +1,5 @@
-const CheckHealthStatusUseCase = require('./CheckHealthStatusUseCase');
-const FetchDataUseCase = require('./FetchDataUseCase');
-const SelectDataUseCase = require('./SelectDataUseCase');
+import CheckHealthStatusUseCase from './CheckHealthStatusUseCase';
+import FetchDataUseCase from './FetchDataUseCase';
+import SelectDataUseCase from './SelectDataUseCase';
 
-module.exports = { CheckHealthStatusUseCase, FetchDataUseCase, SelectDataUseCase };
+export default { CheckHealthStatusUseCase, FetchDataUseCase, SelectDataUseCase };

@@ -1,4 +1,4 @@
-const { NoMatchingElementsFoundError, InvalidSelectorDataError } = require('../utils/error');
+import { NoMatchingElementsFoundError, InvalidSelectorDataError } from '../utils/error';
 
 class SelectDataUseCase {
   constructor(dataSelectorFinder, logger) {
@@ -26,4 +26,4 @@ class SelectDataUseCase {
   }
 }
 
-module.exports = SelectDataUseCase;
+export default SelectDataUseCase;

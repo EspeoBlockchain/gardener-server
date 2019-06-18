@@ -10,4 +10,4 @@ class OracleGateway {
   }
 }
 
-module.exports = OracleGateway;
+export default OracleGateway;

@@ -1,4 +1,4 @@
-const Request = require('../Request');
+import Request from '../Request';
 
 class CreateRequestUseCase {
   constructor(requestRepository, logger) {
@@ -17,4 +17,4 @@ class CreateRequestUseCase {
   }
 }
 
-module.exports = CreateRequestUseCase;
+export default CreateRequestUseCase;

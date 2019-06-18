@@ -12,4 +12,4 @@ class FetchDataUseCase {
   }
 }
 
-module.exports = FetchDataUseCase;
+export default FetchDataUseCase;

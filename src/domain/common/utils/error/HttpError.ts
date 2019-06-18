@@ -1,5 +1,5 @@
-const InvalidRequestError = require('./InvalidRequestError');
+import InvalidRequestError from './InvalidRequestError';
 
 class HttpError extends InvalidRequestError {}
 
-module.exports = HttpError;
+export default HttpError;

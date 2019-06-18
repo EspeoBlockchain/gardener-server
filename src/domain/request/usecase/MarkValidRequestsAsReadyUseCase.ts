@@ -16,4 +16,4 @@ class MarkValidRequestsAsReadyUseCase {
   }
 }
 
-module.exports = MarkValidRequestsAsReadyUseCase;
+export default MarkValidRequestsAsReadyUseCase;

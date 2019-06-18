@@ -10,4 +10,4 @@ class SendResponseToOracleUseCase {
   }
 }
 
-module.exports = SendResponseToOracleUseCase;
+export default SendResponseToOracleUseCase;

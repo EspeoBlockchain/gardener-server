@@ -1,4 +1,4 @@
-const State = require('../common/State');
+import State from '../common/State';
 const {
   SCHEDULED, READY, PROCESSED, FINISHED, FAILED,
 } = require('./RequestStateEnum');
@@ -33,4 +33,4 @@ class RequestState extends State {
   }
 }
 
-module.exports = RequestState;
+export default RequestState;

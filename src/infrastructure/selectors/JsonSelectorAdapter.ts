@@ -1,5 +1,5 @@
-const jp = require('jsonpath');
-const DataSelectorPort = require('../../domain/common/port/DataSelectorPort');
+import jp from 'jsonpath';
+import DataSelectorPort from '../../domain/common/port/DataSelectorPort';
 
 class JsonSelectorAdapter extends DataSelectorPort {
   canHandle(contentType) {
@@ -27,4 +27,4 @@ class JsonSelectorAdapter extends DataSelectorPort {
   }
 }
 
-module.exports = JsonSelectorAdapter;
+export default JsonSelectorAdapter;

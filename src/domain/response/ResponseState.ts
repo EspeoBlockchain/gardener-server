@@ -1,4 +1,4 @@
-const State = require('../common/State');
+import State from '../common/State';
 
 const PROCESSED = 'Processed';
 const SENT = 'Sent';
@@ -19,4 +19,4 @@ class ResponseState extends State {
   }
 }
 
-module.exports = ResponseState;
+export default ResponseState;

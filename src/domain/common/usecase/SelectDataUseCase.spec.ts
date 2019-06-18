@@ -1,8 +1,8 @@
-const { describe, it } = require('mocha');
+import { describe, it } from 'mocha';
 const { expect } = require('chai').use(require('chai-as-promised'));
-const SelectDataUseCase = require('./SelectDataUseCase');
-const { InvalidSelectorDataError, NoMatchingElementsFoundError } = require('../utils/error');
-const { Logger } = require('../utils/TestMocks');
+import SelectDataUseCase from './SelectDataUseCase';
+import { InvalidSelectorDataError, NoMatchingElementsFoundError } from '../utils/error';
+import { Logger } from '../utils/TestMocks';
 
 describe('SelectDataUseCase', () => {
   it('should select appropriate data', async () => {

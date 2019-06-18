@@ -1,9 +1,9 @@
-const { omit } = require('lodash');
+import { omit } from 'lodash';
 
-const RequestRepositoryPort = require('../../../domain/request/port/RequestRepositoryPort');
-const { SCHEDULED, READY } = require('../../../domain/request/RequestStateEnum');
-const RequestModel = require('./RequestModel');
-const Request = require('../../../domain/request/Request');
+import RequestRepositoryPort from '../../../domain/request/port/RequestRepositoryPort';
+import { SCHEDULED, READY } from '../../../domain/request/RequestStateEnum';
+import RequestModel from './RequestModel';
+import Request from '../../../domain/request/Request';
 
 class MongoDbRequestRepositoryAdapter extends RequestRepositoryPort {
   constructor(logger) {
@@ -57,4 +57,4 @@ class MongoDbRequestRepositoryAdapter extends RequestRepositoryPort {
   }
 }
 
-module.exports = MongoDbRequestRepositoryAdapter;
+export default MongoDbRequestRepositoryAdapter;

@@ -1,6 +1,6 @@
-const _ = require('lodash');
-const EventEmitter = require('events');
-const OracleGateway = require('../../../domain/blockchain/port/OracleGateway');
+import _ from 'lodash';
+import EventEmitter from 'events';
+import OracleGateway from '../../../domain/blockchain/port/OracleGateway';
 
 const ONE_SECOND_MILLIS = 1000;
 
@@ -84,4 +84,4 @@ class EthereumOracleAdapter extends OracleGateway {
   }
 }
 
-module.exports = EthereumOracleAdapter;
+export default EthereumOracleAdapter;

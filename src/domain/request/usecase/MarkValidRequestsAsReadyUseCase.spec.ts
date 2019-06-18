@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 
-const { describe, it } = require('mocha');
-const { expect } = require('chai');
-const Request = require('../Request');
-const RequestStateEnum = require('../RequestStateEnum');
-const MarkValidRequestsAsReadyUseCase = require('./MarkValidRequestsAsReadyUseCase');
-const { Logger } = require('../../common/utils/TestMocks');
+import { describe, it } from 'mocha';
+import { expect } from 'chai';
+import Request from '../Request';
+import RequestStateEnum from '../RequestStateEnum';
+import MarkValidRequestsAsReadyUseCase from './MarkValidRequestsAsReadyUseCase';
+import { Logger } from '../../common/utils/TestMocks';
 
 describe('MarkValidRequestsAsReadyUseCase', () => {
   const repository = () => {

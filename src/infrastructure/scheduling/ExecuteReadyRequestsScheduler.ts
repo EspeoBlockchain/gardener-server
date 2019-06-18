@@ -13,4 +13,4 @@ class ExecuteReadyRequestsScheduler {
   }
 }
 
-module.exports = ExecuteReadyRequestsScheduler;
+export default ExecuteReadyRequestsScheduler;

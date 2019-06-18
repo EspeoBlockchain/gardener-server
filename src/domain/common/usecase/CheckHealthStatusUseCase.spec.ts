@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-const { describe, it } = require('mocha');
-const { expect } = require('chai');
-const CheckHealthStatusUseCase = require('./CheckHealthStatusUseCase');
+import { describe, it } from 'mocha';
+import { expect } from 'chai';
+import CheckHealthStatusUseCase from './CheckHealthStatusUseCase';
 
 describe('CheckHealthStatusUseCase', () => {
   it('should return server status as working', async () => {

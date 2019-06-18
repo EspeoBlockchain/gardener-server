@@ -1,7 +1,7 @@
-const { describe, it, beforeEach } = require('mocha');
+import { describe, it, beforeEach } from 'mocha';
 const { expect } = require('chai').use(require('chai-as-promised'));
-const Response = require('../../../domain/response/Response');
-const InMemoryResponseRepository = require('./InMemoryResponseRepositoryAdapter');
+import Response from '../../../domain/response/Response';
+import InMemoryResponseRepository from './InMemoryResponseRepositoryAdapter';
 
 
 describe('InMemoryResponseRepositoryAdapter', () => {

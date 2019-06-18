@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-const LoggerPort = require('../domain/common/port/LoggerPort');
+import LoggerPort from '../domain/common/port/LoggerPort';
 
 class ConsoleLoggerAdapter extends LoggerPort {
   info(message) {
@@ -12,4 +12,4 @@ class ConsoleLoggerAdapter extends LoggerPort {
   }
 }
 
-module.exports = ConsoleLoggerAdapter;
+export default ConsoleLoggerAdapter;

@@ -1,4 +1,4 @@
-const FetchNewOracleRequestsUseCase = require('./FetchNewOracleRequestsUseCase');
-const SendResponseToOracleUseCase = require('./SendResponseToOracleUseCase');
+import FetchNewOracleRequestsUseCase from './FetchNewOracleRequestsUseCase';
+import SendResponseToOracleUseCase from './SendResponseToOracleUseCase';
 
-module.exports = { FetchNewOracleRequestsUseCase, SendResponseToOracleUseCase };
+export default { FetchNewOracleRequestsUseCase, SendResponseToOracleUseCase };

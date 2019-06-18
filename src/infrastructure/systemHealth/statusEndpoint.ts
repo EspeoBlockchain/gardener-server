@@ -15,4 +15,4 @@ const statusEndpoint = (app, checkHealthStatusUseCase) => {
   });
 };
 
-module.exports = statusEndpoint;
+export default statusEndpoint;

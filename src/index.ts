@@ -1,16 +1,16 @@
 /* eslint-disable no-new */
 
 require('dotenv').load();
-const express = require('express');
-const { EventBus } = require('./infrastructure/event');
+import express from 'express';
+import { EventBus } from './infrastructure/event';
 const {
   web3,
   EthereumOracleAdapter: Oracle,
   EthereumBlockchainAdapter: Blockchain,
 } = require('./infrastructure/blockchain/ethereum');
-const oracleAbi = require('./config/abi/oracle.abi');
-const { CreateRequestEventHandler, CurrentBlockEventHandler } = require('./infrastructure/event');
-const { MarkValidRequestsAsReadyScheduler, ExecuteReadyRequestsScheduler } = require('./infrastructure/scheduling');
+import oracleAbi from './config/abi/oracle.abi';
+import { CreateRequestEventHandler, CurrentBlockEventHandler } from './infrastructure/event';
+import { MarkValidRequestsAsReadyScheduler, ExecuteReadyRequestsScheduler } from './infrastructure/scheduling';
 const {
   ConsoleLoggerAdapter: Logger,
   AxiosUrlDataFetcherAdapter: UrlDataFetcher,
@@ -39,12 +39,12 @@ const {
   SendResponseToOracleUseCase,
 } = require('./domain/blockchain/usecase');
 
-const DataSelectorFinder = require('./domain/common/DataSelectorFinder');
+import DataSelectorFinder from './domain/common/DataSelectorFinder';
 
-const BlockListener = require('./infrastructure/blockchain/BlockListener');
+import BlockListener from './infrastructure/blockchain/BlockListener';
 
-const { RequestRepositoryFactory, ResponseRepositoryFactory } = require('./infrastructure/persistence');
-const PersistenceConnectionInitializer = require('./infrastructure/persistence/PersistenceConnectionInitializer');
+import { RequestRepositoryFactory, ResponseRepositoryFactory } from './infrastructure/persistence';
+import PersistenceConnectionInitializer from './infrastructure/persistence/PersistenceConnectionInitializer';
 
 const {
   DATABASE_URL, DATABASE_NAME, PERSISTENCE, START_BLOCK, SAFE_BLOCK_DELAY, API_PORT,

@@ -1,4 +1,4 @@
-const CurrentBlockEvent = require('../event/CurrentBlockEvent');
+import CurrentBlockEvent from '../event/CurrentBlockEvent';
 
 const CHECK_INTERVAL_MILLIS = 5000;
 
@@ -24,4 +24,4 @@ class BlockListener {
   }
 }
 
-module.exports = BlockListener;
+export default BlockListener;

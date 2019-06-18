@@ -1,10 +1,10 @@
-const AxiosUrlDataFetcherAdapter = require('./AxiosUrlDataFetcherAdapter');
-const ConsoleLoggerAdapter = require('./ConsoleLoggerAdapter');
-const IdentitySelectorAdapter = require('../infrastructure/selectors/IdentitySelectorAdapter');
-const JsonSelectorAdapter = require('../infrastructure/selectors/JsonSelectorAdapter');
-const XmlSelectorAdapter = require('../infrastructure/selectors/XmlSelectorAdapter');
+import AxiosUrlDataFetcherAdapter from './AxiosUrlDataFetcherAdapter';
+import ConsoleLoggerAdapter from './ConsoleLoggerAdapter';
+import IdentitySelectorAdapter from '../infrastructure/selectors/IdentitySelectorAdapter';
+import JsonSelectorAdapter from '../infrastructure/selectors/JsonSelectorAdapter';
+import XmlSelectorAdapter from '../infrastructure/selectors/XmlSelectorAdapter';
 
-module.exports = {
+export default {
   AxiosUrlDataFetcherAdapter,
   ConsoleLoggerAdapter,
   IdentitySelectorAdapter,

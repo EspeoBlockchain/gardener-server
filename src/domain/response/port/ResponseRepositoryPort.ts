@@ -6,4 +6,4 @@ class ResponseRepositoryPort {
   }
 }
 
-module.exports = ResponseRepositoryPort;
+export default ResponseRepositoryPort;

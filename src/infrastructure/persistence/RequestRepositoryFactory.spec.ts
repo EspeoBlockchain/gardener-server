@@ -1,9 +1,9 @@
-const { describe, it } = require('mocha');
-const { expect } = require('chai');
-const RequestRepositoryFactory = require('./RequestRepositoryFactory');
-const InMemoryRequestRepository = require('./inmemory/InMemoryRequestRepositoryAdapter');
-const MongoDBRequestRepository = require('./mongodb/MongoDbRequestRepositoryAdapter');
-const { logger } = require('../../domain/common/utils/TestMocks');
+import { describe, it } from 'mocha';
+import { expect } from 'chai';
+import RequestRepositoryFactory from './RequestRepositoryFactory';
+import InMemoryRequestRepository from './inmemory/InMemoryRequestRepositoryAdapter';
+import MongoDBRequestRepository from './mongodb/MongoDbRequestRepositoryAdapter';
+import { logger } from '../../domain/common/utils/TestMocks';
 
 describe('RequestRepositoryFactory', () => {
   it('should create InMemoryRequestRepository when type is INMEMORY', () => {

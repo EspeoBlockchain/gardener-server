@@ -1,5 +1,5 @@
-const CurrentBlockEvent = require('./CurrentBlockEvent');
-const CreateRequestEvent = require('./CreateRequestEvent');
+import CurrentBlockEvent from './CurrentBlockEvent';
+import CreateRequestEvent from './CreateRequestEvent';
 
 class CurrentBlockEventHandler {
   constructor(fetchNewOracleRequestsUseCase, eventBus) {
@@ -19,4 +19,4 @@ class CurrentBlockEventHandler {
   }
 }
 
-module.exports = CurrentBlockEventHandler;
+export default CurrentBlockEventHandler;

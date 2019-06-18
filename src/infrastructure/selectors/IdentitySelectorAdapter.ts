@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-const DataSelectorPort = require('../../domain/common/port/DataSelectorPort');
+import DataSelectorPort from '../../domain/common/port/DataSelectorPort';
 
 class IdentitySelectorAdapter extends DataSelectorPort {
   canHandle(contentType) {
@@ -15,4 +15,4 @@ class IdentitySelectorAdapter extends DataSelectorPort {
   }
 }
 
-module.exports = IdentitySelectorAdapter;
+export default IdentitySelectorAdapter;

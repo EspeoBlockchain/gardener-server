@@ -4,4 +4,4 @@ class CheckHealthStatusUseCase {
   }
 }
 
-module.exports = CheckHealthStatusUseCase;
+export default CheckHealthStatusUseCase;

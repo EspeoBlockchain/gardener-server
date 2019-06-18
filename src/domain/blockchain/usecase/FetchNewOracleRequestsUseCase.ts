@@ -20,4 +20,4 @@ class FetchNewOracleRequestsUseCase {
   }
 }
 
-module.exports = FetchNewOracleRequestsUseCase;
+export default FetchNewOracleRequestsUseCase;
