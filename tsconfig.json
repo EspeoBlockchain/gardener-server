@@ -1,6 +1,12 @@
 {
     "compilerOptions": {
-        "outDir": "./dist"
+        "outDir": "./dist",
+        "noUnusedLocals": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictBindCallApply": true
     },
-    "files": ["./src/index.ts"]
+    "files": ["./src/index.ts"],
+    "exclude": ["node_modules"]
 }
