@@ -1,4 +1,9 @@
 class CreateRequestEvent {
+  id: any;
+  url: any;
+  validFrom: any;
+
+  // @ts-ignore
   static name() {
     return 'CreateRequestEvent';
   }

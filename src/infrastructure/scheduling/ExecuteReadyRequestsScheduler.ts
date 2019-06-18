@@ -1,9 +1,7 @@
 const TEN_SECONDS_MILLIS = 10 * 1000;
 
 class ExecuteReadyRequestsScheduler {
-  constructor(executeReadyRequestsUseCase) {
-    this.executeReadyRequestsUseCase = executeReadyRequestsUseCase;
-  }
+  constructor(private executeReadyRequestsUseCase) {}
 
   schedule() {
     setInterval(

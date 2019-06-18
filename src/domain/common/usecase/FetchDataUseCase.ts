@@ -1,4 +1,6 @@
 class FetchDataUseCase {
+  urlDataFetcher: any;
+  logger: any;
   constructor(urlDataFetcher, logger) {
     this.urlDataFetcher = urlDataFetcher;
     this.logger = logger;

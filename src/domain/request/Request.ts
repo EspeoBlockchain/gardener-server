@@ -3,7 +3,11 @@ import RequestUrlParser from './RequestUrlParser';
 import RequestState from './RequestState';
 
 class Request {
-  constructor(id, url, validFrom, state) {
+  id: any;
+  url: any;
+  validFrom: any;
+  state: RequestState;
+  constructor(id, url, validFrom, state?) {
     // TODO param validation?
     this.id = id;
     this.url = url;

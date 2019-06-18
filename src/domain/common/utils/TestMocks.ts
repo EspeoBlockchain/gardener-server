@@ -1,4 +1,5 @@
 class Logger {
+  logs: any[];
   constructor() {
     this.logs = [];
   }
@@ -18,6 +19,7 @@ class Logger {
 
 
 class Repository {
+  collection: Map<any, any>;
   constructor() {
     this.collection = new Map();
   }
@@ -35,7 +37,7 @@ class Repository {
   }
 }
 
-export default {
+export {
   Logger,
   Repository,
 };

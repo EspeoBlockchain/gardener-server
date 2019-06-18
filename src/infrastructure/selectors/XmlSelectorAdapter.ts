@@ -3,6 +3,8 @@ import { XMLSerializer, DOMParser } from 'xmldom';
 import DataSelectorPort from '../../domain/common/port/DataSelectorPort';
 
 class XmlSelectorAdapter extends DataSelectorPort {
+  domParser: any;
+  xmlSerializer: any;
   constructor() {
     super();
     this.domParser = new DOMParser();

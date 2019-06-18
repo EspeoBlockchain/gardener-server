@@ -1,7 +1,8 @@
 import RequestRepositoryPort from '../../../domain/request/port/RequestRepositoryPort';
-import { SCHEDULED, READY } from '../../../domain/request/RequestStateEnum';
+import { RequestStateEnum } from '../../../domain/request/RequestStateEnum';
 
 class InMemoryRequestRepositoryAdapter extends RequestRepositoryPort {
+  requests: Map<any, any>;
   constructor() {
     super();
     this.requests = new Map();
@@ -17,13 +18,13 @@ class InMemoryRequestRepositoryAdapter extends RequestRepositoryPort {
 
   getScheduledRequestsWithValidFromBeforeNow() {
     return Array.from(this.requests.values())
-      .filter(request => request.state.name === SCHEDULED)
+      .filter(request => request.state.name ===  RequestStateEnum.SCHEDULED)
       .filter(request => request.validFrom <= Date.now());
   }
 
   getReadyRequests() {
     return Array.from(this.requests.values())
-      .filter(request => request.state.name === READY);
+      .filter(request => request.state.name === RequestStateEnum.READY);
   }
 }
 

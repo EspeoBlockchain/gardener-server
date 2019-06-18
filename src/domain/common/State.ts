@@ -1,4 +1,5 @@
 class State {
+  name: any;
   _setState(to, predicate) {
     this._checkState(predicate);
     this.name = to;

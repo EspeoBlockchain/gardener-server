@@ -3,7 +3,7 @@ import { describe, it } from 'mocha';
 const { expect } = require('chai').use(require('chai-as-promised'));
 import FetchDataUseCase from './FetchDataUseCase';
 import Request from '../../request/Request';
-import RequestStateEnum from '../../request/RequestStateEnum';
+import { RequestStateEnum } from '../../request/RequestStateEnum';
 import { Logger } from '../utils/TestMocks';
 
 describe('FetchDataUseCase', () => {

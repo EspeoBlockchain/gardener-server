@@ -5,6 +5,10 @@ import OracleGateway from '../../../domain/blockchain/port/OracleGateway';
 const ONE_SECOND_MILLIS = 1000;
 
 class EthereumOracleAdapter extends OracleGateway {
+  contract: any;
+  pendingResponses: any[];
+  emitter: EventEmitter;
+  guard: boolean;
   constructor(web3, abi, address) {
     super();
     this.contract = new web3.eth.Contract(abi, address, { from: web3.eth.defaultAccount });

@@ -19,4 +19,4 @@ class ResponseState extends State {
   }
 }
 
-export default ResponseState;
+export default  ResponseState;

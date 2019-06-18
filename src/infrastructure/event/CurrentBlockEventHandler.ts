@@ -2,6 +2,8 @@ import CurrentBlockEvent from './CurrentBlockEvent';
 import CreateRequestEvent from './CreateRequestEvent';
 
 class CurrentBlockEventHandler {
+  useCase: any;
+  eventBus: any;
   constructor(fetchNewOracleRequestsUseCase, eventBus) {
     this.useCase = fetchNewOracleRequestsUseCase;
     this.eventBus = eventBus;

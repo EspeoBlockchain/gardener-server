@@ -1,6 +1,7 @@
 import CreateRequestEvent from './CreateRequestEvent';
 
 class CreateRequestEventHandler {
+  useCase: any;
   constructor(createRequestUseCase, eventBus) {
     this.useCase = createRequestUseCase;
     eventBus.on(CreateRequestEvent.name(), this._handleEvent.bind(this));

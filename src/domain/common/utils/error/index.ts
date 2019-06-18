@@ -4,7 +4,7 @@ import HttpError from './HttpError';
 import InvalidSelectorDataError from './InvalidSelectorDataError';
 import NoMatchingElementsFoundError from './NoMatchingElementsFoundError';
 
-export default {
+export {
   InvalidContentTypeError,
   InvalidUrlError,
   HttpError,

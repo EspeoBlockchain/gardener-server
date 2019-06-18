@@ -4,7 +4,7 @@ import CurrentBlockEvent from './CurrentBlockEvent';
 import CurrentBlockEventHandler from './CurrentBlockEventHandler';
 import EventBus from './EventBus';
 
-export default {
+export {
   CreateRequestEvent,
   CreateRequestEventHandler,
   CurrentBlockEvent,

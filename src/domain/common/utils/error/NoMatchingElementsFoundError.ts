@@ -1,9 +1,9 @@
 import InvalidRequestError from './InvalidRequestError';
-import { NO_MATCHING_ELEMENTS_FOUND } from './ErrorCode';
+import { ErrorCode } from './ErrorCode';
 
 class NoMatchingElementsFoundError extends InvalidRequestError {
   constructor(message) {
-    super(message, NO_MATCHING_ELEMENTS_FOUND);
+    super(message, ErrorCode.NO_MATCHING_ELEMENTS_FOUND);
   }
 }
 

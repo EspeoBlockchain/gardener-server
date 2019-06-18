@@ -1,4 +1,7 @@
 class FetchNewOracleRequestsUseCase {
+  oracle: any;
+  logger: any;
+  lastBlock: number;
   constructor(oracle, logger, startBlockNumber) {
     this.oracle = oracle;
     this.logger = logger;

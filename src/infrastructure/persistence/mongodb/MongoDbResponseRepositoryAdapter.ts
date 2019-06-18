@@ -4,6 +4,7 @@ import ResponseModel from './ResponseModel';
 
 
 class MongoDbResponseRepositoryAdapter extends ResponseRepositoryPort {
+  logger: any;
   constructor(logger) {
     super();
     this.logger = logger;

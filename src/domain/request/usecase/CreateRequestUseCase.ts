@@ -1,6 +1,8 @@
 import Request from '../Request';
 
 class CreateRequestUseCase {
+  requestRepository: any;
+  logger: any;
   constructor(requestRepository, logger) {
     this.requestRepository = requestRepository;
     this.logger = logger;

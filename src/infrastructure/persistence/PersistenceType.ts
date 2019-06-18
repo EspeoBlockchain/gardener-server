@@ -1,6 +1,4 @@
-const PersistenceType = Object.freeze({
-  InMemory: 'INMEMORY',
-  MongoDb: 'MONGODB',
-});
-
-export default PersistenceType;
+export enum PersistenceType {
+  InMemory = 'INMEMORY',
+  MongoDb = 'MONGODB',
+}

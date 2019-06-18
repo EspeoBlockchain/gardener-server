@@ -3,7 +3,7 @@
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
 import Request from '../Request';
-import RequestStateEnum from '../RequestStateEnum';
+import { RequestStateEnum } from '../RequestStateEnum';
 import MarkValidRequestsAsReadyUseCase from './MarkValidRequestsAsReadyUseCase';
 import { Logger } from '../../common/utils/TestMocks';
 

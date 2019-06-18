@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
-import { MongoDb } from './PersistenceType';
+import { PersistenceType } from './PersistenceType';
 
 class PersistenceConnectionInitializer {
   init(type, options) {
     // eslint-disable-next-line default-case
     switch (type) {
-      case MongoDb:
+      case PersistenceType.MongoDb:
         this._initMongo(options);
         break;
     }

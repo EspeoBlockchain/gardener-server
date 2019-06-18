@@ -1,14 +1,13 @@
 import { omit } from 'lodash';
 
 import RequestRepositoryPort from '../../../domain/request/port/RequestRepositoryPort';
-import { SCHEDULED, READY } from '../../../domain/request/RequestStateEnum';
+import { RequestStateEnum } from '../../../domain/request/RequestStateEnum';
 import RequestModel from './RequestModel';
 import Request from '../../../domain/request/Request';
 
 class MongoDbRequestRepositoryAdapter extends RequestRepositoryPort {
-  constructor(logger) {
+  constructor(private logger) {
     super();
-    this.logger = logger;
   }
 
   async exists(id) {
@@ -36,7 +35,7 @@ class MongoDbRequestRepositoryAdapter extends RequestRepositoryPort {
 
   async getScheduledRequestsWithValidFromBeforeNow() {
     const results = await RequestModel.find({
-      state: SCHEDULED,
+      state: RequestStateEnum.SCHEDULED,
       validFrom: { $lt: Date.now() },
     }).exec();
 
@@ -45,7 +44,7 @@ class MongoDbRequestRepositoryAdapter extends RequestRepositoryPort {
 
   async getReadyRequests() {
     const results = await RequestModel.find({
-      state: READY,
+      state: RequestStateEnum.READY,
     }).exec();
 
     return this._mapMongoResultsToDomainRequests(results);

@@ -1,4 +1,6 @@
 class MarkValidRequestsAsReadyUseCase {
+  requestRepository: any;
+  logger: any;
   constructor(requestRepository, logger) {
     this.requestRepository = requestRepository;
     this.logger = logger;

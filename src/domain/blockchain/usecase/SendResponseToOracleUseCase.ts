@@ -1,4 +1,6 @@
 class SendResponseToOracleUseCase {
+  oracle: any;
+  logger: any;
   constructor(oracle, logger) {
     this.oracle = oracle;
     this.logger = logger;

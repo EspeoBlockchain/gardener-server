@@ -3,6 +3,10 @@ import CurrentBlockEvent from '../event/CurrentBlockEvent';
 const CHECK_INTERVAL_MILLIS = 5000;
 
 class BlockListener {
+  eventBus: any;
+  blockchain: any;
+  logger: any;
+  safeBlockDelay: any;
   constructor(eventBus, blockchain, logger, safeBlockDelay) {
     this.eventBus = eventBus;
     this.blockchain = blockchain;

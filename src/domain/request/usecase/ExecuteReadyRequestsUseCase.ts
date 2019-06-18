@@ -2,6 +2,12 @@ import Response from '../../response/Response';
 import InvalidRequestError from '../../common/utils/error/InvalidRequestError';
 
 class ExecuteReadyRequestsUseCase {
+    fetchDataUseCase: any;
+    selectDataUseCase: any;
+    sendResponseToOracleUseCase: any;
+    requestRepository: any;
+    responseRepository: any;
+    logger: any;
   constructor(
     fetchDataUseCase,
     selectDataUseCase,

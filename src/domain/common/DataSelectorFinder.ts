@@ -1,7 +1,5 @@
 class DataSelectorFinder {
-  constructor(selectors) {
-    this.selectors = selectors;
-  }
+  constructor(private selectors) {}
 
   find(contentType) {
     const validSelectors = this.selectors
