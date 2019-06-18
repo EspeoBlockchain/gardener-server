@@ -3,7 +3,7 @@ const { InvalidUrlError, InvalidContentTypeError } = require('../common/utils/er
 
 class RequestUrlParser {
   static resolveRawUrl(wrappedUrl) {
-    const urlRegex = new RegExp(/\(https?:\/\/.+\)/);
+    const urlRegex = new RegExp(/\(https?:\/\/[^)]+\)/);
     const matched = urlRegex.exec(wrappedUrl);
     if (!matched) {
       throw new InvalidUrlError(`Url not found in ${wrappedUrl}`);

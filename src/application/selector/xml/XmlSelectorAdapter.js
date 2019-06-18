@@ -1,6 +1,8 @@
 const xpath = require('xpath');
 const { XMLSerializer, DOMParser } = require('xmldom');
-const DataSelectorPort = require('../../domain/common/port/DataSelectorPort');
+const DataSelectorPort = require('../../../domain/common/port/DataSelectorPort');
+const XmlResultFormatter = require('./XmlResultFormatter');
+
 
 class XmlSelectorAdapter extends DataSelectorPort {
   constructor() {
@@ -20,21 +22,7 @@ class XmlSelectorAdapter extends DataSelectorPort {
     const expression = path === null ? '//*' : path;
     const selected = xpath.select(expression, doc);
 
-    if (Array.isArray(selected) && selected.length === 0) {
-      return null;
-    }
-
-    if (selected instanceof Array && selected.length > 1) {
-      const parsedResults = selected.map((el) => {
-        if (el.data) {
-          return `<result>${el.data}</result>`;
-        }
-        return el;
-      });
-      return `<resultlist>${parsedResults.join('')}</resultlist>`;
-    }
-
-    return selected.toString();
+    return XmlResultFormatter.toString(selected);
   }
 }
 

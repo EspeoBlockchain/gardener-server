@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-const DataSelectorPort = require('../../domain/common/port/DataSelectorPort');
+const DataSelectorPort = require('../../../domain/common/port/DataSelectorPort');
 
 class IdentitySelectorAdapter extends DataSelectorPort {
   canHandle(contentType) {
