@@ -1,35 +1,33 @@
 import State from '../common/State';
-const {
-  SCHEDULED, READY, PROCESSED, FINISHED, FAILED,
-} = require('./RequestStateEnum');
+import { RequestStateEnum } from './RequestStateEnum'
 
 class RequestState extends State {
-  constructor(name = SCHEDULED) {
+  constructor(name = RequestStateEnum.SCHEDULED) {
     super();
-    if (![SCHEDULED, READY, PROCESSED, FINISHED, FAILED].includes(name)) {
+    if (![RequestStateEnum.SCHEDULED, RequestStateEnum.READY, RequestStateEnum.PROCESSED, RequestStateEnum.FINISHED, RequestStateEnum.FAILED].includes(name)) {
       throw new Error(`Invalid request state: ${name}`);
     }
     this.name = name;
   }
 
   markAsScheduled() {
-    this._setState(SCHEDULED, name => name === undefined);
+    this._setState(RequestStateEnum.SCHEDULED, name => name === undefined);
   }
 
   markAsReady() {
-    this._setState(READY, name => [undefined, SCHEDULED].includes(name));
+    this._setState(RequestStateEnum.READY, name => [undefined, RequestStateEnum.SCHEDULED].includes(name));
   }
 
   markAsProcessed() {
-    this._setState(PROCESSED, name => name === READY);
+    this._setState(RequestStateEnum.PROCESSED, name => name === RequestStateEnum.READY);
   }
 
   markAsFinished() {
-    this._setState(FINISHED, name => name === PROCESSED);
+    this._setState(RequestStateEnum.FINISHED, name => name === RequestStateEnum.PROCESSED);
   }
 
   markAsFailed() {
-    this._setState(FAILED, name => name === PROCESSED);
+    this._setState(RequestStateEnum.FAILED, name => name === RequestStateEnum.PROCESSED);
   }
 }
 

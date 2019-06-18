@@ -2,26 +2,14 @@ import Response from '../../response/Response';
 import InvalidRequestError from '../../common/utils/error/InvalidRequestError';
 
 class ExecuteReadyRequestsUseCase {
-    fetchDataUseCase: any;
-    selectDataUseCase: any;
-    sendResponseToOracleUseCase: any;
-    requestRepository: any;
-    responseRepository: any;
-    logger: any;
   constructor(
-    fetchDataUseCase,
-    selectDataUseCase,
-    sendResponseToOracleUseCase,
-    requestRepository,
-    responseRepository,
-    logger,
+    public fetchDataUseCase,
+    public selectDataUseCase,
+    public sendResponseToOracleUseCase,
+    public requestRepository,
+    public responseRepository,
+    public logger,
   ) {
-    this.fetchDataUseCase = fetchDataUseCase;
-    this.selectDataUseCase = selectDataUseCase;
-    this.sendResponseToOracleUseCase = sendResponseToOracleUseCase;
-    this.requestRepository = requestRepository;
-    this.responseRepository = responseRepository;
-    this.logger = logger;
   }
 
   async executeReadyRequests() {

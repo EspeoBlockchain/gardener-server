@@ -1,6 +1,7 @@
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
 import RequestState from './RequestState';
+import { RequestStateEnum } from './RequestStateEnum';
 
 const stateMachine = [
   {
@@ -41,7 +42,7 @@ const stateMachine = [
   },
   {
     name: 'Processed state',
-    given: () => new RequestState('Processed'),
+    given: () => new RequestState(RequestStateEnum.PROCESSED),
     correctTransitions: [
       {
         when: s => s.markAsFinished(),
@@ -60,7 +61,7 @@ const stateMachine = [
   },
   {
     name: 'Finished state',
-    given: () => new RequestState('Finished'),
+    given: () => new RequestState(RequestStateEnum.FINISHED),
     correctTransitions: [],
     incorrectTransitions: [
       { when: s => s.markAsScheduled() },
@@ -72,7 +73,7 @@ const stateMachine = [
   },
   {
     name: 'Failed state',
-    given: () => new RequestState('Failed'),
+    given: () => new RequestState(RequestStateEnum.FAILED),
     correctTransitions: [],
     incorrectTransitions: [
       { when: s => s.markAsScheduled() },
@@ -94,7 +95,7 @@ describe('RequestState', () => {
 
   it('should not allow create state with invalid name', () => {
     // when
-    expect(() => new RequestState('invalid')).to.throw();
+    expect(() => new RequestState('invalid' as any)).to.throw();
   });
 
   stateMachine.forEach((testCase) => {

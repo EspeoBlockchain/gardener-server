@@ -1,7 +1,7 @@
 import { NoMatchingElementsFoundError, InvalidSelectorDataError } from '../utils/error';
 
 class SelectDataUseCase {
-  constructor(private dataSelectorFinder, private logger) {
+  constructor(private dataSelectorFinder, public logger) {
   }
 
   async selectFromRawData(fetchedData, contentType, path) {

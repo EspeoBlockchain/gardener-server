@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import * as mongoose from 'mongoose';
 
 class ResponseModel extends mongoose.Schema {
   constructor() {

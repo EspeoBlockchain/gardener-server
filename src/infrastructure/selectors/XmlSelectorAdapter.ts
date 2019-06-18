@@ -1,4 +1,4 @@
-import xpath from 'xpath';
+import * as xpath from 'xpath';
 import { XMLSerializer, DOMParser } from 'xmldom';
 import DataSelectorPort from '../../domain/common/port/DataSelectorPort';
 
@@ -31,7 +31,9 @@ class XmlSelectorAdapter extends DataSelectorPort {
 
     if (selected instanceof Array && selected.length > 1) {
       const parsedResults = selected.map((el) => {
+        // @ts-ignore
         if (el.data) {
+          // @ts-ignore
           return `<result>${el.data}</result>`;
         }
         return el;
