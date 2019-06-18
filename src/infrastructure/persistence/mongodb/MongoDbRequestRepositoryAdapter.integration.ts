@@ -3,10 +3,11 @@ const {
 } = require('mocha');
 require('dotenv').load({ path: '.env.test' });
 const { expect } = require('chai').use(require('chai-as-promised'));
+
 import mongoose from 'mongoose';
 import Request from '../../../domain/request/Request';
 import MongoDbRequestRepositoryAdapter from './MongoDbRequestRepositoryAdapter';
-import ConsoleLoggerAdapter from '../../../adapter/ConsoleLoggerAdapter';
+import ConsoleLoggerAdapter from '../../../application/logger/ConsoleLoggerAdapter';
 import RequestModel from './RequestModel';
 
 describe('MongoDbRequestRepositoryAdapter', () => {

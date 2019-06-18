@@ -30,6 +30,6 @@ describe('FetchDataUseCase', () => {
     const request = new Request('1', 'json(http://example.com).key1', Date.now(), RequestStateEnum.PROCESSED);
     const sut = new FetchDataUseCase(failingDataFetcher(), new Logger());
     // when
-    return expect(sut.fetchData(request.id, request.getRawUrl())).to.be.rejected;
+    return expect(() => sut.fetchData(request.id, request.getRawUrl())).to.be.rejected;
   });
 });

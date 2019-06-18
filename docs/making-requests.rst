@@ -100,7 +100,7 @@ To parse and select response from HTML site use the html() wrapper. You can also
 Example request
 ::
 
-    html(https://www.w3schools.com)/html/head/title
+    html(https://www.w3schools.com)/html/head/title/text()
 
 
 Example response

@@ -8,19 +8,18 @@ const {
   EthereumOracleAdapter: Oracle,
   EthereumBlockchainAdapter: Blockchain,
 } = require('./infrastructure/blockchain/ethereum');
-import oracleAbi from '@core/config/abi/oracle.abi';
-import { CreateRequestEventHandler, CurrentBlockEventHandler } from '@core/infrastructure/event';
-import { MarkValidRequestsAsReadyScheduler, ExecuteReadyRequestsScheduler } from '@core/infrastructure/scheduling';
-const {
-  ConsoleLoggerAdapter: Logger,
-  AxiosUrlDataFetcherAdapter: UrlDataFetcher,
-} = require('./adapter');
+
+import oracleAbi from './config/abi/oracle.abi';
+import { CreateRequestEventHandler, CurrentBlockEventHandler } from './infrastructure/event';
+import { MarkValidRequestsAsReadyScheduler, ExecuteReadyRequestsScheduler } from './infrastructure/scheduling';
+import Logger from './application/logger/ConsoleLoggerAdapter';
+import UrlDataFetcher from './application/dataFetcher/AxiosUrlDataFetcherAdapter';
 
 const {
   JsonSelectorAdapter: JsonSelector,
   XmlSelectorAdapter: XmlSelector,
   IdentitySelectorAdapter: IdentitySelector,
-} = require('./infrastructure/selectors');
+} = require('./application/selector');
 
 const {
   CreateRequestUseCase,
