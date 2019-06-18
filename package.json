@@ -4,9 +4,10 @@
   "description": "Off-chain oracle server for listening on data requests from Ethereum blockchain",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "test": "mocha 'src/**/*.spec.js'",
-    "integration-test": "mocha 'src/**/*.integration.js'",
+    "start": "ts-node src/index.ts",
+    "build": "tsc",
+    "test": "mocha -r ts-node/register 'src/**/*.spec.ts'",
+    "integration-test": "mocha -r ts-node/register 'src/**/*.integration.ts'",
     "ganache": "ganache-cli -d",
     "lint": "eslint . --fix"
   },
