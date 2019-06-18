@@ -1,7 +1,7 @@
 const xpath = require('xpath');
 const { XMLSerializer, DOMParser } = require('xmldom');
 const DataSelectorPort = require('../../../domain/common/port/DataSelectorPort');
-const XmlResultFormatter = require('./XmlResultFormatter');
+const XmlResultConverter = require('./XmlResultConverter');
 
 
 class XmlSelectorAdapter extends DataSelectorPort {
@@ -25,7 +25,7 @@ class XmlSelectorAdapter extends DataSelectorPort {
 
     const selected = xpath.select(path, doc);
 
-    return XmlResultFormatter.toString(selected);
+    return XmlResultConverter.toString(selected);
   }
 
   __checkXmlValidity(doc) {

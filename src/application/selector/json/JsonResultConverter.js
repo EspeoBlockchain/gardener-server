@@ -1,4 +1,4 @@
-class JsonResultFormatter {
+class JsonResultConverter {
   static toString(results) {
     switch (results.length) {
       case 0:
@@ -11,4 +11,4 @@ class JsonResultFormatter {
   }
 }
 
-module.exports = JsonResultFormatter;
+module.exports = JsonResultConverter;

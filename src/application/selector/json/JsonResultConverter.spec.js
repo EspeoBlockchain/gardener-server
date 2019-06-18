@@ -1,13 +1,13 @@
 const { describe, it } = require('mocha');
 const { expect } = require('chai').use(require('dirty-chai'));
-const JsonResultFormatter = require('./JsonResultFormatter');
+const JsonResultConverter = require('./JsonResultConverter');
 
-describe('JsonResultFormatter', () => {
+describe('JsonResultConverter', () => {
   it('should return null when empty collection passed', () => {
     // given
     const data = [];
     // when
-    const result = JsonResultFormatter.toString(data);
+    const result = JsonResultConverter.toString(data);
     // then
     expect(result).to.be.null();
   });
@@ -16,7 +16,7 @@ describe('JsonResultFormatter', () => {
     // given
     const data = ['a'];
     // when
-    const result = JsonResultFormatter.toString(data);
+    const result = JsonResultConverter.toString(data);
     // then
     expect(result).to.equal('a');
   });
@@ -25,7 +25,7 @@ describe('JsonResultFormatter', () => {
     // given
     const data = [{ a: 1 }];
     // when
-    const result = JsonResultFormatter.toString(data);
+    const result = JsonResultConverter.toString(data);
     // then
     expect(result).to.equal('{"a":1}');
   });
@@ -34,7 +34,7 @@ describe('JsonResultFormatter', () => {
     // given
     const data = [1, 2, 3];
     // when
-    const result = JsonResultFormatter.toString(data);
+    const result = JsonResultConverter.toString(data);
     // then
     expect(result).to.equal('[1,2,3]');
   });

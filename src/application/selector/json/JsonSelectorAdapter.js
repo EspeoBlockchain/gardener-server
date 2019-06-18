@@ -1,6 +1,6 @@
 const jp = require('jsonpath');
 const DataSelectorPort = require('../../../domain/common/port/DataSelectorPort');
-const JsonResultFormatter = require('./JsonResultFormatter');
+const JsonResultConverter = require('./JsonResultConverter');
 
 class JsonSelectorAdapter extends DataSelectorPort {
   canHandle(contentType) {
@@ -16,7 +16,7 @@ class JsonSelectorAdapter extends DataSelectorPort {
 
     const results = jp.query(json, `$${path}`);
 
-    return JsonResultFormatter.toString(results);
+    return JsonResultConverter.toString(results);
   }
 }
 

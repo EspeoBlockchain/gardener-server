@@ -1,4 +1,4 @@
-class XmlResultFormatter {
+class XmlResultConverter {
   static toString(results) {
     if (Array.isArray(results)) {
       switch (results.length) {
@@ -25,4 +25,4 @@ class XmlResultFormatter {
   }
 }
 
-module.exports = XmlResultFormatter;
+module.exports = XmlResultConverter;
