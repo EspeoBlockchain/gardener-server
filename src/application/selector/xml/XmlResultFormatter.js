@@ -7,7 +7,7 @@ class XmlResultFormatter {
         case 1:
           return results[0].toString();
         default:
-          return this.__wrapCollections(results.map(el => this.__wrapSingleNode(el)));
+          return this.__wrapCollection(results.map(this.__wrapSingleNode));
       }
     }
 
@@ -20,7 +20,7 @@ class XmlResultFormatter {
     return node.nodeValue ? wrapInResultTag(node.nodeValue) : node;
   }
 
-  static __wrapCollections(nodes) {
+  static __wrapCollection(nodes) {
     return `<resultlist>${nodes.join('')}</resultlist>`;
   }
 }

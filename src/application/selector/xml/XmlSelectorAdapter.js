@@ -16,13 +16,21 @@ class XmlSelectorAdapter extends DataSelectorPort {
   }
 
   select(data, path) {
-    const doc = this.domParser.parseFromString(data);
-    this.xmlSerializer.serializeToString(doc); // this throw an error when doc is invalid xml
+    if (!path) {
+      return data;
+    }
 
-    const expression = path === null ? '//*' : path;
-    const selected = xpath.select(expression, doc);
+    const doc = this.domParser.parseFromString(data);
+    this.__checkXmlValidity(doc);
+
+    const selected = xpath.select(path, doc);
 
     return XmlResultFormatter.toString(selected);
+  }
+
+  __checkXmlValidity(doc) {
+    // throws an error when doc is invalid xml
+    this.xmlSerializer.serializeToString(doc);
   }
 }
 

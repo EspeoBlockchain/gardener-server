@@ -78,6 +78,18 @@ describe('XmlSelectorAdapter', () => {
     expect(res).to.equal('<key1>value1</key1>', 'Selected data doesn\'t match');
   });
 
+  it('should select node with child from payload', () => {
+    // given
+    const xmlString = '<key1><child>value1</child></key1>';
+    const responsePath = '/key1';
+
+    // when
+    const res = sut.select(xmlString, responsePath);
+
+    // then
+    expect(res).to.equal('<key1><child>value1</child></key1>', 'Selected data doesn\'t match');
+  });
+
   it('should select node text from payload', () => {
     // given
     const xmlString = '<key1>value1</key1>';
