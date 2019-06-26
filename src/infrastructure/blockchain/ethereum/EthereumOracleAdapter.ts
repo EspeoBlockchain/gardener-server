@@ -1,5 +1,5 @@
 import * as EventEmitter from 'events';
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 import Request from '@core/domain/request/Request';
 import {Contract} from 'web3-eth-contract/types';
@@ -44,7 +44,7 @@ class EthereumOracleAdapter implements OracleGateway {
 
     return Promise.all([dataRequestedEventsPromise, delayedDataRequestedEventsPromise])
       .then(values => values.reduce(
-        (previous, current) => previous.concat(current),
+        (previous: any, current) => previous.concat(current), [],
       ))
       .then(events => events.map(event => ({
         ...event,

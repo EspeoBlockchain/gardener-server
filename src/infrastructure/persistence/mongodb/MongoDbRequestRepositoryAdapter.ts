@@ -22,7 +22,7 @@ class MongoDbRequestRepositoryAdapter implements RequestRepositoryPort {
   }
 
   public async save(request): Promise<void> {
-    const mongoRequest = RequestModel({
+    const mongoRequest = new RequestModel({
       _id: request.id,
       url: request.url,
       validFrom: request.validFrom,

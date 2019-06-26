@@ -30,8 +30,8 @@ class MongoDbResponseRepositoryAdapter implements ResponseRepositoryPort {
     const responseModel = await ResponseModel.findById(responseId);
 
     const response = new Response(responseModel._id);
-    response.addFetchedData(responseModel.fetchedData);
-    response.addSelectedData(responseModel.selectedData);
+    response.addFetchedData(response.fetchedData);
+    response.addSelectedData(response.selectedData);
 
     return response;
   }
