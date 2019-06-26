@@ -1,13 +1,6 @@
-/* eslint-disable no-unused-vars */
+import Request from '@core/domain/request/Request';
 
-class OracleGateway {
-  getRequests(fromBlock, toBlock) {
-    throw new Error('Not implemented');
-  }
-
-  sendResponse(response) {
-    throw new Error('Not implemented');
-  }
+export default interface OracleGateway {
+  getRequests(fromBlock, toBlock): Promise<Request[]>;
+  sendResponse(response): Promise<void>;
 }
-
-export default OracleGateway;

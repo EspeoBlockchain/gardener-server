@@ -1,21 +1,9 @@
-/* eslint-disable  no-unused-vars */
+import Request from '@core/domain/request/Request';
 
-class RequestRepositoryPort {
-  exists(id) {
-    throw new Error('Not implemented');
-  }
-
-  save(request) {
-    throw new Error('Not implemented');
-  }
-
-  getScheduledRequestsWithValidFromBeforeNow() {
-    throw new Error('Not implemented');
-  }
-
-  getReadyRequests() {
-    throw new Error('Not implemented');
-  }
+export default interface RequestRepositoryPort {
+  get(id): Promise<Request>;
+  exists(id): Promise<boolean>;
+  save(request): Promise<void>;
+  getScheduledRequestsWithValidFromBeforeNow(): Promise<Request[]>;
+  getReadyRequests(): Promise<Request[]>;
 }
-
-export default RequestRepositoryPort;

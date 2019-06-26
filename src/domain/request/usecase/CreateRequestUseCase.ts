@@ -1,14 +1,13 @@
+import {LoggerPort} from '@core/domain/common/port';
+import {RequestRepositoryPort} from '@core/domain/request/port';
 import Request from '../Request';
 
 class CreateRequestUseCase {
-  requestRepository: any;
-  logger: any;
-  constructor(requestRepository, logger) {
-    this.requestRepository = requestRepository;
-    this.logger = logger;
-  }
+  constructor(
+    private readonly requestRepository: RequestRepositoryPort,
+    private readonly logger: LoggerPort) {}
 
-  async createRequest(id, url, validFrom) {
+  async createRequest(id, url, validFrom): Promise<void> {
     if (await this.requestRepository.exists(id)) {
       throw new Error(`Request ${id} already in the system`);
     }

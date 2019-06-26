@@ -1,8 +1,9 @@
+import { expect } from '@core/config/configuredChai';
 import { describe, it } from 'mocha';
-const { expect } = require('chai').use(require('chai-as-promised'));
-import SendResponseToOracleUseCase from './SendResponseToOracleUseCase';
+import ConsoleLoggerAdapter from '../../../application/logger/ConsoleLoggerAdapter';
 import Response from '../../response/Response';
-import { Logger } from '../../common/utils/TestMocks';
+import {OracleGateway} from '../port';
+import SendResponseToOracleUseCase from './SendResponseToOracleUseCase';
 
 describe('SendResponseUseCase', () => {
   const oracle = () => ({
@@ -16,7 +17,7 @@ describe('SendResponseUseCase', () => {
   it('should send response back to oracle without throwing error', async () => {
     // given
     const response = new Response('id');
-    const sut = new SendResponseToOracleUseCase(oracle(), new Logger());
+    const sut = new SendResponseToOracleUseCase(oracle() as unknown as OracleGateway, new ConsoleLoggerAdapter());
     // when, then
     return expect(sut.sendResponse(response)).to.be.fulfilled;
   });
@@ -24,7 +25,7 @@ describe('SendResponseUseCase', () => {
   it('should throw error when sending response failed', async () => {
     // given
     const response = new Response('id');
-    const sut = new SendResponseToOracleUseCase(failingOracle(), new Logger());
+    const sut = new SendResponseToOracleUseCase(failingOracle() as unknown as OracleGateway, new ConsoleLoggerAdapter());
     // when, then
     return expect(() => sut.sendResponse(response)).to.be.rejected;
   });

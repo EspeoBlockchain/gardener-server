@@ -1,13 +1,4 @@
-/* eslint-disable no-unused-vars */
-
-class DataSelectorPort {
-  select(data, path) {
-    throw new Error('Not implemented');
-  }
-
-  canHandle(contentType) {
-    throw new Error('Not implemented');
-  }
+export default interface DataSelectorPort {
+  select(data, path): string;
+  canHandle(contentType): boolean;
 }
-
-export default DataSelectorPort;

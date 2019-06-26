@@ -1,14 +1,20 @@
+import Response from '@core/domain/response/Response';
 import ResponseRepositoryPort from '../../../domain/response/port/ResponseRepositoryPort';
 
-class InMemoryResponseRepositoryAdapter extends ResponseRepositoryPort {
-  responses: Map<any, any>;
+class InMemoryResponseRepositoryAdapter implements ResponseRepositoryPort {
+  responses: Map<string, Response>;
   constructor() {
-    super();
     this.responses = new Map();
   }
 
-  save(response) {
+  save(response): Promise<void> {
     this.responses.set(response.requestId, response);
+
+    return Promise.resolve();
+  }
+
+  get(responseId: string): Promise<Response> {
+    return Promise.resolve(this.responses.get(responseId));
   }
 }
 

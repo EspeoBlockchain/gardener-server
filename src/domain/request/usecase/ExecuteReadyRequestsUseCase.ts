@@ -1,42 +1,48 @@
+import SendResponseToOracleUseCase from '@core/domain/blockchain/usecase/SendResponseToOracleUseCase';
+import {LoggerPort} from '@core/domain/common/port';
+import FetchDataUseCase from '@core/domain/common/usecase/FetchDataUseCase';
+import SelectDataUseCase from '@core/domain/common/usecase/SelectDataUseCase';
+import {RequestRepositoryPort} from '@core/domain/request/port';
+import ResponseRepositoryPort from '@core/domain/response/port/ResponseRepositoryPort';
 import InvalidRequestError from '../../common/utils/error/InvalidRequestError';
 import Response from '../../response/Response';
 
 class ExecuteReadyRequestsUseCase {
   constructor(
-    public fetchDataUseCase,
-    public selectDataUseCase,
-    public sendResponseToOracleUseCase,
-    public requestRepository,
-    public responseRepository,
-    public logger,
+    private readonly fetchDataUseCase: FetchDataUseCase,
+    private readonly selectDataUseCase: SelectDataUseCase,
+    private readonly sendResponseToOracleUseCase: SendResponseToOracleUseCase,
+    private readonly requestRepository: RequestRepositoryPort,
+    private readonly responseRepository: ResponseRepositoryPort,
+    private readonly logger: LoggerPort,
   ) {
   }
 
-  async executeReadyRequests() {
+  async executeReadyRequests(): Promise<void> {
     const requests = await this.requestRepository.getReadyRequests();
 
     const promises = requests.map(async (request) => {
       request.state.markAsProcessed();
-      this.requestRepository.save(request);
+      await this.requestRepository.save(request);
       this.logger.info(`Request marked as processed [requestId=${request.id}]`);
 
-      const response = await this._fetchAndSelectData(request);
+      const response = await this.fetchAndSelectData(request);
       if (!response) {
         return;
       }
 
       request.state.markAsFinished();
-      this.requestRepository.save(request);
+      await this.requestRepository.save(request);
       this.logger.info(`Request marked as finished [requestId=${request.id}]`);
 
-      await this._sendResponse(response);
-      this.responseRepository.save(response);
+      await this.sendResponse(response);
+      await this.responseRepository.save(response);
     });
 
-    return Promise.all(promises);
+    await Promise.all(promises);
   }
 
-  async _fetchAndSelectData(request) {
+  private async fetchAndSelectData(request): Promise<Response> {
     const response = new Response(request.id);
     this.logger.info(`Created response [response=${JSON.stringify(response)}]`);
 
@@ -60,13 +66,13 @@ class ExecuteReadyRequestsUseCase {
       }
 
       request.state.markAsFailed();
-      this.requestRepository.save(request);
+      await this.requestRepository.save(request);
       this.logger.error(`Request marked as failed [requestId=${request.id}]`, e);
       return null;
     }
   }
 
-  async _sendResponse(response) {
+  private async sendResponse(response): Promise<void> {
     try {
       await this.sendResponseToOracleUseCase.sendResponse(response);
       response.state.markAsSent();

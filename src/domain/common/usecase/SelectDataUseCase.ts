@@ -1,10 +1,14 @@
-import { InvalidSelectorDataError, NoMatchingElementsFoundError } from '../utils/error';
+import DataSelectorFinder from '@core/domain/common/DataSelectorFinder';
+import {LoggerPort} from '@core/domain/common/port';
+import { InvalidSelectorDataError, NoMatchingElementsFoundError} from '../utils/error';
 
 class SelectDataUseCase {
-  constructor(private dataSelectorFinder, public logger) {
-  }
+  constructor(
+    private readonly dataSelectorFinder: DataSelectorFinder,
+    private readonly logger: LoggerPort,
+  ) {}
 
-  async selectFromRawData(fetchedData, contentType, path) {
+  async selectFromRawData(fetchedData, contentType, path): Promise<string> {
     let selectedData;
 
     try {

@@ -3,7 +3,7 @@ import * as jp from 'jsonpath';
 import JsonResultConverter from '../../application/selector/json/JsonResultConverter';
 import DataSelectorPort from '../../domain/common/port/DataSelectorPort';
 
-class JsonSelectorAdapter extends DataSelectorPort {
+class JsonSelectorAdapter implements DataSelectorPort {
   canHandle(contentType) {
     return contentType === 'json';
   }

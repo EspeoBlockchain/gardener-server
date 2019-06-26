@@ -1,15 +1,19 @@
-class FetchNewOracleRequestsUseCase {
-  oracle: any;
-  logger: any;
-  lastBlock: number;
-  constructor(oracle, logger, startBlockNumber) {
-    this.oracle = oracle;
-    this.logger = logger;
+import {OracleGateway} from '@core/domain/blockchain/port';
+import LoggerPort from '@core/domain/common/port/LoggerPort';
+import Request from '@core/domain/request/Request';
 
+class FetchNewOracleRequestsUseCase {
+  private lastBlock: number;
+
+  constructor(
+    private readonly oracle: OracleGateway,
+    private readonly logger: LoggerPort,
+    startBlockNumber: number,
+  ) {
     this.lastBlock = startBlockNumber - 1;
   }
 
-  async fetchNewRequests(blockNumber) {
+  async fetchNewRequests(blockNumber): Promise<Request[]> {
     if (blockNumber <= this.lastBlock) {
       return [];
     }

@@ -1,9 +1,9 @@
+import UrlDataFetcher from '@core/domain/common/port/UrlDataFetcherPort';
+import { HttpError } from '@core/domain/common/utils/error';
 import axios from 'axios';
-import UrlDataFetcher from '../../domain/common/port/UrlDataFetcherPort';
-import { HttpError } from '../../domain/common/utils/error';
 
-class AxiosUrlDataFetcherAdapter extends UrlDataFetcher {
-  async fetch(url) {
+class AxiosUrlDataFetcherAdapter implements UrlDataFetcher {
+  async fetch(url): Promise<string> {
     try {
       const response = await axios.get(url);
 

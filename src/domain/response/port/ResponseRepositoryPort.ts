@@ -1,9 +1,6 @@
-/* eslint-disable no-unused-vars */
+import Response from '@core/domain/response/Response';
 
-class ResponseRepositoryPort {
-  save(response) {
-    throw new Error('Not implemented');
-  }
+export default interface ResponseRepositoryPort {
+  save(response): Promise<void>;
+  get(responseId: string): Promise<Response>;
 }
-
-export default ResponseRepositoryPort;

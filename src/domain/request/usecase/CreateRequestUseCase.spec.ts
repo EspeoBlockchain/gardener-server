@@ -1,16 +1,20 @@
-import { describe, it, beforeEach } from 'mocha';
-const { expect } = require('chai').use(require('chai-as-promised'));
+import ConsoleLoggerAdapter from '@core/application/logger/ConsoleLoggerAdapter';
+import { expect } from '@core/config/configuredChai';
+import InMemoryRequestRepositoryAdapter from '@core/infrastructure/persistence/inmemory/InMemoryRequestRepositoryAdapter';
+import { beforeEach, describe, it } from 'mocha';
+import {RequestRepositoryPort} from '../port';
 import CreateRequestUseCase from './CreateRequestUseCase';
-import { Logger, Repository } from '../../common/utils/TestMocks';
 
 describe('CreateRequestUseCase', () => {
-  let sut;
+  let sut: CreateRequestUseCase;
+  let repository: RequestRepositoryPort;
 
   beforeEach(() => {
-    sut = new CreateRequestUseCase(new Repository(), new Logger());
+    repository = new InMemoryRequestRepositoryAdapter();
+    sut = new CreateRequestUseCase(repository, new ConsoleLoggerAdapter());
   });
 
-  it('should save request in the repository and log message', async () => {
+  it('should save request in the repository', async () => {
     // given
     const id = '123';
     const url = 'qwerty';
@@ -18,8 +22,10 @@ describe('CreateRequestUseCase', () => {
     // when
     await sut.createRequest(id, url, validFrom);
     // then
-    expect(sut.requestRepository.list()[0].id).to.equal(id);
-    expect(sut.logger.list().length).to.equal(1);
+    const savedRequest = await repository.get(id);
+    expect(savedRequest.id).to.equal(id);
+    expect(savedRequest.url).to.equal(url);
+    expect(savedRequest.validFrom).to.equal(validFrom);
   });
 
   it('should throw error if the same request is passed twice', async () => {

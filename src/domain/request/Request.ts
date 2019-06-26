@@ -3,9 +3,9 @@ import RequestStateFactory from './RequestStateFactory';
 import RequestUrlParser from './RequestUrlParser';
 
 class Request {
-  id: any;
-  url: any;
-  validFrom: any;
+  id: string;
+  url: string;
+  validFrom: number;
   state: RequestState;
   constructor(id, url, validFrom, state?) {
     // TODO param validation?

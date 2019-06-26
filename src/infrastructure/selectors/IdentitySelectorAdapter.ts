@@ -1,6 +1,6 @@
-import { DataSelectorPort } from "../../domain/common/port";
+import { DataSelectorPort } from '../../domain/common/port';
 
-class IdentitySelectorAdapter extends DataSelectorPort {
+class IdentitySelectorAdapter implements DataSelectorPort {
   canHandle(contentType) {
     return contentType === 'ipfs';
   }

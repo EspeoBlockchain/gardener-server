@@ -1,36 +1,36 @@
 import { DOMParser, XMLSerializer } from 'xmldom';
 import * as xpath from 'xpath';
 
-import XmlResultConverter from './XmlResultConverter';
 import DataSelectorPort from '../../../domain/common/port/DataSelectorPort';
+import XmlResultConverter from './XmlResultConverter';
 
-class XmlSelectorAdapter extends DataSelectorPort {
-  domParser: DOMParser;
-  xmlSerializer: XMLSerializer;
+class XmlSelectorAdapter implements DataSelectorPort {
+  private readonly domParser: DOMParser;
+  private readonly xmlSerializer: XMLSerializer;
+
   constructor() {
-    super();
     this.domParser = new DOMParser();
     this.xmlSerializer = new XMLSerializer();
   }
 
-  canHandle(contentType) {
+  canHandle(contentType): boolean {
     return ['xml', 'html'].includes(contentType);
   }
 
-  select(data, path) {
+  select(data: string, path: string): string {
     if (!path) {
       return data;
     }
 
     const doc = this.domParser.parseFromString(data);
-    this.__checkXmlValidity(doc);
+    this.checkXmlValidity(doc);
 
     const selected = xpath.select(path, doc);
 
     return XmlResultConverter.toString(selected);
   }
 
-  __checkXmlValidity(doc) {
+  private checkXmlValidity(doc): void {
     // throws an error when doc is invalid xml
     this.xmlSerializer.serializeToString(doc);
   }

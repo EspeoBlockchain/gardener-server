@@ -1,12 +1,12 @@
+import { DOMParser, XMLSerializer } from 'xmldom';
 import * as xpath from 'xpath';
-import { XMLSerializer, DOMParser } from 'xmldom';
 import DataSelectorPort from '../../domain/common/port/DataSelectorPort';
 
-class XmlSelectorAdapter extends DataSelectorPort {
-  domParser: any;
-  xmlSerializer: any;
+class XmlSelectorAdapter implements DataSelectorPort {
+  private readonly domParser: DOMParser;
+  private readonly xmlSerializer: XMLSerializer;
+
   constructor() {
-    super();
     this.domParser = new DOMParser();
     this.xmlSerializer = new XMLSerializer();
   }

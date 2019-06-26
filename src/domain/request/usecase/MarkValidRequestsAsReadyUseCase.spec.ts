@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
 
-import { describe, it } from 'mocha';
 import { expect } from 'chai';
+import { describe, it } from 'mocha';
 import Request from '../Request';
 import { RequestStateEnum } from '../RequestStateEnum';
 import MarkValidRequestsAsReadyUseCase from './MarkValidRequestsAsReadyUseCase';
-import { Logger } from '../../common/utils/TestMocks';
+import {ConsoleLoggerAdapter} from "../../../adapter";
+import {RequestRepositoryPort} from "../port";
 
 describe('MarkValidRequestsAsReadyUseCase', () => {
   const repository = () => {
@@ -23,12 +24,11 @@ describe('MarkValidRequestsAsReadyUseCase', () => {
     const requestRepository = repository();
     requestRepository.save(new Request('1', 'url', Date.now(), RequestStateEnum.SCHEDULED));
 
-    const sut = new MarkValidRequestsAsReadyUseCase(requestRepository, new Logger());
+    const sut = new MarkValidRequestsAsReadyUseCase(requestRepository as unknown as RequestRepositoryPort, new ConsoleLoggerAdapter());
 
     // when
     await sut.markValidRequestsAsReady();
     // then
     expect(requestRepository.getById('1').state.name).to.equal(RequestStateEnum.READY);
-    expect(sut.logger.list().length).to.equal(1);
   });
 });

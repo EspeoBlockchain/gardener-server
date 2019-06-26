@@ -1,13 +1,10 @@
-import BlockchainPort from '../../../domain/blockchain/port/BlockchainPort';
+import { BlockchainPort } from '@core/domain/blockchain/port';
+import Web3 from 'web3/types';
 
-class EthereumBlockchainAdapter extends BlockchainPort {
-  web3: any;
-  constructor(web3) {
-    super();
-    this.web3 = web3;
-  }
+class EthereumBlockchainAdapter implements BlockchainPort {
+  constructor(private readonly web3: Web3) {}
 
-  getBlockNumber() {
+  getBlockNumber(): Promise<number> {
     return this.web3.eth.getBlockNumber();
   }
 }

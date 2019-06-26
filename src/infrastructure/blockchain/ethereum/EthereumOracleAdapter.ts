@@ -1,35 +1,42 @@
 import * as EventEmitter from 'events';
 import _ from 'lodash';
 
+import Request from '@core/domain/request/Request';
+import {Contract} from 'web3-eth-contract/types';
+import {AbiItem} from 'web3-utils/types';
+import Web3 from 'web3/types';
 import OracleGateway from '../../../domain/blockchain/port/OracleGateway';
 
 const ONE_SECOND_MILLIS = 1000;
 
-class EthereumOracleAdapter extends OracleGateway {
-  static _finishedEventName(requestId) {
+class EthereumOracleAdapter implements OracleGateway {
+  private static finishedEventName(requestId): string {
     return `finished-${requestId}`;
   }
-  contract: any;
-  pendingResponses: any[];
-  emitter: EventEmitter;
-  guard: boolean;
 
-  constructor(web3, abi, address) {
-    super();
+  private pendingResponses: any[];
+  private emitter: EventEmitter;
+  private guard: boolean;
+  private contract: Contract;
+
+  constructor(web3: Web3, abi: AbiItem[], address: string) {
+    // @ts-ignore
     this.contract = new web3.eth.Contract(abi, address, { from: web3.eth.defaultAccount });
 
     this.pendingResponses = [];
     this.emitter = new EventEmitter();
     this.guard = false;
 
-    setInterval(() => this._sendPendingResponse(), ONE_SECOND_MILLIS);
+    setInterval(() => this.sendPendingResponse(), ONE_SECOND_MILLIS);
   }
 
-  getRequests(fromBlock, toBlock) {
+  public getRequests(fromBlock, toBlock): Promise<Request[]> {
+    // @ts-ignore
     const dataRequestedEventsPromise = this.contract.getPastEvents('DataRequested', { fromBlock, toBlock })
       .then(events => events.map(
         event => _.pick(event.returnValues, ['id', 'url']),
       ));
+    // @ts-ignore
     const delayedDataRequestedEventsPromise = this.contract.getPastEvents('DelayedDataRequested', { fromBlock, toBlock })
       .then(events => events.map(
         event => _.pick(event.returnValues, ['id', 'url', 'validFrom']),
@@ -45,10 +52,10 @@ class EthereumOracleAdapter extends OracleGateway {
       })));
   }
 
-  sendResponse(response) {
+  public sendResponse(response): Promise<void> {
     this.pendingResponses.push(response);
     return new Promise((resolve, reject) => {
-      this.emitter.on(EthereumOracleAdapter._finishedEventName(response.requestId), (error) => {
+      this.emitter.on(EthereumOracleAdapter.finishedEventName(response.requestId), (error) => {
         if (error) {
           reject(error);
         } else {
@@ -58,7 +65,7 @@ class EthereumOracleAdapter extends OracleGateway {
     });
   }
 
-  async _sendPendingResponse() {
+  private async sendPendingResponse(): Promise<void> {
     if (this.guard) {
       return;
     }
@@ -84,7 +91,7 @@ class EthereumOracleAdapter extends OracleGateway {
       error = e;
     }
 
-    this.emitter.emit(EthereumOracleAdapter._finishedEventName(response.requestId), error);
+    this.emitter.emit(EthereumOracleAdapter.finishedEventName(response.requestId), error);
     this.guard = false;
   }
 }

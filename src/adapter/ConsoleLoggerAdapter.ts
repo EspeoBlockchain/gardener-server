@@ -2,7 +2,7 @@
 
 import LoggerPort from '../domain/common/port/LoggerPort';
 
-class ConsoleLoggerAdapter extends LoggerPort {
+class ConsoleLoggerAdapter implements LoggerPort {
   info(message) {
     console.log(message);
   }

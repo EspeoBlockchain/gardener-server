@@ -1,12 +1,13 @@
-class MarkValidRequestsAsReadyUseCase {
-  requestRepository: any;
-  logger: any;
-  constructor(requestRepository, logger) {
-    this.requestRepository = requestRepository;
-    this.logger = logger;
-  }
+import {LoggerPort} from '@core/domain/common/port';
+import {RequestRepositoryPort} from '@core/domain/request/port';
 
-  async markValidRequestsAsReady() {
+class MarkValidRequestsAsReadyUseCase {
+  constructor(
+    private readonly requestRepository: RequestRepositoryPort,
+    private readonly logger: LoggerPort,
+  ) {}
+
+  async markValidRequestsAsReady(): Promise<void> {
     const requests = await this.requestRepository.getScheduledRequestsWithValidFromBeforeNow();
 
     requests.forEach((request) => {

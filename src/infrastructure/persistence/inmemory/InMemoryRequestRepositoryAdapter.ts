@@ -1,30 +1,41 @@
+import Request from '@core/domain/request/Request';
+import { RequestStateEnum } from '@core/domain/request/RequestStateEnum';
 import RequestRepositoryPort from '../../../domain/request/port/RequestRepositoryPort';
-import { RequestStateEnum } from '../../../domain/request/RequestStateEnum';
 
-class InMemoryRequestRepositoryAdapter extends RequestRepositoryPort {
-  requests: Map<any, any>;
+class InMemoryRequestRepositoryAdapter implements RequestRepositoryPort {
+  private requests: Map<string, Request>;
+
   constructor() {
-    super();
     this.requests = new Map();
   }
 
-  exists(id) {
-    return this.requests.has(id);
+  get(id): Promise<Request> {
+    return Promise.resolve(this.requests.get(id));
   }
 
-  save(request) {
+  exists(id): Promise<boolean> {
+    return Promise.resolve(this.requests.has(id));
+  }
+
+  save(request): Promise<void> {
     this.requests.set(request.id, request);
+
+    return Promise.resolve();
   }
 
-  getScheduledRequestsWithValidFromBeforeNow() {
-    return Array.from(this.requests.values())
+  getScheduledRequestsWithValidFromBeforeNow(): Promise<Request[]> {
+    const requests = Array.from(this.requests.values())
       .filter(request => request.state.name ===  RequestStateEnum.SCHEDULED)
       .filter(request => request.validFrom <= Date.now());
+
+    return Promise.resolve(requests);
   }
 
-  getReadyRequests() {
-    return Array.from(this.requests.values())
+  getReadyRequests(): Promise<Request[]> {
+    const requests = Array.from(this.requests.values())
       .filter(request => request.state.name === RequestStateEnum.READY);
+
+    return Promise.resolve(requests);
   }
 }
 

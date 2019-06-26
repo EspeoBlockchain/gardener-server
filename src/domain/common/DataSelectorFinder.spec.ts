@@ -1,7 +1,6 @@
+import { expect } from '@core/config/configuredChai';
 import { describe, it } from 'mocha';
-const { expect } = require('chai').use(require('chai-as-promised'));
 import DataSelectorFinder from './DataSelectorFinder';
-
 
 describe('DataSelectorFinder', () => {
   it('should select selector which can handle given contentType', async () => {

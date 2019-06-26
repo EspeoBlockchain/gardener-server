@@ -1,9 +1,14 @@
-import { describe, it } from 'mocha';
+import InMemoryResponseRepositoryAdapter from '@core/infrastructure/persistence/inmemory/InMemoryResponseRepositoryAdapter';
 import { expect } from 'chai';
-import ExecuteReadyRequestsUseCase from './ExecuteReadyRequestsUseCase';
-import Request from '../Request';
-import { Logger } from '../../common/utils/TestMocks';
+import { describe, it } from 'mocha';
+import {ConsoleLoggerAdapter} from '../../../adapter';
+import SendResponseToOracleUseCase from '../../blockchain/usecase/SendResponseToOracleUseCase';
+import FetchDataUseCase from '../../common/usecase/FetchDataUseCase';
+import SelectDataUseCase from '../../common/usecase/SelectDataUseCase';
 import InvalidUrlError from '../../common/utils/error/InvalidUrlError';
+import {RequestRepositoryPort} from '../port';
+import Request from '../Request';
+import ExecuteReadyRequestsUseCase from './ExecuteReadyRequestsUseCase';
 
 describe('ExecuteReadyRequestsUseCase', () => {
   const oneMinuteMillis = 60 * 1000;
@@ -15,14 +20,6 @@ describe('ExecuteReadyRequestsUseCase', () => {
       getReadyRequests: () => [new Request('123', 'json(http://example.com).key1', Date.now() - oneMinuteMillis)],
       list: () => requests,
       save: request => requests.push(request),
-    };
-  };
-
-  const responseRepository = () => {
-    const responses = [];
-    return {
-      save: res => responses.push(res),
-      list: () => responses,
     };
   };
 
@@ -52,55 +49,58 @@ describe('ExecuteReadyRequestsUseCase', () => {
 
   it('should execute ready request which is finished after that and generate response', async () => {
     // given
+    const responseRepository = new InMemoryResponseRepositoryAdapter();
     const sut = new ExecuteReadyRequestsUseCase(
-      fetchDataUseCase(),
-      selectDataUseCase(),
-      sendResponseToOracleUseCase(),
-      requestRepository(),
-      responseRepository(),
-      new Logger(),
+      fetchDataUseCase() as unknown as FetchDataUseCase,
+      selectDataUseCase() as unknown as SelectDataUseCase,
+      sendResponseToOracleUseCase() as unknown as SendResponseToOracleUseCase,
+      requestRepository() as unknown as RequestRepositoryPort,
+      responseRepository,
+      new ConsoleLoggerAdapter(),
     );
     // when
     await sut.executeReadyRequests();
     // then
-    const response = await sut.responseRepository.list()[0];
+    const response = await responseRepository.get('123');
     expect(response.requestId).to.equal('123');
     expect(response.fetchedData).to.equal('fetchedData');
     expect(response.selectedData).to.equal('selectedData');
     expect(response.state.name).to.equal('Sent');
-    expect(sut.logger.list()).to.have.lengthOf(4);
   });
 
   it('should mark request as failed if error does not have code property', async () => {
     // given
+    const responseRepository = new InMemoryResponseRepositoryAdapter();
+    const reqRepository = requestRepository();
     const sut = new ExecuteReadyRequestsUseCase(
-      fetchDataUseCase(),
-      failedSelectDataUseCase(),
-      sendResponseToOracleUseCase(),
-      requestRepository(),
-      responseRepository(),
-      new Logger(),
+      fetchDataUseCase() as unknown as FetchDataUseCase,
+      failedSelectDataUseCase() as unknown as SelectDataUseCase,
+      sendResponseToOracleUseCase() as unknown as SendResponseToOracleUseCase,
+      reqRepository as unknown as RequestRepositoryPort,
+      responseRepository,
+      new ConsoleLoggerAdapter(),
     );
     // when
     await sut.executeReadyRequests();
     // then
-    expect(sut.requestRepository.list()[0].state.name).to.equal('Failed');
+    expect(reqRepository.list()[0].state.name).to.equal('Failed');
   });
 
   it('should create response with errorCode if error with code property handled', async () => {
     // given
+    const responseRepository = new InMemoryResponseRepositoryAdapter();
     const sut = new ExecuteReadyRequestsUseCase(
-      failedFetchDataUseCase(),
-      selectDataUseCase(),
-      sendResponseToOracleUseCase(),
-      requestRepository(),
-      responseRepository(),
-      new Logger(),
+      failedFetchDataUseCase() as unknown as FetchDataUseCase,
+      selectDataUseCase() as unknown as SelectDataUseCase,
+      sendResponseToOracleUseCase() as unknown as SendResponseToOracleUseCase,
+      requestRepository() as unknown as RequestRepositoryPort,
+      responseRepository,
+      new ConsoleLoggerAdapter(),
     );
     // when
     await sut.executeReadyRequests();
     // then
-    const response = await sut.responseRepository.list()[0];
+    const response = await responseRepository.get('123');
     expect(response.requestId).to.equal('123');
     expect(response.selectedData).to.equal(undefined);
     expect(response.errorCode).to.equal(1000);
@@ -109,18 +109,19 @@ describe('ExecuteReadyRequestsUseCase', () => {
 
   it('should mark response as failed if it failed to send to oracle', async () => {
     // given
+    const responseRepository = new InMemoryResponseRepositoryAdapter();
     const sut = new ExecuteReadyRequestsUseCase(
-      fetchDataUseCase(),
-      selectDataUseCase(),
-      failedSendResponseToOracleUseCase(),
-      requestRepository(),
-      responseRepository(),
-      new Logger(),
+      fetchDataUseCase() as unknown as FetchDataUseCase,
+      selectDataUseCase() as unknown as SelectDataUseCase,
+      failedSendResponseToOracleUseCase() as unknown as SendResponseToOracleUseCase,
+      requestRepository() as unknown as RequestRepositoryPort,
+      responseRepository,
+      new ConsoleLoggerAdapter(),
     );
     // when
     await sut.executeReadyRequests();
     // then
-    const response = await sut.responseRepository.list()[0];
+    const response = await responseRepository.get('123');
     expect(response.requestId).to.equal('123');
     expect(response.fetchedData).to.equal('fetchedData');
     expect(response.selectedData).to.equal('selectedData');

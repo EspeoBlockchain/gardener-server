@@ -1,11 +1,10 @@
 class InvalidRequestError extends Error {
-  constructor(message, code) {
+  code: number;
+
+  constructor(message: string, code: number) {
     super(message);
     this.code = code;
   }
-    code(code: any) {
-        throw new Error('Method not implemented.');
-    }
 }
 
 export default InvalidRequestError;

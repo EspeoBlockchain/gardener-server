@@ -1,7 +1,3 @@
-class BlockchainPort {
-  getBlockNumber() {
-    throw new Error('Not implemented');
-  }
+export default interface BlockchainPort {
+  getBlockNumber(): Promise<number>;
 }
-
-export default BlockchainPort;

@@ -1,7 +1,7 @@
-import { describe, it } from 'mocha';
 import { expect } from 'chai';
-import RequestStateFactory from './RequestStateFactory';
+import { describe, it } from 'mocha';
 import RequestState from './RequestState';
+import RequestStateFactory from './RequestStateFactory';
 
 describe('RequestStateFactory', () => {
   const oneMinute = 60 * 1000;

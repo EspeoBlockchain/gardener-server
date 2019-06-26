@@ -1,29 +1,26 @@
 import ResponseState from './ResponseState';
 
 class Response {
-  requestId: any;
+  requestId: string;
   state: any;
   errorCode: number;
-  selectedData: any;
+  selectedData: string;
+  fetchedData: string;
 
-  constructor(requestId) {
+  constructor(requestId: string) {
     this.requestId = requestId;
     this.state = new ResponseState();
     this.errorCode = 0;
   }
 
-  fetchedData(fetchedData: any, arg1: any, arg2: any) {
-    throw new Error('Method not implemented.');
-  }
-
-  addFetchedData(fetchedData) {
+  addFetchedData(fetchedData: string) {
     if (this.fetchedData) {
       throw new Error('Fetched data already added');
     }
     this.fetchedData = fetchedData;
   }
 
-  addSelectedData(selectedData) {
+  addSelectedData(selectedData: string) {
     if (!this.fetchedData) {
       throw new Error('Cannot add selected data without fetched data');
     }
@@ -33,7 +30,7 @@ class Response {
     this.selectedData = selectedData;
   }
 
-  setError(errorCode) {
+  setError(errorCode: number) {
     this.errorCode = errorCode;
   }
 }

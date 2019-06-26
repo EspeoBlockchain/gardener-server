@@ -1,15 +1,15 @@
+import {LoggerPort} from '@core/domain/common/port';
+import Response from '@core/domain/response/Response';
 import { omit } from 'lodash';
 import ResponseRepositoryPort from '../../../domain/response/port/ResponseRepositoryPort';
 import ResponseModel from './ResponseModel';
 
-class MongoDbResponseRepositoryAdapter extends ResponseRepositoryPort {
-  logger: any;
-  constructor(logger) {
-    super();
+class MongoDbResponseRepositoryAdapter implements ResponseRepositoryPort {
+  constructor(private readonly logger: LoggerPort) {
     this.logger = logger;
   }
 
-  save(response) {
+  public async save(response): Promise<void> {
     const mongoResponse = new ResponseModel({
       _id: response.requestId,
       fetchedData: response.fetchedData,
@@ -24,6 +24,16 @@ class MongoDbResponseRepositoryAdapter extends ResponseRepositoryPort {
       upsertDocument,
       { upsert: true, new: true },
     ).then(result => this.logger.info(`Response saved into database [response=${JSON.stringify(result)}]`));
+  }
+
+  public async get(responseId: string): Promise<Response> {
+    const responseModel = await ResponseModel.findById(responseId);
+
+    const response = new Response(responseModel._id);
+    response.addFetchedData(responseModel.fetchedData);
+    response.addSelectedData(responseModel.selectedData);
+
+    return response;
   }
 }
 

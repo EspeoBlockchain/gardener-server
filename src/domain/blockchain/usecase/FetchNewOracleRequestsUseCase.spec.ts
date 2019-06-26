@@ -1,7 +1,8 @@
-import { describe, it, beforeEach } from 'mocha';
 import { expect } from 'chai';
+import { beforeEach, describe, it } from 'mocha';
+import {ConsoleLoggerAdapter} from '@core/adapter';
+import {OracleGateway} from '../port';
 import FetchNewOracleRequestsUseCase from './FetchNewOracleRequestsUseCase';
-import { Logger } from '../../common/utils/TestMocks';
 
 describe('FetchNewOracleRequestUseCase', () => {
   const oracle = () => ({
@@ -13,7 +14,7 @@ describe('FetchNewOracleRequestUseCase', () => {
 
   beforeEach(() => {
     // given
-    sut = new FetchNewOracleRequestsUseCase(oracle(), new Logger(), 1);
+    sut = new FetchNewOracleRequestsUseCase(oracle() as OracleGateway, new ConsoleLoggerAdapter(), 1);
   });
 
   it('should fetch new oracle responses', async () => {
@@ -23,7 +24,6 @@ describe('FetchNewOracleRequestUseCase', () => {
     expect(requests).to.be.an.instanceof(Array);
     expect(requests).to.have.lengthOf(1);
     expect(sut.lastBlock).to.equal(4);
-    expect(sut.logger.list().length).to.equal(1);
   });
 
   it('should return empty array if new block is equal to current one', async () => {

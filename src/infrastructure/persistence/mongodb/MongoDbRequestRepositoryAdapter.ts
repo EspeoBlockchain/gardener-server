@@ -1,22 +1,27 @@
 import { omit } from 'lodash';
 
+import {LoggerPort} from '@core/domain/common/port';
+import { RequestStateEnum } from '@core/domain/request/RequestStateEnum';
 import RequestRepositoryPort from '../../../domain/request/port/RequestRepositoryPort';
 import Request from '../../../domain/request/Request';
-import { RequestStateEnum } from '../../../domain/request/RequestStateEnum';
 import RequestModel from './RequestModel';
 
-class MongoDbRequestRepositoryAdapter extends RequestRepositoryPort {
-  constructor(private logger) {
-    super();
-  }
+class MongoDbRequestRepositoryAdapter implements RequestRepositoryPort {
+  constructor(private readonly logger: LoggerPort) {}
 
-  async exists(id) {
+  async exists(id): Promise<boolean> {
     const count = await RequestModel.count({ _id: id });
 
     return count > 0;
   }
 
-  save(request) {
+  public async get(id): Promise<Request> {
+    const result = await RequestModel.findById(id);
+
+    return this.mapMongoResultToDomainRequest(result);
+  }
+
+  public async save(request): Promise<void> {
     const mongoRequest = RequestModel({
       _id: request.id,
       url: request.url,
@@ -33,26 +38,29 @@ class MongoDbRequestRepositoryAdapter extends RequestRepositoryPort {
     ).then(result => this.logger.info(`Request saved into database [request=${JSON.stringify(result)}]`));
   }
 
-  async getScheduledRequestsWithValidFromBeforeNow() {
+  public async getScheduledRequestsWithValidFromBeforeNow(): Promise<Request[]> {
     const results = await RequestModel.find({
       state: RequestStateEnum.SCHEDULED,
       validFrom: { $lt: Date.now() },
     }).exec();
 
-    return this._mapMongoResultsToDomainRequests(results);
+    return this.mapMongoResultsToDomainRequests(results);
   }
 
-  async getReadyRequests() {
+  public async getReadyRequests(): Promise<Request[]> {
     const results = await RequestModel.find({
       state: RequestStateEnum.READY,
     }).exec();
 
-    return this._mapMongoResultsToDomainRequests(results);
+    return this.mapMongoResultsToDomainRequests(results);
   }
 
-  _mapMongoResultsToDomainRequests(results) {
-    return results
-      .map(result => new Request(result._id, result.url, result.validFrom, result.state));
+  private mapMongoResultsToDomainRequests(results): Request[] {
+    return results.map(this.mapMongoResultToDomainRequest);
+  }
+
+  private mapMongoResultToDomainRequest(result): Request {
+    return new Request(result._id, result.url, result.validFrom, result.state);
   }
 }
 

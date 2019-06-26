@@ -1,7 +1,8 @@
-// tslint:disable-next-line
-require('dotenv').load();
+import * as dotenv from 'dotenv';
+dotenv.config();
 
-import express from 'express';
+import * as express from 'express';
+import statusEndpoint from './infrastructure/systemHealth/statusEndpoint';
 
 import {
   EthereumBlockchainAdapter as Blockchain,
@@ -43,6 +44,7 @@ import DataSelectorFinder from './domain/common/DataSelectorFinder';
 
 import BlockListener from './infrastructure/blockchain/BlockListener';
 
+import {AbiItem} from 'web3-utils/types';
 import { RequestRepositoryFactory, ResponseRepositoryFactory } from './infrastructure/persistence';
 import PersistenceConnectionInitializer from './infrastructure/persistence/PersistenceConnectionInitializer';
 
@@ -60,7 +62,7 @@ new PersistenceConnectionInitializer().init(PERSISTENCE, persistenceOptions);
 const logger = new Logger();
 const requestRepository = RequestRepositoryFactory.create(PERSISTENCE, logger);
 const responseRepository = ResponseRepositoryFactory.create(PERSISTENCE, logger);
-const oracle = new Oracle(web3, oracleAbi, process.env.ORACLE_ADDRESS);
+const oracle = new Oracle(web3, oracleAbi as AbiItem[], process.env.ORACLE_ADDRESS);
 const urlDataFetcher = new UrlDataFetcher();
 const jsonSelector = new JsonSelector();
 const xmlSelector = new XmlSelector();
@@ -71,7 +73,7 @@ const createRequestUseCase = new CreateRequestUseCase(requestRepository, logger)
 const fetchNewOracleRequestsUseCase = new FetchNewOracleRequestsUseCase(
   oracle,
   logger,
-  START_BLOCK,
+  parseInt(START_BLOCK, 10),
 );
 const markValidRequestsAsReadyUseCase = new MarkValidRequestsAsReadyUseCase(
   requestRepository,
@@ -112,7 +114,7 @@ blockListener.listen();
 
 const app = express();
 const port = API_PORT;
-// tslint:disable-next-line
-require('./infrastructure/systemHealth/statusEndpoint')(app, checkHealthStatusUseCase);
+// @ts-ignore
+statusEndpoint(app, checkHealthStatusUseCase);
 
 app.listen(port);

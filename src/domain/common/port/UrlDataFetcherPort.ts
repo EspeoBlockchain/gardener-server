@@ -1,9 +1,3 @@
-/* eslint-disable no-unused-vars */
-
-class UrlDataFetcherPort {
-  fetch(url) {
-    throw new Error('Not implemented');
-  }
+export default interface UrlDataFetcherPort {
+  fetch(url: string): Promise<string>;
 }
-
-export default UrlDataFetcherPort;

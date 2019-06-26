@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
 import LoggerPort from '../../domain/common/port/LoggerPort';
 
-class ConsoleLoggerAdapter extends LoggerPort {
-  info(message) {
+class ConsoleLoggerAdapter implements LoggerPort {
+  info(message): void {
     console.log(message);
   }
 
-  error(message, error) {
+  error(message, error): void {
     console.error(message, error);
   }
 }
