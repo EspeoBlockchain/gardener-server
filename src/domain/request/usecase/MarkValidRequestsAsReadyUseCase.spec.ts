@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
 import SilentLoggerAdapter from '../../../application/logger/SilentLoggerAdapter';

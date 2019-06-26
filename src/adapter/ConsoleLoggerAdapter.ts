@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import LoggerPort from '../domain/common/port/LoggerPort';
 
 class ConsoleLoggerAdapter implements LoggerPort {

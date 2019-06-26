@@ -6,7 +6,6 @@ import FetchNewOracleRequestsUseCase from './FetchNewOracleRequestsUseCase';
 
 describe('FetchNewOracleRequestUseCase', () => {
   const oracle = () => ({
-    // eslint-disable-next-line no-unused-vars
     getRequests: (fromBlock, toBlock) => Promise.resolve([{ id: 'abc', url: 'abc', validFrom: Date.now() }]),
   });
 
