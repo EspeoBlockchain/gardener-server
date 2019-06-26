@@ -1,5 +1,5 @@
+import { expect } from '@core/config/configuredChai';
 import { describe, it } from 'mocha';
-const { expect } = require('chai').use(require('dirty-chai'));
 import JsonResultConverter from './JsonResultConverter';
 
 describe('JsonResultConverter', () => {

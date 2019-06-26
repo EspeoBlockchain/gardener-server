@@ -1,6 +1,6 @@
+import SilentLogger from '@core/application/logger/SilentLoggerAdapter';
 import { expect } from '@core/config/configuredChai';
 import { describe, it } from 'mocha';
-import ConsoleLoggerAdapter from '../../../application/logger/ConsoleLoggerAdapter';
 import Response from '../../response/Response';
 import {OracleGateway} from '../port';
 import SendResponseToOracleUseCase from './SendResponseToOracleUseCase';
@@ -17,7 +17,7 @@ describe('SendResponseUseCase', () => {
   it('should send response back to oracle without throwing error', async () => {
     // given
     const response = new Response('id');
-    const sut = new SendResponseToOracleUseCase(oracle() as unknown as OracleGateway, new ConsoleLoggerAdapter());
+    const sut = new SendResponseToOracleUseCase(oracle() as unknown as OracleGateway, new SilentLogger());
     // when, then
     return expect(sut.sendResponse(response)).to.be.fulfilled;
   });
@@ -25,7 +25,7 @@ describe('SendResponseUseCase', () => {
   it('should throw error when sending response failed', async () => {
     // given
     const response = new Response('id');
-    const sut = new SendResponseToOracleUseCase(failingOracle() as unknown as OracleGateway, new ConsoleLoggerAdapter());
+    const sut = new SendResponseToOracleUseCase(failingOracle() as unknown as OracleGateway, new SilentLogger());
     // when, then
     return expect(() => sut.sendResponse(response)).to.be.rejected;
   });

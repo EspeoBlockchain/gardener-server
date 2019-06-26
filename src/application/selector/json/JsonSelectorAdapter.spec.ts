@@ -1,5 +1,5 @@
-import { describe, it, beforeEach } from 'mocha';
 import { expect } from 'chai';
+import { beforeEach, describe, it } from 'mocha';
 import JsonSelectorAdapter from './JsonSelectorAdapter';
 
 describe('JsonSelectorAdapter', () => {

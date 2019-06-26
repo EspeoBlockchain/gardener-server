@@ -1,5 +1,5 @@
-import { describe, it, beforeEach } from 'mocha';
-const { expect } = require('chai').use(require('dirty-chai'));
+import { expect } from '@core/config/configuredChai';
+import { beforeEach, describe, it } from 'mocha';
 import IdentitySelectorAdapter from './IdentitySelectorAdapter';
 
 describe('IdentitySelectorAdapter', () => {

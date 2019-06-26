@@ -1,4 +1,4 @@
-import ConsoleLoggerAdapter from '@core/application/logger/ConsoleLoggerAdapter';
+import SilentLogger from '@core/application/logger/SilentLoggerAdapter';
 import { expect } from '@core/config/configuredChai';
 import InMemoryRequestRepositoryAdapter from '@core/infrastructure/persistence/inmemory/InMemoryRequestRepositoryAdapter';
 import { beforeEach, describe, it } from 'mocha';
@@ -11,7 +11,7 @@ describe('CreateRequestUseCase', () => {
 
   beforeEach(() => {
     repository = new InMemoryRequestRepositoryAdapter();
-    sut = new CreateRequestUseCase(repository, new ConsoleLoggerAdapter());
+    sut = new CreateRequestUseCase(repository, new SilentLogger());
   });
 
   it('should save request in the repository', async () => {

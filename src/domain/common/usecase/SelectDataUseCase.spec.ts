@@ -1,6 +1,6 @@
+import SilentLogger from '@core/application/logger/SilentLoggerAdapter';
 import { expect } from '@core/config/configuredChai';
 import { describe, it } from 'mocha';
-import {ConsoleLoggerAdapter} from '../../../adapter';
 import DataSelectorFinder from '../DataSelectorFinder';
 import { InvalidSelectorDataError, NoMatchingElementsFoundError } from '../utils/error';
 import SelectDataUseCase from './SelectDataUseCase';
@@ -11,7 +11,7 @@ describe('SelectDataUseCase', () => {
     const finder = () => ({
       find: () => ({ select: () => Promise.resolve('selectedData') }),
     });
-    const sut = new SelectDataUseCase(finder() as unknown as DataSelectorFinder, new ConsoleLoggerAdapter());
+    const sut = new SelectDataUseCase(finder() as unknown as DataSelectorFinder, new SilentLogger());
     // when
     const selectedData = await sut.selectFromRawData('fetchedData', 'json', '.key1');
     // then
@@ -23,7 +23,7 @@ describe('SelectDataUseCase', () => {
     const finder = () => ({
       find: () => ({ select: () => Promise.resolve(null) }),
     });
-    const sut = new SelectDataUseCase(finder() as unknown as DataSelectorFinder, new ConsoleLoggerAdapter());
+    const sut = new SelectDataUseCase(finder() as unknown as DataSelectorFinder, new SilentLogger());
     // when, then
     return expect(sut.selectFromRawData('fetchedData', 'json', '.key1')).to.be.rejectedWith(NoMatchingElementsFoundError);
   });
@@ -33,7 +33,7 @@ describe('SelectDataUseCase', () => {
     const finder = () => ({
       find: () => ({ select: () => Promise.reject(new Error('fail')) }),
     });
-    const sut = new SelectDataUseCase(finder() as unknown as DataSelectorFinder, new ConsoleLoggerAdapter());
+    const sut = new SelectDataUseCase(finder() as unknown as DataSelectorFinder, new SilentLogger());
     // when, then
     return expect(sut.selectFromRawData('fetchedData', 'json', '.key1')).to.be.rejectedWith(InvalidSelectorDataError);
   });

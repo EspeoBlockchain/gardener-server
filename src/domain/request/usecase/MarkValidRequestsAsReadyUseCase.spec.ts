@@ -2,11 +2,11 @@
 
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
+import SilentLoggerAdapter from '../../../application/logger/SilentLoggerAdapter';
+import {RequestRepositoryPort} from '../port';
 import Request from '../Request';
 import { RequestStateEnum } from '../RequestStateEnum';
 import MarkValidRequestsAsReadyUseCase from './MarkValidRequestsAsReadyUseCase';
-import {ConsoleLoggerAdapter} from "../../../adapter";
-import {RequestRepositoryPort} from "../port";
 
 describe('MarkValidRequestsAsReadyUseCase', () => {
   const repository = () => {
@@ -24,7 +24,7 @@ describe('MarkValidRequestsAsReadyUseCase', () => {
     const requestRepository = repository();
     requestRepository.save(new Request('1', 'url', Date.now(), RequestStateEnum.SCHEDULED));
 
-    const sut = new MarkValidRequestsAsReadyUseCase(requestRepository as unknown as RequestRepositoryPort, new ConsoleLoggerAdapter());
+    const sut = new MarkValidRequestsAsReadyUseCase(requestRepository as unknown as RequestRepositoryPort, new SilentLoggerAdapter());
 
     // when
     await sut.markValidRequestsAsReady();

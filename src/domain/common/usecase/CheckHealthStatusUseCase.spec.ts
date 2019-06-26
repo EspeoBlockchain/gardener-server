@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { describe, it } from 'mocha';
 import { expect } from 'chai';
+import { describe, it } from 'mocha';
 import CheckHealthStatusUseCase from './CheckHealthStatusUseCase';
 
 describe('CheckHealthStatusUseCase', () => {

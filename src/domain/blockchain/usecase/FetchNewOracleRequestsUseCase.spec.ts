@@ -1,6 +1,6 @@
+import SilentLogger from '@core/application/logger/SilentLoggerAdapter';
 import { expect } from 'chai';
 import { beforeEach, describe, it } from 'mocha';
-import {ConsoleLoggerAdapter} from '@core/adapter';
 import {OracleGateway} from '../port';
 import FetchNewOracleRequestsUseCase from './FetchNewOracleRequestsUseCase';
 
@@ -14,7 +14,7 @@ describe('FetchNewOracleRequestUseCase', () => {
 
   beforeEach(() => {
     // given
-    sut = new FetchNewOracleRequestsUseCase(oracle() as OracleGateway, new ConsoleLoggerAdapter(), 1);
+    sut = new FetchNewOracleRequestsUseCase(oracle() as OracleGateway, new SilentLogger(), 1);
   });
 
   it('should fetch new oracle responses', async () => {

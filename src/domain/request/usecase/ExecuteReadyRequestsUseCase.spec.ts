@@ -1,7 +1,7 @@
+import SilentLogger from '@core/application/logger/SilentLoggerAdapter';
 import InMemoryResponseRepositoryAdapter from '@core/infrastructure/persistence/inmemory/InMemoryResponseRepositoryAdapter';
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import {ConsoleLoggerAdapter} from '../../../adapter';
 import SendResponseToOracleUseCase from '../../blockchain/usecase/SendResponseToOracleUseCase';
 import FetchDataUseCase from '../../common/usecase/FetchDataUseCase';
 import SelectDataUseCase from '../../common/usecase/SelectDataUseCase';
@@ -56,7 +56,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
       sendResponseToOracleUseCase() as unknown as SendResponseToOracleUseCase,
       requestRepository() as unknown as RequestRepositoryPort,
       responseRepository,
-      new ConsoleLoggerAdapter(),
+      new SilentLogger(),
     );
     // when
     await sut.executeReadyRequests();
@@ -78,7 +78,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
       sendResponseToOracleUseCase() as unknown as SendResponseToOracleUseCase,
       reqRepository as unknown as RequestRepositoryPort,
       responseRepository,
-      new ConsoleLoggerAdapter(),
+      new SilentLogger(),
     );
     // when
     await sut.executeReadyRequests();
@@ -95,7 +95,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
       sendResponseToOracleUseCase() as unknown as SendResponseToOracleUseCase,
       requestRepository() as unknown as RequestRepositoryPort,
       responseRepository,
-      new ConsoleLoggerAdapter(),
+      new SilentLogger(),
     );
     // when
     await sut.executeReadyRequests();
@@ -116,7 +116,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
       failedSendResponseToOracleUseCase() as unknown as SendResponseToOracleUseCase,
       requestRepository() as unknown as RequestRepositoryPort,
       responseRepository,
-      new ConsoleLoggerAdapter(),
+      new SilentLogger(),
     );
     // when
     await sut.executeReadyRequests();
