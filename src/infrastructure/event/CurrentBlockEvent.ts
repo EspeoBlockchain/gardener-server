@@ -4,7 +4,7 @@ class CurrentBlockEvent {
     return 'CurrentBlockEvent';
   }
 
-  constructor(public blockNumber) {}
+  constructor(public blockNumber: number) {}
 }
 
 export default CurrentBlockEvent;

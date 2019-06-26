@@ -1,6 +1,5 @@
-import * as Web3 from 'web3';
+import Web3 from 'web3';
 
-// @ts-ignore
 const web3 = new Web3(process.env.NODE_URL);
 
 web3.eth.accounts.wallet.add(process.env.PRIVATE_KEY);

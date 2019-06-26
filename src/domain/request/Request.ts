@@ -5,9 +5,9 @@ import RequestUrlParser from './RequestUrlParser';
 class Request {
   id: string;
   url: string;
-  validFrom: number;
+  validFrom: Date;
   state: RequestState;
-  constructor(id, url, validFrom, state?) {
+  constructor(id: string, url: string, validFrom: Date, state?) {
     // TODO param validation?
     this.id = id;
     this.url = url;

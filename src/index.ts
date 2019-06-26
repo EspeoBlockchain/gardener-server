@@ -114,7 +114,6 @@ blockListener.listen();
 
 const app = express();
 const port = API_PORT;
-// @ts-ignore
 statusEndpoint(app, checkHealthStatusUseCase);
 
 app.listen(port);

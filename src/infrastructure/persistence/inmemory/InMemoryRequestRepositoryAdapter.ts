@@ -26,7 +26,7 @@ class InMemoryRequestRepositoryAdapter implements RequestRepositoryPort {
   getScheduledRequestsWithValidFromBeforeNow(): Promise<Request[]> {
     const requests = Array.from(this.requests.values())
       .filter(request => request.state.name ===  RequestStateEnum.SCHEDULED)
-      .filter(request => request.validFrom <= Date.now());
+      .filter(request => +request.validFrom <= Date.now());
 
     return Promise.resolve(requests);
   }

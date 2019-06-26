@@ -1,4 +1,4 @@
 export default interface LoggerPort {
-  info(message): void;
-  error(message, error): void;
+  info(message: string): void;
+  error(message: string, error): void;
 }

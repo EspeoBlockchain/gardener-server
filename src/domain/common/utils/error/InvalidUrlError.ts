@@ -2,7 +2,7 @@ import { ErrorCode } from './ErrorCode';
 import InvalidRequestError from './InvalidRequestError';
 
 class InvalidUrlError extends InvalidRequestError {
-  constructor(message) {
+  constructor(message: string) {
     super(message, ErrorCode.INVALID_URL);
   }
 }

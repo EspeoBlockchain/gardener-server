@@ -13,7 +13,7 @@ class XmlSelectorAdapter implements DataSelectorPort {
     this.xmlSerializer = new XMLSerializer();
   }
 
-  canHandle(contentType): boolean {
+  canHandle(contentType: string): boolean {
     return ['xml', 'html'].includes(contentType);
   }
 

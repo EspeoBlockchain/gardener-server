@@ -10,7 +10,7 @@ import OracleGateway from '../../../domain/blockchain/port/OracleGateway';
 const ONE_SECOND_MILLIS = 1000;
 
 class EthereumOracleAdapter implements OracleGateway {
-  private static finishedEventName(requestId): string {
+  private static finishedEventName(requestId: string): string {
     return `finished-${requestId}`;
   }
 
@@ -31,12 +31,10 @@ class EthereumOracleAdapter implements OracleGateway {
   }
 
   public getRequests(fromBlock, toBlock): Promise<Request[]> {
-    // @ts-ignore
     const dataRequestedEventsPromise = this.contract.getPastEvents('DataRequested', { fromBlock, toBlock })
       .then(events => events.map(
         event => _.pick(event.returnValues, ['id', 'url']),
       ));
-    // @ts-ignore
     const delayedDataRequestedEventsPromise = this.contract.getPastEvents('DelayedDataRequested', { fromBlock, toBlock })
       .then(events => events.map(
         event => _.pick(event.returnValues, ['id', 'url', 'validFrom']),
