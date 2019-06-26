@@ -40,4 +40,4 @@ jobs:
 
       - run:
           name: Generate coverage
-          command: npx nyc --reporter=text-lcov npm test | npx coveralls
+          command: npx nyc npm run coverage | npx coveralls
