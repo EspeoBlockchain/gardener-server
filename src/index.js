@@ -15,6 +15,7 @@ const {
   ConsoleLoggerAdapter: Logger,
   AxiosUrlDataFetcherAdapter: UrlDataFetcher,
   RandomDotOrgDataFetcherAdapter: RandomDotOrgDataFetcher,
+  RandomSgxDataFetcherAdapter: RandomSgxDataFetcher,
   JsonSelectorAdapter: JsonSelector,
   RandomSelectorAdapter: RandomSelector,
   XmlSelectorAdapter: XmlSelector,
@@ -62,9 +63,10 @@ const requestRepository = RequestRepositoryFactory.create(PERSISTENCE, logger);
 const responseRepository = ResponseRepositoryFactory.create(PERSISTENCE, logger);
 const oracle = new Oracle(web3, oracleAbi, process.env.ORACLE_ADDRESS);
 const urlDataFetcher = new UrlDataFetcher();
-const randomDataFetcher = new RandomDotOrgDataFetcher(RANDOMDOTORG_API_KEY);
+const randomDataFetcher = SGX_ENABLED === 'true' ? new RandomSgxDataFetcher(logger)
+  : new RandomDotOrgDataFetcher(RANDOMDOTORG_API_KEY);
 const jsonSelector = new JsonSelector();
-const randomSelector = new RandomSelector(SGX_ENABLED);
+const randomSelector = new RandomSelector();
 const xmlSelector = new XmlSelector();
 const identitySelector = new IdentitySelector();
 const dataSelectorFinder = new DataSelectorFinder(
