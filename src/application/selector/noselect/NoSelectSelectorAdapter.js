@@ -6,6 +6,10 @@ class NoSelectSelectorAdapter extends DataSelectorPort {
   }
 
   select(data, path) {
+    if (path) {
+      throw new Error('Path must be empty for IdentitySelector');
+    }
+
     return data;
   }
 }

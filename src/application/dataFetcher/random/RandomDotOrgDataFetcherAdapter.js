@@ -1,6 +1,6 @@
 const axios = require('axios');
 const jp = require('jsonpath');
-const { HttpError } = require('../domain/common/utils/error');
+const { HttpError } = require('../../../domain/common/utils/error');
 
 
 class RandomDotOrgDataFetcherAdapter {

@@ -13,8 +13,8 @@ const { CreateRequestEventHandler, CurrentBlockEventHandler } = require('./infra
 const { MarkValidRequestsAsReadyScheduler, ExecuteReadyRequestsScheduler } = require('./infrastructure/scheduling');
 const Logger = require('./application/logger/ConsoleLoggerAdapter');
 const UrlDataFetcher = require('./application/dataFetcher/AxiosUrlDataFetcherAdapter');
-const RandomDotOrgDataFetcher = require('./adapter/RandomDotOrgDataFetcherAdapter');
-const RandomSgxDataFetcher = require('./adapter/RandomSgxDataFetcherAdapter');
+const RandomDotOrgDataFetcher = require('./application/dataFetcher/random/RandomDotOrgDataFetcherAdapter');
+const RandomSgxDataFetcher = require('./application/dataFetcher/random/RandomSgxDataFetcherAdapter');
 
 const {
   JsonSelectorAdapter: JsonSelector,
