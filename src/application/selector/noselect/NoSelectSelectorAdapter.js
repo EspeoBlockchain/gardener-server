@@ -1,4 +1,4 @@
-const DataSelectorPort = require('../../domain/common/port/DataSelectorPort');
+const DataSelectorPort = require('../../../domain/common/port/DataSelectorPort');
 
 class NoSelectSelectorAdapter extends DataSelectorPort {
   canHandle(contentType) {
