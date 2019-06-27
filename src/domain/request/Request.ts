@@ -3,15 +3,9 @@ import RequestStateFactory from './RequestStateFactory';
 import RequestUrlParser from './RequestUrlParser';
 
 class Request {
-  id: string;
-  url: string;
-  validFrom: Date;
   state: RequestState;
-  constructor(id: string, url: string, validFrom: Date, state?) {
+  constructor(public id: string, public url: string, public validFrom: number | Date, state?) {
     // TODO param validation?
-    this.id = id;
-    this.url = url;
-    this.validFrom = validFrom;
     this.state = state ? new RequestState(state) : RequestStateFactory.createState(validFrom);
   }
 

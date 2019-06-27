@@ -6,8 +6,9 @@ import FetchNewOracleRequestsUseCase from './FetchNewOracleRequestsUseCase';
 
 describe('FetchNewOracleRequestUseCase', () => {
   const oracle = () => ({
-    getRequests: (fromBlock, toBlock) => Promise.resolve([{ id: 'abc', url: 'abc', validFrom: Date.now() }]),
-  });
+    getRequests: (fromBlock, toBlock) => Promise.resolve([{ id: 'abc', url: 'abc', validFrom: Date.now() } as any]),
+    sendResponse: () => Promise.resolve(),
+  } as OracleGateway);
 
   let sut;
 
