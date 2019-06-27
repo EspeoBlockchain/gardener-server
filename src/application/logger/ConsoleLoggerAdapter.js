@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-const LoggerPort = require('../domain/common/port/LoggerPort');
+const LoggerPort = require('../../domain/common/port/LoggerPort');
 
 class ConsoleLoggerAdapter extends LoggerPort {
   info(message) {

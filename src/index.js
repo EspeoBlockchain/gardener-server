@@ -11,16 +11,22 @@ const {
 const oracleAbi = require('./config/abi/oracle.abi');
 const { CreateRequestEventHandler, CurrentBlockEventHandler } = require('./infrastructure/event');
 const { MarkValidRequestsAsReadyScheduler, ExecuteReadyRequestsScheduler } = require('./infrastructure/scheduling');
+const Logger = require('./application/logger/ConsoleLoggerAdapter');
+const UrlDataFetcher = require('./application/dataFetcher/AxiosUrlDataFetcherAdapter');
+
 const {
+<<<<<<< HEAD
   ConsoleLoggerAdapter: Logger,
   AxiosUrlDataFetcherAdapter: UrlDataFetcher,
   RandomDotOrgDataFetcherAdapter: RandomDotOrgDataFetcher,
   RandomSgxDataFetcherAdapter: RandomSgxDataFetcher,
+=======
+>>>>>>> master
   JsonSelectorAdapter: JsonSelector,
   RandomSelectorAdapter: RandomSelector,
   XmlSelectorAdapter: XmlSelector,
   IdentitySelectorAdapter: IdentitySelector,
-} = require('./adapter');
+} = require('./application/selector');
 
 const {
   CreateRequestUseCase,

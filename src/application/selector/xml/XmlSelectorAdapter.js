@@ -1,6 +1,8 @@
 const xpath = require('xpath');
 const { XMLSerializer, DOMParser } = require('xmldom');
-const DataSelectorPort = require('../domain/common/port/DataSelectorPort');
+const DataSelectorPort = require('../../../domain/common/port/DataSelectorPort');
+const XmlResultConverter = require('./XmlResultConverter');
+
 
 class XmlSelectorAdapter extends DataSelectorPort {
   constructor() {
@@ -14,14 +16,21 @@ class XmlSelectorAdapter extends DataSelectorPort {
   }
 
   select(data, path) {
-    const doc = this.domParser.parseFromString(data);
-    const { firstChild } = xpath.select(path, doc)[0];
-
-    if (firstChild.data) {
-      return firstChild.data;
+    if (!path) {
+      return data;
     }
 
-    return this.xmlSerializer.serializeToString(firstChild);
+    const doc = this.domParser.parseFromString(data);
+    this.__checkXmlValidity(doc);
+
+    const selected = xpath.select(path, doc);
+
+    return XmlResultConverter.toString(selected);
+  }
+
+  __checkXmlValidity(doc) {
+    // throws an error when doc is invalid xml
+    this.xmlSerializer.serializeToString(doc);
   }
 }
 

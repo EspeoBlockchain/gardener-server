@@ -100,7 +100,7 @@ To parse and select response from HTML site use the html() wrapper. You can also
 Example request
 ::
 
-    html(https://www.w3schools.com)/html/head/title
+    html(https://www.w3schools.com)/html/head/title/text()
 
 
 Example response
@@ -121,4 +121,5 @@ INVALID_URL                1000       Text between type(...) wrapper isn't valid
 INVALID_CONTENT_TYPE       1001       This response format wrapper isn't supported
 INVALID_SELECTOR           4000       The selector isn't valid JsonPath or XmlPath
 NO_MATCHING_ELEMENTS_FOUND 4004       No elements found for given selector
+INTERNAL_SERVER_ERROR      5000       Unhandled error happens inside Gardener Server
 ========================== ========== ===========

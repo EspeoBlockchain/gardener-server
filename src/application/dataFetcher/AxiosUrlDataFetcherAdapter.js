@@ -1,6 +1,6 @@
 const axios = require('axios');
-const UrlDataFetcher = require('../domain/common/port/UrlDataFetcherPort');
-const { HttpError } = require('../domain/common/utils/error');
+const UrlDataFetcher = require('../../domain/common/port/UrlDataFetcherPort');
+const { HttpError } = require('../../domain/common/utils/error');
 
 
 class AxiosUrlDataFetcherAdapter extends UrlDataFetcher {
