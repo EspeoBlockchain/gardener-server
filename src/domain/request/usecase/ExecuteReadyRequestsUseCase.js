@@ -61,6 +61,7 @@ class ExecuteReadyRequestsUseCase {
     } catch (e) {
       if (e instanceof InvalidRequestError) {
         response.setError(e.code);
+        this.logger.error(`Invalid request [errorCode=${e.code}]`, e);
 
         return response;
       }
