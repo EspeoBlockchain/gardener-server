@@ -13,17 +13,12 @@ const { CreateRequestEventHandler, CurrentBlockEventHandler } = require('./infra
 const { MarkValidRequestsAsReadyScheduler, ExecuteReadyRequestsScheduler } = require('./infrastructure/scheduling');
 const Logger = require('./application/logger/ConsoleLoggerAdapter');
 const UrlDataFetcher = require('./application/dataFetcher/AxiosUrlDataFetcherAdapter');
+const RandomDotOrgDataFetcher = require('./adapter/RandomDotOrgDataFetcherAdapter');
+const RandomSgxDataFetcher = require('./adapter/RandomSgxDataFetcherAdapter');
 
 const {
-<<<<<<< HEAD
-  ConsoleLoggerAdapter: Logger,
-  AxiosUrlDataFetcherAdapter: UrlDataFetcher,
-  RandomDotOrgDataFetcherAdapter: RandomDotOrgDataFetcher,
-  RandomSgxDataFetcherAdapter: RandomSgxDataFetcher,
-=======
->>>>>>> master
   JsonSelectorAdapter: JsonSelector,
-  RandomSelectorAdapter: RandomSelector,
+  NoSelectSelectorAdapter: NoSelectSelector,
   XmlSelectorAdapter: XmlSelector,
   IdentitySelectorAdapter: IdentitySelector,
 } = require('./application/selector');
@@ -72,7 +67,7 @@ const urlDataFetcher = new UrlDataFetcher();
 const randomDataFetcher = SGX_ENABLED === 'true' ? new RandomSgxDataFetcher(logger)
   : new RandomDotOrgDataFetcher(RANDOMDOTORG_API_KEY);
 const jsonSelector = new JsonSelector();
-const randomSelector = new RandomSelector();
+const randomSelector = new NoSelectSelector();
 const xmlSelector = new XmlSelector();
 const identitySelector = new IdentitySelector();
 const dataSelectorFinder = new DataSelectorFinder(

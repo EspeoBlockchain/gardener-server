@@ -7,10 +7,6 @@ class SelectDataUseCase {
   }
 
   async selectFromRawData(fetchedData, contentType, path) {
-<<<<<<< HEAD
-    const selectedData = this.dataSelectorFinder.find(contentType).select(fetchedData, path);
-    this.logger.info(`Data selected [selectedData=${selectedData},fetchedData=${fetchedData},contentType=${contentType},path=${path}]`);
-=======
     let selectedData;
 
     try {
@@ -25,7 +21,6 @@ class SelectDataUseCase {
     }
 
     this.logger.info(`Data selected [selectedData=${selectedData},fetchedData=${fetchedData},contentType=${contentType},path=${path}`);
->>>>>>> master
 
     return selectedData;
   }
