@@ -1,7 +1,7 @@
 const IdentitySelectorAdapter = require('./identity/IdentitySelectorAdapter');
 const JsonSelectorAdapter = require('./json/JsonSelectorAdapter');
 const XmlSelectorAdapter = require('./xml/XmlSelectorAdapter');
-const NoSelectSelectorAdapter = require('./NoSelectSelectorAdapter');
+const NoSelectSelectorAdapter = require('./noselect/NoSelectSelectorAdapter');
 
 
 module.exports = {
