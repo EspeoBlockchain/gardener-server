@@ -1,8 +1,9 @@
 import ResponseState from './ResponseState';
+import State from "@core/domain/common/State";
 
 class Response {
   requestId: string;
-  state: any;
+  state: State;
   errorCode: number;
   selectedData: string;
   fetchedData: string;

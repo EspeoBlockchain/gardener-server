@@ -1,5 +1,7 @@
+import {DataSelectorPort} from "@core/domain/common/port";
+
 class DataSelectorFinder {
-  constructor(private selectors: any[]) {}
+  constructor(private selectors: DataSelectorPort[]) {}
 
   find(contentType: string) {
     const validSelectors = this.selectors.filter(selector => selector.canHandle(contentType));

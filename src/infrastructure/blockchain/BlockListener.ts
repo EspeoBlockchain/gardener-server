@@ -1,12 +1,15 @@
 import CurrentBlockEvent from '../event/CurrentBlockEvent';
+import {EventBus} from "@core/infrastructure/event";
+import LoggerPort from "@core/domain/common/port/LoggerPort";
+import {BlockchainPort} from "@core/domain/blockchain/port";
 
 const CHECK_INTERVAL_MILLIS = 5000;
 
 class BlockListener {
-  eventBus: any;
-  blockchain: any;
-  logger: any;
-  safeBlockDelay: any;
+  eventBus: EventBus;
+  blockchain: BlockchainPort;
+  logger: LoggerPort;
+  safeBlockDelay: number;
   constructor(eventBus, blockchain, logger, safeBlockDelay) {
     this.eventBus = eventBus;
     this.blockchain = blockchain;

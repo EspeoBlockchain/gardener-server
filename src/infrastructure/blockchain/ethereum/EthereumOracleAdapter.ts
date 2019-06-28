@@ -7,6 +7,7 @@ import { AbiItem } from 'web3-utils/types';
 
 import OracleGateway from '@core/domain/blockchain/port/OracleGateway';
 import Request from '@core/domain/request/Request';
+import Response from "@core/domain/response/Response";
 
 const ONE_SECOND_MILLIS = 1000;
 
@@ -15,7 +16,7 @@ class EthereumOracleAdapter implements OracleGateway {
     return `finished-${requestId}`;
   }
 
-  private pendingResponses: any[];
+  private pendingResponses: Response[];
   private emitter: EventEmitter;
   private guard: boolean;
   private contract: Contract;

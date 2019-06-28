@@ -1,5 +1,7 @@
+import {RequestStateEnum} from "@core/domain/request/RequestStateEnum";
+
 class State {
-  name: any;
+  name: RequestStateEnum;
   _setState(to, predicate) {
     this._checkState(predicate);
     this.name = to;
