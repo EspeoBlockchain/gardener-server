@@ -1,11 +1,12 @@
 import * as EventEmitter from 'events';
 import * as _ from 'lodash';
 
-import Request from '@core/domain/request/Request';
+import Web3 from 'web3';
 import { Contract } from 'web3-eth-contract/types';
 import { AbiItem } from 'web3-utils/types';
-import Web3 from 'web3/types';
-import OracleGateway from '../../../domain/blockchain/port/OracleGateway';
+
+import OracleGateway from '@core/domain/blockchain/port/OracleGateway';
+import Request from '@core/domain/request/Request';
 
 const ONE_SECOND_MILLIS = 1000;
 

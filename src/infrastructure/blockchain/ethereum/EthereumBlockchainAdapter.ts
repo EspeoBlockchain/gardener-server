@@ -1,5 +1,5 @@
 import { BlockchainPort } from '@core/domain/blockchain/port';
-import Web3 from 'web3/types';
+import * as Web3 from 'web3';
 
 class EthereumBlockchainAdapter implements BlockchainPort {
   constructor(private readonly web3: Web3) {}
