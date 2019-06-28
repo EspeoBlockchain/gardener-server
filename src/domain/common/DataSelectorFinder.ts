@@ -1,9 +1,8 @@
 class DataSelectorFinder {
-  constructor(private selectors) {}
+  constructor(private selectors: any[]) {}
 
-  find(contentType) {
-    const validSelectors = this.selectors
-      .filter(selector => selector.canHandle(contentType));
+  find(contentType: string) {
+    const validSelectors = this.selectors.filter(selector => selector.canHandle(contentType));
 
     if (validSelectors.length === 0) {
       throw new Error(`Lack of selector supporting ${contentType}`);

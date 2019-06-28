@@ -1,4 +1,4 @@
-import {OracleGateway} from '@core/domain/blockchain/port';
+import { OracleGateway } from '@core/domain/blockchain/port';
 import LoggerPort from '@core/domain/common/port/LoggerPort';
 
 class SendResponseToOracleUseCase {

@@ -1,9 +1,11 @@
+import LoggerPort from '@core/domain/common/port/LoggerPort';
+import UrlDataFetcher from '@core/domain/common/port/UrlDataFetcherPort';
+
 class FetchDataUseCase {
-  urlDataFetcher: any;
-  logger: any;
-  constructor(urlDataFetcher, logger) {
-    this.urlDataFetcher = urlDataFetcher;
-    this.logger = logger;
+  constructor(
+    private readonly urlDataFetcher: UrlDataFetcher,
+    private readonly logger: LoggerPort,
+  ) {
   }
 
   async fetchData(requestId, rawUrl) {

@@ -44,7 +44,7 @@ import DataSelectorFinder from './domain/common/DataSelectorFinder';
 
 import BlockListener from './infrastructure/blockchain/BlockListener';
 
-import {AbiItem} from 'web3-utils/types';
+import { AbiItem } from 'web3-utils/types';
 import { RequestRepositoryFactory, ResponseRepositoryFactory } from './infrastructure/persistence';
 import PersistenceConnectionInitializer from './infrastructure/persistence/PersistenceConnectionInitializer';
 

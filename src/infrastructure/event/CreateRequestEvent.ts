@@ -5,7 +5,7 @@ class CreateRequestEvent {
     return 'CreateRequestEvent';
   }
 
-  constructor(public id: string, public url: string, public validFrom: number) {
+  constructor(public id: string, public url: string, public validFrom: number | Date) {
   }
 }
 

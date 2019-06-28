@@ -39,5 +39,9 @@ jobs:
           command: npm test
 
       - run:
+          name: Run compilation
+          command: npm run build
+
+      - run:
           name: Generate coverage
           command: npx nyc npm run coverage | npx coveralls
