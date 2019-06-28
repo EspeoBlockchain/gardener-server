@@ -3,6 +3,7 @@
         "target": "esnext",
         "outDir": "./dist",
         "moduleResolution": "node",
+        "module": "commonjs",
         "noUnusedLocals": true,
         "noImplicitReturns": true,
         "noImplicitThis": true,
