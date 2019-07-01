@@ -1,7 +1,9 @@
+import { BlockchainPort } from '@core/domain/blockchain/port';
+import LoggerPort from '@core/domain/common/port/LoggerPort';
+
+import { EventBus } from '@core/infrastructure/event';
+
 import CurrentBlockEvent from '../event/CurrentBlockEvent';
-import {EventBus} from "@core/infrastructure/event";
-import LoggerPort from "@core/domain/common/port/LoggerPort";
-import {BlockchainPort} from "@core/domain/blockchain/port";
 
 const CHECK_INTERVAL_MILLIS = 5000;
 

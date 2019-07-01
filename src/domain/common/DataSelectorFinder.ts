@@ -1,4 +1,4 @@
-import {DataSelectorPort} from "@core/domain/common/port";
+import { DataSelectorPort } from '@core/domain/common/port';
 
 class DataSelectorFinder {
   constructor(private selectors: DataSelectorPort[]) {}

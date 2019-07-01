@@ -1,5 +1,6 @@
+import State from '@core/domain/common/State';
+
 import ResponseState from './ResponseState';
-import State from "@core/domain/common/State";
 
 class Response {
   requestId: string;

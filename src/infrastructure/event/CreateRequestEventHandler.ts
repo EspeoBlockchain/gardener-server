@@ -1,5 +1,6 @@
+import CreateRequestUseCase from '@core/domain/request/usecase/CreateRequestUseCase';
+
 import CreateRequestEvent from './CreateRequestEvent';
-import CreateRequestUseCase from "@core/domain/request/usecase/CreateRequestUseCase";
 
 class CreateRequestEventHandler {
   useCase: CreateRequestUseCase;

@@ -1,4 +1,4 @@
-import {RequestStateEnum} from "@core/domain/request/RequestStateEnum";
+import { RequestStateEnum } from '@core/domain/request/RequestStateEnum';
 
 class State {
   name: RequestStateEnum;
