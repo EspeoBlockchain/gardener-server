@@ -1,12 +1,14 @@
-import { expect } from '@core/config/configuredChai';
 import { describe, it } from 'mocha';
+
+import { expect } from '@core/config/configuredChai';
+
 import DataSelectorFinder from './DataSelectorFinder';
 
 describe('DataSelectorFinder', () => {
   it('should select selector which can handle given contentType', async () => {
     // given
     const selectors = [
-      { canHandle: contentType => contentType === 'json' },
+      { canHandle: contentType => contentType === 'json', select: (data, path: string) => '' },
     ];
     const sut = new DataSelectorFinder(selectors);
 
@@ -20,7 +22,7 @@ describe('DataSelectorFinder', () => {
   it('should throw error if there are no selector, which can handle given contentType', async () => {
     // given
     const selectors = [
-      { canHandle: contentType => contentType === 'xml' },
+      { canHandle: contentType => contentType === 'xml', select: (data, path: string) => '' },
     ];
     const sut = new DataSelectorFinder(selectors);
 
@@ -31,8 +33,8 @@ describe('DataSelectorFinder', () => {
   it('should throw error if there is more than one selector, which can handle give contentType', async () => {
     // given
     const selectors = [
-      { canHandle: contentType => contentType === 'json' },
-      { canHandle: contentType => contentType === 'json' },
+      { canHandle: contentType => contentType === 'json',   select: (data, path: string) => '' },
+      { canHandle: contentType => contentType === 'json', select: (data, path: string) => '' },
     ];
     const sut = new DataSelectorFinder(selectors);
 
