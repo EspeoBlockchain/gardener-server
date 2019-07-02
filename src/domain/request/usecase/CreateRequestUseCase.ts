@@ -1,4 +1,4 @@
-import {LoggerPort} from '@core/domain/common/port';
+import { LoggerPort } from '@core/domain/common/port';
 import {RequestRepositoryPort} from '@core/domain/request/port';
 import Request from '../Request';
 

@@ -2,7 +2,7 @@
   "name": "oracle-server",
   "version": "0.2.0",
   "description": "Off-chain oracle server for listening on data requests from Ethereum blockchain",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "scripts": {
     "start": "ts-node -r tsconfig-paths/register src/index.ts",
     "build": "tsc",

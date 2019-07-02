@@ -1,5 +1,5 @@
 import DataSelectorFinder from '@core/domain/common/DataSelectorFinder';
-import {LoggerPort} from '@core/domain/common/port';
+import { LoggerPort } from '@core/domain/common/port';
 import { InvalidSelectorDataError, NoMatchingElementsFoundError} from '../utils/error';
 
 class SelectDataUseCase {

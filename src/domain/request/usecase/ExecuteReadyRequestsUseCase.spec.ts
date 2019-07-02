@@ -1,11 +1,15 @@
-import SilentLogger from '@core/application/logger/SilentLoggerAdapter';
-import InMemoryResponseRepositoryAdapter from '@core/infrastructure/persistence/inmemory/InMemoryResponseRepositoryAdapter';
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import SendResponseToOracleUseCase from '../../blockchain/usecase/SendResponseToOracleUseCase';
+
+import SilentLogger from '@core/application/logger/SilentLoggerAdapter';
+import InMemoryResponseRepositoryAdapter from '@core/infrastructure/persistence/inmemory/InMemoryResponseRepositoryAdapter';
+
 import FetchDataUseCase from '../../common/usecase/FetchDataUseCase';
 import SelectDataUseCase from '../../common/usecase/SelectDataUseCase';
 import InvalidUrlError from '../../common/utils/error/InvalidUrlError';
+
+import SendResponseToOracleUseCase from '../../blockchain/usecase/SendResponseToOracleUseCase';
+
 import {RequestRepositoryPort} from '../port';
 import Request from '../Request';
 import ExecuteReadyRequestsUseCase from './ExecuteReadyRequestsUseCase';

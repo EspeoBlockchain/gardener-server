@@ -1,4 +1,4 @@
-import {LoggerPort} from '@core/domain/common/port';
+import { LoggerPort } from '@core/domain/common/port';
 import Response from '@core/domain/response/Response';
 import { omit } from 'lodash';
 import ResponseRepositoryPort from '../../../domain/response/port/ResponseRepositoryPort';

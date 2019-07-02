@@ -1,4 +1,4 @@
 export default interface DataSelectorPort {
-  select(data, path: string): string;
-  canHandle(contentType): boolean;
+  select(data: string, path: string): string;
+  canHandle(contentType: string): boolean;
 }

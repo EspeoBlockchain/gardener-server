@@ -1,5 +1,5 @@
 import SendResponseToOracleUseCase from '@core/domain/blockchain/usecase/SendResponseToOracleUseCase';
-import {LoggerPort} from '@core/domain/common/port';
+import { LoggerPort } from '@core/domain/common/port';
 import FetchDataUseCase from '@core/domain/common/usecase/FetchDataUseCase';
 import SelectDataUseCase from '@core/domain/common/usecase/SelectDataUseCase';
 import {RequestRepositoryPort} from '@core/domain/request/port';

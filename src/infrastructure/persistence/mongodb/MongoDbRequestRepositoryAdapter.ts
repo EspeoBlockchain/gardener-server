@@ -1,6 +1,6 @@
 import { omit } from 'lodash';
 
-import {LoggerPort} from '@core/domain/common/port';
+import { LoggerPort } from '@core/domain/common/port';
 import { RequestStateEnum } from '@core/domain/request/RequestStateEnum';
 import RequestRepositoryPort from '../../../domain/request/port/RequestRepositoryPort';
 import Request from '../../../domain/request/Request';

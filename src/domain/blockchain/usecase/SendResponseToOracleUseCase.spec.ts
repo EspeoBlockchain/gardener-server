@@ -1,6 +1,8 @@
+import { describe, it } from 'mocha';
+
 import SilentLogger from '@core/application/logger/SilentLoggerAdapter';
 import { expect } from '@core/config/configuredChai';
-import { describe, it } from 'mocha';
+
 import Response from '../../response/Response';
 import { OracleGateway } from '../port';
 import SendResponseToOracleUseCase from './SendResponseToOracleUseCase';

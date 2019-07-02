@@ -1,4 +1,4 @@
-import {DataSelectorPort} from '@core/domain/common/port';
+import { DataSelectorPort } from '@core/domain/common/port';
 
 class IdentitySelectorAdapter implements DataSelectorPort {
   canHandle(contentType: string): boolean {
