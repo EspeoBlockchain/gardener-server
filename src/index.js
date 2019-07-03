@@ -59,7 +59,7 @@ const logger = new Logger();
 const requestRepository = RequestRepositoryFactory.create(PERSISTENCE, logger);
 const responseRepository = ResponseRepositoryFactory.create(PERSISTENCE, logger);
 const oracle = new Oracle(web3, oracleAbi, process.env.ORACLE_ADDRESS);
-const urlDataFetcher = new UrlDataFetcher();
+const dataFetcher = new UrlDataFetcher();
 const jsonSelector = new JsonSelector();
 const xmlSelector = new XmlSelector();
 const identitySelector = new IdentitySelector();
@@ -76,7 +76,7 @@ const markValidRequestsAsReadyUseCase = new MarkValidRequestsAsReadyUseCase(
   requestRepository,
   logger,
 );
-const fetchDataUseCase = new FetchDataUseCase(urlDataFetcher, logger);
+const fetchDataUseCase = new FetchDataUseCase(dataFetcher, logger);
 const selectDataUseCase = new SelectDataUseCase(dataSelectorFinder, logger);
 const sendResponseToOracleUseCase = new SendResponseToOracleUseCase(oracle, logger);
 const executeReadyRequestsUseCase = new ExecuteReadyRequestsUseCase(
