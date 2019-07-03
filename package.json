@@ -6,9 +6,9 @@
   "scripts": {
     "start": "ts-node -r tsconfig-paths/register src/index.ts",
     "build": "tsc",
-    "coverage": "mocha --require  ts-node/register/transpile-only -r tsconfig-paths/register --require source-map-support/register --recursive 'src/**/*.spec.ts'",
-    "test": "mocha -r ts-node/register -r tsconfig-paths/register 'src/**/*.spec.ts'",
-    "integration-test": "mocha -r ts-node/register 'src/**/*.integration.ts'",
+    "coverage": "mocha --require  ts-node/register/transpile-only -r tsconfig-paths/register --require source-map-support/register --recursive src/**/*.spec.ts",
+    "test": "mocha -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts",
+    "integration-test": "mocha -r ts-node/register src/**/*.integration.ts",
     "ganache": "ganache-cli -d",
     "lint": "tslint --config ./tslint.json --project ./tsconfig.json 'src/**/*.ts'"
   },
