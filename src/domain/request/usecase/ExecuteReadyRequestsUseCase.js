@@ -47,7 +47,7 @@ class ExecuteReadyRequestsUseCase {
     this.logger.info(`Created response [response=${JSON.stringify(response)}]`);
 
     try {
-      const fetchedData = await this.fetchDataUseCase.fetchData(request.id, request.getRawUrl());
+      const fetchedData = await this.fetchDataUseCase.fetchData(request);
       response.addFetchedData(fetchedData);
 
       const selectedData = await this.selectDataUseCase.selectFromRawData(

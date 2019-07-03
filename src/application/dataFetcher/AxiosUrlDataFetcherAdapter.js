@@ -1,12 +1,16 @@
 const axios = require('axios');
-const UrlDataFetcher = require('../../domain/common/port/UrlDataFetcherPort');
+
+const DataFetcher = require('../../domain/common/port/DataFetcherPort');
 const { HttpError } = require('../../domain/common/utils/error');
+const RequestUrlParser = require('../../domain/request/RequestUrlParser');
 
 
-class AxiosUrlDataFetcherAdapter extends UrlDataFetcher {
-  async fetch(url) {
+class AxiosUrlDataFetcherAdapter extends DataFetcher {
+  async fetch(request) {
+    const rawUrl = RequestUrlParser.resolveRawUrl(request.url);
+
     try {
-      const response = await axios.get(url);
+      const response = await axios.get(rawUrl);
 
       return response.data;
     } catch (e) {

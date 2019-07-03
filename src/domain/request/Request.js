@@ -11,10 +11,6 @@ class Request {
     this.state = state ? new RequestState(state) : RequestStateFactory.createState(validFrom);
   }
 
-  getRawUrl() {
-    return RequestUrlParser.resolveRawUrl(this.url);
-  }
-
   getContentType() {
     return RequestUrlParser.resolveContentType(this.url);
   }
