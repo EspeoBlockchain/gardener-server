@@ -44,7 +44,6 @@ class ExecuteReadyRequestsUseCase {
 
   async _fetchAndSelectData(request) {
     const response = new Response(request.id);
-    this.logger.info(`Created response [response=${JSON.stringify(response)}]`);
 
     try {
       const fetchedData = await this.fetchDataUseCase.fetchData(request.id, request.getRawUrl());
@@ -56,12 +55,13 @@ class ExecuteReadyRequestsUseCase {
         request.getSelectionPath(),
       );
       response.addSelectedData(selectedData);
+      this.logger.info(`Sending response [response=${JSON.stringify(response)}]`);
 
       return response;
     } catch (e) {
       if (e instanceof InvalidRequestError) {
         response.setError(e.code);
-        this.logger.error(`Invalid request [errorCode=${e.code}]`, e);
+        this.logger.error(`Sending response [response=${JSON.stringify(response)}]`, e);
 
         return response;
       }
