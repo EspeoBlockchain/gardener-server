@@ -12,9 +12,6 @@ const oracleAbi = require('./config/abi/oracle.abi');
 const { CreateRequestEventHandler, CurrentBlockEventHandler } = require('./infrastructure/event');
 const { MarkValidRequestsAsReadyScheduler, ExecuteReadyRequestsScheduler } = require('./infrastructure/scheduling');
 const Logger = require('./application/logger/ConsoleLoggerAdapter');
-const UrlDataFetcher = require('./application/dataFetcher/AxiosUrlDataFetcherAdapter');
-const RandomDotOrgDataFetcher = require('./application/dataFetcher/random/RandomDotOrgDataFetcherAdapter');
-const RandomSgxDataFetcher = require('./application/dataFetcher/random/RandomSgxDataFetcherAdapter');
 
 const {
   JsonSelectorAdapter: JsonSelector,
@@ -63,9 +60,6 @@ const logger = new Logger();
 const requestRepository = RequestRepositoryFactory.create(PERSISTENCE, logger);
 const responseRepository = ResponseRepositoryFactory.create(PERSISTENCE, logger);
 const oracle = new Oracle(web3, oracleAbi, process.env.ORACLE_ADDRESS);
-const urlDataFetcher = new UrlDataFetcher();
-const randomDataFetcher = SGX_ENABLED === 'true' ? new RandomSgxDataFetcher(logger)
-  : new RandomDotOrgDataFetcher(RANDOMDOTORG_API_KEY);
 const jsonSelector = new JsonSelector();
 const randomSelector = new NoSelectSelector();
 const xmlSelector = new XmlSelector();
@@ -85,7 +79,7 @@ const markValidRequestsAsReadyUseCase = new MarkValidRequestsAsReadyUseCase(
   requestRepository,
   logger,
 );
-const fetchDataUseCase = new FetchDataUseCase(urlDataFetcher, randomDataFetcher, logger);
+const fetchDataUseCase = new FetchDataUseCase(SGX_ENABLED, RANDOMDOTORG_API_KEY, logger);
 const selectDataUseCase = new SelectDataUseCase(dataSelectorFinder, logger);
 const sendResponseToOracleUseCase = new SendResponseToOracleUseCase(oracle, logger);
 const executeReadyRequestsUseCase = new ExecuteReadyRequestsUseCase(

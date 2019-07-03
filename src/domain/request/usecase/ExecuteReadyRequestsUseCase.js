@@ -47,7 +47,7 @@ class ExecuteReadyRequestsUseCase {
     this.logger.info(`Created response [response=${JSON.stringify(response)}]`);
 
     try {
-      response.addFetchedData(await this._fetch(request));
+      response.addFetchedData(await this.fetchDataUseCase.fetch(request));
       response.addSelectedData(await this._select(response.fetchedData, request));
 
       return response;
@@ -64,16 +64,6 @@ class ExecuteReadyRequestsUseCase {
       this.logger.error(`Request marked as failed [requestId=${request.id}]`, e);
       return null;
     }
-  }
-
-  async _fetch(request) {
-    if (request.getContentType() === 'random') {
-      return this.fetchDataUseCase.fetchRandomData(
-        request.id, request.getLeftSideBound(), request.getRightSideBound(),
-      );
-    }
-
-    return this.fetchDataUseCase.fetchHttpData(request.id, request.getRawUrl());
   }
 
   async _select(fetchedData, request) {

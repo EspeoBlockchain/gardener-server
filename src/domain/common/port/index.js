@@ -1,5 +1,5 @@
 const DataSelectorPort = require('./DataSelectorPort');
 const LoggerPort = require('./LoggerPort');
-const UrlDataFetcherPort = require('./UrlDataFetcherPort');
+const DataFetcherPort = require('./DataFetcherPort');
 
-module.exports = { DataSelectorPort, LoggerPort, UrlDataFetcherPort };
+module.exports = { DataSelectorPort, LoggerPort, DataFetcherPort };
