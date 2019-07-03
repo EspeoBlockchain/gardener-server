@@ -2,13 +2,15 @@
   "name": "oracle-server",
   "version": "0.2.0",
   "description": "Off-chain oracle server for listening on data requests from Ethereum blockchain",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
-    "start": "node src/index.js",
-    "test": "mocha 'src/**/*.spec.js'",
-    "integration-test": "mocha 'src/**/*.integration.js'",
+    "start": "ts-node -r tsconfig-paths/register src/index.ts",
+    "build": "tsc",
+    "coverage": "mocha --require  ts-node/register/transpile-only -r tsconfig-paths/register --require source-map-support/register --recursive src/**/*.spec.ts",
+    "test": "mocha -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts",
+    "integration-test": "mocha -r ts-node/register src/**/*.integration.ts",
     "ganache": "ganache-cli -d",
-    "lint": "eslint . --fix"
+    "lint": "tslint --config ./tslint.json --project ./tsconfig.json 'src/**/*.ts'"
   },
   "repository": {
     "type": "git",
@@ -21,11 +23,19 @@
   },
   "homepage": "https://github.com/espeo/blockchain-oracle-server",
   "nyc": {
+    "extension": [
+      ".ts"
+    ],
     "exclude": [
-      "**/*.spec.js",
-      "**/*.integration.js",
-      "**/*Port.js"
-    ]
+      "**/*.d.ts",
+      "**/*.spec.ts",
+      "**/*.integration.ts",
+      "**/*Port.ts"
+    ],
+    "reporter": [
+      "text-lcov"
+    ],
+    "all": true
   },
   "dependencies": {
     "axios": "0.19.0",
@@ -38,24 +48,32 @@
     "mongoose": "5.3.12",
     "node-schedule": "1.3.0",
     "web3": "1.0.0-beta.36",
+    "web3-eth-contract": "1.0.0-beta.55",
+    "web3-utils": "1.0.0-beta.55",
     "websocket": "1.0.26",
     "winston": "3.0.0",
     "xmldom": "0.1.27",
     "xpath": "0.0.27"
   },
   "devDependencies": {
+    "@types/dotenv": "6.1.1",
+    "@types/express": "4.17.0",
+    "@types/lodash": "4.14.134",
+    "@types/mongoose": "5.5.6",
     "chai": "4.1.2",
     "chai-as-promised": "7.1.1",
     "coveralls": "3.0.2",
     "dirty-chai": "2.0.1",
-    "eslint": "5.4.0",
-    "eslint-config-airbnb-base": "13.1.0",
-    "eslint-plugin-import": "2.14.0",
     "ganache-cli": "6.1.8",
     "mocha": "5.2.0",
     "nock": "9.6.1",
     "nyc": "14.1.1",
+    "redux-devtools": "3.5.0",
     "sinon": "7.1.1",
-    "sinon-mongoose": "2.2.1"
+    "sinon-mongoose": "2.2.1",
+    "ts-node": "8.3.0",
+    "tsconfig-paths": "3.8.0",
+    "tslint": "5.17.0",
+    "typescript": "3.5.2"
   }
 }
