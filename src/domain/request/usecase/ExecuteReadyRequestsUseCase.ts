@@ -55,13 +55,13 @@ class ExecuteReadyRequestsUseCase {
         request.getSelectionPath(),
       );
       response.addSelectedData(selectedData);
-      this.logger.info(`Sending response [response=${JSON.stringify(response)}]`);
+      this.logger.info(`Fetched and selected data [response=${JSON.stringify(response)}]`);
 
       return response;
     } catch (e) {
       if (e instanceof InvalidRequestError) {
         response.setError(e.code);
-        this.logger.error(`Sending response [response=${JSON.stringify(response)}]`, e);
+        this.logger.error(`Fetched and selected data [response=${JSON.stringify(response)}]`, e);
 
         return response;
       }
