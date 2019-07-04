@@ -61,7 +61,7 @@ class ExecuteReadyRequestsUseCase {
     } catch (e) {
       if (e instanceof InvalidRequestError) {
         response.setError(e.code);
-        this.logger.error(`Fetched and selected data [response=${JSON.stringify(response)}]`, e);
+        this.logger.error(`Could not fetch and/or select data [response=${JSON.stringify(response)}]`, e);
 
         return response;
       }
