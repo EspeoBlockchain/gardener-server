@@ -11,9 +11,6 @@
         "strictBindCallApply": true,
         "baseUrl": "./src",
         "paths": {
-          "*": [
-            "types/*"
-          ],
             "@core/*": ["./*"]
         }
     },
