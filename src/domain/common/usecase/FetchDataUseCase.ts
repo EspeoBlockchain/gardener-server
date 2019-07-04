@@ -1,5 +1,5 @@
-import LoggerPort from '@core/domain/common/port/LoggerPort';
 import DataFetcher from '@core/domain/common/port/DataFetcherPort';
+import LoggerPort from '@core/domain/common/port/LoggerPort';
 
 class FetchDataUseCase {
   constructor(
