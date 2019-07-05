@@ -30,7 +30,8 @@
       "**/*.d.ts",
       "**/*.spec.ts",
       "**/*.integration.ts",
-      "**/*Port.ts"
+      "**/*Port.ts",
+      "dist/**/*.js"
     ],
     "reporter": [
       "text-lcov"
