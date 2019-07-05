@@ -14,7 +14,11 @@
             "@core/*": ["./*"]
         }
     },
-    "files": ["./src/index.ts"],
+    "files": [
+        "./src/index.ts",
+        "./src/config/configuredChai.ts",
+        "./src/config/winston.ts"
+    ],
     "exclude": ["node_modules"],
     "typeRoots": [
         "node_modules/@types"
