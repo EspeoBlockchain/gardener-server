@@ -44,4 +44,4 @@ jobs:
 
       - run:
           name: Generate coverage
-          command: npx nyc npm run coverage | npx coveralls
+          command: npx nyc -x dist/ npm run coverage | npx coveralls
