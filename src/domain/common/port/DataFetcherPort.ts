@@ -1,3 +1,3 @@
 export default interface DataFetcherPort {
-  fetch(url: string): Promise<string>;
+  fetch(request: string): Promise<string>;
 }
