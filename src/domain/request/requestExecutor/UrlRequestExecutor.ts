@@ -1,4 +1,4 @@
-import RequestExecutor from '@core/domain/common/port/RequestExecutorPort';
+import RequestExecutor from '../../common/port/RequestExecutorPort';
 
 class UrlRequestExecutor implements RequestExecutor {
     execute(request: Request) {
