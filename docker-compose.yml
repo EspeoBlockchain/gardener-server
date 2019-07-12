@@ -9,6 +9,9 @@ services:
             - mongo
         ports:
             - ${API_PORT}:${API_PORT}
+        devices:
+            - /dev/isgx
+            - /dev/mei0
         command: bash -c "./wait-for-it.sh mongo:27017 && node src/index.js"
     mongo:
         container_name: oracle-db
