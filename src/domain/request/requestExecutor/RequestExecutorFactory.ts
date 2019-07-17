@@ -1,5 +1,5 @@
-import InvalidContentTypeError from '@core/domain/common/utils/error/InvalidContentTypeError';
-import RequestExecutor from '@core/domain/common/port/RequestExecutorPort';
+import RequestExecutor from '../../../domain/common/port/RequestExecutorPort';
+import InvalidContentTypeError from '../../../domain/common/utils/error/InvalidContentTypeError';
 import UrlRequestExecutor from './UrlRequestExecutor';
 
 class RequestExecutorFactory  {
