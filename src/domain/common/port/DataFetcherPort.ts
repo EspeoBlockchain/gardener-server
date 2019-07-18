@@ -1,3 +1,5 @@
+import Request from '@core/domain/request/Request';
+
 export default interface DataFetcherPort {
-  fetch(request: string): Promise<string>;
+  fetch(request: Request): Promise<string>;
 }
