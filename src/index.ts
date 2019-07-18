@@ -1,3 +1,4 @@
+import RequestExecutorFactory from '@core/domain/request/requestExecutor/RequestExecutorFactory';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -81,13 +82,13 @@ const markValidRequestsAsReadyUseCase = new MarkValidRequestsAsReadyUseCase(
 );
 const fetchDataUseCase = new FetchDataUseCase(dataFetcher, logger);
 const selectDataUseCase = new SelectDataUseCase(dataSelectorFinder, logger);
+const requestExecutorFactory = new RequestExecutorFactory(fetchDataUseCase, selectDataUseCase, logger);
 const sendResponseToOracleUseCase = new SendResponseToOracleUseCase(oracle, logger);
 const executeReadyRequestsUseCase = new ExecuteReadyRequestsUseCase(
-  fetchDataUseCase,
-  selectDataUseCase,
   sendResponseToOracleUseCase,
   requestRepository,
   responseRepository,
+  requestExecutorFactory,
   logger,
 );
 const checkHealthStatusUseCase = new CheckHealthStatusUseCase();

@@ -1,4 +1,4 @@
-import { describe, it, beforeEach } from 'mocha';
+import { beforeEach, describe, it } from 'mocha';
 const { expect } = require('chai').use(require('dirty-chai'));
 const { assert } = require('chai');
 
@@ -10,7 +10,7 @@ describe('RequestExecutorFactory', () => {
   let sut;
 
   beforeEach(() => {
-    sut = new RequestExecutorFactory();
+    sut = new RequestExecutorFactory(null, null, null);
   });
 
   it('should create UrlProvider for json', () => {

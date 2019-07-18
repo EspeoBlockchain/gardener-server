@@ -1,17 +1,17 @@
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
 
-import SilentLogger from '@core/application/logger/SilentLoggerAdapter';
-import InMemoryResponseRepositoryAdapter from '@core/infrastructure/persistence/inmemory/InMemoryResponseRepositoryAdapter';
+import SilentLogger from '../../../application/logger/SilentLoggerAdapter';
+import InMemoryResponseRepositoryAdapter from '../../../infrastructure/persistence/inmemory/InMemoryResponseRepositoryAdapter';
 
-import FetchDataUseCase from '../../common/usecase/FetchDataUseCase';
-import SelectDataUseCase from '../../common/usecase/SelectDataUseCase';
 import InvalidUrlError from '../../common/utils/error/InvalidUrlError';
 
 import SendResponseToOracleUseCase from '../../blockchain/usecase/SendResponseToOracleUseCase';
+import Response from '../../response/Response';
 
 import {RequestRepositoryPort} from '../port';
 import Request from '../Request';
+import RequestExecutorFactory from '../requestExecutor/RequestExecutorFactory';
 import ExecuteReadyRequestsUseCase from './ExecuteReadyRequestsUseCase';
 
 describe('ExecuteReadyRequestsUseCase', () => {
@@ -21,27 +21,47 @@ describe('ExecuteReadyRequestsUseCase', () => {
     const requests = [];
 
     return {
-      getReadyRequests: () => [new Request('123', 'json(http://example.com).key1', Date.now() - oneMinuteMillis)],
+      getReadyRequests: () => [new Request('SOME_REQUEST_ID', 'json(http://example.com).key1', Date.now() - oneMinuteMillis)],
       list: () => requests,
       save: request => requests.push(request),
     };
   };
 
-  const fetchDataUseCase = () => ({
-    fetchData: () => Promise.resolve('fetchedData'),
-  });
+  const requestExecutorFactory = () => {
+    const executor = () => {
+      const response = new Response('SOME_REQUEST_ID');
+      response.addFetchedData('fetchedData');
+      response.addSelectedData('selectedData');
 
-  const failedFetchDataUseCase = () => ({
-    fetchData: () => Promise.reject(new InvalidUrlError('message')),
-  });
+      return {
+        execute: () => Promise.resolve(response),
+      };
+    };
 
-  const selectDataUseCase = () => ({
-    selectFromRawData: () => Promise.resolve('selectedData'),
-  });
+    return {
+      create: () => executor(),
+    };
+  };
 
-  const failedSelectDataUseCase = () => ({
-    selectFromRawData: () => Promise.reject(new Error()),
-  });
+  const genericFailingRequestExecutorFactory = () => {
+    const executor = () => ({
+      execute: () => Promise.reject(new Error()),
+    });
+
+    return {
+      create: () => executor(),
+    };
+  };
+
+  const invalidUrlFailingRequestExecutorFactory = () => {
+    const executor = () => ({
+      execute: () => Promise.reject(new InvalidUrlError('message')),
+    });
+
+    return {
+      create: () => executor(),
+    };
+  };
 
   const sendResponseToOracleUseCase = () => ({
     sendResponse: () => Promise.resolve(),
@@ -55,18 +75,17 @@ describe('ExecuteReadyRequestsUseCase', () => {
     // given
     const responseRepository = new InMemoryResponseRepositoryAdapter();
     const sut = new ExecuteReadyRequestsUseCase(
-      fetchDataUseCase() as unknown as FetchDataUseCase,
-      selectDataUseCase() as unknown as SelectDataUseCase,
       sendResponseToOracleUseCase() as unknown as SendResponseToOracleUseCase,
       requestRepository() as unknown as RequestRepositoryPort,
       responseRepository,
+      requestExecutorFactory() as unknown as RequestExecutorFactory,
       new SilentLogger(),
     );
     // when
     await sut.executeReadyRequests();
     // then
-    const response = await responseRepository.get('123');
-    expect(response.requestId).to.equal('123');
+    const response = await responseRepository.get('SOME_REQUEST_ID');
+    expect(response.requestId).to.equal('SOME_REQUEST_ID');
     expect(response.fetchedData).to.equal('fetchedData');
     expect(response.selectedData).to.equal('selectedData');
     expect(response.state.name).to.equal('Sent');
@@ -77,11 +96,10 @@ describe('ExecuteReadyRequestsUseCase', () => {
     const responseRepository = new InMemoryResponseRepositoryAdapter();
     const reqRepository = requestRepository();
     const sut = new ExecuteReadyRequestsUseCase(
-      fetchDataUseCase() as unknown as FetchDataUseCase,
-      failedSelectDataUseCase() as unknown as SelectDataUseCase,
       sendResponseToOracleUseCase() as unknown as SendResponseToOracleUseCase,
       reqRepository as unknown as RequestRepositoryPort,
       responseRepository,
+      genericFailingRequestExecutorFactory() as unknown as RequestExecutorFactory,
       new SilentLogger(),
     );
     // when
@@ -94,18 +112,17 @@ describe('ExecuteReadyRequestsUseCase', () => {
     // given
     const responseRepository = new InMemoryResponseRepositoryAdapter();
     const sut = new ExecuteReadyRequestsUseCase(
-      failedFetchDataUseCase() as unknown as FetchDataUseCase,
-      selectDataUseCase() as unknown as SelectDataUseCase,
       sendResponseToOracleUseCase() as unknown as SendResponseToOracleUseCase,
       requestRepository() as unknown as RequestRepositoryPort,
       responseRepository,
+      invalidUrlFailingRequestExecutorFactory() as unknown as RequestExecutorFactory,
       new SilentLogger(),
     );
     // when
     await sut.executeReadyRequests();
     // then
-    const response = await responseRepository.get('123');
-    expect(response.requestId).to.equal('123');
+    const response = await responseRepository.get('SOME_REQUEST_ID');
+    expect(response.requestId).to.equal('SOME_REQUEST_ID');
     expect(response.selectedData).to.equal(undefined);
     expect(response.errorCode).to.equal(1000);
     expect(response.state.name).to.equal('Sent');
@@ -115,18 +132,17 @@ describe('ExecuteReadyRequestsUseCase', () => {
     // given
     const responseRepository = new InMemoryResponseRepositoryAdapter();
     const sut = new ExecuteReadyRequestsUseCase(
-      fetchDataUseCase() as unknown as FetchDataUseCase,
-      selectDataUseCase() as unknown as SelectDataUseCase,
       failedSendResponseToOracleUseCase() as unknown as SendResponseToOracleUseCase,
       requestRepository() as unknown as RequestRepositoryPort,
       responseRepository,
+      requestExecutorFactory() as unknown as RequestExecutorFactory,
       new SilentLogger(),
     );
     // when
     await sut.executeReadyRequests();
     // then
-    const response = await responseRepository.get('123');
-    expect(response.requestId).to.equal('123');
+    const response = await responseRepository.get('SOME_REQUEST_ID');
+    expect(response.requestId).to.equal('SOME_REQUEST_ID');
     expect(response.fetchedData).to.equal('fetchedData');
     expect(response.selectedData).to.equal('selectedData');
     expect(response.state.name).to.equal('Failed');
