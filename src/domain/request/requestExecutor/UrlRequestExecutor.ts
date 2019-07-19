@@ -12,6 +12,11 @@ class UrlRequestExecutor implements RequestExecutor {
         private readonly logger: LoggerPort,
     ) {
     }
+
+    canHandle(contentType: string): boolean {
+        return ['json', 'xml', 'html', 'ipfs'].includes(contentType);
+    }
+
     async execute(request: Request, response: Response): Promise<Response> {
         const fetchedData = await this.fetchDataUseCase.fetchData(request);
         response.addFetchedData(fetchedData);

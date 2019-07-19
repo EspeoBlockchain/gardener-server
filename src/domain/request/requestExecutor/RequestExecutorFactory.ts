@@ -6,23 +6,29 @@ import InvalidContentTypeError from '../../../domain/common/utils/error/InvalidC
 import UrlRequestExecutor from './UrlRequestExecutor';
 
 class RequestExecutorFactory  {
+    private requestExecutors: RequestExecutor[];
     constructor(
-        private readonly fetchDataUseCase: FetchDataUseCase,
-        private readonly selectDataUseCase: SelectDataUseCase,
-        private readonly logger: LoggerPort,
+        fetchDataUseCase: FetchDataUseCase,
+        selectDataUseCase: SelectDataUseCase,
+        logger: LoggerPort,
     ) {
+        this.requestExecutors = [new UrlRequestExecutor(fetchDataUseCase, selectDataUseCase, logger)];
     }
 
     create(contentType: string): RequestExecutor {
-        switch (contentType) {
-            case 'json':
-            case 'xml':
-            case 'html':
-            case 'ipfs':
-                return new UrlRequestExecutor(this.fetchDataUseCase, this.selectDataUseCase, this.logger);
-            default:
-                throw new InvalidContentTypeError(`${contentType} is not a valid content type`);
+        let chosenRequestExecutor = null;
+
+        this.requestExecutors.forEach( (requestExecutor) => {
+            if (requestExecutor.canHandle(contentType)) {
+                chosenRequestExecutor = requestExecutor;
+            }
+        });
+
+        if (chosenRequestExecutor === null) {
+            throw new InvalidContentTypeError(`${contentType} is not a valid content type`);
         }
+
+        return chosenRequestExecutor;
     }
 }
 

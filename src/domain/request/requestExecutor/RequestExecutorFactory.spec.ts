@@ -2,7 +2,7 @@ import { beforeEach, describe, it } from 'mocha';
 const { expect } = require('chai').use(require('dirty-chai'));
 const { assert } = require('chai');
 
-import InvalidContentTypeError from '../../common/utils/error/InvalidContentTypeError';
+import InvalidContentTypeError from '@core/domain/common/utils/error/InvalidContentTypeError';
 import RequestExecutorFactory from './RequestExecutorFactory';
 import UrlRequestExecutor from './UrlRequestExecutor';
 

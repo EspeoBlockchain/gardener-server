@@ -1,13 +1,13 @@
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
 
-import SilentLogger from '../../../application/logger/SilentLoggerAdapter';
-import InMemoryResponseRepositoryAdapter from '../../../infrastructure/persistence/inmemory/InMemoryResponseRepositoryAdapter';
+import SilentLogger from '@core/application/logger/SilentLoggerAdapter';
+import InMemoryResponseRepositoryAdapter from '@core/infrastructure/persistence/inmemory/InMemoryResponseRepositoryAdapter';
 
-import InvalidUrlError from '../../common/utils/error/InvalidUrlError';
+import InvalidUrlError from '@core/domain/common/utils/error/InvalidUrlError';
 
-import SendResponseToOracleUseCase from '../../blockchain/usecase/SendResponseToOracleUseCase';
-import Response from '../../response/Response';
+import SendResponseToOracleUseCase from '@core/domain/blockchain/usecase/SendResponseToOracleUseCase';
+import Response from '@core/domain/response/Response';
 
 import {RequestRepositoryPort} from '../port';
 import Request from '../Request';
@@ -16,12 +16,13 @@ import ExecuteReadyRequestsUseCase from './ExecuteReadyRequestsUseCase';
 
 describe('ExecuteReadyRequestsUseCase', () => {
   const oneMinuteMillis = 60 * 1000;
+  const someRequestId = 'SOME_REQUEST_ID';
 
   const requestRepository = () => {
     const requests = [];
 
     return {
-      getReadyRequests: () => [new Request('SOME_REQUEST_ID', 'json(http://example.com).key1', Date.now() - oneMinuteMillis)],
+      getReadyRequests: () => [new Request(someRequestId, 'json(http://example.com).key1', Date.now() - oneMinuteMillis)],
       list: () => requests,
       save: request => requests.push(request),
     };
@@ -29,7 +30,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
 
   const requestExecutorFactory = () => {
     const executor = () => {
-      const response = new Response('SOME_REQUEST_ID');
+      const response = new Response(someRequestId);
       response.addFetchedData('fetchedData');
       response.addSelectedData('selectedData');
 
@@ -84,8 +85,8 @@ describe('ExecuteReadyRequestsUseCase', () => {
     // when
     await sut.executeReadyRequests();
     // then
-    const response = await responseRepository.get('SOME_REQUEST_ID');
-    expect(response.requestId).to.equal('SOME_REQUEST_ID');
+    const response = await responseRepository.get(someRequestId);
+    expect(response.requestId).to.equal(someRequestId);
     expect(response.fetchedData).to.equal('fetchedData');
     expect(response.selectedData).to.equal('selectedData');
     expect(response.state.name).to.equal('Sent');
@@ -121,8 +122,8 @@ describe('ExecuteReadyRequestsUseCase', () => {
     // when
     await sut.executeReadyRequests();
     // then
-    const response = await responseRepository.get('SOME_REQUEST_ID');
-    expect(response.requestId).to.equal('SOME_REQUEST_ID');
+    const response = await responseRepository.get(someRequestId);
+    expect(response.requestId).to.equal(someRequestId);
     expect(response.selectedData).to.equal(undefined);
     expect(response.errorCode).to.equal(1000);
     expect(response.state.name).to.equal('Sent');
@@ -141,8 +142,8 @@ describe('ExecuteReadyRequestsUseCase', () => {
     // when
     await sut.executeReadyRequests();
     // then
-    const response = await responseRepository.get('SOME_REQUEST_ID');
-    expect(response.requestId).to.equal('SOME_REQUEST_ID');
+    const response = await responseRepository.get(someRequestId);
+    expect(response.requestId).to.equal(someRequestId);
     expect(response.fetchedData).to.equal('fetchedData');
     expect(response.selectedData).to.equal('selectedData');
     expect(response.state.name).to.equal('Failed');
