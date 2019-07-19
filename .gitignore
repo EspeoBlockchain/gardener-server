@@ -7,5 +7,4 @@ node_modules
 logs/*
 !logs/.gitkeep
 /docs/_build/
-
-.idea
+dist

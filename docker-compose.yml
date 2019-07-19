@@ -12,7 +12,7 @@ services:
         devices:
             - /dev/isgx
             - /dev/mei0
-        command: bash -c "./wait-for-it.sh mongo:27017 && node src/index.js"
+        command: bash -c "./wait-for-it.sh mongo:27017 && npm start"
     mongo:
         container_name: oracle-db
         image: mongo:4.1.13
