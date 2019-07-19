@@ -1,19 +1,16 @@
-import DataFetcherFactory from '@core/application/dataFetcher/DataFetcherFactory';
+import DataFetcher from '@core/domain/common/port/DataFetcherPort';
 import LoggerPort from '@core/domain/common/port/LoggerPort';
+import Request from '@core/domain/request/Request';
 
 class FetchDataUseCase {
   constructor(
-    private readonly sgxEnabled: string,
-    private readonly randomDotOrgApiKey: string,
+    private readonly dataFetcher: DataFetcher,
     private readonly logger: LoggerPort,
   ) {
   }
 
-  async fetch(request) {
-    const dataFetcher = DataFetcherFactory.createDataFetcher(
-      request.getContentType(), this.sgxEnabled, this.randomDotOrgApiKey, this.logger,
-    );
-    const rawData = await dataFetcher.fetch(request);
+  async fetchData(request: Request) {
+    const rawData = await this.dataFetcher.fetch(request);
     this.logger.info(`Data fetched [requestId=${request.id}, rawData=${rawData}]`);
 
     return rawData;

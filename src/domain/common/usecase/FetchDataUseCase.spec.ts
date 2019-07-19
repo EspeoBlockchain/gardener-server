@@ -19,7 +19,7 @@ describe('FetchDataUseCase', () => {
     const request = new Request('1', 'json(http://example.com).key1', Date.now());
     const sut = new FetchDataUseCase(urlDataFetcher(), new SilentLogger());
     // when
-    const fetchedData = await sut.fetchHttpData(request.id, 'http://example.com');
+    const fetchedData = await sut.fetchData(request);
     // then
     expect(fetchedData).to.equal('{"key1":"value1"}');
   });

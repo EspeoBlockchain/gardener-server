@@ -1,3 +1,4 @@
+import RequestExecutorFactory from '@core/domain/request/requestExecutor/RequestExecutorFactory';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -19,7 +20,6 @@ import { ExecuteReadyRequestsScheduler, MarkValidRequestsAsReadyScheduler } from
 import {
   IdentitySelectorAdapter as IdentitySelector,
   JsonSelectorAdapter as JsonSelector,
-  NoSelectSelectorAdapter as NoSelectSelector,
   XmlSelectorAdapter as XmlSelector,
 } from './application/selector';
 
@@ -31,7 +31,6 @@ import {
 
 import {
   CheckHealthStatusUseCase,
-  FetchDataUseCase,
   SelectDataUseCase,
 } from './domain/common/usecase';
 
@@ -65,12 +64,9 @@ const requestRepository = RequestRepositoryFactory.create(PERSISTENCE, logger);
 const responseRepository = ResponseRepositoryFactory.create(PERSISTENCE, logger);
 const oracle = new Oracle(web3, oracleAbi as AbiItem[], process.env.ORACLE_ADDRESS);
 const jsonSelector = new JsonSelector();
-const randomSelector = new NoSelectSelector();
 const xmlSelector = new XmlSelector();
 const identitySelector = new IdentitySelector();
-const dataSelectorFinder = new DataSelectorFinder(
-  [jsonSelector, xmlSelector, identitySelector, randomSelector],
-);
+const dataSelectorFinder = new DataSelectorFinder([jsonSelector, xmlSelector, identitySelector]);
 
 const createRequestUseCase = new CreateRequestUseCase(requestRepository, logger);
 const fetchNewOracleRequestsUseCase = new FetchNewOracleRequestsUseCase(
@@ -82,15 +78,16 @@ const markValidRequestsAsReadyUseCase = new MarkValidRequestsAsReadyUseCase(
   requestRepository,
   logger,
 );
-const fetchDataUseCase = new FetchDataUseCase(SGX_ENABLED, RANDOMDOTORG_API_KEY, logger);
 const selectDataUseCase = new SelectDataUseCase(dataSelectorFinder, logger);
+const requestExecutorFactory = new RequestExecutorFactory(
+    SGX_ENABLED.toLowerCase() === 'true', RANDOMDOTORG_API_KEY, selectDataUseCase, logger,
+);
 const sendResponseToOracleUseCase = new SendResponseToOracleUseCase(oracle, logger);
 const executeReadyRequestsUseCase = new ExecuteReadyRequestsUseCase(
-  fetchDataUseCase,
-  selectDataUseCase,
   sendResponseToOracleUseCase,
   requestRepository,
   responseRepository,
+  requestExecutorFactory,
   logger,
 );
 const checkHealthStatusUseCase = new CheckHealthStatusUseCase();

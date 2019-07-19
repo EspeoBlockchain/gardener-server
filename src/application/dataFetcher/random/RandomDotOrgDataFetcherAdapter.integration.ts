@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import nock from 'nock';
+import * as nock from 'nock';
 
 import Request from '../../../domain/request/Request';
 import RandomDotOrgDataFetcherAdapter from './RandomDotOrgDataFetcherAdapter';

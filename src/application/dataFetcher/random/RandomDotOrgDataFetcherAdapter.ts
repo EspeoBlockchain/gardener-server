@@ -1,6 +1,6 @@
 import RequestUrlParser from '@core/domain/request/RequestUrlParser';
 import axios from 'axios';
-import jp from 'jsonpath';
+import * as jp from 'jsonpath';
 
 import DataFetcher from '@core/domain/common/port/DataFetcherPort';
 import { HttpError } from '@core/domain/common/utils/error';
