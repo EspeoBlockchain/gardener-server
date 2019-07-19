@@ -1,4 +1,4 @@
-import {LoggerPort} from '@core/domain/common/port';
+import { LoggerPort } from '@core/domain/common/port';
 import RequestExecutor from '@core/domain/common/port/RequestExecutorPort';
 import SelectDataUseCase from '@core/domain/common/usecase/SelectDataUseCase';
 import InvalidContentTypeError from '@core/domain/common/utils/error/InvalidContentTypeError';
@@ -7,6 +7,7 @@ import UrlRequestExecutor from './UrlRequestExecutor';
 
 class RequestExecutorFactory  {
     private requestExecutors: RequestExecutor[];
+
     constructor(
         sgxEnabled: boolean,
         randomDotOrgApiKey: string,
@@ -20,14 +21,9 @@ class RequestExecutorFactory  {
     }
 
     create(contentType: string): RequestExecutor {
-        let chosenRequestExecutor = null;
-        this.requestExecutors.forEach( (requestExecutor) => {
-            if (requestExecutor.canHandle(contentType)) {
-                chosenRequestExecutor = requestExecutor;
-            }
-        });
+        const chosenRequestExecutor = this.requestExecutors.find(re => re.canHandle(contentType));
 
-        if (chosenRequestExecutor == null) {
+        if (chosenRequestExecutor === undefined) {
             throw new InvalidContentTypeError(`${contentType} is not a valid content type`);
         }
 
