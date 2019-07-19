@@ -1,12 +1,13 @@
-import {LoggerPort} from '@core/domain/common/port';
+import { LoggerPort } from '@core/domain/common/port';
+import RequestExecutor from '@core/domain/common/port/RequestExecutorPort';
 import FetchDataUseCase from '@core/domain/common/usecase/FetchDataUseCase';
 import SelectDataUseCase from '@core/domain/common/usecase/SelectDataUseCase';
-import RequestExecutor from '../../../domain/common/port/RequestExecutorPort';
-import InvalidContentTypeError from '../../../domain/common/utils/error/InvalidContentTypeError';
+import InvalidContentTypeError from '@core/domain/common/utils/error/InvalidContentTypeError';
 import UrlRequestExecutor from './UrlRequestExecutor';
 
 class RequestExecutorFactory  {
     private requestExecutors: RequestExecutor[];
+
     constructor(
         fetchDataUseCase: FetchDataUseCase,
         selectDataUseCase: SelectDataUseCase,
@@ -16,15 +17,9 @@ class RequestExecutorFactory  {
     }
 
     create(contentType: string): RequestExecutor {
-        let chosenRequestExecutor = null;
+        const chosenRequestExecutor = this.requestExecutors.find(re => re.canHandle(contentType));
 
-        this.requestExecutors.forEach( (requestExecutor) => {
-            if (requestExecutor.canHandle(contentType)) {
-                chosenRequestExecutor = requestExecutor;
-            }
-        });
-
-        if (chosenRequestExecutor === null) {
+        if (chosenRequestExecutor === undefined) {
             throw new InvalidContentTypeError(`${contentType} is not a valid content type`);
         }
 
