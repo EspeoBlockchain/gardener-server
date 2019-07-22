@@ -4,7 +4,7 @@ FROM sebvaucher/sgx-base:sgx_2.5
 ENV SGX_SDK /opt/intel/sgxsdk
 ENV PATH=$SGX_SDK/bin:$SGX_SDK/bin/x64:$PATH \
     PKG_CONFIG_PATH=$SGX_SDK/pkgconfig:$PKG_CONFIG_PATH \
-    LD_LIBRARY_PATH=$SGX_SDK/sdk_libs:$LD_LIBRARY_PATH
+    LD_LIBRARY_PATH=$SGX_SDK/sdk_libs:./libs:$LD_LIBRARY_PATH
 
 # Install nodejs dependencies
 RUN apt-get update -q -q && \
