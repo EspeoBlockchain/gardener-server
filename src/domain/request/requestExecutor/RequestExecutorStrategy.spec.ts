@@ -3,14 +3,14 @@ const { expect } = require('chai').use(require('dirty-chai'));
 const { assert } = require('chai');
 
 import InvalidContentTypeError from '@core/domain/common/utils/error/InvalidContentTypeError';
-import RequestExecutorFactory from './RequestExecutorFactory';
+import RequestExecutorStrategy from './RequestExecutorStrategy';
 import UrlRequestExecutor from './UrlRequestExecutor';
 
-describe('RequestExecutorFactory', () => {
+describe('RequestExecutorStrategy', () => {
   let sut;
 
   beforeEach(() => {
-    sut = new RequestExecutorFactory(null, null, null);
+    sut = new RequestExecutorStrategy(null, null, null);
   });
 
   it('should create UrlProvider for json', () => {

@@ -5,7 +5,7 @@ import SelectDataUseCase from '@core/domain/common/usecase/SelectDataUseCase';
 import InvalidContentTypeError from '@core/domain/common/utils/error/InvalidContentTypeError';
 import UrlRequestExecutor from './UrlRequestExecutor';
 
-class RequestExecutorFactory  {
+class RequestExecutorStrategy  {
     private requestExecutors: RequestExecutor[];
 
     constructor(
@@ -27,4 +27,4 @@ class RequestExecutorFactory  {
     }
 }
 
-export default RequestExecutorFactory;
+export default RequestExecutorStrategy;
