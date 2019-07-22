@@ -11,7 +11,7 @@ class ExecuteReadyRequestsUseCase {
     private readonly sendResponseToOracleUseCase: SendResponseToOracleUseCase,
     private readonly requestRepository: RequestRepositoryPort,
     private readonly responseRepository: ResponseRepositoryPort,
-    private readonly requestExecutorFactory: RequestExecutorStrategy,
+    private readonly requestExecutorStrategy: RequestExecutorStrategy,
     private readonly logger: LoggerPort,
   ) {
   }
@@ -42,7 +42,7 @@ class ExecuteReadyRequestsUseCase {
 
   private async executeRequest(request): Promise<Response> {
     try {
-      const requestExecutor = this.requestExecutorFactory.create(request.getContentType());
+      const requestExecutor = this.requestExecutorStrategy.create(request.getContentType());
 
       return await requestExecutor.execute(request);
     } catch (e) {
