@@ -1,4 +1,4 @@
-import RequestExecutorFactory from '@core/domain/request/requestExecutor/RequestExecutorFactory';
+import RequestExecutorStrategy from '@core/domain/request/requestExecutor/RequestExecutorStrategy';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -79,7 +79,7 @@ const markValidRequestsAsReadyUseCase = new MarkValidRequestsAsReadyUseCase(
   logger,
 );
 const selectDataUseCase = new SelectDataUseCase(dataSelectorFinder, logger);
-const requestExecutorFactory = new RequestExecutorFactory(
+const requestExecutorFactory = new RequestExecutorStrategy(
     SGX_ENABLED.toLowerCase() === 'true', RANDOMDOTORG_API_KEY, selectDataUseCase, logger,
 );
 const sendResponseToOracleUseCase = new SendResponseToOracleUseCase(oracle, logger);

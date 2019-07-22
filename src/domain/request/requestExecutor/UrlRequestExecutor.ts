@@ -19,7 +19,9 @@ class UrlRequestExecutor implements RequestExecutor {
         return ['json', 'xml', 'html', 'ipfs'].includes(contentType);
     }
 
-    async execute(request: Request, response: Response): Promise<Response> {
+    async execute(request: Request): Promise<Response> {
+        const response = new Response(request.id);
+
         const fetchedData = await this.fetchDataUseCase.fetchData(request);
         response.addFetchedData(fetchedData);
 

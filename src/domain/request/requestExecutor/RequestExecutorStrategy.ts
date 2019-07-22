@@ -5,7 +5,7 @@ import InvalidContentTypeError from '@core/domain/common/utils/error/InvalidCont
 import RandomRequestExecutor from '@core/domain/request/requestExecutor/RandomRequestExecutor';
 import UrlRequestExecutor from './UrlRequestExecutor';
 
-class RequestExecutorFactory  {
+class RequestExecutorStrategy  {
     private requestExecutors: RequestExecutor[];
 
     constructor(
@@ -31,4 +31,4 @@ class RequestExecutorFactory  {
     }
 }
 
-export default RequestExecutorFactory;
+export default RequestExecutorStrategy;

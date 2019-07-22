@@ -11,7 +11,7 @@ import Response from '@core/domain/response/Response';
 
 import {RequestRepositoryPort} from '../port';
 import Request from '../Request';
-import RequestExecutorFactory from '../requestExecutor/RequestExecutorFactory';
+import RequestExecutorStrategy from '../requestExecutor/RequestExecutorStrategy';
 import ExecuteReadyRequestsUseCase from './ExecuteReadyRequestsUseCase';
 
 describe('ExecuteReadyRequestsUseCase', () => {
@@ -79,7 +79,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
       sendResponseToOracleUseCase() as unknown as SendResponseToOracleUseCase,
       requestRepository() as unknown as RequestRepositoryPort,
       responseRepository,
-      requestExecutorFactory() as unknown as RequestExecutorFactory,
+      requestExecutorFactory() as unknown as RequestExecutorStrategy,
       new SilentLogger(),
     );
     // when
@@ -100,7 +100,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
       sendResponseToOracleUseCase() as unknown as SendResponseToOracleUseCase,
       reqRepository as unknown as RequestRepositoryPort,
       responseRepository,
-      genericFailingRequestExecutorFactory() as unknown as RequestExecutorFactory,
+      genericFailingRequestExecutorFactory() as unknown as RequestExecutorStrategy,
       new SilentLogger(),
     );
     // when
@@ -116,7 +116,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
       sendResponseToOracleUseCase() as unknown as SendResponseToOracleUseCase,
       requestRepository() as unknown as RequestRepositoryPort,
       responseRepository,
-      invalidUrlFailingRequestExecutorFactory() as unknown as RequestExecutorFactory,
+      invalidUrlFailingRequestExecutorFactory() as unknown as RequestExecutorStrategy,
       new SilentLogger(),
     );
     // when
@@ -136,7 +136,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
       failedSendResponseToOracleUseCase() as unknown as SendResponseToOracleUseCase,
       requestRepository() as unknown as RequestRepositoryPort,
       responseRepository,
-      requestExecutorFactory() as unknown as RequestExecutorFactory,
+      requestExecutorFactory() as unknown as RequestExecutorStrategy,
       new SilentLogger(),
     );
     // when
