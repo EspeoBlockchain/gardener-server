@@ -41,14 +41,13 @@ class ExecuteReadyRequestsUseCase {
   }
 
   private async executeRequest(request): Promise<Response> {
-    const response = new Response(request.id);
-
     try {
       const requestExecutor = this.requestExecutorFactory.create(request.getContentType());
 
-      return await requestExecutor.execute(request, response);
+      return await requestExecutor.execute(request);
     } catch (e) {
       if (e instanceof InvalidRequestError) {
+        const response = new Response(request.id);
         response.setError(e.code);
         this.logger.error(`Invalid request. Data was not fetched. [response=${JSON.stringify(response)}]`, e);
 
