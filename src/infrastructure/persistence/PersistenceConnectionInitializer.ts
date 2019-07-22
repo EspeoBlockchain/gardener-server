@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 import { PersistenceType } from './PersistenceType';
 
 class PersistenceConnectionInitializer {
-  init(type, options) {
+  init(type: any, options: any) {
     switch (type) {
       case PersistenceType.MongoDb:
         this._initMongo(options);
@@ -10,7 +10,7 @@ class PersistenceConnectionInitializer {
     }
   }
 
-  _initMongo({ databaseUrl, databaseName }) {
+  _initMongo({ databaseUrl, databaseName }: any) {
     mongoose.connect(`mongodb://${databaseUrl}/${databaseName}`, { useNewUrlParser: true });
   }
 }

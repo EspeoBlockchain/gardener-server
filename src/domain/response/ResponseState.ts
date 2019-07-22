@@ -11,12 +11,12 @@ class ResponseState extends State {
   }
 
   markAsSent() {
-    this._setState(SENT, name => name === PROCESSED);
+    this._setState(SENT, (name: any) => name === PROCESSED);
   }
 
   markAsFailed() {
-    this._setState(FAILED, name => name === PROCESSED);
+    this._setState(FAILED, (name: any) => name === PROCESSED);
   }
 }
 
-export default  ResponseState;
+export default ResponseState;

@@ -3,11 +3,11 @@ import DataSelectorPort from '../../../domain/common/port/DataSelectorPort';
 import JsonResultConverter from './JsonResultConverter';
 
 class JsonSelectorAdapter implements DataSelectorPort {
-  canHandle(contentType) {
+  canHandle(contentType: any) {
     return contentType === 'json';
   }
 
-  select(data, path) {
+  select(data: any, path: any) {
     const json = typeof data === 'object' ? data : JSON.parse(data);
 
     if (!path) {

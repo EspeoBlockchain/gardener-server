@@ -1,7 +1,7 @@
 const ONE_SECOND_MILLIS = 1000;
 
 class MarkValidRequestsAsReadyScheduler {
-  constructor(private markValidRequestsAsReadyUseCase) {}
+  constructor(private markValidRequestsAsReadyUseCase: any) { }
 
   schedule() {
     setInterval(

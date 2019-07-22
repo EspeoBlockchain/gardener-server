@@ -1,5 +1,5 @@
-import * as EventEmitter from 'events';
-import * as _ from 'lodash';
+import EventEmitter from 'events';
+import _ from 'lodash';
 
 import Web3 from 'web3';
 import { Contract } from 'web3-eth-contract/types';
@@ -32,7 +32,8 @@ class EthereumOracleAdapter implements OracleGateway {
     setInterval(() => this.sendPendingResponse(), ONE_SECOND_MILLIS);
   }
 
-  public getRequests(fromBlock, toBlock): Promise<Request[]> {
+  // TODO: rewrite with async await
+  public getRequests(fromBlock: any, toBlock: any): Promise<Request[]> {
     const dataRequestedEventsPromise = this.contract.getPastEvents('DataRequested', { fromBlock, toBlock })
       .then(events => events.map(
         event => _.pick(event.returnValues, ['id', 'url']),
@@ -46,13 +47,13 @@ class EthereumOracleAdapter implements OracleGateway {
       .then(values => values.reduce(
         (previous: any, current) => previous.concat(current), [],
       ))
-      .then(events => events.map(event => ({
+      .then(events => events.map((event: any) => ({
         ...event,
         validFrom: event.validFrom ? new Date(event.validFrom * 1000) : new Date(),
       })));
   }
 
-  public sendResponse(response): Promise<void> {
+  public sendResponse(response: any): Promise<void> {
     this.pendingResponses.push(response);
     return new Promise((resolve, reject) => {
       this.emitter.on(EthereumOracleAdapter.finishedEventName(response.requestId), (error) => {

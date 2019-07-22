@@ -1,11 +1,11 @@
 import LoggerPort from '../../domain/common/port/LoggerPort';
 
 class ConsoleLoggerAdapter implements LoggerPort {
-  info(message): void {
+  info(message: any): void {
     console.log(message);
   }
 
-  error(message, error): void {
+  error(message: any, error: any): void {
     console.error(message, error);
   }
 }

@@ -40,7 +40,7 @@ class ExecuteReadyRequestsUseCase {
     await Promise.all(promises);
   }
 
-  private async executeRequest(request): Promise<Response> {
+  private async executeRequest(request: any): Promise<Response> {
     try {
       const requestExecutor = this.requestExecutorStrategy.create(request.getContentType());
 
@@ -61,7 +61,7 @@ class ExecuteReadyRequestsUseCase {
     }
   }
 
-  private async sendResponse(response): Promise<void> {
+  private async sendResponse(response: any): Promise<void> {
     try {
       await this.sendResponseToOracleUseCase.sendResponse(response);
       response.state.markAsSent();

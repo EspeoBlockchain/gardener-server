@@ -5,9 +5,9 @@ class SendResponseToOracleUseCase {
   constructor(
     private readonly oracle: OracleGateway,
     private readonly logger: LoggerPort,
-  ) {}
+  ) { }
 
-  async sendResponse(response): Promise<void> {
+  async sendResponse(response: any): Promise<void> {
     await this.oracle.sendResponse(response);
     this.logger.info(`Response sent to blockchain  [requestId=${response.requestId}]`);
   }

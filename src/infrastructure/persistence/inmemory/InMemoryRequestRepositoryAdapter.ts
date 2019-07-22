@@ -9,15 +9,15 @@ class InMemoryRequestRepositoryAdapter implements RequestRepositoryPort {
     this.requests = new Map();
   }
 
-  get(id): Promise<Request> {
+  get(id: any): Promise<Request> {
     return Promise.resolve(this.requests.get(id));
   }
 
-  exists(id): Promise<boolean> {
+  exists(id: any): Promise<boolean> {
     return Promise.resolve(this.requests.has(id));
   }
 
-  save(request): Promise<void> {
+  save(request: any): Promise<void> {
     this.requests.set(request.id, request);
 
     return Promise.resolve();
@@ -25,7 +25,7 @@ class InMemoryRequestRepositoryAdapter implements RequestRepositoryPort {
 
   getScheduledRequestsWithValidFromBeforeNow(): Promise<Request[]> {
     const requests = Array.from(this.requests.values())
-      .filter(request => request.state.name ===  RequestStateEnum.SCHEDULED)
+      .filter(request => request.state.name === RequestStateEnum.SCHEDULED)
       .filter(request => +request.validFrom <= Date.now());
 
     return Promise.resolve(requests);

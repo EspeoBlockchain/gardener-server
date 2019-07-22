@@ -7,21 +7,21 @@ import Request from '../../../domain/request/Request';
 import RequestModel from './RequestModel';
 
 class MongoDbRequestRepositoryAdapter implements RequestRepositoryPort {
-  constructor(private readonly logger: LoggerPort) {}
+  constructor(private readonly logger: LoggerPort) { }
 
-  async exists(id): Promise<boolean> {
+  async exists(id: any): Promise<boolean> {
     const count = await RequestModel.count({ _id: id });
 
     return count > 0;
   }
 
-  public async get(id): Promise<Request> {
+  public async get(id: any): Promise<Request> {
     const result = await RequestModel.findById(id);
 
     return this.mapMongoResultToDomainRequest(result);
   }
 
-  public async save(request): Promise<void> {
+  public async save(request: any): Promise<void> {
     const mongoRequest = new RequestModel({
       _id: request.id,
       url: request.url,
@@ -55,11 +55,11 @@ class MongoDbRequestRepositoryAdapter implements RequestRepositoryPort {
     return this.mapMongoResultsToDomainRequests(results);
   }
 
-  private mapMongoResultsToDomainRequests(results): Request[] {
+  private mapMongoResultsToDomainRequests(results: any): Request[] {
     return results.map(this.mapMongoResultToDomainRequest);
   }
 
-  private mapMongoResultToDomainRequest(result): Request {
+  private mapMongoResultToDomainRequest(result: any): Request {
     return new Request(result._id, result.url, result.validFrom, result.state);
   }
 }

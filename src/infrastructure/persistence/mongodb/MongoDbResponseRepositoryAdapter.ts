@@ -9,7 +9,7 @@ class MongoDbResponseRepositoryAdapter implements ResponseRepositoryPort {
     this.logger = logger;
   }
 
-  public async save(response): Promise<void> {
+  public async save(response: any): Promise<void> {
     const mongoResponse = new ResponseModel({
       _id: response.requestId,
       fetchedData: response.fetchedData,

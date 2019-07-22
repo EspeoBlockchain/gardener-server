@@ -13,7 +13,7 @@ class FetchNewOracleRequestsUseCase {
     this.lastBlock = startBlockNumber - 1;
   }
 
-  async fetchNewRequests(blockNumber): Promise<Request[]> {
+  async fetchNewRequests(blockNumber: any): Promise<Request[]> {
     if (blockNumber <= this.lastBlock) {
       return [];
     }

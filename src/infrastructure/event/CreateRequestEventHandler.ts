@@ -4,12 +4,12 @@ import CreateRequestEvent from './CreateRequestEvent';
 
 class CreateRequestEventHandler {
   useCase: CreateRequestUseCase;
-  constructor(createRequestUseCase, eventBus) {
+  constructor(createRequestUseCase: any, eventBus: any) {
     this.useCase = createRequestUseCase;
     eventBus.on(CreateRequestEvent.name(), this._handleEvent.bind(this));
   }
 
-  _handleEvent({ id, url, validFrom }) {
+  _handleEvent({ id, url, validFrom }: any) {
     this.useCase.createRequest(id, url, validFrom);
   }
 }

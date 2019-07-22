@@ -7,7 +7,7 @@ class InMemoryResponseRepositoryAdapter implements ResponseRepositoryPort {
     this.responses = new Map();
   }
 
-  save(response): Promise<void> {
+  save(response: any): Promise<void> {
     this.responses.set(response.requestId, response);
 
     return Promise.resolve();

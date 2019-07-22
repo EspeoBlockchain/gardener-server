@@ -2,7 +2,7 @@ import RequestExecutorStrategy from '@core/domain/request/requestExecutor/Reques
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-import * as express from 'express';
+import express from 'express';
 import statusEndpoint from './infrastructure/systemHealth/statusEndpoint';
 
 import {

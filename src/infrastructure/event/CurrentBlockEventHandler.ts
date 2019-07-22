@@ -14,7 +14,7 @@ class CurrentBlockEventHandler {
     this.eventBus.on(CurrentBlockEvent.name(), this._handleEvent.bind(this));
   }
 
-  async _handleEvent({ blockNumber }) {
+  async _handleEvent({ blockNumber }: any) {
     const requests = await this.useCase.fetchNewRequests(blockNumber);
     requests
       .map(({ id, url, validFrom }) => new CreateRequestEvent(id, url, validFrom))
