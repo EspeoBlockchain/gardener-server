@@ -1,11 +1,16 @@
+import Request from '@core/domain/request/Request';
 import axios from 'axios';
-import UrlDataFetcher from '../../domain/common/port/UrlDataFetcherPort';
-import { HttpError } from '../../domain/common/utils/error';
 
-class AxiosUrlDataFetcherAdapter implements UrlDataFetcher {
-  async fetch(url): Promise<string> {
+import DataFetcher from '@core/domain/common/port/DataFetcherPort';
+import { HttpError } from '@core/domain/common/utils/error';
+import RequestUrlParser from '@core/domain/request/RequestUrlParser';
+
+class AxiosUrlDataFetcherAdapter implements DataFetcher {
+  async fetch(request: Request): Promise<string> {
+    const rawUrl = RequestUrlParser.resolveRawUrl(request.url);
+
     try {
-      const { data } = await axios.get(url);
+      const { data } = await axios.get(rawUrl);
 
       return data;
     } catch (e) {

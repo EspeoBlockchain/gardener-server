@@ -1,19 +1,17 @@
 import SendResponseToOracleUseCase from '@core/domain/blockchain/usecase/SendResponseToOracleUseCase';
 import { LoggerPort } from '@core/domain/common/port';
-import FetchDataUseCase from '@core/domain/common/usecase/FetchDataUseCase';
-import SelectDataUseCase from '@core/domain/common/usecase/SelectDataUseCase';
 import {RequestRepositoryPort} from '@core/domain/request/port';
+import RequestExecutorStrategy from '@core/domain/request/requestExecutor/RequestExecutorStrategy';
 import ResponseRepositoryPort from '@core/domain/response/port/ResponseRepositoryPort';
 import InvalidRequestError from '../../common/utils/error/InvalidRequestError';
 import Response from '../../response/Response';
 
 class ExecuteReadyRequestsUseCase {
   constructor(
-    private readonly fetchDataUseCase: FetchDataUseCase,
-    private readonly selectDataUseCase: SelectDataUseCase,
     private readonly sendResponseToOracleUseCase: SendResponseToOracleUseCase,
     private readonly requestRepository: RequestRepositoryPort,
     private readonly responseRepository: ResponseRepositoryPort,
+    private readonly requestExecutorStrategy: RequestExecutorStrategy,
     private readonly logger: LoggerPort,
   ) {
   }
@@ -26,7 +24,7 @@ class ExecuteReadyRequestsUseCase {
       await this.requestRepository.save(request);
       this.logger.info(`Request marked as processed [requestId=${request.id}]`);
 
-      const response = await this.fetchAndSelectData(request);
+      const response = await this.executeRequest(request);
       if (!response) {
         return;
       }
@@ -42,26 +40,16 @@ class ExecuteReadyRequestsUseCase {
     await Promise.all(promises);
   }
 
-  private async fetchAndSelectData(request): Promise<Response> {
-    const response = new Response(request.id);
-
+  private async executeRequest(request): Promise<Response> {
     try {
-      const fetchedData = await this.fetchDataUseCase.fetchData(request.id, request.getRawUrl());
-      response.addFetchedData(fetchedData);
+      const requestExecutor = this.requestExecutorStrategy.create(request.getContentType());
 
-      const selectedData = await this.selectDataUseCase.selectFromRawData(
-        response.fetchedData,
-        request.getContentType(),
-        request.getSelectionPath(),
-      );
-      response.addSelectedData(selectedData);
-      this.logger.info(`Fetched and selected data [response=${JSON.stringify(response)}]`);
-
-      return response;
+      return await requestExecutor.execute(request);
     } catch (e) {
       if (e instanceof InvalidRequestError) {
+        const response = new Response(request.id);
         response.setError(e.code);
-        this.logger.error(`Could not fetch and/or select data [response=${JSON.stringify(response)}]`, e);
+        this.logger.error(`Invalid request. Data was not fetched. [response=${JSON.stringify(response)}]`, e);
 
         return response;
       }

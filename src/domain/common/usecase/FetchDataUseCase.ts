@@ -1,16 +1,17 @@
+import DataFetcher from '@core/domain/common/port/DataFetcherPort';
 import LoggerPort from '@core/domain/common/port/LoggerPort';
-import UrlDataFetcher from '@core/domain/common/port/UrlDataFetcherPort';
+import Request from '@core/domain/request/Request';
 
 class FetchDataUseCase {
   constructor(
-    private readonly urlDataFetcher: UrlDataFetcher,
+    private readonly dataFetcher: DataFetcher,
     private readonly logger: LoggerPort,
   ) {
   }
 
-  async fetchData(requestId, rawUrl) {
-    const rawData = await this.urlDataFetcher.fetch(rawUrl);
-    this.logger.info(`Data fetched [requestId=${requestId}, rawData=${rawData}]`);
+  async fetchData(request: Request) {
+    const rawData = await this.dataFetcher.fetch(request);
+    this.logger.info(`Data fetched [requestId=${request.id}, rawData=${rawData}]`);
 
     return rawData;
   }

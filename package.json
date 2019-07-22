@@ -10,7 +10,7 @@
     "test": "mocha -r ts-node/register -r tsconfig-paths/register src/**/*.spec.ts",
     "integration-test": "mocha -r ts-node/register -r tsconfig-paths/register src/**/*.integration.ts",
     "ganache": "ganache-cli -d",
-    "lint": "tslint --config ./tslint.json --project ./tsconfig.json 'src/**/*.ts'"
+    "lint": "tslint --config ./tslint.json --project ./tsconfig.json src/**/*.ts"
   },
   "repository": {
     "type": "git",
