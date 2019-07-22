@@ -30,7 +30,7 @@ class RequestUrlParser {
   }
 
   static resolveLeftSideBound(wrappedUrl: string): string {
-    const typeRegex = new RegExp(/^random\((\d+),(\d+)\)/);
+    const typeRegex = new RegExp(/^random\((-?\d+),(-?\d+)\)/);
 
     if (typeRegex.test(wrappedUrl)) {
       return typeRegex.exec(wrappedUrl)[1];
@@ -40,7 +40,7 @@ class RequestUrlParser {
   }
 
   static resolveRightSideBound(wrappedUrl: string): string {
-    const typeRegex = new RegExp(/^random\((\d+),(\d+)\)/);
+    const typeRegex = new RegExp(/^random\((-?\d+),(-?\d+)\)/);
 
     if (typeRegex.test(wrappedUrl)) {
       return typeRegex.exec(wrappedUrl)[2];
