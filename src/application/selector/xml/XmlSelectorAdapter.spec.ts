@@ -3,7 +3,7 @@ import { beforeEach, describe, it } from 'mocha';
 import XmlSelectorAdapter from './XmlSelectorAdapter';
 
 describe('XmlSelectorAdapter', () => {
-  let sut;
+  let sut: any;
 
   beforeEach(() => {
     sut = new XmlSelectorAdapter();
@@ -13,7 +13,7 @@ describe('XmlSelectorAdapter', () => {
     // given
     const contentType = 'xml';
     // when
-    const result = sut.canHandle(contentType);
+    const result: any = sut.canHandle(contentType);
     // then
     expect(result).to.equal(true);
   });

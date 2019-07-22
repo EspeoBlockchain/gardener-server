@@ -1,14 +1,14 @@
-import * as jp from 'jsonpath';
+import jp from 'jsonpath';
 
 import JsonResultConverter from '../../application/selector/json/JsonResultConverter';
 import DataSelectorPort from '../../domain/common/port/DataSelectorPort';
 
 class JsonSelectorAdapter implements DataSelectorPort {
-  canHandle(contentType) {
+  canHandle(contentType: string) {
     return contentType === 'json';
   }
 
-  select(data, path) {
+  select(data: any, path: any) {
     const json = typeof data === 'object' ? data : JSON.parse(data);
 
     if (!path) {

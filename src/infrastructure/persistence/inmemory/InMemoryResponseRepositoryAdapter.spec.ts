@@ -3,9 +3,8 @@ const { expect } = require('chai').use(require('chai-as-promised'));
 import Response from '../../../domain/response/Response';
 import InMemoryResponseRepository from './InMemoryResponseRepositoryAdapter';
 
-
 describe('InMemoryResponseRepositoryAdapter', () => {
-  let sut;
+  let sut: any;
 
   beforeEach(async () => {
     sut = new InMemoryResponseRepository();

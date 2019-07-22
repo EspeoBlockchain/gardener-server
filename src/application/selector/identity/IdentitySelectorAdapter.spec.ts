@@ -3,7 +3,7 @@ const { expect } = require('chai').use(require('dirty-chai'));
 import IdentitySelectorAdapter from './IdentitySelectorAdapter';
 
 describe('IdentitySelectorAdapter', () => {
-  let sut;
+  let sut: any;
 
   beforeEach(() => {
     sut = new IdentitySelectorAdapter();

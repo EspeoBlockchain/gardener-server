@@ -8,15 +8,15 @@ const stateMachine = [
     given: () => new ResponseState(),
     correctTransitions: [
       {
-        when: s => s.markAsSent(),
-        then: s => expect(s.name).is.equal('Sent'),
+        when: (s: any) => s.markAsSent(),
+        then: (s: any) => expect(s.name).is.equal('Sent'),
       },
       {
-        when: s => s.markAsFailed(),
-        then: s => expect(s.name).is.equal('Failed'),
+        when: (s: any) => s.markAsFailed(),
+        then: (s: any) => expect(s.name).is.equal('Failed'),
       },
     ],
-    incorrectTransitions: [],
+    incorrectTransitions: [] as any[],
   },
   {
     name: 'Sent state',
@@ -25,10 +25,10 @@ const stateMachine = [
       state.markAsSent();
       return state;
     },
-    correctTransitions: [],
+    correctTransitions: [] as any[],
     incorrectTransitions: [
-      { when: s => s.markAsSent() },
-      { when: s => s.markAsFailed() },
+      { when: (s: any) => s.markAsSent() },
+      { when: (s: any) => s.markAsFailed() },
     ],
   },
   {
@@ -40,8 +40,8 @@ const stateMachine = [
     },
     correctTransitions: [],
     incorrectTransitions: [
-      { when: s => s.markAsSent() },
-      { when: s => s.markAsFailed() },
+      { when: (s: any) => s.markAsSent() },
+      { when: (s: any) => s.markAsFailed() },
     ],
   },
 ];

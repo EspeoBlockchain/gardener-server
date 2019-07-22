@@ -5,11 +5,11 @@ import XmlResultConverter from './XmlResultConverter';
 describe('XmlResultConverter', () => {
   it('should return null if empty collection passed', () => {
     // given
-    const data = [];
+    const data: any = [];
     // when
-    const result = XmlResultConverter.toString(data);
+    const result: any = XmlResultConverter.toString(data);
     // then
-    expect(result).to.be.null();
+    expect(result).to.equal(null);
   });
 
   it('should return single element as a string', () => {

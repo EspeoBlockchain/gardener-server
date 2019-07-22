@@ -3,9 +3,8 @@ const { expect } = require('chai').use(require('chai-as-promised'));
 import Request from '../../../domain/request/Request';
 import InMemoryRequestRepository from './InMemoryRequestRepositoryAdapter';
 
-
 describe('InMemoryRequestRepositoryAdapter', () => {
-  let sut;
+  let sut: any;
 
   beforeEach(() => {
     sut = new InMemoryRequestRepository();
@@ -15,7 +14,7 @@ describe('InMemoryRequestRepositoryAdapter', () => {
     // given
     sut.save(new Request('1', 'url', new Date(), 'Scheduled'));
     // when
-    const result = await sut.exists('1');
+    const result: any = await sut.exists('1');
     // then
     expect(result).to.equal(true);
   });
