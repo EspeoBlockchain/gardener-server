@@ -26,11 +26,14 @@ class RandomDotOrgDataFetcherAdapter implements DataFetcher {
           "apiKey":"${this.apiKey}","n":1,"min":${min},"max":${max},"replacement":true,"base":10},"id":0
         }`,
       });
-    } catch (e) {
-      throw new HttpError(e.response.statusText, e.response.status);
-    }
 
-    return jp.value(response.data, 'result.random.data[0]').toString();
+      return jp.value(response.data, 'result.random.data[0]').toString();
+    } catch (e) {
+      const randomDotOrgErrorCode = jp.value(response.data, 'error.code').toString();
+      const randomDotOrgErrorMessage = jp.value(response.data, 'error.message').toString();
+
+      throw new HttpError(randomDotOrgErrorMessage, randomDotOrgErrorCode);
+    }
   }
 }
 
