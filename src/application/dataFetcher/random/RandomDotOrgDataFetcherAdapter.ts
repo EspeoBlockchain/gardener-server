@@ -22,19 +22,7 @@ class RandomDotOrgDataFetcherAdapter implements DataFetcher {
         headers: {
           'Content-Type': 'application/json',
         },
-        data: `{
-          "jsonrpc":"2.0",
-          "method":"generateIntegers",
-          "params":{
-            "apiKey":"${this.apiKey}",
-            "n":1,
-            "min":${min},
-            "max":${max},
-            "replacement":true,
-            "base":10
-          },
-          "id":0
-        }`,
+        data: this.createRequestData(Number(min), Number(max)),
       });
 
       return jp.value(response.data, 'result.random.data[0]').toString();
@@ -44,6 +32,22 @@ class RandomDotOrgDataFetcherAdapter implements DataFetcher {
 
       throw new HttpError(randomDotOrgErrorMessage, randomDotOrgErrorCode);
     }
+  }
+
+  private createRequestData(min: number, max: number): string {
+    return JSON.stringify({
+      jsonrpc: '2.0',
+      method: 'generateIntegers',
+      params: {
+        apiKey: this.apiKey,
+        n: 1,
+        min,
+        max,
+        replacement: true,
+        base: 10,
+      },
+      id: 0,
+    });
   }
 }
 

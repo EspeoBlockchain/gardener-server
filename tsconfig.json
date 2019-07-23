@@ -12,7 +12,7 @@
         "baseUrl": "./src",
         "paths": {
             "@core/*": ["./*"],
-            "@test/*": ["../test/*"]
+            "@test-data/*": ["../test/*"]
         }
     },
     "files": [
