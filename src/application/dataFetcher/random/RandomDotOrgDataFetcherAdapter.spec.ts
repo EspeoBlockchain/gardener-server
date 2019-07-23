@@ -3,7 +3,7 @@ import { describe, it } from 'mocha';
 import * as nock from 'nock';
 
 import Request from '@core/domain/request/Request';
-import {response} from '@test-data/application/dataFetcher/random/RandomDotOrgResponse';
+import {response} from '@testData/application/dataFetcher/random/RandomDotOrgResponse';
 import RandomDotOrgDataFetcherAdapter from './RandomDotOrgDataFetcherAdapter';
 
 describe('RandomSgxDataFetcherAdapter', () => {
