@@ -2,11 +2,11 @@ import { expect } from 'chai';
 import { describe, it } from 'mocha';
 import * as nock from 'nock';
 
-import Request from '../../../domain/request/Request';
+import Request from '@core/domain/request/Request';
+import {response} from '@test/application/dataFetcher/random/RandomDotOrgResponse';
 import RandomDotOrgDataFetcherAdapter from './RandomDotOrgDataFetcherAdapter';
-import {response} from './RandomDotOrgResponse';
 
-describe('Random.org Integration Test', () => {
+describe('RandomSgxDataFetcherAdapter', () => {
   const request = new Request('SOME_REQUEST_ID', 'random(0,10)', null);
 
   it('return first data item on successful response', async () => {

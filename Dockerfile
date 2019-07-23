@@ -11,7 +11,7 @@ RUN apt-get update -q -q && \
     apt-get install curl libssl1.0-dev --yes
 
 # Install nodejs v11
-RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get install -y nodejs
 RUN npm install npm --global
 

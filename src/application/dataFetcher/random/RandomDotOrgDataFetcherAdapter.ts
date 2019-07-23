@@ -22,8 +22,18 @@ class RandomDotOrgDataFetcherAdapter implements DataFetcher {
         headers: {
           'Content-Type': 'application/json',
         },
-        data: `{"jsonrpc":"2.0","method":"generateIntegers","params":{
-          "apiKey":"${this.apiKey}","n":1,"min":${min},"max":${max},"replacement":true,"base":10},"id":0
+        data: `{
+          "jsonrpc":"2.0",
+          "method":"generateIntegers",
+          "params":{
+            "apiKey":"${this.apiKey}",
+            "n":1,
+            "min":${min},
+            "max":${max},
+            "replacement":true,
+            "base":10
+          },
+          "id":0
         }`,
       });
 
