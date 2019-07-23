@@ -24,7 +24,7 @@ describe('ExecuteReadyRequestsUseCase', () => {
     return {
       getReadyRequests: () => [new Request(someRequestId, 'json(http://example.com).key1', Date.now() - oneMinuteMillis)],
       list: () => requests,
-      save: request => requests.push(request),
+      save: (request: any) => requests.push(request),
     };
   };
 

@@ -7,7 +7,7 @@ import RequestExecutorStrategy from './RequestExecutorStrategy';
 import UrlRequestExecutor from './UrlRequestExecutor';
 
 describe('RequestExecutorStrategy', () => {
-  let sut;
+  let sut: any;
 
   beforeEach(() => {
     sut = new RequestExecutorStrategy(null, null, null);
