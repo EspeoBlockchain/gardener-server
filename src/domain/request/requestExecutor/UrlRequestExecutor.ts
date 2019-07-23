@@ -1,3 +1,4 @@
+import UrlDataFetcher from '@core/application/dataFetcher/AxiosUrlDataFetcherAdapter';
 import {LoggerPort} from '@core/domain/common/port';
 import RequestExecutor from '@core/domain/common/port/RequestExecutorPort';
 import FetchDataUseCase from '@core/domain/common/usecase/FetchDataUseCase';
@@ -6,11 +7,12 @@ import Request from '@core/domain/request/Request';
 import Response from '@core/domain/response/Response';
 
 class UrlRequestExecutor implements RequestExecutor {
+    private fetchDataUseCase: FetchDataUseCase;
     constructor(
-        private readonly fetchDataUseCase: FetchDataUseCase,
         private readonly selectDataUseCase: SelectDataUseCase,
         private readonly logger: LoggerPort,
     ) {
+        this.fetchDataUseCase = new FetchDataUseCase(new UrlDataFetcher(), this.logger);
     }
 
     canHandle(contentType: string): boolean {

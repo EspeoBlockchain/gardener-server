@@ -1,5 +1,6 @@
-import { describe, it, beforeEach } from 'mocha';
+import { beforeEach, describe, it } from 'mocha';
 const { expect } = require('chai').use(require('chai-as-promised'));
+
 import Request from '../../../domain/request/Request';
 import InMemoryRequestRepository from './InMemoryRequestRepositoryAdapter';
 

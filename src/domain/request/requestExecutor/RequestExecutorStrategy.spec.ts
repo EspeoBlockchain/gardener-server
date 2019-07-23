@@ -10,7 +10,7 @@ describe('RequestExecutorStrategy', () => {
   let sut;
 
   beforeEach(() => {
-    sut = new RequestExecutorStrategy(null, null, null);
+    sut = new RequestExecutorStrategy(null, null, null, null);
   });
 
   it('should create UrlProvider for json', () => {

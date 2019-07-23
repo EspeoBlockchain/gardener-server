@@ -16,6 +16,14 @@ class Request {
   getSelectionPath() {
     return RequestUrlParser.resolveSelectionPath(this.url);
   }
+
+  getLeftSideBound() {
+    return RequestUrlParser.resolveLeftSideBound(this.url);
+  }
+
+  getRightSideBound() {
+    return RequestUrlParser.resolveRightSideBound(this.url);
+  }
 }
 
 export default Request;
