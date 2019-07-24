@@ -15,3 +15,6 @@ clean-local:
 
 ganache:
 	docker-compose -f docker-compose.yml -f docker-compose.local.yml up -d --build ganache-cli
+
+sgx: copy-env
+	docker-compose -f docker-compose.sgx.yml -f docker-compose.local.yml up -d --build
