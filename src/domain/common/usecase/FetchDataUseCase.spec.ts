@@ -7,11 +7,11 @@ import FetchDataUseCase from './FetchDataUseCase';
 
 describe('FetchDataUseCase', () => {
   const urlDataFetcher = () => ({
-    fetch: (url: any) => Promise.resolve(JSON.stringify({ key1: 'value1' })),
+    fetch: (request: Request) => Promise.resolve(JSON.stringify({ key1: 'value1' })),
   });
 
   const failingDataFetcher = () => ({
-    fetch: (url: any) => Promise.reject(new Error()),
+    fetch: (request: Request) => Promise.reject(new Error()),
   });
 
   it('should fetch data for request and return rawData', async () => {

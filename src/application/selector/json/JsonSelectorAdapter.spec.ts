@@ -3,7 +3,7 @@ import { beforeEach, describe, it } from 'mocha';
 import JsonSelectorAdapter from './JsonSelectorAdapter';
 
 describe('JsonSelectorAdapter', () => {
-  let sut: any;
+  let sut: JsonSelectorAdapter;
 
   beforeEach(() => {
     sut = new JsonSelectorAdapter();

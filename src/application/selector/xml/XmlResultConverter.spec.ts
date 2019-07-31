@@ -7,7 +7,7 @@ describe('XmlResultConverter', () => {
     // given
     const data: any = [];
     // when
-    const result: any = XmlResultConverter.toString(data);
+    const result: string = XmlResultConverter.toString(data);
     // then
     expect(result).to.equal(null);
   });

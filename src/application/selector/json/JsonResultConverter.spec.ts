@@ -7,7 +7,7 @@ describe('JsonResultConverter', () => {
     // given
     const data: any[] = [];
     // when
-    const result: any = JsonResultConverter.toString(data);
+    const result: string = JsonResultConverter.toString(data);
     // then
     expect(result).to.equal(null);
   });

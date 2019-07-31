@@ -8,7 +8,7 @@ describe('DataSelectorFinder', () => {
   it('should select selector which can handle given contentType', async () => {
     // given
     const selectors = [
-      { canHandle: (contentType: any) => contentType === 'json', select: (data: any, path: string) => '' },
+      { canHandle: (contentType: string) => contentType === 'json', select: (data: any, path: string) => '' },
     ];
     const sut = new DataSelectorFinder(selectors);
 
@@ -22,7 +22,7 @@ describe('DataSelectorFinder', () => {
   it('should throw error if there are no selector, which can handle given contentType', async () => {
     // given
     const selectors = [
-      { canHandle: (contentType: any) => contentType === 'xml', select: (data: any, path: string) => '' },
+      { canHandle: (contentType: string) => contentType === 'xml', select: (data: any, path: string) => '' },
     ];
     const sut = new DataSelectorFinder(selectors);
 
@@ -33,8 +33,8 @@ describe('DataSelectorFinder', () => {
   it('should throw error if there is more than one selector, which can handle give contentType', async () => {
     // given
     const selectors = [
-      { canHandle: (contentType: any) => contentType === 'json', select: (data: any, path: string) => '' },
-      { canHandle: (contentType: any) => contentType === 'json', select: (data: any, path: string) => '' },
+      { canHandle: (contentType: string) => contentType === 'json', select: (data: any, path: string) => '' },
+      { canHandle: (contentType: string) => contentType === 'json', select: (data: any, path: string) => '' },
     ];
     const sut = new DataSelectorFinder(selectors);
 

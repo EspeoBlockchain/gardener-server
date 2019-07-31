@@ -25,7 +25,7 @@ class XmlSelectorAdapter implements DataSelectorPort {
     return XmlResultConverter.toString(selected);
   }
 
-  private checkXmlValidity(doc: any): void {
+  private checkXmlValidity(doc: Document): void {
     // throws an error when doc is invalid xml
     this.xmlSerializer.serializeToString(doc);
   }

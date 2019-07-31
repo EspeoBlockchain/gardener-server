@@ -1,9 +1,9 @@
-import { describe, it, beforeEach } from 'mocha';
+import { beforeEach, describe, it } from 'mocha';
 const { expect } = require('chai').use(require('dirty-chai'));
 import IdentitySelectorAdapter from './IdentitySelectorAdapter';
 
 describe('IdentitySelectorAdapter', () => {
-  let sut: any;
+  let sut: IdentitySelectorAdapter;
 
   beforeEach(() => {
     sut = new IdentitySelectorAdapter();

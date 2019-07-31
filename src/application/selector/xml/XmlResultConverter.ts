@@ -14,13 +14,13 @@ class XmlResultConverter {
     return results.toString();
   }
 
-  static __wrapSingleNode(node: any) {
-    const wrapInResultTag = (el: any) => `<result>${el}</result>`;
+  static __wrapSingleNode(node: Node) {
+    const wrapInResultTag = (el: string) => `<result>${el}</result>`;
 
     return node.nodeValue ? wrapInResultTag(node.nodeValue) : node;
   }
 
-  static __wrapCollection(nodes: any) {
+  static __wrapCollection(nodes: Array<string | Node>) {
     return `<resultlist>${nodes.join('')}</resultlist>`;
   }
 }
