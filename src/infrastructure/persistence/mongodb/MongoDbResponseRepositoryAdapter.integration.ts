@@ -1,11 +1,8 @@
-const {
-  describe, it, beforeEach, afterEach,
-} = require('mocha');
-const { expect } = require('chai').use(require('chai-as-promised'));
+import { expect } from '@core/config/configuredChai';
+import mongoose from 'mongoose';
 
 import ConsoleLoggerAdapter from '@core/application/logger/ConsoleLoggerAdapter';
 import Response from '@core/domain/response/Response';
-import * as mongoose from 'mongoose';
 import MongoDbResponseRepositoryAdapter from './MongoDbResponseRepositoryAdapter';
 import ResponseModel from './ResponseModel';
 

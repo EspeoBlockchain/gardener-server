@@ -1,5 +1,5 @@
 import jp from 'jsonpath';
-import DataSelectorPort from '../../../domain/common/port/DataSelectorPort';
+import DataSelectorPort from '@core/domain/common/port/DataSelectorPort';
 import JsonResultConverter from './JsonResultConverter';
 
 class JsonSelectorAdapter implements DataSelectorPort {

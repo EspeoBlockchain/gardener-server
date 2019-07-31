@@ -1,6 +1,7 @@
+import { expect } from '@core/config/configuredChai';
 import { beforeEach, describe, it } from 'mocha';
-const { expect } = require('chai').use(require('chai-as-promised'));
-import Response from '../../../domain/response/Response';
+
+import Response from '@core/domain/response/Response';
 import InMemoryResponseRepository from './InMemoryResponseRepositoryAdapter';
 
 describe('InMemoryResponseRepositoryAdapter', () => {

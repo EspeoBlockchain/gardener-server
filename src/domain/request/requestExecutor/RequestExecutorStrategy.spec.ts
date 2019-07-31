@@ -1,6 +1,6 @@
+import { expect } from '@core/config/configuredChai';
+import { assert } from '@core/config/configuredChai';
 import { beforeEach, describe, it } from 'mocha';
-const { expect } = require('chai').use(require('dirty-chai'));
-const { assert } = require('chai');
 
 import InvalidContentTypeError from '@core/domain/common/utils/error/InvalidContentTypeError';
 import RequestExecutorStrategy from './RequestExecutorStrategy';

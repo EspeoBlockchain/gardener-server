@@ -1,10 +1,10 @@
 import SendResponseToOracleUseCase from '@core/domain/blockchain/usecase/SendResponseToOracleUseCase';
 import { LoggerPort } from '@core/domain/common/port';
+import InvalidRequestError from '@core/domain/common/utils/error/InvalidRequestError';
 import {RequestRepositoryPort} from '@core/domain/request/port';
 import RequestExecutorStrategy from '@core/domain/request/requestExecutor/RequestExecutorStrategy';
 import ResponseRepositoryPort from '@core/domain/response/port/ResponseRepositoryPort';
-import InvalidRequestError from '../../common/utils/error/InvalidRequestError';
-import Response from '../../response/Response';
+import Response from '@core/domain/response/Response';
 
 class ExecuteReadyRequestsUseCase {
   constructor(

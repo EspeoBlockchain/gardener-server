@@ -1,4 +1,4 @@
-import LoggerPort from '../../domain/common/port/LoggerPort';
+import LoggerPort from '@core/domain/common/port/LoggerPort';
 
 class ConsoleLoggerAdapter implements LoggerPort {
   info(message: string): void {

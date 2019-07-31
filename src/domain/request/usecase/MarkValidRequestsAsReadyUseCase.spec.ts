@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import SilentLoggerAdapter from '../../../application/logger/SilentLoggerAdapter';
+
+import SilentLoggerAdapter from '@core/application/logger/SilentLoggerAdapter';
 import { RequestRepositoryPort } from '../port';
 import Request from '../Request';
 import { RequestStateEnum } from '../RequestStateEnum';

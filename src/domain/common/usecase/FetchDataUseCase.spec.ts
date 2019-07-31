@@ -1,8 +1,9 @@
-import SilentLogger from '@core/application/logger/SilentLoggerAdapter';
 import { expect } from '@core/config/configuredChai';
 import { describe, it } from 'mocha';
-import Request from '../../request/Request';
-import { RequestStateEnum } from '../../request/RequestStateEnum';
+
+import SilentLogger from '@core/application/logger/SilentLoggerAdapter';
+import Request from '@core/domain/request/Request';
+import { RequestStateEnum } from '@core/domain/request/RequestStateEnum';
 import FetchDataUseCase from './FetchDataUseCase';
 
 describe('FetchDataUseCase', () => {
@@ -28,6 +29,6 @@ describe('FetchDataUseCase', () => {
     const request = new Request('1', 'json(http://example.com).key1', Date.now(), RequestStateEnum.PROCESSED);
     const sut = new FetchDataUseCase(failingDataFetcher(), new SilentLogger());
     // when
-    return expect(() => sut.fetchData(request)).to.be.rejected;
+    return expect(() => sut.fetchData(request)).to.eventually.be.rejected;
   });
 });

@@ -1,10 +1,7 @@
-const {
-  describe, it, beforeEach, afterEach,
-} = require('mocha');
 require('dotenv').load({ path: '.env.test' });
-const { expect } = require('chai').use(require('chai-as-promised'));
 
-import * as mongoose from 'mongoose';
+import { expect } from '@core/config/configuredChai';
+import mongoose from 'mongoose';
 
 import ConsoleLoggerAdapter from '@core/application/logger/ConsoleLoggerAdapter';
 import Request from '@core/domain/request/Request';
