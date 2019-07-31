@@ -7,10 +7,10 @@ class CreateRequestEventHandler {
   useCase: CreateRequestUseCase;
   constructor(createRequestUseCase: CreateRequestUseCase, eventBus: EventBus) {
     this.useCase = createRequestUseCase;
-    eventBus.on(CreateRequestEvent.name(), this._handleEvent.bind(this));
+    eventBus.on(CreateRequestEvent.name(), this.handleEvent.bind(this));
   }
 
-  _handleEvent({ id, url, validFrom }: { id: string, url: string, validFrom: number }) {
+  private handleEvent({ id, url, validFrom }: { id: string, url: string, validFrom: number | Date }) {
     this.useCase.createRequest(id, url, validFrom);
   }
 }

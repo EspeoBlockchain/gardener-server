@@ -7,7 +7,7 @@ class CreateRequestUseCase {
     private readonly requestRepository: RequestRepositoryPort,
     private readonly logger: LoggerPort) { }
 
-  async createRequest(id: string, url: string, validFrom: number): Promise<void> {
+  async createRequest(id: string, url: string, validFrom: number | Date): Promise<void> {
     if (await this.requestRepository.exists(id)) {
       throw new Error(`Request ${id} already in the system`);
     }
