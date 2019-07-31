@@ -9,19 +9,19 @@ import RequestModel from './RequestModel';
 class MongoDbRequestRepositoryAdapter implements RequestRepositoryPort {
   constructor(private readonly logger: LoggerPort) { }
 
-  async exists(id: any): Promise<boolean> {
+  async exists(id: string): Promise<boolean> {
     const count = await RequestModel.count({ _id: id });
 
     return count > 0;
   }
 
-  public async get(id: any): Promise<Request> {
+  public async get(id: string): Promise<Request> {
     const result = await RequestModel.findById(id);
 
     return this.mapMongoResultToDomainRequest(result);
   }
 
-  public async save(request: any): Promise<void> {
+  public async save(request: Request): Promise<void> {
     const mongoRequest = new RequestModel({
       _id: request.id,
       url: request.url,

@@ -12,7 +12,7 @@ describe('FetchNewOracleRequestUseCase', () => {
     sendResponse: () => Promise.resolve(),
   } as OracleGateway);
 
-  let sut: FetchNewOracleRequestsUseCase;
+  let sut: any;
 
   beforeEach(() => {
     // given

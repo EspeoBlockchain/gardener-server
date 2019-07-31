@@ -12,11 +12,11 @@ class BlockListener {
   blockchain: BlockchainPort;
   logger: LoggerPort;
   safeBlockDelay: number;
-  constructor(eventBus: any, blockchain: any, logger: any, safeBlockDelay: any) {
+  constructor(eventBus: EventBus, blockchain: BlockchainPort, logger: LoggerPort, safeBlockDelay: string) {
     this.eventBus = eventBus;
     this.blockchain = blockchain;
     this.logger = logger;
-    this.safeBlockDelay = safeBlockDelay;
+    this.safeBlockDelay = +safeBlockDelay;
   }
 
   listen() {

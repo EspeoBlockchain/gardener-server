@@ -1,7 +1,9 @@
+import ExecuteReadyRequestsUseCase from '@core/domain/request/usecase/ExecuteReadyRequestsUseCase';
+
 const TEN_SECONDS_MILLIS = 10 * 1000;
 
 class ExecuteReadyRequestsScheduler {
-  constructor(private executeReadyRequestsUseCase: any) { }
+  constructor(private executeReadyRequestsUseCase: ExecuteReadyRequestsUseCase) { }
 
   schedule() {
     setInterval(

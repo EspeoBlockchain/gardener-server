@@ -9,15 +9,15 @@ const stateMachine = [
     given: () => new RequestState(),
     correctTransitions: [
       {
-        when: (s: any) => s.markAsReady(),
-        then: (s: any) => expect(s.name).is.equal('Ready'),
+        when: (s: RequestState) => s.markAsReady(),
+        then: (s: RequestState) => expect(s.name).is.equal('Ready'),
       },
     ],
     incorrectTransitions: [
-      { when: (s: any) => s.markAsScheduled() },
-      { when: (s: any) => s.markAsProcessed() },
-      { when: (s: any) => s.markAsFinished() },
-      { when: (s: any) => s.markAsFailed() },
+      { when: (s: RequestState) => s.markAsScheduled() },
+      { when: (s: RequestState) => s.markAsProcessed() },
+      { when: (s: RequestState) => s.markAsFinished() },
+      { when: (s: RequestState) => s.markAsFailed() },
     ],
   },
   {
@@ -29,15 +29,15 @@ const stateMachine = [
     },
     correctTransitions: [
       {
-        when: (s: any) => s.markAsProcessed(),
-        then: (s: any) => expect(s.name).is.equal('Processed'),
+        when: (s: RequestState) => s.markAsProcessed(),
+        then: (s: RequestState) => expect(s.name).is.equal('Processed'),
       },
     ],
     incorrectTransitions: [
-      { when: (s: any) => s.markAsScheduled() },
-      { when: (s: any) => s.markAsReady() },
-      { when: (s: any) => s.markAsFinished() },
-      { when: (s: any) => s.markAsFailed() },
+      { when: (s: RequestState) => s.markAsScheduled() },
+      { when: (s: RequestState) => s.markAsReady() },
+      { when: (s: RequestState) => s.markAsFinished() },
+      { when: (s: RequestState) => s.markAsFailed() },
     ],
   },
   {
@@ -45,18 +45,18 @@ const stateMachine = [
     given: () => new RequestState(RequestStateEnum.PROCESSED),
     correctTransitions: [
       {
-        when: (s: any) => s.markAsFinished(),
-        then: (s: any) => expect(s.name).is.equal('Finished'),
+        when: (s: RequestState) => s.markAsFinished(),
+        then: (s: RequestState) => expect(s.name).is.equal('Finished'),
       },
       {
-        when: (s: any) => s.markAsFailed(),
-        then: (s: any) => expect(s.name).is.equal('Failed'),
+        when: (s: RequestState) => s.markAsFailed(),
+        then: (s: RequestState) => expect(s.name).is.equal('Failed'),
       },
     ],
     incorrectTransitions: [
-      { when: (s: any) => s.markAsScheduled() },
-      { when: (s: any) => s.markAsReady() },
-      { when: (s: any) => s.markAsProcessed() },
+      { when: (s: RequestState) => s.markAsScheduled() },
+      { when: (s: RequestState) => s.markAsReady() },
+      { when: (s: RequestState) => s.markAsProcessed() },
     ],
   },
   {
@@ -64,11 +64,11 @@ const stateMachine = [
     given: () => new RequestState(RequestStateEnum.FINISHED),
     correctTransitions: [],
     incorrectTransitions: [
-      { when: (s: any) => s.markAsScheduled() },
-      { when: (s: any) => s.markAsReady() },
-      { when: (s: any) => s.markAsProcessed() },
-      { when: (s: any) => s.markAsFinished() },
-      { when: (s: any) => s.markAsFailed() },
+      { when: (s: RequestState) => s.markAsScheduled() },
+      { when: (s: RequestState) => s.markAsReady() },
+      { when: (s: RequestState) => s.markAsProcessed() },
+      { when: (s: RequestState) => s.markAsFinished() },
+      { when: (s: RequestState) => s.markAsFailed() },
     ],
   },
   {
@@ -76,11 +76,11 @@ const stateMachine = [
     given: () => new RequestState(RequestStateEnum.FAILED),
     correctTransitions: [],
     incorrectTransitions: [
-      { when: (s: any) => s.markAsScheduled() },
-      { when: (s: any) => s.markAsReady() },
-      { when: (s: any) => s.markAsProcessed() },
-      { when: (s: any) => s.markAsFinished() },
-      { when: (s: any) => s.markAsFailed() },
+      { when: (s: RequestState) => s.markAsScheduled() },
+      { when: (s: RequestState) => s.markAsReady() },
+      { when: (s: RequestState) => s.markAsProcessed() },
+      { when: (s: RequestState) => s.markAsFinished() },
+      { when: (s: RequestState) => s.markAsFailed() },
     ],
   },
 ];
@@ -95,7 +95,7 @@ describe('RequestState', () => {
 
   it('should not allow create state with invalid name', () => {
     // when
-    expect(() => new RequestState('invalid' as any)).to.throw();
+    expect(() => new RequestState('invalid' as RequestStateEnum)).to.throw();
   });
 
   stateMachine.forEach((testCase) => {

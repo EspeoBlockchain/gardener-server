@@ -8,15 +8,15 @@ const stateMachine = [
     given: () => new ResponseState(),
     correctTransitions: [
       {
-        when: (s: any) => s.markAsSent(),
-        then: (s: any) => expect(s.name).is.equal('Sent'),
+        when: (s: ResponseState) => s.markAsSent(),
+        then: (s: ResponseState) => expect(s.name).is.equal('Sent'),
       },
       {
-        when: (s: any) => s.markAsFailed(),
-        then: (s: any) => expect(s.name).is.equal('Failed'),
+        when: (s: ResponseState) => s.markAsFailed(),
+        then: (s: ResponseState) => expect(s.name).is.equal('Failed'),
       },
     ],
-    incorrectTransitions: [] as any[],
+    incorrectTransitions: [] as void[],
   },
   {
     name: 'Sent state',
@@ -25,10 +25,10 @@ const stateMachine = [
       state.markAsSent();
       return state;
     },
-    correctTransitions: [] as any[],
+    correctTransitions: [] as void[],
     incorrectTransitions: [
-      { when: (s: any) => s.markAsSent() },
-      { when: (s: any) => s.markAsFailed() },
+      { when: (s: ResponseState) => s.markAsSent() },
+      { when: (s: ResponseState) => s.markAsFailed() },
     ],
   },
   {
@@ -40,8 +40,8 @@ const stateMachine = [
     },
     correctTransitions: [],
     incorrectTransitions: [
-      { when: (s: any) => s.markAsSent() },
-      { when: (s: any) => s.markAsFailed() },
+      { when: (s: ResponseState) => s.markAsSent() },
+      { when: (s: ResponseState) => s.markAsFailed() },
     ],
   },
 ];
@@ -56,7 +56,7 @@ describe('ResponseState', () => {
 
   stateMachine.forEach((testCase) => {
     it(`should pass ${testCase.name} transitions`, () => {
-      testCase.correctTransitions.forEach((transition) => {
+      testCase.correctTransitions.forEach((transition: any) => {
         // given
         const state = testCase.given();
         // when
@@ -65,7 +65,7 @@ describe('ResponseState', () => {
         transition.then(state);
       });
 
-      testCase.incorrectTransitions.forEach((transition) => {
+      testCase.incorrectTransitions.forEach((transition: any) => {
         // given
         const state = testCase.given();
         // then expected exception

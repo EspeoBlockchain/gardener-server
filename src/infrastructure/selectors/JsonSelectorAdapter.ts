@@ -8,7 +8,7 @@ class JsonSelectorAdapter implements DataSelectorPort {
     return contentType === 'json';
   }
 
-  select(data: any, path: any) {
+  select(data: any, path: string) {
     const json = typeof data === 'object' ? data : JSON.parse(data);
 
     if (!path) {

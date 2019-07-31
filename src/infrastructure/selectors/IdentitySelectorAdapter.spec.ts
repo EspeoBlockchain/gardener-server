@@ -3,7 +3,7 @@ import { beforeEach, describe, it } from 'mocha';
 import IdentitySelectorAdapter from './IdentitySelectorAdapter';
 
 describe('IdentitySelectorAdapter', () => {
-  let sut: any;
+  let sut: IdentitySelectorAdapter;
 
   beforeEach(() => {
     sut = new IdentitySelectorAdapter();

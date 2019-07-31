@@ -2,15 +2,15 @@ import * as mongoose from 'mongoose';
 import { PersistenceType } from './PersistenceType';
 
 class PersistenceConnectionInitializer {
-  init(type: any, options: any) {
+  init(type: string, options: { databaseUrl: string, databaseName: string }) {
     switch (type) {
       case PersistenceType.MongoDb:
-        this._initMongo(options);
+        this.initMongo(options);
         break;
     }
   }
 
-  _initMongo({ databaseUrl, databaseName }: any) {
+  private initMongo({ databaseUrl, databaseName }: { databaseUrl: string, databaseName: string }) {
     mongoose.connect(`mongodb://${databaseUrl}/${databaseName}`, { useNewUrlParser: true });
   }
 }

@@ -3,7 +3,7 @@ import { beforeEach, describe, it } from 'mocha';
 import JsonSelectorAdapter from './JsonSelectorAdapter';
 
 describe('JsonSelectorAdapter', () => {
-  let sut: any;
+  let sut: JsonSelectorAdapter;
 
   beforeEach(() => {
     sut = new JsonSelectorAdapter();
@@ -51,7 +51,7 @@ describe('JsonSelectorAdapter', () => {
   it('should select all data when no path passed', () => {
     // given
     const jsonString = JSON.stringify({ key1: 'value' });
-    const responsePath: any = null;
+    const responsePath: string = null;
     // when
     const res = sut.select(jsonString, responsePath);
     // then

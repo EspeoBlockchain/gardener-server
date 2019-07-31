@@ -8,12 +8,12 @@ import MarkValidRequestsAsReadyUseCase from './MarkValidRequestsAsReadyUseCase';
 
 describe('MarkValidRequestsAsReadyUseCase', () => {
   const repository = () => {
-    const requests: any = [];
+    const requests: Request[] = [];
     return {
-      save: (req: any) => requests.push(req),
+      save: (req: Request) => requests.push(req),
       list: () => requests,
       getScheduledRequestsWithValidFromBeforeNow: () => requests,
-      getById: (id: any) => requests[0],
+      getById: (id: string) => requests[0],
     };
   };
 

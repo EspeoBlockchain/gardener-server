@@ -6,13 +6,13 @@ const { expect } = require('chai').use(require('chai-as-promised'));
 
 import * as mongoose from 'mongoose';
 
-import Request from '../../../domain/request/Request';
+import ConsoleLoggerAdapter from '@core/application/logger/ConsoleLoggerAdapter';
+import Request from '@core/domain/request/Request';
 import MongoDbRequestRepositoryAdapter from './MongoDbRequestRepositoryAdapter';
-import ConsoleLoggerAdapter from '../../../application/logger/ConsoleLoggerAdapter';
 import RequestModel from './RequestModel';
 
 describe('MongoDbRequestRepositoryAdapter', () => {
-  let sut;
+  let sut: MongoDbRequestRepositoryAdapter;
 
   beforeEach(async () => {
     const { DATABASE_URL, DATABASE_NAME } = process.env;

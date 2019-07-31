@@ -1,6 +1,6 @@
+import RequestRepositoryPort from '@core/domain/request/port/RequestRepositoryPort';
 import Request from '@core/domain/request/Request';
 import { RequestStateEnum } from '@core/domain/request/RequestStateEnum';
-import RequestRepositoryPort from '../../../domain/request/port/RequestRepositoryPort';
 
 class InMemoryRequestRepositoryAdapter implements RequestRepositoryPort {
   private requests: Map<string, Request>;
@@ -9,15 +9,15 @@ class InMemoryRequestRepositoryAdapter implements RequestRepositoryPort {
     this.requests = new Map();
   }
 
-  get(id: any): Promise<Request> {
+  get(id: string): Promise<Request> {
     return Promise.resolve(this.requests.get(id));
   }
 
-  exists(id: any): Promise<boolean> {
+  exists(id: string): Promise<boolean> {
     return Promise.resolve(this.requests.has(id));
   }
 
-  save(request: any): Promise<void> {
+  save(request: Request): Promise<void> {
     this.requests.set(request.id, request);
 
     return Promise.resolve();

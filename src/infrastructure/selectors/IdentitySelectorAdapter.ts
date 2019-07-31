@@ -5,7 +5,7 @@ class IdentitySelectorAdapter implements DataSelectorPort {
     return contentType === 'ipfs';
   }
 
-  select(data: any, path: any) {
+  select(data: any, path: string) {
     if (path) {
       throw new Error('Path must be empty for IdentitySelector');
     }
