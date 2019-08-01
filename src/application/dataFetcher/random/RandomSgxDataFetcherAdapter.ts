@@ -1,4 +1,6 @@
+import {ForeignFunction} from 'ffi';
 import * as ffi from 'ffi';
+import {Type} from 'ref';
 import * as ref from 'ref';
 
 import DataFetcher from '@core/domain/common/port/DataFetcherPort';
@@ -10,7 +12,7 @@ const longType = ref.types.long;
 const longPtrType = ref.refType(ref.types.long);
 
 class RandomSgxDataFetcherAdapter implements DataFetcher {
-  private readonly generateRandom: any;
+  private readonly generateRandom: ForeignFunction;
   constructor() {
     this.generateRandom = this.loadFunctionFromSgxLib(
         'generateRandom',
@@ -20,8 +22,8 @@ class RandomSgxDataFetcherAdapter implements DataFetcher {
   }
 
   async fetch(request: Request) {
-    const min = RequestUrlParser.resolveLeftSideBound(request.url);
-    const max = RequestUrlParser.resolveRightSideBound(request.url);
+    const min: number = +RequestUrlParser.resolveLeftSideBound(request.url);
+    const max: number = +RequestUrlParser.resolveRightSideBound(request.url);
 
     const longPtrBuf = ref.alloc(longType);
 
@@ -32,7 +34,7 @@ class RandomSgxDataFetcherAdapter implements DataFetcher {
     return ref.deref(longPtrBuf).toString();
   }
 
-  private loadFunctionFromSgxLib(name, returnType, params) {
+  private loadFunctionFromSgxLib(name: string, returnType: Type, params: Type[]) {
     // tslint:disable-next-line:no-bitwise
     const mode = ffi.DynamicLibrary.FLAGS.RTLD_NOW | ffi.DynamicLibrary.FLAGS.RTLD_GLOBAL;
 
@@ -43,7 +45,7 @@ class RandomSgxDataFetcherAdapter implements DataFetcher {
     return ffi.ForeignFunction(sgxLib.get(name), returnType, params);
   }
 
-  private async numberToLong(num) {
+  private async numberToLong(num: number) {
     const buf = ref.alloc(longType, num);
 
     return ref.deref(buf);
