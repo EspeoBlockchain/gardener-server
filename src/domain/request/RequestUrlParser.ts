@@ -13,13 +13,13 @@ class RequestUrlParser {
   }
 
   static resolveContentType(wrappedUrl: string): string {
-    const typeRegex = new RegExp(/^(json|xml|html|ipfs)\(.+\)/);
+    const typeRegex = new RegExp(/^(json|xml|html|ipfs|random)\(.+\)/);
 
     if (typeRegex.test(wrappedUrl)) {
       return typeRegex.exec(wrappedUrl)[1];
     }
 
-    throw new InvalidContentTypeError('Request type is neither json nor xml nor html nor ipfs');
+    throw new InvalidContentTypeError('Request type has to be one of [json,xml,html,ipfs,random]');
   }
 
   static resolveSelectionPath(wrappedUrl: string): string {
@@ -27,6 +27,26 @@ class RequestUrlParser {
     const pathStartIndex = wrappedUrl.indexOf(rawUrl) + rawUrl.length + 1; // + 1 for bracket char
 
     return wrappedUrl.substr(pathStartIndex);
+  }
+
+  static resolveLeftSideBound(wrappedUrl: string): string {
+    const typeRegex = new RegExp(/^random\((-?\d+),(-?\d+)\)/);
+
+    if (typeRegex.test(wrappedUrl)) {
+      return typeRegex.exec(wrappedUrl)[1];
+    }
+
+    throw new InvalidContentTypeError('Invalid numeric bounds format');
+  }
+
+  static resolveRightSideBound(wrappedUrl: string): string {
+    const typeRegex = new RegExp(/^random\((-?\d+),(-?\d+)\)/);
+
+    if (typeRegex.test(wrappedUrl)) {
+      return typeRegex.exec(wrappedUrl)[2];
+    }
+
+    throw new InvalidContentTypeError('Invalid numeric bounds format');
   }
 }
 

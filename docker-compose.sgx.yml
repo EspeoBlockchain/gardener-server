@@ -1,0 +1,29 @@
+version: '3'
+services:
+    app:
+        container_name: oracle-server
+        build:
+            context: ""
+            dockerfile: Dockerfile.sgx
+        env_file:
+            - .env
+        depends_on:
+            - mongo
+        ports:
+            - ${API_PORT}:${API_PORT}
+        devices:
+            - /dev/isgx
+            - /dev/mei0
+        command: bash -c "./wait-for-it.sh mongo:27017 && npm start"
+    mongo:
+        container_name: oracle-db
+        image: mongo:4.1.13
+        ports:
+            - 27017:27017
+            - 27018:27018
+    mongo-test:
+        container_name: test-db
+        image: mongo:4.1.13
+        ports:
+            - 37017:27017
+            - 37018:27018

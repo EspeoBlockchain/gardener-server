@@ -1,19 +1,23 @@
 import { LoggerPort } from '@core/domain/common/port';
 import RequestExecutor from '@core/domain/common/port/RequestExecutorPort';
-import FetchDataUseCase from '@core/domain/common/usecase/FetchDataUseCase';
 import SelectDataUseCase from '@core/domain/common/usecase/SelectDataUseCase';
 import InvalidContentTypeError from '@core/domain/common/utils/error/InvalidContentTypeError';
+import RandomRequestExecutor from '@core/domain/request/requestExecutor/RandomRequestExecutor';
 import UrlRequestExecutor from './UrlRequestExecutor';
 
 class RequestExecutorStrategy  {
     private requestExecutors: RequestExecutor[];
 
     constructor(
-        fetchDataUseCase: FetchDataUseCase,
+        sgxEnabled: boolean,
+        randomDotOrgApiKey: string,
         selectDataUseCase: SelectDataUseCase,
         logger: LoggerPort,
     ) {
-        this.requestExecutors = [new UrlRequestExecutor(fetchDataUseCase, selectDataUseCase, logger)];
+        this.requestExecutors = [
+            new UrlRequestExecutor(selectDataUseCase, logger),
+            new RandomRequestExecutor(sgxEnabled, randomDotOrgApiKey, logger),
+        ];
     }
 
     create(contentType: string): RequestExecutor {

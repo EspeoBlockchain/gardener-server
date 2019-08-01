@@ -12,7 +12,6 @@ import {
 } from './infrastructure/blockchain/ethereum';
 import { EventBus } from './infrastructure/event';
 
-import UrlDataFetcher from './application/dataFetcher/AxiosUrlDataFetcherAdapter';
 import Logger from './application/logger/ConsoleLoggerAdapter';
 import oracleAbi from './config/abi/oracle.abi';
 import { CreateRequestEventHandler, CurrentBlockEventHandler } from './infrastructure/event';
@@ -32,7 +31,6 @@ import {
 
 import {
   CheckHealthStatusUseCase,
-  FetchDataUseCase,
   SelectDataUseCase,
 } from './domain/common/usecase';
 
@@ -51,6 +49,7 @@ import PersistenceConnectionInitializer from './infrastructure/persistence/Persi
 
 const {
   DATABASE_URL, DATABASE_NAME, PERSISTENCE, START_BLOCK, SAFE_BLOCK_DELAY, API_PORT,
+  SGX_ENABLED, RANDOMDOTORG_API_KEY,
 } = process.env;
 
 const persistenceOptions = {
@@ -64,7 +63,6 @@ const logger = new Logger();
 const requestRepository = RequestRepositoryFactory.create(PERSISTENCE, logger);
 const responseRepository = ResponseRepositoryFactory.create(PERSISTENCE, logger);
 const oracle = new Oracle(web3, oracleAbi as AbiItem[], process.env.ORACLE_ADDRESS);
-const dataFetcher = new UrlDataFetcher();
 const jsonSelector = new JsonSelector();
 const xmlSelector = new XmlSelector();
 const identitySelector = new IdentitySelector();
@@ -80,9 +78,10 @@ const markValidRequestsAsReadyUseCase = new MarkValidRequestsAsReadyUseCase(
   requestRepository,
   logger,
 );
-const fetchDataUseCase = new FetchDataUseCase(dataFetcher, logger);
 const selectDataUseCase = new SelectDataUseCase(dataSelectorFinder, logger);
-const requestExecutorFactory = new RequestExecutorStrategy(fetchDataUseCase, selectDataUseCase, logger);
+const requestExecutorFactory = new RequestExecutorStrategy(
+    SGX_ENABLED.toLowerCase() === 'true', RANDOMDOTORG_API_KEY, selectDataUseCase, logger,
+);
 const sendResponseToOracleUseCase = new SendResponseToOracleUseCase(oracle, logger);
 const executeReadyRequestsUseCase = new ExecuteReadyRequestsUseCase(
   sendResponseToOracleUseCase,

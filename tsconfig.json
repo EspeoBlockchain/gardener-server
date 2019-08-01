@@ -13,7 +13,8 @@
         "strictBindCallApply": true,
         "baseUrl": "./src",
         "paths": {
-            "@core/*": ["./*"]
+            "@core/*": ["./*"],
+            "@testData/*": ["../test/*"]
         }
     },
     "files": [

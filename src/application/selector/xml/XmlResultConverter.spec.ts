@@ -1,5 +1,6 @@
-import { describe, it } from 'mocha';
 import { expect } from '@core/config/configuredChai';
+import { describe, it } from 'mocha';
+
 import XmlResultConverter from './XmlResultConverter';
 
 describe('XmlResultConverter', () => {
