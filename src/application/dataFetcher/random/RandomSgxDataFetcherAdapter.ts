@@ -22,8 +22,8 @@ class RandomSgxDataFetcherAdapter implements DataFetcher {
   }
 
   async fetch(request: Request) {
-    const min: number = +RequestUrlParser.resolveLeftSideBound(request.url);
-    const max: number = +RequestUrlParser.resolveRightSideBound(request.url);
+    const min = +RequestUrlParser.resolveLeftSideBound(request.url);
+    const max = +RequestUrlParser.resolveRightSideBound(request.url);
 
     const longPtrBuf = ref.alloc(longType);
 
