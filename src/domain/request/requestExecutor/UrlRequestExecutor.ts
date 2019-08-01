@@ -1,4 +1,8 @@
 import UrlDataFetcher from '@core/application/dataFetcher/AxiosUrlDataFetcherAdapter';
+import IdentitySelector from '@core/application/selector/identity/IdentitySelectorAdapter';
+import JsonSelector from '@core/application/selector/json/JsonSelectorAdapter';
+import XmlSelector from '@core/application/selector/xml/XmlSelectorAdapter';
+import DataSelectorFinder from '@core/domain/common/DataSelectorFinder';
 import {LoggerPort} from '@core/domain/common/port';
 import RequestExecutor from '@core/domain/common/port/RequestExecutorPort';
 import FetchDataUseCase from '@core/domain/common/usecase/FetchDataUseCase';
@@ -8,11 +12,15 @@ import Response from '@core/domain/response/Response';
 
 class UrlRequestExecutor implements RequestExecutor {
     private fetchDataUseCase: FetchDataUseCase;
+    private selectDataUseCase: SelectDataUseCase;
     constructor(
-        private readonly selectDataUseCase: SelectDataUseCase,
         private readonly logger: LoggerPort,
     ) {
         this.fetchDataUseCase = new FetchDataUseCase(new UrlDataFetcher(), this.logger);
+        this.selectDataUseCase = new SelectDataUseCase(
+            new DataSelectorFinder([new JsonSelector(), new XmlSelector(), new IdentitySelector()]),
+            logger,
+        );
     }
 
     canHandle(contentType: string): boolean {
