@@ -21,7 +21,7 @@ describe('FetchNewOracleRequestUseCase', () => {
 
   it('should fetch new oracle responses', async () => {
     // when
-    const requests: any = await sut.fetchNewRequests(4);
+    const requests: Request[] = await sut.fetchNewRequests(4);
     // then
     expect(requests).to.be.an.instanceof(Array);
     expect(requests).to.have.lengthOf(1);
@@ -30,7 +30,7 @@ describe('FetchNewOracleRequestUseCase', () => {
 
   it('should return empty array if new block is equal to current one', async () => {
     // when
-    const requests: any = await sut.fetchNewRequests(0);
+    const requests: Request[] = await sut.fetchNewRequests(0);
     // then
     expect(requests).to.be.an.instanceof(Array);
     expect(requests).to.have.lengthOf(0);

@@ -51,7 +51,7 @@ describe('JsonSelectorAdapter', () => {
   it('should select all data when no path passed', () => {
     // given
     const jsonString = JSON.stringify({ key1: 'value' });
-    const responsePath: any = null;
+    const responsePath: string = null;
     // when
     const res = sut.select(jsonString, responsePath);
     // then

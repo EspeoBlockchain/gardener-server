@@ -33,7 +33,7 @@ class EthereumOracleAdapter implements OracleGateway {
   }
 
   // TODO: rewrite with async await
-  public getRequests(fromBlock: any, toBlock: any): Promise<Request[]> {
+  public getRequests(fromBlock: number, toBlock: number): Promise<Request[]> {
     const dataRequestedEventsPromise = this.contract.getPastEvents('DataRequested', { fromBlock, toBlock })
       .then(events => events.map(
         event => _.pick(event.returnValues, ['id', 'url']),
@@ -53,7 +53,7 @@ class EthereumOracleAdapter implements OracleGateway {
       })));
   }
 
-  public sendResponse(response: any): Promise<void> {
+  public sendResponse(response: Response): Promise<void> {
     this.pendingResponses.push(response);
     return new Promise((resolve, reject) => {
       this.emitter.on(EthereumOracleAdapter.finishedEventName(response.requestId), (error) => {

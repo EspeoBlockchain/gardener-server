@@ -11,8 +11,9 @@ describe('FetchDataUseCase', () => {
     fetch: (request: Request) => Promise.resolve(JSON.stringify({ key1: 'value1' })),
   });
 
+  const someError = new Error();
   const failingDataFetcher = () => ({
-    fetch: (request: Request) => Promise.reject(new Error()),
+    fetch: (request: Request) => Promise.reject(someError),
   });
 
   it('should fetch data for request and return rawData', async () => {
@@ -29,6 +30,6 @@ describe('FetchDataUseCase', () => {
     const request = new Request('1', 'json(http://example.com).key1', Date.now(), RequestStateEnum.PROCESSED);
     const sut = new FetchDataUseCase(failingDataFetcher(), new SilentLogger());
     // when
-    return expect(() => sut.fetchData(request)).to.eventually.be.rejected;
+    return expect(sut.fetchData(request)).to.be.rejectedWith(someError);
   });
 });

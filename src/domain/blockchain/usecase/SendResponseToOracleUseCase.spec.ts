@@ -12,8 +12,9 @@ describe('SendResponseUseCase', () => {
     sendResponse: () => Promise.resolve(),
   });
 
+  const someError = new Error();
   const failingOracle = () => ({
-    sendResponse: () => Promise.reject(new Error()),
+    sendResponse: () => Promise.reject(someError),
   });
 
   it('should send response back to oracle without throwing error', async () => {
@@ -29,6 +30,6 @@ describe('SendResponseUseCase', () => {
     const response = new Response('id');
     const sut = new SendResponseToOracleUseCase(failingOracle() as unknown as OracleGateway, new SilentLogger());
     // when, then
-    return expect(() => sut.sendResponse(response)).to.eventually.be.rejected;
+    return expect(sut.sendResponse(response)).to.be.rejectedWith(someError);
   });
 });

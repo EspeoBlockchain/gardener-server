@@ -8,7 +8,7 @@ class SelectDataUseCase {
     private readonly logger: LoggerPort,
   ) { }
 
-  async selectFromRawData(fetchedData: any, contentType: any, path: string): Promise<string> {
+  async selectFromRawData(fetchedData: string, contentType: string, path: string): Promise<string> {
     let selectedData;
 
     try {

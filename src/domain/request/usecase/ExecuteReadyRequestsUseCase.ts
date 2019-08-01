@@ -2,6 +2,7 @@ import SendResponseToOracleUseCase from '@core/domain/blockchain/usecase/SendRes
 import { LoggerPort } from '@core/domain/common/port';
 import InvalidRequestError from '@core/domain/common/utils/error/InvalidRequestError';
 import {RequestRepositoryPort} from '@core/domain/request/port';
+import Request from '@core/domain/request/Request';
 import RequestExecutorStrategy from '@core/domain/request/requestExecutor/RequestExecutorStrategy';
 import ResponseRepositoryPort from '@core/domain/response/port/ResponseRepositoryPort';
 import Response from '@core/domain/response/Response';
@@ -40,7 +41,7 @@ class ExecuteReadyRequestsUseCase {
     await Promise.all(promises);
   }
 
-  private async executeRequest(request: any): Promise<Response> {
+  private async executeRequest(request: Request): Promise<Response> {
     try {
       const requestExecutor = this.requestExecutorStrategy.create(request.getContentType());
 
@@ -61,7 +62,7 @@ class ExecuteReadyRequestsUseCase {
     }
   }
 
-  private async sendResponse(response: any): Promise<void> {
+  private async sendResponse(response: Response): Promise<void> {
     try {
       await this.sendResponseToOracleUseCase.sendResponse(response);
       response.state.markAsSent();

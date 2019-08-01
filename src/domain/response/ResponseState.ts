@@ -8,11 +8,11 @@ class ResponseState extends State {
   }
 
   markAsSent() {
-    this.setState(RequestStateEnum.SENT, (name: any) => name === RequestStateEnum.PROCESSED);
+    this.setState(RequestStateEnum.SENT, (name: RequestStateEnum) => name === RequestStateEnum.PROCESSED);
   }
 
   markAsFailed() {
-    this.setState(RequestStateEnum.FAILED, (name: any) => name === RequestStateEnum.PROCESSED);
+    this.setState(RequestStateEnum.FAILED, (name: RequestStateEnum) => name === RequestStateEnum.PROCESSED);
   }
 }
 

@@ -19,12 +19,12 @@ describe('ExecuteReadyRequestsUseCase', () => {
   const someRequestId = 'SOME_REQUEST_ID';
 
   const requestRepository = () => {
-    const requests: any[] = [];
+    const requests: Request[] = [];
 
     return {
       getReadyRequests: () => [new Request(someRequestId, 'json(http://example.com).key1', Date.now() - oneMinuteMillis)],
       list: () => requests,
-      save: (request: any) => requests.push(request),
+      save: (request: Request) => requests.push(request),
     };
   };
 
