@@ -1,7 +1,8 @@
-import {ForeignFunction} from 'ffi';
 import * as ffi from 'ffi';
-import {Type} from 'ref';
 import * as ref from 'ref';
+
+import { ForeignFunction } from 'ffi';
+import { Type } from 'ref';
 
 import DataFetcher from '@core/domain/common/port/DataFetcherPort';
 import Request from '@core/domain/request/Request';
