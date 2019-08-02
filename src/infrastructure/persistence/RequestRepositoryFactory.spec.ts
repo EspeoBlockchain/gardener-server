@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import SilentLoggerAdapter from '../../application/logger/SilentLoggerAdapter';
+import SilentLoggerAdapter from '@core/application/logger/SilentLoggerAdapter';
 import InMemoryRequestRepository from './inmemory/InMemoryRequestRepositoryAdapter';
 import MongoDBRequestRepository from './mongodb/MongoDbRequestRepositoryAdapter';
 import RequestRepositoryFactory from './RequestRepositoryFactory';

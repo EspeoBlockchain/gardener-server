@@ -1,5 +1,5 @@
 class JsonResultConverter {
-  static toString(results) {
+  static toString(results: any[]) {
     switch (results.length) {
       case 0:
         return null;

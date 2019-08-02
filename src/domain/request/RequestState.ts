@@ -17,23 +17,23 @@ class RequestState extends State {
   }
 
   markAsScheduled() {
-    this._setState(RequestStateEnum.SCHEDULED, name => name === undefined);
+    this.setState(RequestStateEnum.SCHEDULED, (name: RequestStateEnum) => name === undefined);
   }
 
   markAsReady() {
-    this._setState(RequestStateEnum.READY, name => [undefined, RequestStateEnum.SCHEDULED].includes(name));
+    this.setState(RequestStateEnum.READY, (name: RequestStateEnum) => [undefined, RequestStateEnum.SCHEDULED].includes(name));
   }
 
   markAsProcessed() {
-    this._setState(RequestStateEnum.PROCESSED, name => name === RequestStateEnum.READY);
+    this.setState(RequestStateEnum.PROCESSED, (name: RequestStateEnum) => name === RequestStateEnum.READY);
   }
 
   markAsFinished() {
-    this._setState(RequestStateEnum.FINISHED, name => name === RequestStateEnum.PROCESSED);
+    this.setState(RequestStateEnum.FINISHED, (name: RequestStateEnum) => name === RequestStateEnum.PROCESSED);
   }
 
   markAsFailed() {
-    this._setState(RequestStateEnum.FAILED, name => name === RequestStateEnum.PROCESSED);
+    this.setState(RequestStateEnum.FAILED, (name: RequestStateEnum) => name === RequestStateEnum.PROCESSED);
   }
 }
 

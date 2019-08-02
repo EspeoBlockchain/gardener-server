@@ -9,7 +9,7 @@ import InvalidUrlError from '@core/domain/common/utils/error/InvalidUrlError';
 import SendResponseToOracleUseCase from '@core/domain/blockchain/usecase/SendResponseToOracleUseCase';
 import Response from '@core/domain/response/Response';
 
-import {RequestRepositoryPort} from '../port';
+import { RequestRepositoryPort } from '../port';
 import Request from '../Request';
 import RequestExecutorStrategy from '../requestExecutor/RequestExecutorStrategy';
 import ExecuteReadyRequestsUseCase from './ExecuteReadyRequestsUseCase';
@@ -19,12 +19,12 @@ describe('ExecuteReadyRequestsUseCase', () => {
   const someRequestId = 'SOME_REQUEST_ID';
 
   const requestRepository = () => {
-    const requests = [];
+    const requests: Request[] = [];
 
     return {
       getReadyRequests: () => [new Request(someRequestId, 'json(http://example.com).key1', Date.now() - oneMinuteMillis)],
       list: () => requests,
-      save: request => requests.push(request),
+      save: (request: Request) => requests.push(request),
     };
   };
 

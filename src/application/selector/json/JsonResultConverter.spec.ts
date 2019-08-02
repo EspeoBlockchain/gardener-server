@@ -5,11 +5,11 @@ import JsonResultConverter from './JsonResultConverter';
 describe('JsonResultConverter', () => {
   it('should return null when empty collection passed', () => {
     // given
-    const data = [];
+    const data: any[] = [];
     // when
-    const result = JsonResultConverter.toString(data);
+    const result: string = JsonResultConverter.toString(data);
     // then
-    expect(result).to.be.null();
+    expect(result).to.equal(null);
   });
 
   it('should return raw value if collection has only one element which is a string', () => {

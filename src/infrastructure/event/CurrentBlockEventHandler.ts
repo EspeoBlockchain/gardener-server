@@ -11,10 +11,10 @@ class CurrentBlockEventHandler {
   ) {
     // TODO guard from race condition:
     // new block before previous event is handled
-    this.eventBus.on(CurrentBlockEvent.name(), this._handleEvent.bind(this));
+    this.eventBus.on(CurrentBlockEvent.name(), this.handleEvent.bind(this));
   }
 
-  async _handleEvent({ blockNumber }) {
+  private async handleEvent({ blockNumber }: CurrentBlockEvent) {
     const requests = await this.useCase.fetchNewRequests(blockNumber);
     requests
       .map(({ id, url, validFrom }) => new CreateRequestEvent(id, url, validFrom))

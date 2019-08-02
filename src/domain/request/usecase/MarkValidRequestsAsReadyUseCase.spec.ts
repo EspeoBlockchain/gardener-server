@@ -1,19 +1,20 @@
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import SilentLoggerAdapter from '../../../application/logger/SilentLoggerAdapter';
-import {RequestRepositoryPort} from '../port';
+
+import SilentLoggerAdapter from '@core/application/logger/SilentLoggerAdapter';
+import { RequestRepositoryPort } from '../port';
 import Request from '../Request';
 import { RequestStateEnum } from '../RequestStateEnum';
 import MarkValidRequestsAsReadyUseCase from './MarkValidRequestsAsReadyUseCase';
 
 describe('MarkValidRequestsAsReadyUseCase', () => {
   const repository = () => {
-    const requests = [];
+    const requests: Request[] = [];
     return {
-      save: req => requests.push(req),
+      save: (req: Request) => requests.push(req),
       list: () => requests,
       getScheduledRequestsWithValidFromBeforeNow: () => requests,
-      getById: id => requests[0],
+      getById: (id: string) => requests[0],
     };
   };
 

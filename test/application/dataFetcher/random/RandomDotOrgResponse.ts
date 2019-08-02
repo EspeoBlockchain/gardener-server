@@ -20,4 +20,4 @@ const response = {
   id: 21686,
 };
 
-export {response};
+export { response };

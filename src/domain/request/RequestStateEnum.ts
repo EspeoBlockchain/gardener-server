@@ -4,4 +4,5 @@ export enum RequestStateEnum {
   PROCESSED = 'Processed',
   FINISHED = 'Finished',
   FAILED = 'Failed',
+  SENT = 'Sent',
 }

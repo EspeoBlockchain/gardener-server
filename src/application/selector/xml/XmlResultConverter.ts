@@ -1,5 +1,5 @@
 class XmlResultConverter {
-  static toString(results) {
+  static toString(results: any) {
     if (Array.isArray(results)) {
       switch (results.length) {
         case 0:
@@ -14,13 +14,13 @@ class XmlResultConverter {
     return results.toString();
   }
 
-  static __wrapSingleNode(node) {
-    const wrapInResultTag = el => `<result>${el}</result>`;
+  static __wrapSingleNode(node: Node) {
+    const wrapInResultTag = (el: string) => `<result>${el}</result>`;
 
     return node.nodeValue ? wrapInResultTag(node.nodeValue) : node;
   }
 
-  static __wrapCollection(nodes) {
+  static __wrapCollection(nodes: Array<string | Node>) {
     return `<resultlist>${nodes.join('')}</resultlist>`;
   }
 }

@@ -1,7 +1,7 @@
 import { DOMParser, XMLSerializer } from 'xmldom';
 import * as xpath from 'xpath';
 
-import DataSelectorPort from '../../../domain/common/port/DataSelectorPort';
+import DataSelectorPort from '@core/domain/common/port/DataSelectorPort';
 import XmlResultConverter from './XmlResultConverter';
 
 class XmlSelectorAdapter implements DataSelectorPort {
@@ -25,7 +25,7 @@ class XmlSelectorAdapter implements DataSelectorPort {
     return XmlResultConverter.toString(selected);
   }
 
-  private checkXmlValidity(doc: any): void {
+  private checkXmlValidity(doc: Document): void {
     // throws an error when doc is invalid xml
     this.xmlSerializer.serializeToString(doc);
   }

@@ -1,7 +1,8 @@
-import { LoggerPort } from '@core/domain/common/port';
-import Response from '@core/domain/response/Response';
 import { omit } from 'lodash';
-import ResponseRepositoryPort from '../../../domain/response/port/ResponseRepositoryPort';
+
+import { LoggerPort } from '@core/domain/common/port';
+import ResponseRepositoryPort from '@core/domain/response/port/ResponseRepositoryPort';
+import Response from '@core/domain/response/Response';
 import ResponseModel from './ResponseModel';
 
 class MongoDbResponseRepositoryAdapter implements ResponseRepositoryPort {
@@ -9,7 +10,7 @@ class MongoDbResponseRepositoryAdapter implements ResponseRepositoryPort {
     this.logger = logger;
   }
 
-  public async save(response): Promise<void> {
+  public async save(response: Response): Promise<void> {
     const mongoResponse = new ResponseModel({
       _id: response.requestId,
       fetchedData: response.fetchedData,

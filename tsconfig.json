@@ -7,6 +7,8 @@
         "noUnusedLocals": true,
         "noImplicitReturns": true,
         "noImplicitThis": true,
+        "noImplicitAny": true,
+        "esModuleInterop": true,
         "strictFunctionTypes": true,
         "strictBindCallApply": true,
         "baseUrl": "./src",

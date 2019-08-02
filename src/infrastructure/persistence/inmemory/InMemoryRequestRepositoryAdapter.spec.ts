@@ -1,12 +1,11 @@
+import { expect } from '@core/config/configuredChai';
 import { beforeEach, describe, it } from 'mocha';
-const { expect } = require('chai').use(require('chai-as-promised'));
 
-import Request from '../../../domain/request/Request';
+import Request from '@core/domain/request/Request';
 import InMemoryRequestRepository from './InMemoryRequestRepositoryAdapter';
 
-
 describe('InMemoryRequestRepositoryAdapter', () => {
-  let sut;
+  let sut: InMemoryRequestRepository;
 
   beforeEach(() => {
     sut = new InMemoryRequestRepository();
@@ -16,7 +15,7 @@ describe('InMemoryRequestRepositoryAdapter', () => {
     // given
     sut.save(new Request('1', 'url', new Date(), 'Scheduled'));
     // when
-    const result = await sut.exists('1');
+    const result: boolean = await sut.exists('1');
     // then
     expect(result).to.equal(true);
   });

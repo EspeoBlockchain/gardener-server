@@ -2,8 +2,8 @@ const responseBody = {
   status: 'down',
 };
 
-const statusEndpoint = (app, checkHealthStatusUseCase) => {
-  app.get('/status', (req, res) => {
+const statusEndpoint = (app: any, checkHealthStatusUseCase: any) => {
+  app.get('/status', (_: any, res: any) => {
     const { isAlive } = checkHealthStatusUseCase.checkStatus();
 
     if (isAlive) {

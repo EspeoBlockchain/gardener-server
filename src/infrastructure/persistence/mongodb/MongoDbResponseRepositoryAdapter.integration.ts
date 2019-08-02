@@ -1,16 +1,13 @@
-const {
-  describe, it, beforeEach, afterEach,
-} = require('mocha');
-const { expect } = require('chai').use(require('chai-as-promised'));
+import { expect } from '@core/config/configuredChai';
+import mongoose from 'mongoose';
 
-import * as mongoose from 'mongoose';
-import Response from '../../../domain/response/Response';
+import ConsoleLoggerAdapter from '@core/application/logger/ConsoleLoggerAdapter';
+import Response from '@core/domain/response/Response';
 import MongoDbResponseRepositoryAdapter from './MongoDbResponseRepositoryAdapter';
-import ConsoleLoggerAdapter from '../../../application/logger/ConsoleLoggerAdapter';
 import ResponseModel from './ResponseModel';
 
 describe('MongoDbResponseRepositoryAdapter', () => {
-  let sut;
+  let sut: MongoDbResponseRepositoryAdapter;
 
   beforeEach(async () => {
     await mongoose.connect('mongodb://localhost:37017/oracle-server', { useNewUrlParser: true });

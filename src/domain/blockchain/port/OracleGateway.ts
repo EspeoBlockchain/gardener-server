@@ -1,6 +1,7 @@
 import Request from '@core/domain/request/Request';
+import Response from '@core/domain/response/Response';
 
 export default interface OracleGateway {
-  getRequests(fromBlock, toBlock): Promise<Request[]>;
-  sendResponse(response): Promise<void>;
+    getRequests(fromBlock: number, toBlock: number): Promise<Request[]>;
+    sendResponse(response: Response): Promise<void>;
 }

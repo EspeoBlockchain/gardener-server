@@ -1,10 +1,10 @@
-import RequestUrlParser from '@core/domain/request/RequestUrlParser';
 import axios from 'axios';
-import * as jp from 'jsonpath';
+import jp from 'jsonpath';
 
 import DataFetcher from '@core/domain/common/port/DataFetcherPort';
 import { HttpError } from '@core/domain/common/utils/error';
 import Request from '@core/domain/request/Request';
+import RequestUrlParser from '@core/domain/request/RequestUrlParser';
 
 class RandomDotOrgDataFetcherAdapter implements DataFetcher {
   constructor(private apiKey: string) {}
