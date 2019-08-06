@@ -26,7 +26,7 @@ Oracle is a concept of getting information from outside of the blockchain to the
 ## Installation
 
 As a first step please clone `.env.tpl` file into `.env` and fill with values:
-- `PUBLIC_KEY` - address of the server's account, from which it sends the results of request to the smart contracts
+- `ADDRESS` - address of the server's account, from which it sends the results of request to the smart contracts
 - `PRIVATE_KEY` - private key of the server's account
 - `ORACLE_ADDRESS` - address of the `Oracle` smart contract
 - `DATABASE_URL` - URL with port for MongoDB connection

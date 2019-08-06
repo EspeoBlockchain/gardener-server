@@ -8,7 +8,7 @@ This section is going to explain parameters from them. Default parameters are se
 Server
 ======
 
-- `PUBLIC_KEY` - address of the server's account, from which it sends the results of request to the smart contracts
+- `ADDRESS` - address of the server's account, from which it sends the results of request to the smart contracts
 - `PRIVATE_KEY` - private key of the server's account
 - `ORACLE_ADDRESS` - address of the `Oracle` smart contract
 - `DATABASE_URL` - URL with port for MongoDB connection

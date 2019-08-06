@@ -3,6 +3,7 @@ import { assert } from '@core/config/configuredChai';
 import { beforeEach, describe, it } from 'mocha';
 
 import InvalidContentTypeError from '@core/domain/common/utils/error/InvalidContentTypeError';
+import RandomRequestExecutor from './RandomRequestExecutor';
 import RequestExecutorStrategy from './RequestExecutorStrategy';
 import UrlRequestExecutor from './UrlRequestExecutor';
 
@@ -13,7 +14,7 @@ describe('RequestExecutorStrategy', () => {
     sut = new RequestExecutorStrategy(null, null, null, null);
   });
 
-  it('should create UrlProvider for json', () => {
+  it('should create UrlRequestExecutor for json', () => {
     // given
     const contentType = 'ipfs';
     // when
@@ -22,7 +23,7 @@ describe('RequestExecutorStrategy', () => {
     assert.instanceOf(result, UrlRequestExecutor, 'Incorrect request executor type');
   });
 
-  it('should create UrlProvider for xml', () => {
+  it('should create UrlRequestExecutor for xml', () => {
     // given
     const contentType = 'xml';
     // when
@@ -31,7 +32,7 @@ describe('RequestExecutorStrategy', () => {
     assert.instanceOf(result, UrlRequestExecutor, 'Incorrect request executor type');
   });
 
-  it('should create UrlProvider for html', () => {
+  it('should create UrlRequestExecutor for html', () => {
     // given
     const contentType = 'html';
     // when
@@ -40,7 +41,16 @@ describe('RequestExecutorStrategy', () => {
     assert.instanceOf(result, UrlRequestExecutor, 'Incorrect request executor type');
   });
 
-  it('should create UrlProvider for ipfs', () => {
+  it('should create RandomRequestExecutor for random', () => {
+    // given
+    const contentType = 'random';
+    // when
+    const result = sut.create(contentType);
+    // then
+    assert.instanceOf(result, RandomRequestExecutor, 'Incorrect request executor type');
+  });
+
+  it('should create UrlRequestExecutor for ipfs', () => {
     // given
     const contentType = 'ipfs';
     // when
