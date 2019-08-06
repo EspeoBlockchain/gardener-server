@@ -1,6 +1,7 @@
 import {expect} from '@core/config/configuredChai';
 import EthCrypto from 'eth-crypto';
 import {beforeEach, describe, it} from 'mocha';
+import InvalidEncryptionError from '../utils/error/InvalidEncryptionError';
 
 import DecryptUrlUseCase from './DecryptUrlUseCase';
 
@@ -15,7 +16,7 @@ describe('DecryptUrlUseCase', () => {
     sut = new DecryptUrlUseCase(somePrivateKey);
   });
 
-  it('should decrypt json url with secret string', async () => {
+  it('should decrypt url with secret string', async () => {
     // given
     const cipher = await EthCrypto.encryptWithPublicKey(publicKey, someSecret);
 
@@ -27,7 +28,7 @@ describe('DecryptUrlUseCase', () => {
     expect(decrypted).to.be.equal(expected);
   });
 
-  it('should decrypt json url with multiple secret strings', async () => {
+  it('should decrypt url with multiple secret strings', async () => {
     // given
     const cipher = await EthCrypto.encryptWithPublicKey(publicKey, someSecret);
     const anotherCipher = await EthCrypto.encryptWithPublicKey(publicKey, someOtherSecret);
@@ -41,7 +42,7 @@ describe('DecryptUrlUseCase', () => {
     expect(decrypted).to.be.equal(expected);
   });
 
-  it('should decrypt json url with secret containing non-standard characters', async () => {
+  it('should decrypt url with secret containing non-standard characters', async () => {
     // given
     const nonStandardSecret = '$^#$^!)$#@^($#^#$)()';
     const cipher = await EthCrypto.encryptWithPublicKey(publicKey, nonStandardSecret);
@@ -60,5 +61,16 @@ describe('DecryptUrlUseCase', () => {
     const decrypted = await sut.decrypt(nonEncryptedUrl);
     // then
     expect(decrypted).to.be.equal(nonEncryptedUrl);
+  });
+
+  it('should throw InvalidRequestError for invalid encrypted data', async () => {
+    // given
+    const invalidPublicKey = EthCrypto.publicKeyByPrivateKey('0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb');
+    const cipher = await EthCrypto.encryptWithPublicKey(invalidPublicKey, someSecret);
+    const encryptedText = `json(https://some.url?apiKey=encrypted(${(EthCrypto.cipher.stringify(cipher))})).chartName`;
+    // when
+    // then
+    return expect(sut.decrypt(encryptedText)).to.be.rejectedWith(InvalidEncryptionError,
+        'Invalid encryption data. Expected a stringified object {iv, ephemPublicKey, ciphertext, mac} encrypted with gardener public key');
   });
 });
