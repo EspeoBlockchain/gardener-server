@@ -10,10 +10,11 @@ class RequestExecutorStrategy  {
     constructor(
         sgxEnabled: boolean,
         randomDotOrgApiKey: string,
+        privateKey: string,
         logger: LoggerPort,
     ) {
         this.requestExecutors = [
-            new UrlRequestExecutor(logger),
+            new UrlRequestExecutor(privateKey, logger),
             new RandomRequestExecutor(sgxEnabled, randomDotOrgApiKey, logger),
         ];
     }

@@ -52,4 +52,13 @@ describe('DecryptUrlUseCase', () => {
     // then
     expect(decrypted).to.be.equal(expected);
   });
+
+  it('should change nothing if url has no encrypted parts', async () => {
+    // given
+    const nonEncryptedUrl = `json(https://some.url?noSecret=papa()dsgs)`;
+    // when
+    const decrypted = await sut.decrypt(nonEncryptedUrl);
+    // then
+    expect(decrypted).to.be.equal(nonEncryptedUrl);
+  });
 });
