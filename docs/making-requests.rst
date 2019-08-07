@@ -118,7 +118,7 @@ ENCRYPTED url fragments
 
 For all URL datasources (XML, HTML, JSON) it is also possible to encrypt entirety, part or parts of your query using encrypted() tag. You might want to do that if you wouldn't like some parts of your URL to be visible to everyone on blockchain. An obvious example would be using some API key as a parameter to your REST query.
 In order to pass part of your query secretly, simply encrypt it using Gardener public key and wrap it in encrypted() tag. Gardener will decrypt it using its private key and then process it as usual.
-Any assymetric encryption implementation may be used as long as it produces a stringified version of a following object: {iv, ephemPublicKey, ciphertext, mac} . We recommend using https://www.npmjs.com/package/eth-crypto .
+Any assymetric encryption implementation may be used as long as it produces a stringified version of a following object: {iv, ephemPublicKey, ciphertext, mac} . We recommend using https://www.npmjs.com/package/eth-crypto as shown below.
 
 Example request encryption
 ::
