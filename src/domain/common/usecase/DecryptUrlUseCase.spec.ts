@@ -73,4 +73,16 @@ describe('DecryptUrlUseCase', () => {
     return expect(sut.decrypt(encryptedText)).to.be.rejectedWith(InvalidEncryptionError,
         'Invalid encryption data. Expected a stringified object {iv, ephemPublicKey, ciphertext, mac} encrypted with gardener public key');
   });
+
+  it('should decrypt secret much longer than public key', async () => {
+    // given
+    const bigSecret = 'a'.repeat(publicKey.length * 10);
+    const cipher = await EthCrypto.encryptWithPublicKey(publicKey, bigSecret);
+    const encryptedText = `json(https://some.url?apiKey=encrypted(${(EthCrypto.cipher.stringify(cipher))})).chartName`;
+    const expected = `json(https://some.url?apiKey=${bigSecret}).chartName`;
+    // when
+    const decrypted = await sut.decrypt(encryptedText);
+    // then
+    expect(decrypted).to.be.equal(expected);
+  });
 });
