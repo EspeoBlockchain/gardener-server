@@ -6,7 +6,7 @@ import InvalidEncryptionError from '../utils/error/InvalidEncryptionError';
 import DecryptUrlUseCase from './DecryptUrlUseCase';
 
 describe('DecryptUrlUseCase', () => {
-  const someSecret = 'SECRET';
+  const someSecret = 'EUR';
   const someOtherSecret = 'TOP_SECRET';
   const somePrivateKey = '0x0000000000000000000000000000000000000000000000000000000000000001';
   const publicKey = EthCrypto.publicKeyByPrivateKey(somePrivateKey);
