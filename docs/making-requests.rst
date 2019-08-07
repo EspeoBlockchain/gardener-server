@@ -123,8 +123,11 @@ Any assymetric encryption implementation may be used as long as it produces a st
 Example request encryption
 ::
 
-    <to be written>
+import EthCrypto from 'eth-crypto';
 
+const gardenerPublicKey = '9c691b945b14656b98edbf4d3657290c65cad377bca44da4d54e88cd2bbdefb2e063267b06183029fea5017567653c0fb6c4e3426843381ad7e09014b2d384cf' // if you want to create it programmatically, derive it from Gardener address or Gardener private key if you are owner of the instance
+const cipher = await EthCrypto.encryptWithPublicKey(gardenerPublicKey, 'SECRET_DATA');
+constEncryptedSecret = EthCrypto.cipher.stringify(cipher);
 
 Example request
 ::
