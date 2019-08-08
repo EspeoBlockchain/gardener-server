@@ -87,7 +87,7 @@ class EthereumOracleAdapter implements OracleGateway {
     let error;
     try {
       const gas = await method.estimateGas();
-      await method.send({ gas });
+      await method.send({ gas, from: '0x1df62f291b2e969fb0849d99d9ce41e2f137006e' });
     } catch (e) {
       error = e;
     }
