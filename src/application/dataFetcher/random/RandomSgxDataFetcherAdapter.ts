@@ -1,5 +1,5 @@
-import * as ffi from 'ffi';
-import * as ref from 'ref';
+import ffi from 'ffi';
+import ref from 'ref';
 
 import { ForeignFunction } from 'ffi';
 import { Type } from 'ref';

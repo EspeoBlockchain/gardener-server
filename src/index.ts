@@ -1,5 +1,5 @@
 import RequestExecutorStrategy from '@core/domain/request/requestExecutor/RequestExecutorStrategy';
-import * as dotenv from 'dotenv';
+import dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
