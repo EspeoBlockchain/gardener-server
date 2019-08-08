@@ -1,5 +1,5 @@
 import { DOMParser, XMLSerializer } from 'xmldom';
-import * as xpath from 'xpath';
+import xpath from 'xpath';
 
 import DataSelectorPort from '@core/domain/common/port/DataSelectorPort';
 import XmlResultConverter from './XmlResultConverter';
