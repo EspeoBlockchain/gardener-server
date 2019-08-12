@@ -27,3 +27,6 @@ Make sure you have successfully installed it by typing in command line
 .. note::
    Keep in mind that your Node.js version has to be at least 7.6 as gardener uses async/await pattern.
 
+.. note::
+   Please make sure to have Python 2.7.16 (not newer!) installed. Reason for that is node-ffi library that we use is not compatible with newest Python.
+
