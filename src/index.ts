@@ -18,12 +18,6 @@ import { CreateRequestEventHandler, CurrentBlockEventHandler } from './infrastru
 import { ExecuteReadyRequestsScheduler, MarkValidRequestsAsReadyScheduler } from './infrastructure/scheduling';
 
 import {
-  IdentitySelectorAdapter as IdentitySelector,
-  JsonSelectorAdapter as JsonSelector,
-  XmlSelectorAdapter as XmlSelector,
-} from './application/selector';
-
-import {
   CreateRequestUseCase,
   ExecuteReadyRequestsUseCase,
   MarkValidRequestsAsReadyUseCase,
@@ -31,15 +25,12 @@ import {
 
 import {
   CheckHealthStatusUseCase,
-  SelectDataUseCase,
 } from './domain/common/usecase';
 
 import {
   FetchNewOracleRequestsUseCase,
   SendResponseToOracleUseCase,
 } from './domain/blockchain/usecase';
-
-import DataSelectorFinder from './domain/common/DataSelectorFinder';
 
 import BlockListener from './infrastructure/blockchain/BlockListener';
 
@@ -49,7 +40,7 @@ import PersistenceConnectionInitializer from './infrastructure/persistence/Persi
 
 const {
   DATABASE_URL, DATABASE_NAME, PERSISTENCE, START_BLOCK, SAFE_BLOCK_DELAY, API_PORT,
-  SGX_ENABLED, RANDOMDOTORG_API_KEY,
+  SGX_ENABLED, RANDOMDOTORG_API_KEY, PRIVATE_KEY,
 } = process.env;
 
 const persistenceOptions = {
@@ -63,10 +54,6 @@ const logger = new Logger();
 const requestRepository = RequestRepositoryFactory.create(PERSISTENCE, logger);
 const responseRepository = ResponseRepositoryFactory.create(PERSISTENCE, logger);
 const oracle = new Oracle(web3, oracleAbi as AbiItem[], process.env.ORACLE_ADDRESS);
-const jsonSelector = new JsonSelector();
-const xmlSelector = new XmlSelector();
-const identitySelector = new IdentitySelector();
-const dataSelectorFinder = new DataSelectorFinder([jsonSelector, xmlSelector, identitySelector]);
 
 const createRequestUseCase = new CreateRequestUseCase(requestRepository, logger);
 const fetchNewOracleRequestsUseCase = new FetchNewOracleRequestsUseCase(
@@ -78,16 +65,15 @@ const markValidRequestsAsReadyUseCase = new MarkValidRequestsAsReadyUseCase(
   requestRepository,
   logger,
 );
-const selectDataUseCase = new SelectDataUseCase(dataSelectorFinder, logger);
-const requestExecutorFactory = new RequestExecutorStrategy(
-    SGX_ENABLED.toLowerCase() === 'true', RANDOMDOTORG_API_KEY, selectDataUseCase, logger,
+const requestExecutorStrategy = new RequestExecutorStrategy(
+    SGX_ENABLED.toLowerCase() === 'true', RANDOMDOTORG_API_KEY, PRIVATE_KEY, logger,
 );
 const sendResponseToOracleUseCase = new SendResponseToOracleUseCase(oracle, logger);
 const executeReadyRequestsUseCase = new ExecuteReadyRequestsUseCase(
   sendResponseToOracleUseCase,
   requestRepository,
   responseRepository,
-  requestExecutorFactory,
+  requestExecutorStrategy,
   logger,
 );
 const checkHealthStatusUseCase = new CheckHealthStatusUseCase();
