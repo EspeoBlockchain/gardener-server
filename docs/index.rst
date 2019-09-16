@@ -23,3 +23,4 @@ Contents
    getting-started
    making-requests
    configuration
+   monitor-demo-frontend
