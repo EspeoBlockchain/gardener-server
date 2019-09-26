@@ -25,6 +25,7 @@ class RandomRequestExecutor implements RequestExecutor {
 
         const fetchedData = await this.fetchDataUseCase.fetchData(request);
         response.addFetchedData(fetchedData);
+        response.addSelectedData(fetchedData);
 
         this.logger.info(`Fetched data [response=${JSON.stringify(response)}]`);
 
