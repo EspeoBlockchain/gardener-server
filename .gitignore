@@ -8,3 +8,6 @@ logs/*
 !logs/.gitkeep
 /docs/_build/
 dist
+
+/channel-artifacts/*
+/crypto-config/*

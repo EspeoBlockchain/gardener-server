@@ -16,6 +16,9 @@ else
 	docker-compose -f docker-compose.yml -f docker-compose.local.yml up -d --build
 endif
 
+fabric:
+	docker-compose -f docker-compose.yml -f docker-compose.fabric.yml up -d --build
+
 clean-local:
 	docker-compose -f docker-compose.yml -f docker-compose.local.yml down
 
