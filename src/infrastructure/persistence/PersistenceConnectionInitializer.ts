@@ -11,7 +11,10 @@ class PersistenceConnectionInitializer {
   }
 
   private initMongo({ databaseUrl, databaseName }: { databaseUrl: string, databaseName: string }) {
-    mongoose.connect(`mongodb://${databaseUrl}/${databaseName}`, { useNewUrlParser: true });
+    mongoose.connect(`mongodb://${databaseUrl}/${databaseName}`, {
+      useNewUrlParser: true,
+      useFindAndModify: false,
+    });
   }
 }
 
