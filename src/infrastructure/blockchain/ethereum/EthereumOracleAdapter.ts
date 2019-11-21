@@ -32,25 +32,22 @@ class EthereumOracleAdapter implements OracleGateway {
     setInterval(() => this.sendPendingResponse(), ONE_SECOND_MILLIS);
   }
 
-  // TODO: rewrite with async await
-  public getRequests(fromBlock: number, toBlock: number): Promise<Request[]> {
-    const dataRequestedEventsPromise = this.contract.getPastEvents('DataRequested', { fromBlock, toBlock })
-      .then(events => events.map(
-        event => _.pick(event.returnValues, ['id', 'url']),
-      ));
-    const delayedDataRequestedEventsPromise = this.contract.getPastEvents('DelayedDataRequested', { fromBlock, toBlock })
-      .then(events => events.map(
-        event => _.pick(event.returnValues, ['id', 'url', 'validFrom']),
-      ));
+  public async getRequests(fromBlock: number, toBlock: number): Promise<Request[]> {
+    const dataRequestedEvents = (await this.contract.getPastEvents('DataRequested', { fromBlock, toBlock }))
+        .map(event => _.pick(event.returnValues, ['id', 'url']))
+    ;
 
-    return Promise.all([dataRequestedEventsPromise, delayedDataRequestedEventsPromise])
-      .then(values => values.reduce(
-        (previous: any, current) => previous.concat(current), [],
-      ))
-      .then(events => events.map((event: any) => ({
-        ...event,
-        validFrom: event.validFrom ? new Date(event.validFrom * 1000) : new Date(),
-      })));
+    const delayedDataRequestedEvents = (await this.contract.getPastEvents('DelayedDataRequested', { fromBlock, toBlock }))
+        .map(event => _.pick(event.returnValues, ['id', 'url', 'validFrom']))
+    ;
+
+    const allEvents = dataRequestedEvents.concat(delayedDataRequestedEvents);
+    allEvents.reduce((previous: any, current) => previous.concat(current), []);
+
+    return allEvents.map((event: any) => ({
+      ...event,
+      validFrom: event.validFrom ? new Date(event.validFrom * 1000) : new Date(),
+    }));
   }
 
   public sendResponse(response: Response): Promise<void> {
