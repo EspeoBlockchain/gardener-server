@@ -20,28 +20,20 @@ class EthereumOracleAdapter implements OracleGateway {
   private emitter: EventEmitter;
   private guard: boolean;
   private contract: Contract;
-  private web3: Web3;
 
-  constructor(web3: Web3, abi: AbiItem[], address: string) {
+  constructor(private readonly web3: Web3, abi: AbiItem[], address: string) {
     // @ts-ignore
-    this.contract = new web3.eth.Contract(abi, address, {
-      from: web3.eth.defaultAccount,
-    });
-
+    this.contract = new web3.eth.Contract(abi, address, {from: web3.eth.defaultAccount});
     this.pendingResponses = [];
     this.emitter = new EventEmitter();
     this.guard = false;
-    this.web3 = web3;
 
     setInterval(() => this.sendPendingResponse(), ONE_SECOND_MILLIS);
   }
 
-  public async getRequests(
-    fromBlock: number,
-    toBlock: number,
-  ): Promise<Request[]> {
+  public async getRequests(fromBlock: number, toBlock: number): Promise<Request[]> {
     const dataRequestedEvents = (
-      await this.contract.getPastEvents('DataRequested', {fromBlock, toBlock})
+      await this.contract.getPastEvents('DataRequested', { fromBlock, toBlock })
     ).map(event => _.pick(event.returnValues, ['id', 'url']));
 
     const delayedDataRequestedEvents = (
@@ -63,16 +55,13 @@ class EthereumOracleAdapter implements OracleGateway {
   public sendResponse(response: Response): Promise<void> {
     this.pendingResponses.push(response);
     return new Promise((resolve, reject) => {
-      this.emitter.on(
-        EthereumOracleAdapter.finishedEventName(response.requestId),
-        error => {
+      this.emitter.on(EthereumOracleAdapter.finishedEventName(response.requestId), (error) => {
           if (error) {
             reject(error);
           } else {
             resolve();
           }
-        },
-      );
+        });
     });
   }
 
@@ -103,10 +92,7 @@ class EthereumOracleAdapter implements OracleGateway {
     } catch (e) {
       error = e;
     }
-    this.emitter.emit(
-      EthereumOracleAdapter.finishedEventName(response.requestId),
-      error,
-    );
+    this.emitter.emit(EthereumOracleAdapter.finishedEventName(response.requestId), error);
     this.guard = false;
   }
 }
