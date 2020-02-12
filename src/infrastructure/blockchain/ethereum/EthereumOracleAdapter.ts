@@ -21,10 +21,9 @@ class EthereumOracleAdapter implements OracleGateway {
   private guard: boolean;
   private contract: Contract;
 
-  constructor(web3: Web3, abi: AbiItem[], address: string) {
+  constructor(private readonly web3: Web3, abi: AbiItem[], address: string) {
     // @ts-ignore
-    this.contract = new web3.eth.Contract(abi, address, { from: web3.eth.defaultAccount });
-
+    this.contract = new web3.eth.Contract(abi, address, {from: web3.eth.defaultAccount});
     this.pendingResponses = [];
     this.emitter = new EventEmitter();
     this.guard = false;
@@ -33,13 +32,16 @@ class EthereumOracleAdapter implements OracleGateway {
   }
 
   public async getRequests(fromBlock: number, toBlock: number): Promise<Request[]> {
-    const dataRequestedEvents = (await this.contract.getPastEvents('DataRequested', { fromBlock, toBlock }))
-        .map(event => _.pick(event.returnValues, ['id', 'url']))
-    ;
+    const dataRequestedEvents = (
+      await this.contract.getPastEvents('DataRequested', { fromBlock, toBlock })
+    ).map(event => _.pick(event.returnValues, ['id', 'url']));
 
-    const delayedDataRequestedEvents = (await this.contract.getPastEvents('DelayedDataRequested', { fromBlock, toBlock }))
-        .map(event => _.pick(event.returnValues, ['id', 'url', 'validFrom']))
-    ;
+    const delayedDataRequestedEvents = (
+      await this.contract.getPastEvents('DelayedDataRequested', {
+        fromBlock,
+        toBlock,
+      })
+    ).map(event => _.pick(event.returnValues, ['id', 'url', 'validFrom']));
 
     const allEvents = dataRequestedEvents.concat(delayedDataRequestedEvents);
     allEvents.reduce((previous: any, current) => previous.concat(current), []);
@@ -54,12 +56,12 @@ class EthereumOracleAdapter implements OracleGateway {
     this.pendingResponses.push(response);
     return new Promise((resolve, reject) => {
       this.emitter.on(EthereumOracleAdapter.finishedEventName(response.requestId), (error) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve();
-        }
-      });
+          if (error) {
+            reject(error);
+          } else {
+            resolve();
+          }
+        });
     });
   }
 
@@ -83,12 +85,13 @@ class EthereumOracleAdapter implements OracleGateway {
 
     let error;
     try {
-      const gas = await method.estimateGas();
-      await method.send({ gas });
+      await method.send({
+        from: process.env.PUBLIC_KEY,
+        gas: await this.web3.eth.estimateGas({to: this.contract.address}),
+      });
     } catch (e) {
       error = e;
     }
-
     this.emitter.emit(EthereumOracleAdapter.finishedEventName(response.requestId), error);
     this.guard = false;
   }
