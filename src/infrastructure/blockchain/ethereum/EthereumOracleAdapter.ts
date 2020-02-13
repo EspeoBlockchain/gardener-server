@@ -21,7 +21,7 @@ class EthereumOracleAdapter implements OracleGateway {
   private guard: boolean;
   private contract: Contract;
 
-  constructor(private readonly web3: Web3, abi: AbiItem[], address: string) {
+  constructor(web3: Web3, abi: AbiItem[], address: string) {
     // @ts-ignore
     this.contract = new web3.eth.Contract(abi, address, {from: web3.eth.defaultAccount});
     this.pendingResponses = [];
@@ -87,7 +87,7 @@ class EthereumOracleAdapter implements OracleGateway {
     try {
       await method.send({
         from: process.env.PUBLIC_KEY,
-        gas: await this.web3.eth.estimateGas({to: this.contract.address}),
+        gas: await method.estimateGas({from: process.env.PUBLIC_KEY}),
       });
     } catch (e) {
       error = e;

@@ -6,7 +6,7 @@ services:
         command: bash -c "./wait-for-it.sh mongo:27017 && ./wait-for-it.sh ganache-cli:8545 && npm start"
     ganache-cli:
         container_name: test-blockchain
-        image: "trufflesuite/ganache-cli:v6.4.3"
+        image: "trufflesuite/ganache-cli:v6.9.0"
         command: ganache-cli -d
         ports:
             - 8545:8545
