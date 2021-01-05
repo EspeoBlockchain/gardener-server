@@ -39,7 +39,7 @@
     "all": true
   },
   "dependencies": {
-    "axios": "0.19.0",
+    "axios": "0.21.1",
     "delay": "4.1.0",
     "dotenv": "6.0.0",
     "eth-crypto": "1.4.0",
