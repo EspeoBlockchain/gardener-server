@@ -40,7 +40,7 @@ import PersistenceConnectionInitializer from './infrastructure/persistence/Persi
 
 const {
   DATABASE_URL, DATABASE_NAME, PERSISTENCE, START_BLOCK, SAFE_BLOCK_DELAY, API_PORT,
-  SGX_ENABLED, RANDOMDOTORG_API_KEY, PRIVATE_KEY,
+  SGX_ENABLED, RANDOMDOTORG_API_KEY, PRIVATE_KEY, BEARER_TOKEN, AML_BASE_URL,
 } = process.env;
 
 const persistenceOptions = {
@@ -66,7 +66,7 @@ const markValidRequestsAsReadyUseCase = new MarkValidRequestsAsReadyUseCase(
   logger,
 );
 const requestExecutorStrategy = new RequestExecutorStrategy(
-    SGX_ENABLED.toLowerCase() === 'true', RANDOMDOTORG_API_KEY, PRIVATE_KEY, logger,
+    SGX_ENABLED.toLowerCase() === 'true', RANDOMDOTORG_API_KEY, PRIVATE_KEY, BEARER_TOKEN, AML_BASE_URL, logger,
 );
 const sendResponseToOracleUseCase = new SendResponseToOracleUseCase(oracle, logger);
 const executeReadyRequestsUseCase = new ExecuteReadyRequestsUseCase(

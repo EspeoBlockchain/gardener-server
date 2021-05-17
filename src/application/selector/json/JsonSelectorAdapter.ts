@@ -5,7 +5,7 @@ import JsonResultConverter from './JsonResultConverter';
 
 class JsonSelectorAdapter implements DataSelectorPort {
   canHandle(contentType: string) {
-    return contentType === 'json';
+    return contentType === 'json' || contentType === 'aml';
   }
 
   select(data: string, path: string): string {

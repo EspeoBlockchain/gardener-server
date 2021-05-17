@@ -2,7 +2,7 @@ import { InvalidContentTypeError, InvalidUrlError } from '../common/utils/error'
 
 class RequestUrlParser {
   static resolveRawUrl(wrappedUrl: string): string {
-    const urlRegex = new RegExp(/\(https?:\/\/[^)]+\)/);
+    const urlRegex = new RegExp(/\(.+\)/);
     const matched = urlRegex.exec(wrappedUrl);
     if (!matched) {
       throw new InvalidUrlError(`Url not found in ${wrappedUrl}`);
@@ -13,7 +13,7 @@ class RequestUrlParser {
   }
 
   static resolveContentType(wrappedUrl: string): string {
-    const typeRegex = new RegExp(/^(json|xml|html|ipfs|random)\(.+\)/);
+    const typeRegex = new RegExp(/^(json|xml|html|ipfs|random|aml)\(.+\)/);
 
     if (typeRegex.test(wrappedUrl)) {
       return typeRegex.exec(wrappedUrl)[1];
@@ -47,6 +47,26 @@ class RequestUrlParser {
     }
 
     throw new InvalidContentTypeError('Invalid numeric bounds format');
+  }
+
+  static resolveAmlCryptoType(wrappedUrl: string): string {
+    const typeRegex = new RegExp(/^aml\((.+),(.+)\)/);
+
+    if (typeRegex.test(wrappedUrl)) {
+      return typeRegex.exec(wrappedUrl)[1];
+    }
+
+    throw new InvalidContentTypeError('Invalid AML query. Expected something like aml(ETH,0xdeadbeef)');
+  }
+
+  static resolveAmlAddress(wrappedUrl: string): string {
+    const typeRegex = new RegExp(/^aml\((.+),(.+)\)/);
+
+    if (typeRegex.test(wrappedUrl)) {
+      return typeRegex.exec(wrappedUrl)[2];
+    }
+
+    throw new InvalidContentTypeError('Invalid AML query. Expected something like aml(ETH,0xdeadbeef)');
   }
 }
 
