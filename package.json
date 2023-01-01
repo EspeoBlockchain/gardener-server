@@ -85,7 +85,7 @@
     "sinon": "7.1.1",
     "sinon-mongoose": "2.2.1",
     "ts-node": "8.3.0",
-    "tsconfig-paths": "3.8.0",
+    "tsconfig-paths": "3.10.1",
     "tslint": "5.17.0",
     "typescript": "3.5.2"
   }
